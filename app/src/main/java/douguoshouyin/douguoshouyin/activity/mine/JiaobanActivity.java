@@ -17,6 +17,9 @@ import douguoshouyin.douguoshouyin.base.BaseActivity;
 import douguoshouyin.douguoshouyin.tool.CustomDatePicker;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 
+/**
+ * 交班页面
+ */
 public class JiaobanActivity extends BaseActivity {
 
     @BindView(R.id.tv_mine_jiaoban_jiaoyijine)

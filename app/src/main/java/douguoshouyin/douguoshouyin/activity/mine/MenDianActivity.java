@@ -42,7 +42,10 @@ import douguoshouyin.douguoshouyin.tool.CircleImageView;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
-//TODO 添加头像 保存接口
+/**
+ * 门店信息页面
+ */
+//TODO 添加头像 保存接口  权限没加呢
 public class MenDianActivity extends BaseActivity {
 
 
@@ -97,6 +100,7 @@ public class MenDianActivity extends BaseActivity {
                 Choice();
                 break;
             case R.id.rl_mine_mendian_yimafu:
+                //跳转到桌牌一码付页面
                 Intent zhuopaiIntent = new Intent(this, ZhuoPaiActivity.class);
                 startActivity(zhuopaiIntent);
                 break;

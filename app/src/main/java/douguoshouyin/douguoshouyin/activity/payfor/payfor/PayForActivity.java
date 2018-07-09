@@ -41,7 +41,9 @@ import douguoshouyin.douguoshouyin.javabean.SaomahaoBean;
 import douguoshouyin.douguoshouyin.tool.Global;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
-
+/**
+ * 支付主页面
+ */
 public class PayForActivity extends BaseActivity {
 
 

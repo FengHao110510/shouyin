@@ -16,7 +16,9 @@ import douguoshouyin.douguoshouyin.http.Apiconfig;
 import douguoshouyin.douguoshouyin.http.HttpFactory;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
-
+/**
+ * 修改密码页面
+ */
 public class ReplacePasswordActivity extends BaseActivity {
 
 

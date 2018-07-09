@@ -21,6 +21,9 @@ import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 import douguoshouyin.douguoshouyin.tool.Global;
 
+/**
+ * 扫码点餐设置页面页面
+ */
 public class SaomaFoodsSetActivity extends BaseActivity {
 
 

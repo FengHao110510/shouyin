@@ -10,7 +10,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
-
+/**
+ * 不参与扫码点餐的商品页面
+ */
 public class NosaomaFoodsActivity extends BaseActivity {
 
 
@@ -46,7 +48,7 @@ public class NosaomaFoodsActivity extends BaseActivity {
     public void onViewClicked() {
         //跳转到添加不参与扫码商品的页面
         Intent addnoIntent = new Intent(this,AddNosaomaActivity.class);
-        addnoIntent.putExtra("falg",2);//2  表示从本页面跳转添加商品页面的 1表示从添加单品套餐商品页面跳转的AddTaocanActivity
+        addnoIntent.putExtra("flag",2);//2  表示从本页面跳转添加商品页面的 1表示从添加单品套餐商品页面跳转的AddTaocanActivity
         startActivity(addnoIntent);
         
     }

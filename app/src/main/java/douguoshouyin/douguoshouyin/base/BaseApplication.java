@@ -28,6 +28,7 @@ public class BaseApplication extends Application {
     public static BaseApplication app;
     /***寄存整个应用Activity**/
     private final Stack<AppCompatActivity> activitys = new Stack<AppCompatActivity>();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -54,29 +55,34 @@ public class BaseApplication extends Application {
 
 
     //用来放置内存溢出 oom
+
     /**
      * 将Activity压入Application栈
+     *
      * @param task 将要压入栈的Activity对象
      */
-    public  void pushTask(AppCompatActivity task) {
+    public void pushTask(AppCompatActivity task) {
         activitys.push(task);
     }
+
     /**
      * 将传入的Activity对象从栈中移除
+     *
      * @param task
      */
-    public  void removeTask(AppCompatActivity task) {
-        if (task!=null){
+    public void removeTask(AppCompatActivity task) {
+        if (task != null) {
             activitys.remove(task);
         }
     }
 
     /**
      * 根据指定位置从栈中移除Activity
+     *
      * @param taskIndex Activity栈索引
      */
-    public  void removeTask(int taskIndex) {
-        if (activitys.size() > taskIndex){
+    public void removeTask(int taskIndex) {
+        if (activitys.size() > taskIndex) {
             activitys.remove(taskIndex);
         }
 
@@ -85,7 +91,7 @@ public class BaseApplication extends Application {
     /**
      * 将栈中Activity移除至栈顶
      */
-    public  void removeToTop() {
+    public void removeToTop() {
         int end = activitys.size();
         int start = 1;
         for (int i = end - 1; i >= start; i--) {
@@ -98,7 +104,7 @@ public class BaseApplication extends Application {
     /**
      * 移除全部（用于整个应用退出）
      */
-    public  void removeAll() {
+    public void removeAll() {
         //finish所有的Activity
         for (AppCompatActivity task : activitys) {
             if (!task.isFinishing()) {
@@ -106,8 +112,6 @@ public class BaseApplication extends Application {
             }
         }
     }
-
-
 
 
     public static Context getAppContext() {

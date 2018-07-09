@@ -18,7 +18,9 @@ import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 import douguoshouyin.douguoshouyin.tool.CustomDatePicker;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
-
+/**
+ * 流水筛选页面  筛选条件从接口获取？？？？
+ */
 public class TurnoverShaixuanActivity extends BaseActivity {
 
 
@@ -220,7 +222,6 @@ public class TurnoverShaixuanActivity extends BaseActivity {
                 if (tvTurnoverTurnoverShaixuanStarttime.getText().toString().compareTo(tvTurnoverTurnoverShaixuanEndtime.getText().toString()) > 0) {
                     ToastUtil.showToast("起始时间不得大于结束时间");
                 } else {
-                    ToastUtil.showToast("asdasdasd");
 
                     //上个界面应该 startActivityForResult  这里返回数据给上个fragment  重新加载筛选后的数据 TODO
                     Intent reIntent = new Intent();

@@ -20,6 +20,9 @@ import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 
+/**
+ * 打折 减价页面
+ */
 public class DiscountActivity extends BaseActivity {
 
 
@@ -115,13 +118,12 @@ public class DiscountActivity extends BaseActivity {
 
                 int posDot = temp.indexOf(".");
                 if (posDot <= 0) {
-                    if (temp.length()>6){
-                        editable.delete(temp.length()-1,temp.length());
+                    if (temp.length() > 6) {
+                        editable.delete(temp.length() - 1, temp.length());
                     }
 
-                }else{
-                    if (temp.length() - posDot - 1 > 2)
-                    {
+                } else {
+                    if (temp.length() - posDot - 1 > 2) {
                         editable.delete(posDot + 3, posDot + 4);
                     }
                 }
@@ -143,7 +145,7 @@ public class DiscountActivity extends BaseActivity {
                 if (b) {
 
                     if (et_dialog_edit_content.getText().toString().length() < 3 && et_dialog_edit_content.getText().toString().length() > 0
-                            &&Integer.valueOf(et_dialog_edit_content.getText().toString())>0) {
+                            && Integer.valueOf(et_dialog_edit_content.getText().toString()) > 0) {
                         float f = (float) (Integer.valueOf(et_dialog_edit_content.getText().toString())) / 10;
                         intent.putExtra("content", f + "");
                         intent.putExtra("zkorxj", true);  //折扣还是现金优惠 true是折扣
@@ -172,8 +174,9 @@ public class DiscountActivity extends BaseActivity {
 
 
     }
+
     //设置消费金额
-    private void setNum(String s,TextView et_dialog_edit_content) {
+    private void setNum(String s, TextView et_dialog_edit_content) {
 
         // 限制最多能输入6位整数
         if (s.toString().contains(".")) {
@@ -206,6 +209,7 @@ public class DiscountActivity extends BaseActivity {
 
         et_dialog_edit_content.setText(s);
     }
+
     //====================================================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {

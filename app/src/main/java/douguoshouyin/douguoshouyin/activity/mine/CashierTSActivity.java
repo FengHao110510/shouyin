@@ -10,6 +10,9 @@ import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 import douguoshouyin.douguoshouyin.tool.Global;
 
+/**
+ * 收银设置  语音推送设置
+ */
 public class CashierTSActivity extends BaseActivity {
 
 

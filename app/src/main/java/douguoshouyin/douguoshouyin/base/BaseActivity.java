@@ -16,7 +16,7 @@ import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.views.LoadingDialog;
 
 /**
- * 文件描述：new！！com.example.administrator.myapplication.app.base
+ * 文件描述：new！！com.example.administrator.myapplication.app.base  Activity基类
  * 作者：fh
  * 创建时间：2018/6/12
  * 更改时间：2018/6/12
@@ -29,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Typeface typeface;
     private TextView finish_back;
     private static LoadingDialog loadingDialog;
-    private TextView title ;
+    private TextView title;
     /***获取TAG的activity名称**/
     protected final String TAG = this.getClass().getSimpleName();
 
@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BaseApplication.getApplication().pushTask(this);
-      initIconFont();
+        initIconFont();
 
         //设置布局
         setContentView(intiLayout());
@@ -51,16 +51,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 设置图片
      */
-    private void initIconFont(){
-        if (typeface==null){
-            typeface=Typeface.createFromAsset(this.getAssets(),"iconfont.ttf");
+    private void initIconFont() {
+        if (typeface == null) {
+            typeface = Typeface.createFromAsset(this.getAssets(), "iconfont.ttf");
         }
     }
-    public void setIconFont(TextView[] tv){
+
+    public void setIconFont(TextView[] tv) {
         for (int i = 0; i < tv.length; i++) {
             tv[i].setTypeface(typeface);
         }
     }
+
     /**
      * 设置布局
      *
@@ -109,8 +111,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     //设置标题
     public void initTitle(String s) {
         title = findViewById(R.id.tv_titlebar_title);
-       title.setText(s);
+        title.setText(s);
     }
+
     /**
      * 进度条
      */

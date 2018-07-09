@@ -12,6 +12,9 @@ import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 
+/**
+ * 打印设置页面
+ */
 public class PrinterActivity extends BaseActivity {
     @BindView(R.id.tv_mine_printer_kaiguan)
     TextView tvMinePrinterKaiguan;

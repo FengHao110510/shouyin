@@ -22,6 +22,9 @@ import douguoshouyin.douguoshouyin.base.BaseActivity;
 import douguoshouyin.douguoshouyin.tool.CustomDatePicker;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 
+/**
+ * 订单筛选页面  筛选条件从接口获取？？？？
+ */
 public class OrderShaixuanActivity extends BaseActivity {
 
 
@@ -95,48 +98,11 @@ public class OrderShaixuanActivity extends BaseActivity {
         //初始化结束时间
         initDateEndPicker("2010-01-01 00:00", now);
 
-//        //起始时间改变时 结束时间跟这改变
-//        tvTurnoverOrderShaixuanEndtime.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                //随着起始时间更改结束时间
-//                initDateEndPicker(tvTurnoverOrderShaixuanStarttime.getText().toString(), now);
-//            }
-//        });
-//
-//        //结束时间改变时 起始时间跟这改变
-//        tvTurnoverOrderShaixuanEndtime.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                //随着结束时间更改起始时间
-//                initDateStartPicker(tvTurnoverOrderShaixuanEndtime.getText().toString());
-//            }
-//        });
+
     }
 
     @Override
     public void initData() {
-        //TODO 筛选状态回显
 
     }
 
@@ -180,6 +146,7 @@ public class OrderShaixuanActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_shaixuan_finish_back:
+                //
                 finishActivity();
                 break;
 
@@ -307,11 +274,10 @@ public class OrderShaixuanActivity extends BaseActivity {
                 if (tvTurnoverOrderShaixuanStarttime.getText().toString().compareTo(tvTurnoverOrderShaixuanEndtime.getText().toString()) > 0) {
                     ToastUtil.showToast("起始时间不得大于结束时间");
                 } else {
-                    ToastUtil.showToast("asdasdasd");
                     //上个界面应该 startActivityForResult  这里返回数据给上个fragment  重新加载筛选后的数据 TODO
                     Intent reIntent = new Intent();
-                    reIntent.putExtra("","");
-                    setResult(RESULT_OK,reIntent);
+                    reIntent.putExtra("", "");
+                    setResult(RESULT_OK, reIntent);
                     finishActivity();
                 }
                 break;

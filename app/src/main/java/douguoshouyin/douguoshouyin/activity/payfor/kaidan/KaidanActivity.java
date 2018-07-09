@@ -7,7 +7,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
-
+/**
+ * 开单主页面
+ */
 public class KaidanActivity extends BaseActivity {
 
 

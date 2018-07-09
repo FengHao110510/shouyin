@@ -1,13 +1,8 @@
 package douguoshouyin.douguoshouyin.activity;
 
-import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
+
 import android.content.Intent;
-import android.net.wifi.WifiManager;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+
 import android.util.Log;
 
 import java.util.Timer;
@@ -17,7 +12,9 @@ import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.activity.login.LoginActivity;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 
-
+/**
+ * 幻影页面
+ */
 public class WelcomeActivity extends BaseActivity {
 
 
@@ -72,8 +69,9 @@ public class WelcomeActivity extends BaseActivity {
 
 
     }
+
     @Override
-    protected void onDestroy () {
+    protected void onDestroy() {
         super.onDestroy();
         if (timer != null) {
             timer.cancel();

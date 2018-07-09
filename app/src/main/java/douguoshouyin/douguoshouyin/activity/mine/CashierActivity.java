@@ -11,6 +11,9 @@ import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 
+/**
+ * 收银设置页面
+ */
 public class CashierActivity extends BaseActivity {
 
 

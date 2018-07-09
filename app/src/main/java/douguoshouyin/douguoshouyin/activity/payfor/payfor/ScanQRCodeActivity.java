@@ -20,6 +20,9 @@ import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.tool.Global;
 
+/**
+ * 扫一扫页面
+ */
 public class ScanQRCodeActivity extends AppCompatActivity {
     @BindView(R.id.bv_barcode)
     DecoratedBarcodeView bv_barcode;
@@ -101,7 +104,7 @@ public class ScanQRCodeActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_payfor_saoyisao_saoyisao_icon:
-                Intent erweimaIntent = new Intent(ScanQRCodeActivity.this,ErweimaActivity.class);
+                Intent erweimaIntent = new Intent(ScanQRCodeActivity.this, ErweimaActivity.class);
                 startActivity(erweimaIntent);
 
                 finish();

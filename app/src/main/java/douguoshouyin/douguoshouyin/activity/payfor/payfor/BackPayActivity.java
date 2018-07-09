@@ -9,7 +9,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
-
+/**
+ * 退款成功页面
+ */
 public class BackPayActivity extends BaseActivity {
 
 

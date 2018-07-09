@@ -11,6 +11,9 @@ import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 
+/**
+ * 添加不参与扫码的餐品   添加分组套餐中餐品（这个还没写）   添加单人套餐中的商品
+ */
 public class AddNosaomaActivity extends BaseActivity {
 
     @BindView(R.id.tv_titlebar_right)
@@ -34,10 +37,10 @@ public class AddNosaomaActivity extends BaseActivity {
     @Override
     public void initView() {
         Intent intent = getIntent();
-        if (intent.getIntExtra("flag",0)==1){
+        if (intent.getIntExtra("flag", 0) == 1) {
             initTitle("添加套餐商品");
 
-        }else if (intent.getIntExtra("flag",0)==2){
+        } else if (intent.getIntExtra("flag", 0) == 2) {
             initTitle("不参与扫码点餐的商品");
         }
         tvTitlebarRight.setVisibility(View.VISIBLE);
@@ -49,6 +52,20 @@ public class AddNosaomaActivity extends BaseActivity {
 
     }
 
+    @OnClick({R.id.tv_titlebar_right, R.id.tv_mine_addnosaoma_wancheng})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_titlebar_right:
+                //全选
+                break;
+            case R.id.tv_mine_addnosaoma_wancheng:
+                //将选择的菜品返回到上个界面显示   走接口？
+                finishActivity();
+                break;
+        }
+    }
+
+    //=============================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +73,5 @@ public class AddNosaomaActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_titlebar_right, R.id.tv_mine_addnosaoma_wancheng})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_titlebar_right:
-                break;
-            case R.id.tv_mine_addnosaoma_wancheng:
-                finishActivity();
-                break;
-        }
-    }
+
 }

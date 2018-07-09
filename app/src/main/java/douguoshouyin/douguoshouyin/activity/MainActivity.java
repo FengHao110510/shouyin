@@ -1,32 +1,18 @@
 package douguoshouyin.douguoshouyin.activity;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.CursorLoader;
-import android.util.Log;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.lvrenyang.utils.DataUtils;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -40,10 +26,11 @@ import douguoshouyin.douguoshouyin.fragment.MineFragment;
 import douguoshouyin.douguoshouyin.fragment.MoreFragment;
 import douguoshouyin.douguoshouyin.fragment.PayForFragment;
 import douguoshouyin.douguoshouyin.fragment.TurnoverFragment;
-import douguoshouyin.douguoshouyin.tool.Global;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 
-
+/**
+ * 主页面
+ */
 public class MainActivity extends BaseActivity {
 
 
@@ -273,7 +260,6 @@ public class MainActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-
 
 
 }

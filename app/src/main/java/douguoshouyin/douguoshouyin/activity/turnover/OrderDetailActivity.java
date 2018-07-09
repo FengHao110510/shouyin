@@ -20,7 +20,9 @@ import douguoshouyin.douguoshouyin.http.Apiconfig;
 import douguoshouyin.douguoshouyin.http.HttpFactory;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
-
+/**
+ * 订单详情页面
+ */
 public class OrderDetailActivity extends BaseActivity {
 
 

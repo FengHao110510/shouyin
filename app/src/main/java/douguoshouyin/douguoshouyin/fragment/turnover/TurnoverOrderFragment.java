@@ -23,7 +23,7 @@ import douguoshouyin.douguoshouyin.tool.Global;
  * <p>
  * 创建日期：2018/6/26 0026
  * <p>
- * 描述：
+ * 描述： 订单fragment
  * <p>
  * 修订历史：
  */

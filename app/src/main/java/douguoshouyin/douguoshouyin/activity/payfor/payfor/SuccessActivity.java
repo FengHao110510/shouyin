@@ -24,6 +24,9 @@ import douguoshouyin.douguoshouyin.http.HttpFactory;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
+/**
+ * 收款成功页面
+ */
 public class SuccessActivity extends BaseActivity {
 
 
@@ -136,7 +139,7 @@ public class SuccessActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
                 //TODO 成功之后跳转到退款成功页面 此页面关闭
-                Intent backIntent = new Intent(SuccessActivity.this,BackPayActivity.class);
+                Intent backIntent = new Intent(SuccessActivity.this, BackPayActivity.class);
                 startActivity(backIntent);
                 finishActivity();
             }

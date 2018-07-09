@@ -28,6 +28,9 @@ import douguoshouyin.douguoshouyin.tool.Global;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
+/**
+ * 二维码收款页面
+ */
 public class ErweimaActivity extends BaseActivity {
 
 
@@ -102,7 +105,7 @@ public class ErweimaActivity extends BaseActivity {
                         //将扫出的二维码号发到payfor页面  走接口  同时关闭本页面
 //                        Log.d(getClass().getName(), "Scanned: " + result.getContents());
 //                        Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-                        EventBus.getDefault().post(new SaomahaoBean( result.getContents()));
+                        EventBus.getDefault().post(new SaomahaoBean(result.getContents()));
                         finishActivity();
                     }
                 }

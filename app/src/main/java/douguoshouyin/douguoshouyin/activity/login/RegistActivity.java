@@ -91,9 +91,9 @@ public class RegistActivity extends BaseActivity {
                 //走注册接口
                 regist();
                 break;
-                //跳转忘记密码页面
+            //跳转忘记密码页面
             case R.id.tv_regist_forget:
-                Intent forgetIntent = new Intent(this,ForgetActivity.class);
+                Intent forgetIntent = new Intent(this, ForgetActivity.class);
                 startActivity(forgetIntent);
                 finishActivity();
                 break;

@@ -15,6 +15,9 @@ import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
 
+/**
+ * 桌台管理页面
+ */
 public class ZhuotaiguanliActivity extends BaseActivity {
 
 
@@ -24,6 +27,7 @@ public class ZhuotaiguanliActivity extends BaseActivity {
     TextView tvPayforZhuotaiguanliDelet;
 
     Dialog dialog;
+
     @Override
     public int intiLayout() {
         return R.layout.module_activity_payfor_zhuotaiguanli;
@@ -63,7 +67,7 @@ public class ZhuotaiguanliActivity extends BaseActivity {
     //弹框批量添加
 
     private void showAddzhuotaiDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_add_zhuotai,null);
+        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_add_zhuotai, null);
 
         EditText et_dialog_zhuotaiguige = view.findViewById(R.id.et_dialog_zhuotaiguige);//规格
         EditText et_dialog_zhuotaishuliang = view.findViewById(R.id.et_dialog_zhuotaishuliang);//数量
@@ -80,18 +84,19 @@ public class ZhuotaiguanliActivity extends BaseActivity {
         tv_dialog_addzhuotai_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //成功后走接口上传
                 dialog.dismiss();
             }
         });
 
-        dialog = new Dialog(this,R.style.CommonDialog);
+        dialog = new Dialog(this, R.style.CommonDialog);
 
         Display display = getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
         int h = display.getHeight();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w*4/5,h*1/4);
-        dialog.addContentView(view,params);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 1 / 4);
+        dialog.addContentView(view, params);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();

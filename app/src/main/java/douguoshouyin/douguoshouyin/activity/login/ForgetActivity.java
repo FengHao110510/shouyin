@@ -1,17 +1,13 @@
 package douguoshouyin.douguoshouyin.activity.login;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import douguoshouyin.douguoshouyin.R;
 import douguoshouyin.douguoshouyin.base.BaseActivity;
@@ -22,7 +18,7 @@ import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
 /**
- * Created by Administrator on 2018/6/21 0021.
+ * 忘记密码
  */
 
 public class ForgetActivity extends BaseActivity {

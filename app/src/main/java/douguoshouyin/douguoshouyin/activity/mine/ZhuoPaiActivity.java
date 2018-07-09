@@ -25,7 +25,9 @@ import douguoshouyin.douguoshouyin.tool.BitmapUtil;
 import douguoshouyin.douguoshouyin.tool.ImageUtils;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
-
+/**
+ * 桌牌一码付页面页面
+ */
 public class ZhuoPaiActivity extends BaseActivity {
 
 

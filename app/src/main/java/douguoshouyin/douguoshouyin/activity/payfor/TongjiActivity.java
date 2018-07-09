@@ -26,6 +26,9 @@ import douguoshouyin.douguoshouyin.tool.CustomDatePicker;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
+/**
+ * 统计页面
+ */
 public class TongjiActivity extends BaseActivity {
 
 
@@ -81,9 +84,6 @@ public class TongjiActivity extends BaseActivity {
     }
 
 
-
-
-
     @Override
     public void initData() {
         tongji();
@@ -91,7 +91,7 @@ public class TongjiActivity extends BaseActivity {
     }
 
     /**
-     * 走统计接口获取数据  TODO 穿时间
+     * 走统计接口获取数据  TODO 传时间
      */
     private void tongji() {
         showLoadingDialog();
@@ -124,13 +124,13 @@ public class TongjiActivity extends BaseActivity {
     }
 
 
-
     //================================================dialog========================================
+
     /**
      * 展示时间筛选dialog
      */
     private void showTimeDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_time_shaixuan,null);
+        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_time_shaixuan, null);
         final TextView tv_dialog_time_shaixuan_start = view.findViewById(R.id.tv_dialog_time_shaixuan_start);
         final TextView tv_dialog_time_shaixuan_end = view.findViewById(R.id.tv_dialog_time_shaixuan_end);
         TextView tv_dialog_time_shaixuan_bt = view.findViewById(R.id.tv_dialog_time_shaixuan_bt);
@@ -171,23 +171,19 @@ public class TongjiActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         //初始化起始时间
-        initDateStartPicker(now,tv_dialog_time_shaixuan_start);
+        initDateStartPicker(now, tv_dialog_time_shaixuan_start);
         //初始化结束时间
-        initDateEndPicker("2010-01-01 00:00", now,tv_dialog_time_shaixuan_end);
-
+        initDateEndPicker("2010-01-01 00:00", now, tv_dialog_time_shaixuan_end);
 
 
         Display display = this.getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
         int h = display.getHeight();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w*7/8,h*2/7);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 7 / 8, h * 2 / 7);
 
-        dialog = new Dialog(this,R.style.TRCommonDialog);
-        dialog.setContentView(view,params);
+        dialog = new Dialog(this, R.style.TRCommonDialog);
+        dialog.setContentView(view, params);
         dialog.show();
-
-
-
 
 
     }
@@ -219,6 +215,7 @@ public class TongjiActivity extends BaseActivity {
         customDatePickerEnd.showSpecificTime(true); // 显示时和分
         customDatePickerEnd.setIsLoop(true); // 允许循环滚动
     }
+
     //++==============================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {

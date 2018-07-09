@@ -223,7 +223,6 @@ public class CashierXPActivity extends BaseActivity {
                 save();
 
 
-
                 break;
             case R.id.tv_titlebar_finish_back:
                 if (!flag) {

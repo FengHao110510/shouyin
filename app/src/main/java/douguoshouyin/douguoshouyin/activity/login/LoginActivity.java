@@ -20,6 +20,9 @@ import douguoshouyin.douguoshouyin.http.HttpFactory;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
+/**
+ * 登录
+ */
 public class LoginActivity extends BaseActivity {
 
 
@@ -62,13 +65,13 @@ public class LoginActivity extends BaseActivity {
             //登陆
             case R.id.bt_login_login:
 //                login();
-                Intent mainIntent = new Intent(this,MainActivity.class);
+                Intent mainIntent = new Intent(this, MainActivity.class);
                 startActivity(mainIntent);
                 break;
             //忘记密码
             case R.id.tv_login_forget:
-               Intent forgetIntent = new Intent(this,ForgetActivity.class);
-               startActivity(forgetIntent);
+                Intent forgetIntent = new Intent(this, ForgetActivity.class);
+                startActivity(forgetIntent);
                 break;
             //注册
             case R.id.tv_login_regist:
@@ -77,8 +80,6 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
-
-
 
 
     //登陆

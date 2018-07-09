@@ -13,7 +13,7 @@ import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
 /**
- * Created by Administrator on 2018/7/2.
+ * Created by Administrator on 2018/7/2. http
  */
 
 public class HttpFactory {

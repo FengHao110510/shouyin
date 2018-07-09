@@ -26,7 +26,7 @@ import douguoshouyin.douguoshouyin.tool.ScreenUtil;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 
 /**
- * 开单详情页
+ * 开单详情页 选择商品后的订单详情
  */
 public class KaidanDetialsActivity extends BaseActivity {
 

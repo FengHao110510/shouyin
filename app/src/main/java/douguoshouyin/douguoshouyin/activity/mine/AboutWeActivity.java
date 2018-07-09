@@ -17,7 +17,9 @@ import douguoshouyin.douguoshouyin.http.Apiconfig;
 import douguoshouyin.douguoshouyin.http.HttpFactory;
 import douguoshouyin.douguoshouyin.tool.Global;
 import okhttp3.Call;
-
+/**
+ * 关于我们
+ */
 public class AboutWeActivity extends BaseActivity {
 
 
@@ -42,7 +44,7 @@ public class AboutWeActivity extends BaseActivity {
     @Override
     public void initView() {
 
-            tvMineAboutweVersion.setText("版本号V "+ Global.getVersionName());
+        tvMineAboutweVersion.setText("版本号V " + Global.getVersionName());
 
     }
 
@@ -69,6 +71,7 @@ public class AboutWeActivity extends BaseActivity {
 
     }
 
+    //=================================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

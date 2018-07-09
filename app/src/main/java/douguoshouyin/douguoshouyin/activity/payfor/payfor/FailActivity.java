@@ -19,6 +19,9 @@ import douguoshouyin.douguoshouyin.http.HttpFactory;
 import douguoshouyin.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
+/**
+ * 收款失败页面
+ */
 public class FailActivity extends BaseActivity {
 
 
