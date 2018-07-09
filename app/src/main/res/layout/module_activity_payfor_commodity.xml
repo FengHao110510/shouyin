@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="douguoshouyin.douguoshouyin.activity.payfor.shangpinguanli.CommodityActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.CommodityActivity">
 
     <include layout="@layout/module_include_titlebar" />
 
@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/tv_payfor_commodity_tag_xiugaipaixu_icon"
                 style="@style/botttom_tag_tv_icon_style"
-                android:text="@string/icon_payfor_commodity_paixu" />
+                android:text="@string/icon_payfor_commodity_zuhe" />
 
             <TextView
                 style="@style/botttom_tag_tv_style"

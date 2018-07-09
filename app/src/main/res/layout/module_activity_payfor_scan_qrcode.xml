@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="douguoshouyin.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity">
 
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView

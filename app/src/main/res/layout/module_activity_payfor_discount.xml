@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="douguoshouyin.douguoshouyin.activity.payfor.payfor.DiscountActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.payfor.payfor.DiscountActivity">
 
     <include layout="@layout/module_include_titlebar" />
 

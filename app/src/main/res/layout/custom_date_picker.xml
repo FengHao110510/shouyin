@@ -60,7 +60,7 @@
             android:paddingRight="20dp"
             android:paddingTop="15dp">
 
-            <douguoshouyin.douguoshouyin.tool.DatePickerView
+            <com.hongsou.douguoshouyin.views.DatePickerView
                 android:id="@+id/year_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -75,7 +75,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <douguoshouyin.douguoshouyin.tool.DatePickerView
+            <com.hongsou.douguoshouyin.views.DatePickerView
                 android:id="@+id/month_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -90,7 +90,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <douguoshouyin.douguoshouyin.tool.DatePickerView
+            <com.hongsou.douguoshouyin.views.DatePickerView
                 android:id="@+id/day_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -105,7 +105,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <douguoshouyin.douguoshouyin.tool.DatePickerView
+            <com.hongsou.douguoshouyin.views.DatePickerView
                 android:id="@+id/hour_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -121,7 +121,7 @@
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
-            <douguoshouyin.douguoshouyin.tool.DatePickerView
+            <com.hongsou.douguoshouyin.views.DatePickerView
                 android:id="@+id/minute_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"

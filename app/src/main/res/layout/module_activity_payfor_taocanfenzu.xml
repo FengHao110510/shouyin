@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="douguoshouyin.douguoshouyin.activity.payfor.shangpinguanli.TaocanfenzuActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.TaocanfenzuActivity">
 
     <include layout="@layout/module_include_titlebar" />
 

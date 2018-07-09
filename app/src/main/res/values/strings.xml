@@ -27,6 +27,7 @@
     <string name="icon_payfor_commodity_tianjia">&#xe670;</string>
     <string name="icon_payfor_commodity_tianjiataocan">&#xe627;</string>
     <string name="icon_payfor_commodity_paixu">&#xe66a;</string>
+    <string name="icon_payfor_commodity_zuhe">&#xe658;</string>
     <string name="icon_payfor_commodity_gengduo">&#xe66d;</string>
     <string name="icon_payfor_commodity_class_tianjia">&#xe77f;</string>
     <string name="icon_payfor_commodity_class_shanchu">&#xe634;</string>
@@ -35,6 +36,7 @@
     <string name="icon_payfor_addfenzu_jia">&#xe65e;</string>
     <string name="icon_payfor_addfenzu_jian">&#xe641;</string>
     <string name="icon_mine_dianhua">&#xe678;</string>
+    <string name="icon_login_check">&#xe640;</string>
 
 
     <string name="title_activity_main">MainActivity</string>

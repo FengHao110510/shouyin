@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="douguoshouyin.douguoshouyin.activity.turnover.OrderShaixuanActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.turnover.OrderShaixuanActivity">
 
     <FrameLayout
         android:id="@+id/fl_titlebar"

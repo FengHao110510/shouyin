@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="douguoshouyin.douguoshouyin.activity.mine.PrinterActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.mine.PrinterActivity">
 
     <include layout="@layout/module_include_titlebar" />
 

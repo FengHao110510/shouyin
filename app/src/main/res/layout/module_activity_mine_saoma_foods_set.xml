@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:orientation="vertical"
 
-    tools:context="douguoshouyin.douguoshouyin.activity.mine.SaomaFoodsSetActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity">
 
     <include layout="@layout/module_include_titlebar" />
 
