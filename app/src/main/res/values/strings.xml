@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">轻收银</string>
+
+
+    <!--Typeface icon-->
+    <string name="icon_fanhuijian">&#xe673;</string>
+    <string name="icon_anniu_checked">&#xe600;</string>
+    <string name="icon_anniu_nomal">&#xe601;</string>
+    <string name="icon_main_pay">&#xe632;</string>
+    <string name="icon_main_turnover">&#xe62f;</string>
+    <string name="icon_main_more">&#xe602;</string>
+    <string name="icon_main_mine">&#xe651;</string>
+    <string name="icon_main_payfor_pay">&#xe65a;</string>
+    <string name="icon_main_payfor_kaidan">&#xe619;</string>
+    <string name="icon_main_payfor_turnover">&#xe61f;</string>
+    <string name="icon_main_payfor_gift">&#xe609;</string>
+    <string name="icon_main_payfor_sao">&#xe63f;</string>
+    <string name="icon_main_payfor_erwei">&#xe603;</string>
+    <string name="icon_main_payfor_cancle">&#xe604;</string>
+    <string name="icon_main_payfor_xianjin">&#xe624;</string>
+    <string name="icon_main_mine_paizhao">&#xe7af;</string>
+    <string name="icon_main_mine_xiangce">&#xe60d;</string>
+    <string name="icon_main_turnover_shaixuan">&#xe6ca;</string>
+    <string name="icon_title_shangchuan">&#xe679;</string>
+    <string name="icon_main_turnover_sousuo">&#xe696;</string>
+    <string name="icon_main_turnover_chongzhi">&#xe63e;</string>
+    <string name="icon_payfor_commodity_tianjia">&#xe670;</string>
+    <string name="icon_payfor_commodity_tianjiataocan">&#xe627;</string>
+    <string name="icon_payfor_commodity_paixu">&#xe66a;</string>
+    <string name="icon_payfor_commodity_gengduo">&#xe66d;</string>
+    <string name="icon_payfor_commodity_class_tianjia">&#xe77f;</string>
+    <string name="icon_payfor_commodity_class_shanchu">&#xe634;</string>
+    <string name="icon_payfor_commodity_addclass_tianjia">&#xe667;</string>
+    <string name="icon_main_mine_duigou">&#xe659;</string>
+    <string name="icon_payfor_addfenzu_jia">&#xe65e;</string>
+    <string name="icon_payfor_addfenzu_jian">&#xe641;</string>
+    <string name="icon_mine_dianhua">&#xe678;</string>
+
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_regist">RegistActivity</string>
+    <string name="title_activity_forget">ForgetActivity</string>
+    <string name="title_activity_men_dian">MenDianActivity</string>
+    <string name="title_activity_pay_for">PayForActivity</string>
+    <string name="title_activity_cashier_xp">CashierXPActivity</string>
+    <string name="title_activity_cashier">CashierActivity</string>
+    <string name="title_activity_cashier_ts">CashierTSActivity</string>
+
+    <string name="http_error">网络连接出错</string>
+    <!--时间选择器-->
+    <string name="cancle">取消</string>
+    <string name="title">请选择时间</string>
+    <string name="commit">确定</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+
+    <string name="select_date">选择日期</string>
+    <string name="current_date">当前日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="current_time">当前时间</string>
+    <!--====================================================================-->
+</resources>

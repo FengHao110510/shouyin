@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 边框颜色值 -->
+    <item
+        android:bottom="3dp"
+        android:top="3dp">
+        <shape>
+
+            <corners android:radius="20dp" />
+            <solid android:color="@color/color_base_yellow" />
+        </shape>
+    </item>
+    <!-- 主体背景颜色值 -->
+    <item
+        android:left="20dp"
+        >
+        <shape>
+            <stroke android:color="@color/gray" android:width="0.1dp"/>
+            <solid android:color="#ffffff" />
+            <corners android:radius="20dp"/>
+        </shape>
+    </item>
+</layer-list>

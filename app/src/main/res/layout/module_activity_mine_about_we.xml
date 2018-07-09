@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="douguoshouyin.douguoshouyin.activity.mine.AboutWeActivity">
+
+    <include layout="@layout/module_include_titlebar" />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/dg_logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="豆果收银"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_mine_aboutwe_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="版本号V 1.0.0"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:text="          河北鸿搜网络科技有限公司（以下简称“鸿搜网络”），成立于 2008年，是国内首批从事第四方支付服务技术以及产品研发的科技企业。 公司拥有丰富的支付行业经验，先后为支付宝、微信支付、财付通、光 大银行、广发银行、平安银行、渤海银行、盛付通、嘉联等金融企业提 供产品解决方案并深入一线市场拓展和服务工作。\n\n\n
+
+            从2014年起，公司推出“豆果”系列产品，重新定义支付，专注 于为线下商户提供定制化的多场景智慧支付及营销解决方案，让支付即 营销。产品包括自主研发的硬件与软件体系，从支付 + 大数据 + 营销+商 户金融多向实现餐饮等生活服务类行业的消费后市场拓展，以及完成流 畅的〇2〇的闭环。"
+        android:textColor="@color/black"
+
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/tv_mine_aboutwe_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_pink"
+            android:text="检查更新"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="河北鸿搜网络科技有限公司"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginBottom="15dp"/>
+    </LinearLayout>
+
+</LinearLayout>

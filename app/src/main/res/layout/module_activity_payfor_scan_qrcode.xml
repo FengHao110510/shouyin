@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="douguoshouyin.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity">
+
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/bv_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:zxing_preview_scaling_strategy="centerCrop"
+        app:zxing_use_texture_view="false" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/qr_qr_fl_titlebar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/color_base_yellow">
+
+                <TextView
+                    android:id="@+id/qr_tv_titlebar_finish_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left|center"
+                    android:gravity="center"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="2dp"
+
+                    android:text="@string/icon_fanhuijian"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/qr_tv_titlebar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll_payfor_saoyisao_shoukuanjine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp">
+
+            <TextView
+                android:id="@+id/tv_payfor_saoyisao_renminbi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥ "
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tv_payfor_saoyisao_shoukuanjine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_payfor_saoyisao_renminbi"
+                android:text="8.0"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_payfor_saoyisao_shoukuanjine"
+            android:layout_centerHorizontal="true"
+            android:text="收款金额"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/tv_payfor_saoyisao_tishi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_payfor_saoyisao_saoyisao_icon"
+            android:layout_centerHorizontal="true"
+            android:text="将二维码/条形码放在框内，即可自动扫描"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/tv_payfor_saoyisao_saoyisao_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_payfor_saoyisao_saoyisao"
+            android:layout_centerHorizontal="true"
+            android:text="@string/icon_main_payfor_erwei"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/tv_payfor_saoyisao_saoyisao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="90dp"
+            android:text="收款码"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rl_payfor_saoyisao_tubiao"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="豆果收银支持以下付款方式"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_payfor_saoyisao_tubiao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="50dp"
+
+            android:layout_marginRight="50dp">
+
+            <ImageView
+                android:id="@+id/imageView_sao"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/weixin" />
+
+            <ImageView
+                android:id="@+id/imageView_sao2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/qq" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="32dp"
+                android:layout_toStartOf="@+id/imageView_sao3"
+                android:background="@drawable/huabei" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="33dp"
+                android:layout_toEndOf="@+id/imageView_sao"
+                android:background="@drawable/zhifubao" />
+
+            <ImageView
+                android:id="@+id/imageView_sao3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/jingdong" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</FrameLayout>

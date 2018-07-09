@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="douguoshouyin.douguoshouyin.activity.payfor.shangpinguanli.CommodityActivity">
+
+    <include layout="@layout/module_include_titlebar" />
+
+    <LinearLayout
+        android:id="@+id/ll_payfor_commodity"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/bg_gray"></LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@color/white"></LinearLayout>
+    </LinearLayout>
+
+    <View style="@style/view_line_horizontal_05" />
+
+    <LinearLayout
+
+        android:id="@+id/ll_payfor_commodity_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="9dp">
+
+        <LinearLayout
+            android:id="@+id/ll_payfor_commodity_tag_guanlifenlei"
+
+            style="@style/botttom_tag_ll_style">
+
+            <TextView
+                android:id="@+id/tv_payfor_commodity_tag_guanlifenlei_icon"
+                style="@style/botttom_tag_tv_icon_style"
+                android:text="@string/icon_main_more" />
+
+            <TextView
+                style="@style/botttom_tag_tv_style"
+                android:padding="2dp"
+                android:text="管理分类" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_payfor_commodity_tag_tianjiashangpin"
+
+            style="@style/botttom_tag_ll_style">
+
+            <TextView
+                android:id="@+id/tv_payfor_commodity_tag_tianjiashangpin_icon"
+                style="@style/botttom_tag_tv_icon_style"
+                android:text="@string/icon_payfor_commodity_tianjia" />
+
+            <TextView
+                style="@style/botttom_tag_tv_style"
+                android:padding="3dp"
+                android:text="添加商品" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_payfor_commodity_tag_tianjiataocan"
+
+            style="@style/botttom_tag_ll_style">
+
+            <TextView
+                android:id="@+id/tv_payfor_commodity_tag_tianjiataocan_icon"
+                style="@style/botttom_tag_tv_icon_style"
+                android:text="@string/icon_payfor_commodity_tianjiataocan" />
+
+            <TextView
+                style="@style/botttom_tag_tv_style"
+                android:padding="3dp"
+                android:text="添加套餐" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_payfor_commodity_tag_tianjiazuhe"
+
+            style="@style/botttom_tag_ll_style">
+
+            <TextView
+                android:id="@+id/tv_payfor_commodity_tag_xiugaipaixu_icon"
+                style="@style/botttom_tag_tv_icon_style"
+                android:text="@string/icon_payfor_commodity_paixu" />
+
+            <TextView
+                style="@style/botttom_tag_tv_style"
+                android:padding="3dp"
+                android:text="添加组合" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_payfor_commodity_tag_gengduocaozuo"
+
+            style="@style/botttom_tag_ll_style">
+
+            <TextView
+                android:id="@+id/tv_payfor_commodity_tag_gengduocaozuo_icon"
+                style="@style/botttom_tag_tv_icon_style"
+                android:text="@string/icon_payfor_commodity_gengduo" />
+
+            <TextView
+                style="@style/botttom_tag_tv_style"
+                android:padding="3dp"
+                android:text="更多操作" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

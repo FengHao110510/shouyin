@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/poptankuang"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+
+
+    <TextView
+        android:id="@+id/tv_payfor_commodity_pop_qishou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+
+        android:text="批量起售"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <View
+        style="@style/view_line_horizontal_05"
+
+
+        />
+
+    <TextView
+        android:id="@+id/tv_payfor_commodity_pop_tingshou"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+
+        android:text="批量停售"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <View
+        style="@style/view_line_horizontal_05"
+
+
+        />
+
+    <TextView
+        android:id="@+id/tv_payfor_commodity_pop_shanchu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+
+        android:text="批量删除"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

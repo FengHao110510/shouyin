@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="douguoshouyin.douguoshouyin.activity.payfor.payfor.ErweimaActivity">
+
+    <include layout="@layout/module_include_titlebar" />
+
+    <RelativeLayout
+        android:id="@+id/ll_payfor_erweima_shoukuanjine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp">
+
+        <TextView
+            android:id="@+id/tv_payfor_erweima_renminbi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥ "
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tv_payfor_erweima_shoukuanjine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_payfor_erweima_renminbi"
+            android:text="8.0"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_payfor_erweima_shoukuanjine"
+        android:layout_centerHorizontal="true"
+        android:text="收款金额"
+        android:textColor="@color/gray"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/iv_payfor_erweima_erweima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:id="@+id/tv_payfor_erweima_saoyisao_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_payfor_erweima_saoyisao"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:text="@string/icon_main_payfor_sao"
+        android:textSize="40sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="102dp"
+        android:text="扫一扫"
+        android:textColor="@color/gray"
+
+        android:textSize="10sp"
+        android:id="@+id/tv_payfor_erweima_saoyisao" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_payfor_erweima_tubiao"
+        android:layout_centerHorizontal="true"
+        android:text="豆果收银支持以下付款方式"
+        android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
+        android:textSize="10sp" />
+    <RelativeLayout
+        android:id="@+id/rl_payfor_erweima_tubiao"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"
+
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/weixin"
+            android:id="@+id/imageView" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/qq"
+            android:id="@+id/imageView2" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="32dp"
+            android:layout_toStartOf="@+id/imageView3"
+            android:background="@drawable/huabei" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="33dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:background="@drawable/zhifubao" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/jingdong"
+            android:id="@+id/imageView3" />
+    </RelativeLayout>
+</RelativeLayout>

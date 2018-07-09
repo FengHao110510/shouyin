@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--打开状态的底图-->
+    <size android:height="10dp" />
+    <corners android:radius="10dp" />
+    <gradient
+        android:endColor="@color/color_base_yellow"
+        android:startColor="@color/color_base_yellow" />
+</shape>

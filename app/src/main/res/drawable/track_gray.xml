@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--=非打开状态 灰色底图-->
+    <!--高度30 此处设置宽度无效-->
+    <size android:height="10dp"/>
+    <!--圆角-->
+    <corners android:radius="10dp"/>
+    <!--变化率定义从左到右颜色不变-->
+    <gradient android:startColor="@color/gray"
+        android:endColor="@color/gray"/>
+</shape>

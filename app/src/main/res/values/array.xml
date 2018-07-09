@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spinnerClass">
+        <item>单品</item>
+        <item>套餐</item>
+
+    </string-array>
+
+</resources>

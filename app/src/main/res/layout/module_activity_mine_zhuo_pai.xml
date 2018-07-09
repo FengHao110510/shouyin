@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="douguoshouyin.douguoshouyin.activity.mine.ZhuoPaiActivity">
+
+    <include layout="@layout/module_include_titlebar" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/iv_mine_mendian_zhuopai_erweima"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+             />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/bt_mine_mendian_zhuopai_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_black"
+        android:text="保存到手机"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+</LinearLayout>

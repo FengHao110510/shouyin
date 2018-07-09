@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 边框颜色值 -->
+    <item android:drawable="@drawable/poptankuang"
+        android:top="20dp"
+        android:right="20dp"
+        android:left="100dp"
+        android:bottom="24dp"
+       >
+
+    </item>
+    <!-- 主体背景颜色值 -->
+    <item>
+        <shape>
+            <solid android:color="@color/bg_main_top_gray" />
+            <corners android:radius="20dp"/>
+            <stroke android:color="@color/gray" android:width="0.1dp"/>
+
+        </shape>
+    </item>
+</layer-list>

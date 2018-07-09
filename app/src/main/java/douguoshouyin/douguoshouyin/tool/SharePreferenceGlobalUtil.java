@@ -1,0 +1,228 @@
+package douguoshouyin.douguoshouyin.tool;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
+
+
+public class SharePreferenceGlobalUtil {
+
+    private SharedPreferences sp;
+    private SharedPreferences.Editor editor;
+
+    public SharePreferenceGlobalUtil(Context context, String file) {
+        sp = context.getSharedPreferences(file, Context.MODE_PRIVATE);
+        editor = sp.edit();
+    }
+
+    /**
+     * 版本号
+     *
+     * @param lastVersion
+     */
+    public void setLastVersion(String lastVersion) {
+        editor.putString("Last_version", lastVersion);
+        editor.commit();
+    }
+
+    public String getLastVersion() {
+        return sp.getString("Last_version", "");
+    }
+
+    /**
+     * 语音提醒开关
+     *
+     * @param speechVoice
+     */
+    public void setSpeechVoice(boolean speechVoice) {
+        editor.putBoolean("speechVoice", speechVoice);
+        editor.commit();
+    }
+
+    public boolean getSpeechVoice() {
+        return sp.getBoolean("speechVoice", true);
+    }
+
+
+    /**
+     * TODO =================================小票打印========================================================
+     */
+    /**
+     * 收款小票打印开关开关
+     *
+     * @param shoukuanXPKG
+     */
+    public void setShoukuanXPKG(boolean shoukuanXPKG) {
+        editor.putBoolean("shoukuanXPKG", shoukuanXPKG);
+        editor.commit();
+    }
+
+    public boolean getShoukuanXPKG() {
+        return sp.getBoolean("shoukuanXPKG", true);
+    }
+    /**
+     * 收款小票打印份数
+     *
+     * @param shoukuanXPFS
+     */
+    public void setShoukuanXPFS(String shoukuanXPFS) {
+        editor.putString("shoukuanXPFS", shoukuanXPFS);
+        editor.commit();
+    }
+
+    public String getShoukuanXPFS() {
+        return sp.getString("shoukuanXPFS", "1");
+    }
+    /**
+     * 订单小票打印开关开关
+     *
+     * @param dingdanXPKG
+     */
+    public void setDingdanXPKG(boolean dingdanXPKG) {
+        editor.putBoolean("dingdanXPKG", dingdanXPKG);
+        editor.commit();
+    }
+
+    public boolean getDingdanXPKG() {
+        return sp.getBoolean("dingdanXPKG", true);
+    }
+    /**
+     *订单小票打印份数
+     *
+     * @param dingdanXPFS
+     */
+    public void setDingdanXPFS(String dingdanXPFS) {
+        editor.putString("dingdanXPFS", dingdanXPFS);
+        editor.commit();
+    }
+
+    public String getDingdanXPFS() {
+        return sp.getString("dingdanXPFS", "1");
+    }
+    /**
+     * 退款小票打印开关开关
+     *
+     * @param tuikuanXPKG
+     */
+    public void setTuikuanXPKG(boolean tuikuanXPKG) {
+        editor.putBoolean("tuikuanXPKG", tuikuanXPKG);
+        editor.commit();
+    }
+
+    public boolean getTuikuanXPKG() {
+        return sp.getBoolean("tuikuanXPKG", true);
+    }
+    /**
+     *退款小票打印份数
+     *
+     * @param tuikuanXPFS
+     */
+    public void setTuikuanXPFS(String tuikuanXPFS) {
+        editor.putString("tuikuanXPFS", tuikuanXPFS);
+        editor.commit();
+    }
+
+    public String getTuikuanXPFS() {
+        return sp.getString("tuikuanXPFS", "1");
+    }
+    /**
+     * 交班小票打印开关开关
+     *
+     * @param jiaobanXPKG
+     */
+    public void setJiaobanXPKG(boolean jiaobanXPKG) {
+        editor.putBoolean("jiaobanXPKG", jiaobanXPKG);
+        editor.commit();
+    }
+
+    public boolean getJiaobanXPKG() {
+        return sp.getBoolean("jiaobanXPKG", true);
+    }
+    /**
+     *交班小票打印份数
+     *
+     * @param jiaobanXPFS
+     */
+    public void setJiaobanXPFS(String jiaobanXPFS) {
+        editor.putString("jiaobanXPFS", jiaobanXPFS);
+        editor.commit();
+    }
+
+    public String getJiaobanXPFS() {
+        return sp.getString("jiaobanXPFS", "1");
+    }
+    /**
+     * 后厨小票打印开关开关
+     *
+     * @param houchuXPKG
+     */
+    public void setHouchuXPKG(boolean houchuXPKG) {
+        editor.putBoolean("houchuXPKG", houchuXPKG);
+        editor.commit();
+    }
+
+    public boolean getHouchuXPKG() {
+        return sp.getBoolean("houchuXPKG", true);
+    }
+    /**
+     *后厨小票打印份数
+     *
+     * @param houchuXPFS
+     */
+    public void setHouchuXPFS(String houchuXPFS) {
+        editor.putString("houchuXPFS", houchuXPFS);
+        editor.commit();
+    }
+
+    public String getHouchuXPFS() {
+        return sp.getString("houchuXPFS", "1");
+    }
+
+    /**
+     * TODO =================================小票打印========================================================
+     */
+
+    /**
+     * 扫码点餐开关
+     *
+     * @param saomadiancan
+     */
+    public void setSaomaDiancan(boolean saomadiancan) {
+        editor.putBoolean("saomadiancan", saomadiancan);
+        editor.commit();
+    }
+
+    public boolean getSaomaDiancan() {
+        return sp.getBoolean("saomadiancan", true);
+    }
+
+    /**
+     *应收金额
+     *
+     * @param yingshouJE
+     */
+    public void setYingshouJE(String yingshouJE) {
+        editor.putString("yingshouJE", yingshouJE);
+        editor.commit();
+    }
+
+    public String getYingshouJE() {
+        return sp.getString("yingshouJE", "");
+    }
+
+    /**
+     *扫码模式  点餐 or 点餐+支付
+     *
+     * @param saomamoshi
+     */
+    public void setSaomamoshi(String saomamoshi) {
+        editor.putString("saomamoshi", saomamoshi);
+        editor.commit();
+    }
+
+    public String getSaomamoshi() {
+        return sp.getString("saomamoshi", "点餐");
+    }
+
+
+}

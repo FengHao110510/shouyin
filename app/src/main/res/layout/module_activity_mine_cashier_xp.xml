@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="douguoshouyin.douguoshouyin.activity.mine.CashierXPActivity">
+
+    <include layout="@layout/module_include_titlebar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收款小票"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_mine_cashier_xp_shoukuan_icon"
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/imgbt_selector"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/color_base_yellow"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="打印小票次数"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_mine_cashier_xp_shoukuan_count"
+                        style="@style/et_style"
+                        android:gravity="right"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:hint="1" />
+                </LinearLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+            </LinearLayout>
+
+            <View style="@style/view_line_horizontal_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="订单小票"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_mine_cashier_xp_dingdan_icon"
+
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/imgbt_selector"
+                        android:layout_alignParentRight="true"
+
+                        android:textColor="@color/color_base_yellow"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="打印小票次数"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_mine_cashier_xp_dingdan_count"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        style="@style/et_style"
+                        android:gravity="right"
+                        android:hint="1" />
+                </LinearLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+            </LinearLayout>
+
+            <View style="@style/view_line_horizontal_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="退款小票"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_mine_cashier_xp_tuikuan_icon"
+
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/imgbt_selector"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/color_base_yellow"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="打印小票次数"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_mine_cashier_xp_tuikuan_count"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        style="@style/et_style"
+                        android:gravity="right"
+                        android:hint="1" />
+                </LinearLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+            </LinearLayout>
+
+            <View style="@style/view_line_horizontal_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="交班小票"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_mine_cashier_xp_jiaoban_icon"
+
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/imgbt_selector"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/color_base_yellow"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="打印小票次数"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_mine_cashier_xp_jiaoban_count"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        style="@style/et_style"
+                        android:gravity="right"
+                        android:hint="1" />
+                </LinearLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+            </LinearLayout>
+            <View style="@style/view_line_horizontal_10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="后厨小票"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_mine_cashier_xp_houchu_icon"
+
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/imgbt_selector"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/color_base_yellow"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="打印小票次数"
+                        android:textColor="@color/gray"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_mine_cashier_xp_houchu_count"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        style="@style/et_style"
+                        android:gravity="right"
+                        android:hint="1" />
+                </LinearLayout>
+
+                <View style="@style/view_line_horizontal_05" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

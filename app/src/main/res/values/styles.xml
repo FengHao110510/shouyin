@@ -1,0 +1,172 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--main底部文字style -->
+    <style name="botttom_tag_tv_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!--main底部图片style -->
+    <style name="botttom_tag_tv_icon_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!--main底部点击 -->
+    <style name="botttom_tag_ll_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+
+    <style name="transparent_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <!--通用dialog-->
+    <style name="CommonDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否悬浮在activity上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item> <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.4</item> <!-- 灰度 -->
+        <item name="android:windowFullscreen">true</item>  <!-- 全屏展示 -->
+    </style>
+    <!--半透明通用dialog-->
+
+    <!-- 是否支持透window明度 -->
+    <!-- window背景颜色 -->
+
+    <style name="TRCommonDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item> <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item> <!-- 是否悬浮在activity上 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowBackground">@android:color/transparent</item> <!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">false</item> <!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0</item> <!-- 灰度 -->
+        <item name="android:windowFullscreen">true</item>  <!-- 全屏展示 -->
+    </style>
+
+
+    <!--edittext 样式    -->
+    <style name="et_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textSize">16sp</item>
+
+    </style>
+
+    <!--0.5dp的水平分割线-->
+    <style name="view_line_horizontal_05">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.1dp</item>
+        <item name="android:background">@color/btn_mine_mendian_bg</item>
+    </style>
+
+    <!--0.5dp的垂直分割线-->
+    <style name="view_line_vertical_05">
+        <item name="android:layout_width">0.1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/btn_mine_mendian_bg</item>
+    </style>
+
+    <!--1dp的水平分割线-->
+    <style name="view_line_horizontal_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/btn_mine_mendian_bg</item>
+    </style>
+
+    <!--1dp的垂直分割线-->
+    <style name="view_line_vertical_1">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/btn_mine_mendian_bg</item>
+    </style>
+
+    <!--10dp的水平分割线-->
+    <style name="view_line_horizontal_10">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@color/btn_mine_mendian_bg</item>
+    </style>
+
+
+    <!-- ===================================== PopupWindow的动画 ======================================================-->
+    <style name="pop_anim_join_right">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_right_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_right_out</item>
+    </style>
+
+    <style name="pop_anim_join_left">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_left_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_left_out</item>
+    </style>
+
+    <style name="pop_anim_join_top">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_top_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_top_out</item>
+    </style>
+
+    <style name="pop_anim_join_buttom">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_buttom_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_buttom_out</item>
+    </style>
+
+
+    <!--============================================================================================================-->
+
+    <!--时间选择器-->
+    <style name="time_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <!-- Active thumb color & Active track color(30% transparency)
+            switch 打开时的拇指按钮的颜色 轨迹颜色默认为30%这个颜色 -->
+        <item name="colorControlActivated">@color/color_base_yellow</item>
+        <!-- Inactive thumb color switch关闭时的拇指按钮的颜色 -->
+        <item name="colorSwitchThumbNormal">@color/gray</item>
+        <!-- Inactive track color(30% transparency) switch关闭时的轨迹的颜色  30%这个颜色 -->
+        <item name="android:colorForeground">@color/gray</item>
+        <!--使用方法：
+        在布局文件中给需要自定义控件中增加app:theme="@style/MySwitch"-->
+    </style>
+</resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg_time_shaixuan"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="统计时间"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_dialog_time_shaixuan_start"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/shaixuan_nomal"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="00"
+            android:textColor="@color/gray"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="----"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tv_dialog_time_shaixuan_end"
+
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/shaixuan_nomal"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="00"
+            android:textColor="@color/gray"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dialog_time_shaixuan_bt"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:text="筛选"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="14dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btn_color"
+        android:textColor="@color/white" />
+</LinearLayout>
