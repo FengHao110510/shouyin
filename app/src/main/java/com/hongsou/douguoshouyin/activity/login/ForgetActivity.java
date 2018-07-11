@@ -1,21 +1,29 @@
 package com.hongsou.douguoshouyin.activity.login;
 
+import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
+import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.javabean.SendMsgBean;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.tool.TimeCount;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+
 import okhttp3.Call;
 
 /**
@@ -38,7 +46,6 @@ public class ForgetActivity extends BaseActivity {
     @BindView(R.id.tv_forget_login)
     TextView tvForgetLogin;
 
-    TimeCount timeCount;
 
     private String yanzhengma;
 
@@ -69,8 +76,10 @@ public class ForgetActivity extends BaseActivity {
         switch (view.getId()) {
             //发送验证码
             case R.id.bt_forget_send_msg:
-                timeCount = new TimeCount(60000, 1000, btForgetSendMsg);
-                timeCount.start();
+//                timeCount = new TimeCount(60000, 1000, btForgetSendMsg);
+//                timeCount.start();
+//                timeCount.
+
                 sendMsg();
                 break;
             //确认忘记密码
@@ -89,7 +98,7 @@ public class ForgetActivity extends BaseActivity {
      */
     private void sendMsg() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.sendMsg).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(Apiconfig.sendMsg).addParams("phone", "17603271217").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -99,7 +108,36 @@ public class ForgetActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
+                Log.e(TAG, "onResponse: " + response.toString());
                 //TODO 验证码存储
+                RootBean<SendMsgBean> sendMsgBean = new Gson().fromJson(response, new TypeToken<RootBean<SendMsgBean>>() {
+                }.getType());
+                if (sendMsgBean.getCode() == 1000) {
+                    Log.e(TAG, "onResponse: asdfasd");
+
+                    //成功 后存储二维码
+                    yanzhengma = sendMsgBean.getData().getVerificationCode();
+                    new CountDownTimer(60000, 1000) {
+
+                        @Override
+                        public void onTick(long l) {
+                            btForgetSendMsg.setText(l / 1000 + "s后重新获取");
+                            btForgetSendMsg.setBackground(getResources().getDrawable(R.drawable.btn_checked));
+                            btForgetSendMsg.setClickable(false);
+
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            btForgetSendMsg.setText("获取验证码");
+                            btForgetSendMsg.setBackground(getResources().getDrawable(R.drawable.btn_nomal));
+                            btForgetSendMsg.setClickable(true);
+
+                        }
+                    }.start();
+                }
+                ToastUtil.showToast(sendMsgBean.getMsg());
+
             }
         });
     }
@@ -115,20 +153,28 @@ public class ForgetActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(user)) {
             ToastUtil.showToast("请输入账号");
-        } else if (TextUtils.isEmpty(sendMsg)&&sendMsg.equals(yanzhengma)) {
+        } else if (TextUtils.isEmpty(sendMsg) || !sendMsg.equals(yanzhengma)) {
             ToastUtil.showToast("验证码错误");
+        } else if (TextUtils.isEmpty(password1) || !isPasswordValid(password1)) {
+            ToastUtil.showToast("请输入正确密码 6-18位");
 
-        } else if (TextUtils.isEmpty(password1)) {
-            ToastUtil.showToast("请输入密码");
-
-        } else if (TextUtils.isEmpty(password2)) {
-            ToastUtil.showToast("请确认密码");
+        } else if (TextUtils.isEmpty(password2) || !isPasswordValid(password2)) {
+            ToastUtil.showToast("请确认正确密码 6-18位");
 
         } else {
             yesForget();
         }
     }
 
+    /**
+     * 检测密码位数
+     *
+     * @param password
+     * @return
+     */
+    private boolean isPasswordValid(String password) {
+        return password.length() > 5 && password.length() < 17;
+    }
 
     /**
      * 忘记密码接口
@@ -139,13 +185,17 @@ public class ForgetActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-
             }
 
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
                 //TODO 成功后登录跳转
+                BaseBean baseBean = new Gson().fromJson(response, BaseBean.class);
+                if (baseBean.getCode() == 1000) {
+                    finishActivity();
+                }
+                ToastUtil.showToast(baseBean.getMsg());
             }
         });
     }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 
@@ -27,6 +28,7 @@ public class PrinterActivity extends BaseActivity {
     @BindView(R.id.rv_mine_printer_xinxi)
     RecyclerView rvMinePrinterXinxi;
 
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_mine_printer;
@@ -38,31 +40,39 @@ public class PrinterActivity extends BaseActivity {
         initData();
         initBack();
         initTitle("打印管理");
+
+
     }
+
 
     @Override
     public void initView() {
         setIconFont(new TextView[]{tvMinePrinterSousuo});
 
         //初始化蓝牙开关
-
     }
 
     @Override
     public void initData() {
 
+
     }
+
 
     @OnClick({R.id.tv_mine_printer_kaiguan, R.id.tv_mine_printer_sousuo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_mine_printer_kaiguan:
+
+
                 break;
             case R.id.tv_mine_printer_sousuo:
                 //点击搜索后 搜索中  pro都显示  搜索完成后 gone
                 break;
         }
     }
+
+
     //===========================================================================================================
 
     @Override

@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.javabean.LoginBean;
+import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
@@ -130,8 +131,8 @@ public class LoginActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(userName)) {
             ToastUtil.showToast("请输入账号");
-        } else if (TextUtils.isEmpty(passWord) || isPasswordValid(passWord)) {
-            ToastUtil.showToast("请输入正确密码");
+        } else if (TextUtils.isEmpty(passWord) || !isPasswordValid(passWord)) {
+            ToastUtil.showToast("请输入正确密码 6-18位");
         } else if (TextUtils.isEmpty(code)) {
             ToastUtil.showToast("获取设备编号失败");
         } else {
@@ -165,9 +166,10 @@ public class LoginActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
                 Log.e(TAG, "onResponse: " + response.toString());
-                LoginBean loginBean = new Gson().fromJson(response, LoginBean.class);
+                RootBean<LoginBean> loginBean = new Gson().fromJson(response, new TypeToken<RootBean<LoginBean>>() {
+                }.getType());
                 if (loginBean.getCode() == 1000) {
-                    LoginBean.DataBean dataBean = loginBean.getData();
+                    LoginBean dataBean = loginBean.getData();
                     isLogined(dataBean);
                     ToastUtil.showToast(loginBean.getMsg());
                 } else {
@@ -187,7 +189,7 @@ public class LoginActivity extends BaseActivity {
      * @desc 将登录数据存储
      */
 
-    private void isLogined(LoginBean.DataBean dataBean) {
+    private void isLogined(LoginBean dataBean) {
         ToastUtil.showToast("登陆成功");
         Global.getSpGlobalUtil().setClerkName(dataBean.getClerkName());
         Global.getSpGlobalUtil().setClerkNumber(dataBean.getClerkNumber());
@@ -210,7 +212,8 @@ public class LoginActivity extends BaseActivity {
      * @return
      */
     private boolean isPasswordValid(String password) {
-        return password.length() > 4;
+        return password.length() > 5 && password.length() < 17;
+
     }
 
     /**

@@ -26,11 +26,11 @@ public class Apiconfig {
     /**
      * TODO 发送验证码接口
      */
-    public static final String sendMsg = BASE_URL + "";
+    public static final String sendMsg = BASE_URL + "/user/sendMessageCode";
     /**
      * TODO 忘记密码接口
      */
-    public static final String forgetPassword = BASE_URL + "";
+    public static final String forgetPassword = BASE_URL + "/user/updaqteMessagePassWord";
 
     // TODO ======================================== 支付模块 ====================================================
     /**

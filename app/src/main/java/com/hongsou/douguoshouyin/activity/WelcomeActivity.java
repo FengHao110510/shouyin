@@ -11,6 +11,7 @@ import java.util.TimerTask;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.javabean.LoginBean;
 
 /**
  * 幻影页面
@@ -54,8 +55,8 @@ public class WelcomeActivity extends BaseActivity {
     //跳转方向
     private void intentMainAct() {
         Intent mainIntent = null;
+//        mainIntent = new Intent(this, LoginActivity.class);
         mainIntent = new Intent(this, LoginActivity.class);
-
         startActivity(mainIntent);
         if (timer != null) {
             timer.cancel();

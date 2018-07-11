@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.mine.AboutWeActivity;
 import com.hongsou.douguoshouyin.activity.mine.CashierActivity;
@@ -33,6 +34,7 @@ import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
 import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+
 import okhttp3.Call;
 
 /**

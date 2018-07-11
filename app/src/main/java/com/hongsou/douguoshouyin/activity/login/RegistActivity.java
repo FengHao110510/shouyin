@@ -20,7 +20,6 @@ import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.tool.TimeCount;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
@@ -50,7 +49,6 @@ public class RegistActivity extends BaseActivity {
     TextView tvRegistAgree;
 
     private boolean ischecked = false;//判断是否点击 同意按钮
-    TimeCount timeCount;
 
     @Override
     public int initLayout() {
@@ -80,8 +78,6 @@ public class RegistActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.bt_regist_send_msg:
                 //发送验证码接口
-                timeCount = new TimeCount(60000, 1000, btRegistSendMsg);
-                timeCount.start();
                 sendMsg();
                 break;
             case R.id.tv_regist_user_agree:

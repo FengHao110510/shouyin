@@ -15,206 +15,150 @@ package com.hongsou.douguoshouyin.javabean;
  */
 
 
-public class LoginBean {
+public class LoginBean  extends RootBean{
 
 
     /**
-     * code : 1000
-     * msg : 服务成功
-     * extInfo : null
-     * data : {"clerkNumber":"D180427111111528","clerkName":"李晓鑫","registeredCell":"13832352792","insertTime":"2018-04-27 10:11:00.853","updatePassWord":null,"updateTime":"2018-04-27 10:11:00.853","deletionFlag":"0","passWord":"e10adc3949ba59abbe56e057f20f883e","postNumber":"153E830D-90E2-492F-9EC7-DA6982DDA413","sex":"男","iDNumber":"130984199608293910","clerkType":"0","enable":"0","clerkUserName":"13832352792"}
-     * success : true
+     * clerkNumber : D180427111111528
+     * clerkName : 李晓鑫
+     * registeredCell : 13832352792
+     * insertTime : 2018-04-27 10:11:00.853
+     * updatePassWord : null
+     * updateTime : 2018-04-27 10:11:00.853
+     * deletionFlag : 0
+     * passWord : e10adc3949ba59abbe56e057f20f883e
+     * postNumber : 153E830D-90E2-492F-9EC7-DA6982DDA413
+     * sex : 男
+     * iDNumber : 130984199608293910
+     * clerkType : 0
+     * enable : 0
+     * clerkUserName : 13832352792
      */
 
-    private int code;
-    private String msg;
-    private Object extInfo;
-    private DataBean data;
-    private boolean success;
+    private String clerkNumber;
+    private String clerkName;
+    private String registeredCell;
+    private String insertTime;
+    private Object updatePassWord;
+    private String updateTime;
+    private String deletionFlag;
+    private String passWord;
+    private String postNumber;
+    private String sex;
+    private String iDNumber;
+    private String clerkType;
+    private String enable;
+    private String clerkUserName;
 
-    public int getCode() {
-        return code;
+    public String getClerkNumber() {
+        return clerkNumber;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setClerkNumber(String clerkNumber) {
+        this.clerkNumber = clerkNumber;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getClerkName() {
+        return clerkName;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setClerkName(String clerkName) {
+        this.clerkName = clerkName;
     }
 
-    public Object getExtInfo() {
-        return extInfo;
+    public String getRegisteredCell() {
+        return registeredCell;
     }
 
-    public void setExtInfo(Object extInfo) {
-        this.extInfo = extInfo;
+    public void setRegisteredCell(String registeredCell) {
+        this.registeredCell = registeredCell;
     }
 
-    public DataBean getData() {
-        return data;
+    public String getInsertTime() {
+        return insertTime;
     }
 
-    public void setData(DataBean data) {
-        this.data = data;
+    public void setInsertTime(String insertTime) {
+        this.insertTime = insertTime;
     }
 
-    public boolean isSuccess() {
-        return success;
+    public Object getUpdatePassWord() {
+        return updatePassWord;
     }
 
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setUpdatePassWord(Object updatePassWord) {
+        this.updatePassWord = updatePassWord;
     }
 
-    public static class DataBean {
-        /**
-         * clerkNumber : D180427111111528
-         * clerkName : 李晓鑫
-         * registeredCell : 13832352792
-         * insertTime : 2018-04-27 10:11:00.853
-         * updatePassWord : null
-         * updateTime : 2018-04-27 10:11:00.853
-         * deletionFlag : 0
-         * passWord : e10adc3949ba59abbe56e057f20f883e
-         * postNumber : 153E830D-90E2-492F-9EC7-DA6982DDA413
-         * sex : 男
-         * iDNumber : 130984199608293910
-         * clerkType : 0
-         * enable : 0
-         * clerkUserName : 13832352792
-         */
+    public String getUpdateTime() {
+        return updateTime;
+    }
 
-        private String clerkNumber;
-        private String clerkName;
-        private String registeredCell;
-        private String insertTime;
-        private Object updatePassWord;
-        private String updateTime;
-        private String deletionFlag;
-        private String passWord;
-        private String postNumber;
-        private String sex;
-        private String iDNumber;
-        private String clerkType;
-        private String enable;
-        private String clerkUserName;
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
 
-        public String getClerkNumber() {
-            return clerkNumber;
-        }
+    public String getDeletionFlag() {
+        return deletionFlag;
+    }
 
-        public void setClerkNumber(String clerkNumber) {
-            this.clerkNumber = clerkNumber;
-        }
+    public void setDeletionFlag(String deletionFlag) {
+        this.deletionFlag = deletionFlag;
+    }
 
-        public String getClerkName() {
-            return clerkName;
-        }
+    public String getPassWord() {
+        return passWord;
+    }
 
-        public void setClerkName(String clerkName) {
-            this.clerkName = clerkName;
-        }
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
 
-        public String getRegisteredCell() {
-            return registeredCell;
-        }
+    public String getPostNumber() {
+        return postNumber;
+    }
 
-        public void setRegisteredCell(String registeredCell) {
-            this.registeredCell = registeredCell;
-        }
+    public void setPostNumber(String postNumber) {
+        this.postNumber = postNumber;
+    }
 
-        public String getInsertTime() {
-            return insertTime;
-        }
+    public String getSex() {
+        return sex;
+    }
 
-        public void setInsertTime(String insertTime) {
-            this.insertTime = insertTime;
-        }
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
-        public Object getUpdatePassWord() {
-            return updatePassWord;
-        }
+    public String getIDNumber() {
+        return iDNumber;
+    }
 
-        public void setUpdatePassWord(Object updatePassWord) {
-            this.updatePassWord = updatePassWord;
-        }
+    public void setIDNumber(String iDNumber) {
+        this.iDNumber = iDNumber;
+    }
 
-        public String getUpdateTime() {
-            return updateTime;
-        }
+    public String getClerkType() {
+        return clerkType;
+    }
 
-        public void setUpdateTime(String updateTime) {
-            this.updateTime = updateTime;
-        }
+    public void setClerkType(String clerkType) {
+        this.clerkType = clerkType;
+    }
 
-        public String getDeletionFlag() {
-            return deletionFlag;
-        }
+    public String getEnable() {
+        return enable;
+    }
 
-        public void setDeletionFlag(String deletionFlag) {
-            this.deletionFlag = deletionFlag;
-        }
+    public void setEnable(String enable) {
+        this.enable = enable;
+    }
 
-        public String getPassWord() {
-            return passWord;
-        }
+    public String getClerkUserName() {
+        return clerkUserName;
+    }
 
-        public void setPassWord(String passWord) {
-            this.passWord = passWord;
-        }
-
-        public String getPostNumber() {
-            return postNumber;
-        }
-
-        public void setPostNumber(String postNumber) {
-            this.postNumber = postNumber;
-        }
-
-        public String getSex() {
-            return sex;
-        }
-
-        public void setSex(String sex) {
-            this.sex = sex;
-        }
-
-        public String getIDNumber() {
-            return iDNumber;
-        }
-
-        public void setIDNumber(String iDNumber) {
-            this.iDNumber = iDNumber;
-        }
-
-        public String getClerkType() {
-            return clerkType;
-        }
-
-        public void setClerkType(String clerkType) {
-            this.clerkType = clerkType;
-        }
-
-        public String getEnable() {
-            return enable;
-        }
-
-        public void setEnable(String enable) {
-            this.enable = enable;
-        }
-
-        public String getClerkUserName() {
-            return clerkUserName;
-        }
-
-        public void setClerkUserName(String clerkUserName) {
-            this.clerkUserName = clerkUserName;
-        }
+    public void setClerkUserName(String clerkUserName) {
+        this.clerkUserName = clerkUserName;
     }
 }
