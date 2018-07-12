@@ -4,6 +4,7 @@
 
     <!--Typeface icon-->
     <string name="icon_fanhuijian">&#xe673;</string>
+    <string name="icon_back">&#xe673;</string>
     <string name="icon_anniu_checked">&#xe600;</string>
     <string name="icon_anniu_nomal">&#xe601;</string>
     <string name="icon_main_pay">&#xe632;</string>
