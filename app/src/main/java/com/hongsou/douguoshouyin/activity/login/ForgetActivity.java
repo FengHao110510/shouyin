@@ -79,10 +79,14 @@ public class ForgetActivity extends BaseActivity {
 //                timeCount = new TimeCount(60000, 1000, btForgetSendMsg);
 //                timeCount.start();
 //                timeCount.
-
-                sendMsg();
+                String user = etForgetUser.getText().toString();
+                if (TextUtils.isEmpty(user)) {
+                    ToastUtil.showToast("请输入账号");
+                }else {
+                    sendMsg(user);
+                }
                 break;
-            //确认忘记密码
+            //确认提交
             case R.id.bt_forget_yes:
                 goForget();
                 break;
@@ -95,36 +99,31 @@ public class ForgetActivity extends BaseActivity {
 
     /**
      * 发送验证码
+     * @param user 用户手机号
      */
-    private void sendMsg() {
-        showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.sendMsg).addParams("phone", "17603271217").build().execute(new StringCallback() {
+    private void sendMsg(String user) {
+        showLoadingDialog();
+        HttpFactory.post().url(Apiconfig.sendMsg).addParams("phone", user).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-
             }
 
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
-                Log.e(TAG, "onResponse: " + response.toString());
                 //TODO 验证码存储
                 RootBean<SendMsgBean> sendMsgBean = new Gson().fromJson(response, new TypeToken<RootBean<SendMsgBean>>() {
                 }.getType());
                 if (sendMsgBean.getCode() == 1000) {
-                    Log.e(TAG, "onResponse: asdfasd");
-
                     //成功 后存储二维码
                     yanzhengma = sendMsgBean.getData().getVerificationCode();
                     new CountDownTimer(60000, 1000) {
-
                         @Override
                         public void onTick(long l) {
                             btForgetSendMsg.setText(l / 1000 + "s后重新获取");
                             btForgetSendMsg.setBackground(getResources().getDrawable(R.drawable.btn_checked));
                             btForgetSendMsg.setClickable(false);
-
                         }
 
                         @Override
@@ -132,11 +131,11 @@ public class ForgetActivity extends BaseActivity {
                             btForgetSendMsg.setText("获取验证码");
                             btForgetSendMsg.setBackground(getResources().getDrawable(R.drawable.btn_nomal));
                             btForgetSendMsg.setClickable(true);
-
                         }
                     }.start();
+                }else {
+                    ToastUtil.showToast(sendMsgBean.getMsg());
                 }
-                ToastUtil.showToast(sendMsgBean.getMsg());
 
             }
         });
