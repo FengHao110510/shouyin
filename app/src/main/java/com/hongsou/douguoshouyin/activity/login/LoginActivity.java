@@ -171,7 +171,6 @@ public class LoginActivity extends BaseActivity {
                 if (loginBean.getCode() == 1000) {
                     LoginBean dataBean = loginBean.getData();
                     isLogined(dataBean);
-                    ToastUtil.showToast(loginBean.getMsg());
                 } else {
                     ToastUtil.showToast(loginBean.getMsg());
 
