@@ -192,6 +192,8 @@ public class LoginActivity extends BaseActivity {
         ToastUtil.showToast("登陆成功");
         Global.getSpGlobalUtil().setClerkName(dataBean.getClerkName());
         Global.getSpGlobalUtil().setClerkNumber(dataBean.getClerkNumber());
+        Global.getSpGlobalUtil().setShopNumber(dataBean.getShopNumber());
+
         Global.getSpGlobalUtil().setUserName(userName);
         Global.getSpGlobalUtil().setPassword(passWord);
 

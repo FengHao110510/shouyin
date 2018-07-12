@@ -560,10 +560,8 @@ public class PayForActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
     }
 
     //
@@ -573,7 +571,6 @@ public class PayForActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         EventBus.getDefault().register(this);
-
         ButterKnife.bind(this);
     }
 

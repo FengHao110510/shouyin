@@ -13,6 +13,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.javabean.SendMsgBean;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
@@ -180,7 +181,10 @@ public class ForgetActivity extends BaseActivity {
      */
     private void yesForget() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.forgetPassword).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(Apiconfig.forgetPassword)
+                .addParams("userName", etForgetUser.getText().toString())
+                .addParams("passWord", etForgetSetPassword2.getText().toString())
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -192,9 +196,11 @@ public class ForgetActivity extends BaseActivity {
                 //TODO 成功后登录跳转
                 BaseBean baseBean = new Gson().fromJson(response, BaseBean.class);
                 if (baseBean.getCode() == 1000) {
+                    Global.getSpGlobalUtil().setPassword(etForgetSetPassword2.getText().toString());
                     finishActivity();
+                }else {
+                    ToastUtil.showToast(baseBean.getMsg());
                 }
-                ToastUtil.showToast(baseBean.getMsg());
             }
         });
     }
