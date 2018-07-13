@@ -40,6 +40,7 @@ public class HttpFactory {
         this.url = url;
         this.tag = tag;
         this.params = params;
+        this.type = type;
     }
 
     public static PostHttpBuilder post() {
