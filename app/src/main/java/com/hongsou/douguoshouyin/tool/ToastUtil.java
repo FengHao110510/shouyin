@@ -33,7 +33,7 @@ public class ToastUtil {
     }
 
     //网络连接出错专用
-    public static void showToast() {
+    public static void showError() {
         showToast("网络连接出错", Toast.LENGTH_SHORT);
     }
 

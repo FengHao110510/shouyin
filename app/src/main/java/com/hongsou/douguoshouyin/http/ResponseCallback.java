@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.LogUtil;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.LoadingDialog;
 import com.zhy.http.okhttp.callback.Callback;
 
@@ -30,19 +31,27 @@ public abstract class ResponseCallback<T> extends Callback<T> {
     Class mClass;
     private Context mContext;
     private boolean mIsShowDialog;
+    private String message;
     private Request mRequest;
+
+
     public static Gson mGson = new Gson();
     private LoadingDialog loadingDialog;
 
 
-    public ResponseCallback(Context context, Class clazz, boolean isShowDialog) {
+    public ResponseCallback(Context context, Class clazz) {
+        this(context, clazz, true, "加载中...");
+    }
+
+    public ResponseCallback(Context context, Class clazz, String msg) {
+        this(context, clazz, true, msg);
+    }
+
+    public ResponseCallback(Context context, Class clazz, boolean isShowDialog, String msg) {
+        message = msg;
         mContext = context;
         mClass = clazz;
         mIsShowDialog = isShowDialog;
-    }
-
-    public ResponseCallback(Context context, Class clazz) {
-        this(context, clazz, true);
     }
 
     @Override
@@ -69,6 +78,7 @@ public abstract class ResponseCallback<T> extends Callback<T> {
         System.out.println("onError");
         Log.e(TAG, "onError: " + e.toString() );
         dismissLoadingDialog();
+        ToastUtil.showError();
         cusError(call, e, id);
     }
 
@@ -81,10 +91,10 @@ public abstract class ResponseCallback<T> extends Callback<T> {
         if (mIsShowDialog && mContext != null) {
             if (loadingDialog == null) {
                 loadingDialog = new LoadingDialog(mContext);
-                loadingDialog.setMessage("加载中...");
                 loadingDialog.setCancelable(true);
             }
             if (mContext instanceof Activity && !((Activity) mContext).isFinishing()) {
+                loadingDialog.setMessage(message);
                 loadingDialog.show();
             }
         }
