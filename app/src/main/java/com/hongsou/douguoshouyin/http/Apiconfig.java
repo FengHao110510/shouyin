@@ -74,7 +74,15 @@ public class Apiconfig {
     /**
      * TODO 订单详情接口
      */
-    public static final String orderDetails = BASE_URL + "";
+    public static final String orderDetails = BASE_URL + "/orderDetails/getOrderDetails";
+    /**
+     * TODO 获取流水列表
+     */
+    public static final String getPayOrderList = BASE_URL + "/orderDetails/getPayOrderList";
+    /**
+     * TODO 流水详情接口
+     */
+    public static final String getPaymentOrderByBatch = BASE_URL + "/orderDetails/getPaymentOrderByBatch";
     // TODO ======================================== 更多模块 ====================================================
     // TODO ======================================== 我的模块 ====================================================
     /**
