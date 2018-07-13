@@ -68,7 +68,7 @@ public class CommonTopBar extends FrameLayout implements View.OnClickListener {
         //设置右边的图标的内容分（TypeFace方式）
         setRightIcon(ta.getString(R.styleable.CommonTopBar_right_icon));
         //设置右边的图像是否显示
-        setRightIconVisibility(ta.getInt(R.styleable.CommonTopBar_right_img_visibility, 0));
+        setRightIconVisibility(ta.getInt(R.styleable.CommonTopBar_right_icon_visibility, 0));
         //设置下部的分割线是否显示
         setBottomLineVisibility(ta.getInt(R.styleable.CommonTopBar_bottom_line_visibility, 0));
         // 设置右边整体内容是否显示

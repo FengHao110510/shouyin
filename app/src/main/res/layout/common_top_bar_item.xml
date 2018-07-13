@@ -35,6 +35,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
         android:layout_alignParentRight="true"
         >
 
@@ -42,18 +44,16 @@
             android:id="@+id/tv_right_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:text="刷新"
-            android:textColor="@color/color_title"
-            android:textSize="16sp" />
+            android:textColor="@color/black"
+            android:textSize="18sp" />
         <TextView
             android:id="@+id/tv_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:text="刷新"
-            android:textColor="@color/color_title"
-            android:textSize="16sp" />
+            android:textColor="@color/black"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
