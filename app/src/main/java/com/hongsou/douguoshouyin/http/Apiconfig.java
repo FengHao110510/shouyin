@@ -68,6 +68,10 @@ public class Apiconfig {
     public static final String tianjiashangpin = BASE_URL + "";
     // TODO ======================================== 流水模块 ====================================================
     /**
+     * TODO 获取订单列表
+     */
+    public static final String getOrderList = BASE_URL + "/orderDetails/getOrderList";
+    /**
      * TODO 订单详情接口
      */
     public static final String orderDetails = BASE_URL + "";

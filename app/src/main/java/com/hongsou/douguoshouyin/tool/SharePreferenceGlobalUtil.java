@@ -318,6 +318,19 @@ public class SharePreferenceGlobalUtil {
     public String getClerkName() {
         return sp.getString("clerkName", "");
     }
+    /**
+     * 保存店铺编号
+     *
+     * @param shopNumber
+     */
+    public void setShopNumber(String shopNumber) {
+        editor.putString("shopNumber", shopNumber);
+        editor.commit();
+    }
+
+    public String getShopNumber() {
+        return sp.getString("shopNumber", "");
+    }
 
 
 
