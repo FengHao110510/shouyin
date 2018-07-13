@@ -33,12 +33,17 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_turnover_order"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/sm_turnover_order"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_turnover_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+          >
+
+        </android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

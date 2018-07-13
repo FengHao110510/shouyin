@@ -10,6 +10,7 @@ import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.javabean.OrderBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,33 +28,18 @@ import java.util.List;
  */
 
 
-public class OrderAdapter extends BaseQuickAdapter<RootBean<OrderBean>,BaseViewHolder> {
-    public Typeface typeface;
+public class OrderAdapter extends BaseQuickAdapter<OrderBean.DataBeanX.DataBean,BaseViewHolder> {
 
 
-    public OrderAdapter(int layoutResId, @Nullable List<RootBean<OrderBean>> data) {
+    public OrderAdapter(int layoutResId, @Nullable List<OrderBean.DataBeanX.DataBean> data) {
         super(layoutResId, data);
-        initIconfont();
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, RootBean<OrderBean> item) {
-//        helper.setImageResource(R.id.iv_item_turnover_order_img,).setText(R.id.tv_item_turnover_order_ordernum,)
-//                .setText(R.id.tv_item_turnover_order_time,).setTypeface(typeface,R.id.tv_item_turnover_order_you);
-    }
-    /**
-     * 设置图片
-     */
-    private void initIconfont() {
-        if (typeface == null) {
-            typeface = Typeface.createFromAsset(mContext.getAssets(), "iconfont.ttf");
-        }
-
-    }
-
-    public void setIconFont(TextView[] tv) {
-        for (int i = 0; i < tv.length; i++) {
-            tv[i].setTypeface(typeface);
-        }
+    protected void convert(BaseViewHolder helper, OrderBean.DataBeanX.DataBean item) {
+        helper.setText(R.id.tv_item_turnover_order_ordernum,item.getBatch())
+                .setText(R.id.tv_item_turnover_order_time,item.getEndTime())
+                .setText(R.id.tv_item_turnover_order_paystate,item.getOrderType())
+                .setText(R.id.tv_item_turnover_order_jine,"¥"+item.getOrderAmount());
     }
 }

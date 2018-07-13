@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_margin="10dp">
 
     <ImageView
         android:id="@+id/iv_item_turnover_order_img"
-        android:layout_width="60dp"
-        android:layout_height="60dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/hanbao" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -24,22 +26,31 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="开单"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_item_turnover_order_ordernum"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="7"
+                android:text="123123123123"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
 
+            <TextView
+                android:id="@+id/tv_item_turnover_order_paystate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="4"
-                android:text="123123123123"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,29 +61,36 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="交易时间"
                 android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/tv_item_turnover_order_time"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="4"
+                android:layout_weight="7"
                 android:text="123123123123"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/tv_item_turnover_order_jine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="4"
+                android:text="¥8.0"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_item_turnover_order_you"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_gravity="center"
-        android:text="@string/icon_you"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:background="@drawable/right" />
 </LinearLayout>
