@@ -100,10 +100,7 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @desc 初始化下拉刷新  上拉加载
      */
     private void initPullRefresher() {
-        //设置 Header 为 MaterialHeader普通    BezierCircleHeader水滴  DropBoxHeader盒子
-        smTurnoverOrder.setRefreshHeader(new BezierCircleHeader(getActivity()));
-        //设置 Footer 为 经典样式  BallPulseFooter三个红点  丑   FalsifyFooter没效果
-        smTurnoverOrder.setRefreshFooter(new ClassicsFooter(getActivity()));
+
 
         //下拉刷新
         smTurnoverOrder.setOnRefreshListener(new OnRefreshListener() {
@@ -111,6 +108,8 @@ public class TurnoverOrderFragment extends BaseFragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
                 getOrderList();
+                smTurnoverOrder.finishRefresh();
+
             }
         });
         //上拉加载
@@ -119,6 +118,8 @@ public class TurnoverOrderFragment extends BaseFragment {
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
                 getOrderList();
+                smTurnoverOrder.finishLoadMore();//不传时间则立即停止刷新    传入false表示加载失败
+
             }
         });
 
@@ -163,17 +164,12 @@ public class TurnoverOrderFragment extends BaseFragment {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-                if (page > 1) {
-                    smTurnoverOrder.finishLoadMore();//不传时间则立即停止刷新    传入false表示加载失败
-                } else {
-                    smTurnoverOrder.finishRefresh();
-                }
+
             }
 
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
-                Log.e("", "onResponse: " + response.toString());
                 OrderBean orderBean = new Gson().fromJson(response, OrderBean.class);
 
                 if (orderBean.getCode() == 1000) {
@@ -181,11 +177,7 @@ public class TurnoverOrderFragment extends BaseFragment {
                 }else {
                     ToastUtil.showToast(orderBean.getMsg());
                 }
-                if (page > 1) {
-                    smTurnoverOrder.finishLoadMore();
-                } else {
-                    smTurnoverOrder.finishRefresh();
-                }
+
             }
         });
     }

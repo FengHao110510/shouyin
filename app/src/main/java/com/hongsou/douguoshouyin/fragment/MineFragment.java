@@ -207,7 +207,6 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-                ToastUtil.showToast();
             }
 
             @Override

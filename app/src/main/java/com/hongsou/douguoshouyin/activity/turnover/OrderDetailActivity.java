@@ -9,17 +9,23 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.javabean.OrderDetailBean;
+import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
+
 /**
  * 订单详情页面
  */
@@ -56,8 +62,15 @@ public class OrderDetailActivity extends BaseActivity {
     TextView tvTurnoverOrderdetailShoukuanjine;
 
 
-    Dialog dialog;
+    @BindView(R.id.v_turnover_orderdetail_verticle)
+    View vTurnoverOrderdetailVerticle;
+    @BindView(R.id.tv_turnover_orderdetail_shangpinzongjia)
+    TextView tvTurnoverOrderdetailShangpinzongjia;
+    @BindView(R.id.tv_turnover_orderdetail_shangpinfenshu)
+    TextView tvTurnoverOrderdetailShangpinfenshu;
 
+    private String batch;//订单号
+    Dialog dialog;
 
     @Override
     public int initLayout() {
@@ -74,7 +87,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        batch = getIntent().getStringExtra("batch");
     }
 
     @Override
@@ -87,7 +100,10 @@ public class OrderDetailActivity extends BaseActivity {
      */
     private void detailes() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.orderDetails).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.get().url(Apiconfig.orderDetails)
+                .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())
+                .addParams("batch", batch)
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -97,21 +113,33 @@ public class OrderDetailActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
 
-                //TODO 判断是不是已退款的 是的话隐藏退款按钮
-                tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+                RootBean<OrderDetailBean> orderDetailBeanRootBean = new Gson().fromJson(response, new TypeToken<RootBean<OrderDetailBean>>() {
+                }.getType());
 
-                tvTurnoverOrderdetailXianshijine.setText("");
-                tvTurnoverOrderdetailDingdanhao.setText("");
-                tvTurnoverOrderdetailLeixing.setText("");
-                tvTurnoverOrderdetailDingdanzhuangtai.setText("");
-                tvTurnoverOrderdetailCaozuoren.setText("");
-                tvTurnoverOrderdetailXiadanshijian.setText("");
-                tvTurnoverOrderdetailYingshou.setText("");
-                tvTurnoverOrderdetailZhaoling.setText("");
-                tvTurnoverOrderdetailShishoujine.setText("");
-                tvTurnoverOrderdetailDingdanjine.setText("");
-                tvTurnoverOrderdetailYouhuijine.setText("");
-                tvTurnoverOrderdetailShoukuanjine.setText("");
+                if (orderDetailBeanRootBean.getCode() == 1000) {
+                    OrderDetailBean.OrderBean orderDetailBean = orderDetailBeanRootBean.getData().getOrder();
+
+                    //TODO 判断是不是已退款的 是的话隐藏退款按钮
+                    if (orderDetailBean.getOrderType().contains("已退款")) {
+                        vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
+                        tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+                    }
+
+                    tvTurnoverOrderdetailXianshijine.setText(orderDetailBean.getOrderAmount());
+                    tvTurnoverOrderdetailDingdanhao.setText(orderDetailBean.getBatch());
+                    tvTurnoverOrderdetailLeixing.setText(orderDetailBean.getOrderSourcePayment());
+                    tvTurnoverOrderdetailDingdanzhuangtai.setText(orderDetailBean.getOrderType());
+                    tvTurnoverOrderdetailCaozuoren.setText(orderDetailBean.getClerkName());
+                    tvTurnoverOrderdetailXiadanshijian.setText(orderDetailBean.getInsertTime());
+                    tvTurnoverOrderdetailYingshou.setText(orderDetailBean.getAmountReceivable());
+                    tvTurnoverOrderdetailZhaoling.setText(orderDetailBean.getCashAmount());
+                    tvTurnoverOrderdetailShishoujine.setText(orderDetailBean.getAmountCollected());
+                    tvTurnoverOrderdetailDingdanjine.setText(orderDetailBean.getOrderAmount());
+                    tvTurnoverOrderdetailYouhuijine.setText(orderDetailBean.getOrderDiscount());
+                    tvTurnoverOrderdetailShoukuanjine.setText(orderDetailBean.getAmountCollected());
+                } else {
+                    ToastUtil.showToast(orderDetailBeanRootBean.getMsg());
+                }
 
 
             }
@@ -159,7 +187,6 @@ public class OrderDetailActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-                ToastUtil.showToast();
             }
 
             @Override
@@ -178,6 +205,7 @@ public class OrderDetailActivity extends BaseActivity {
                 showTuikuanDialog();
                 break;
             case R.id.tv_turnover_orderdetail_dayinxiaopiao:
+                //打印小票
                 break;
         }
     }

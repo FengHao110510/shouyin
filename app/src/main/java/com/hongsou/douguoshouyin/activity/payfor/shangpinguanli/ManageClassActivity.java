@@ -151,7 +151,6 @@ public class ManageClassActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-                ToastUtil.showToast();
             }
 
             @Override

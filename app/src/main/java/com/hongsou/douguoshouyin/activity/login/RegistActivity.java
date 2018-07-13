@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.LoginBean;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
@@ -144,17 +146,13 @@ public class RegistActivity extends BaseActivity {
      */
     private void sendMsg() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.sendMsg).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(Apiconfig.sendMsg).addParams("", "").build().execute(new ResponseCallback<LoginBean>(this,LoginBean.class) {
             @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
+            public void onResponse(LoginBean response, int id) {
 
             }
 
-            @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-            }
+
         });
     }
 

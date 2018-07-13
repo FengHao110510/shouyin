@@ -184,6 +184,7 @@ public class ForgetActivity extends BaseActivity {
         HttpFactory.post().url(Apiconfig.forgetPassword)
                 .addParams("userName", etForgetUser.getText().toString())
                 .addParams("passWord", etForgetSetPassword2.getText().toString())
+                .addParams("verificationCode", yanzhengma)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
