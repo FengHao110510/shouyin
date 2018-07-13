@@ -10,7 +10,10 @@ import com.hongsou.douguoshouyin.http.PostHttpBuilder;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.builder.GetBuilder;
+import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import java.util.Map;
 
@@ -25,18 +28,21 @@ public class HttpFactory {
 
     private static final String TAG = "HttpFactory";
 
-    private  String url;
-    private  Object tag;
-    private  Map<String, String> params;
+    protected static final String GET = "GET";
+    protected static final String POST = "POST";
+    private String type;
+    private String url;
+    private Object tag;
+    private Map<String, String> params;
 
 
-    public HttpFactory(String url, Object tag, Map<String, String> params) {
+    public HttpFactory(String type, String url, Object tag, Map<String, String> params) {
         this.url = url;
         this.tag = tag;
         this.params = params;
     }
 
-    public static PostHttpBuilder post(){
+    public static PostHttpBuilder post() {
         return new PostHttpBuilder();
     }
 
@@ -44,18 +50,21 @@ public class HttpFactory {
 //        return new PostHttpStringBuilder();
 //    }
 
-    public static PostHttpBuilder get(){
-        return new PostHttpBuilder();
+    public static GetHttpBuilder get() {
+        return new GetHttpBuilder();
     }
 
     public void execute(final StringCallback stringCallBack) {
-        if (NetWorkStateUtils.isNetConnected()){
+        if (NetWorkStateUtils.isNetConnected()) {
             Log.e(TAG, "参数 :: " + params.toString());
             try {
-                OkHttpUtils.post()
-                        .url(url)
-                        .params(params)
-                        .build().execute(new StringCallback() {
+                RequestCall build;
+                if (type.equals(POST)) {
+                    build = OkHttpUtils.post().url(url).params(params).build();
+                } else {
+                    build = OkHttpUtils.get().url(url).params(params).build();
+                }
+                build.execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.showToast(R.string.http_error);
@@ -65,18 +74,18 @@ public class HttpFactory {
                     @Override
                     public void onResponse(String response, int id) {
                         LogUtil.e(TAG, "==================== 返回结果 ==================");
-                        LogUtil.e(TAG, response );
+                        LogUtil.e(TAG, response);
                         LogUtil.e(TAG, "====================== END ====================");
                         stringCallBack.onResponse(response, id);
                     }
                 });
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 ToastUtil.showToast("参数有误");
                 BaseActivity.dismissLoadingDialog();
                 BaseFragment.dismissLoadingDialog();
             }
-        }else {
+        } else {
             BaseActivity.dismissLoadingDialog();
             BaseFragment.dismissLoadingDialog();
             ToastUtil.showToast("网络未连接，请检查网络");

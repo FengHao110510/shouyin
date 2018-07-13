@@ -7,33 +7,33 @@ import java.util.Map;
  * Created by Administrator on 2018/7/2.
  */
 
-public class PostHttpBuilder {
+public class GetHttpBuilder {
 
     protected String url;
     protected Object tag;
     private Map<String, String> params;
 
     public HttpFactory build() {
-        return new HttpFactory(HttpFactory.POST, url, tag, params);
+        return new HttpFactory(HttpFactory.GET, url, tag, params);
     }
 
-    public PostHttpBuilder url(String url) {
+    public GetHttpBuilder url(String url) {
         this.url = url;
         return this;
     }
 
 
-    public PostHttpBuilder tag(Object tag) {
+    public GetHttpBuilder tag(Object tag) {
         this.tag = tag;
         return this;
     }
 
-    public PostHttpBuilder params(Map<String, String> params) {
+    public GetHttpBuilder params(Map<String, String> params) {
         this.params = params;
         return this;
     }
 
-    public PostHttpBuilder addParams(String key, String val) {
+    public GetHttpBuilder addParams(String key, String val) {
         if (this.params == null) {
             params = new LinkedHashMap<>();
         }
