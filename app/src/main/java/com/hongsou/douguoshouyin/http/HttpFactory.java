@@ -7,11 +7,13 @@ import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.http.NetWorkStateUtils;
 import com.hongsou.douguoshouyin.http.PostHttpBuilder;
+import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.builder.GetBuilder;
 import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
 
@@ -55,9 +57,9 @@ public class HttpFactory {
         return new GetHttpBuilder();
     }
 
-    public void execute(final StringCallback stringCallBack) {
+    public void execute(final Callback callback) {
         if (NetWorkStateUtils.isNetConnected()) {
-            Log.e(TAG, "参数 :: " + params.toString());
+            Log.e(TAG, "【参数】 :: " + params.toString());
             try {
                 RequestCall build;
                 if (type.equals(POST)) {
@@ -65,21 +67,7 @@ public class HttpFactory {
                 } else {
                     build = OkHttpUtils.get().url(url).params(params).build();
                 }
-                build.execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        ToastUtil.showToast(R.string.http_error);
-                        stringCallBack.onError(call, e, id);
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        LogUtil.e(TAG, "==================== 返回结果 ==================");
-                        LogUtil.e(TAG, response);
-                        LogUtil.e(TAG, "====================== END ====================");
-                        stringCallBack.onResponse(response, id);
-                    }
-                });
+                build.execute(callback);
             } catch (Exception e) {
                 e.printStackTrace();
                 ToastUtil.showToast("参数有误");
