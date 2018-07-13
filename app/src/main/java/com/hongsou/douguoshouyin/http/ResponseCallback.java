@@ -42,7 +42,7 @@ public abstract class ResponseCallback<T> extends Callback<T> {
     }
 
     public ResponseCallback(Context context, Class clazz) {
-        this(context, clazz, false);
+        this(context, clazz, true);
     }
 
     @Override
