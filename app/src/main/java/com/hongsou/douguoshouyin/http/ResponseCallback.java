@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -15,6 +17,8 @@ import com.hongsou.douguoshouyin.views.LoadingDialog;
 import com.zhy.http.okhttp.callback.Callback;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import okhttp3.Call;
 import okhttp3.Request;
@@ -28,30 +32,31 @@ public abstract class ResponseCallback<T> extends Callback<T> {
 
     private static final String TAG = "ResponseCallback";
 
-    Class mClass;
     private Context mContext;
     private boolean mIsShowDialog;
     private String message;
     private Request mRequest;
 
 
-    public static Gson mGson = new Gson();
+    public static Gson mGson;
     private LoadingDialog loadingDialog;
 
 
-    public ResponseCallback(Context context, Class clazz) {
-        this(context, clazz, true, "加载中...");
+    public ResponseCallback(Context context) {
+        this(context, "加载中...", true);
     }
 
-    public ResponseCallback(Context context, Class clazz, String msg) {
-        this(context, clazz, true, msg);
+    public ResponseCallback(Context context, String msg) {
+        this(context, msg, true);
     }
 
-    public ResponseCallback(Context context, Class clazz, boolean isShowDialog, String msg) {
+    public ResponseCallback(Context context, String msg, boolean isShowDialog) {
         message = msg;
         mContext = context;
-        mClass = clazz;
         mIsShowDialog = isShowDialog;
+        if (mGson == null){
+            mGson = new Gson();
+        }
     }
 
     @Override
@@ -63,7 +68,14 @@ public abstract class ResponseCallback<T> extends Callback<T> {
             LogUtil.e(TAG, s);
             LogUtil.e(TAG, "====================== END ====================");
             //解析json,返回bean对象
-            t = (T) mGson.fromJson(s, mClass);
+            Type genericSuperclass = getClass().getGenericSuperclass();
+            Type genericityType;
+            if (genericSuperclass instanceof ParameterizedType) {
+                genericityType = ((ParameterizedType) genericSuperclass).getActualTypeArguments()[0];
+            } else {
+                genericityType = Object.class;
+            }
+            t = mGson.fromJson(s, genericityType);
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -76,13 +88,14 @@ public abstract class ResponseCallback<T> extends Callback<T> {
     public void onError(Call call, Exception e, int id) {
         //在这里做异常统一处理
         System.out.println("onError");
-        Log.e(TAG, "onError: " + e.toString() );
+        Log.e(TAG, "onError: " + e.toString());
         dismissLoadingDialog();
         ToastUtil.showError();
         cusError(call, e, id);
     }
 
-    public void cusError(Call call, Exception e, int id){}
+    public void cusError(Call call, Exception e, int id) {
+    }
 
     @Override
     public void onBefore(Request request, int id) {
@@ -115,7 +128,7 @@ public abstract class ResponseCallback<T> extends Callback<T> {
     /**
      * 进度条
      */
-    public void showLoadingDialog(Context context,String msg) {
+    public void showLoadingDialog(Context context, String msg) {
         dismissLoadingDialog();
         loadingDialog = new LoadingDialog(context);
         loadingDialog.setMessage(msg);
