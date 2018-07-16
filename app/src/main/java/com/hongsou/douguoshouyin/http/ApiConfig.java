@@ -10,9 +10,10 @@ package com.hongsou.douguoshouyin.http;
  */
 
 
-public class Apiconfig {
+public class ApiConfig {
 
     public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";//ip
+//    public static final String BASE_URL = "http://192.168.1.2:3000/mock/20/"; // 测试IP
 
     // TODO ======================================== 登录模块 ====================================================
     /**

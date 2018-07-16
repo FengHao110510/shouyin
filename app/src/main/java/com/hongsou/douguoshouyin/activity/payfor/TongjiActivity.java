@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.views.CustomDatePicker;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
@@ -95,7 +95,7 @@ public class TongjiActivity extends BaseActivity {
      */
     private void tongji() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.tongji).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.tongji).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

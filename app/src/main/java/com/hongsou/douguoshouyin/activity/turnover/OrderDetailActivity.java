@@ -11,13 +11,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.OrderDetailBean;
 import com.hongsou.douguoshouyin.javabean.OrderFoodBean;
@@ -124,7 +123,7 @@ public class OrderDetailActivity extends BaseActivity {
      */
     private void detailes() {
         showLoadingDialog();
-        HttpFactory.get().url(Apiconfig.orderDetails)
+        HttpFactory.get().url(ApiConfig.orderDetails)
                 .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())
                 .addParams("batch", batch)
                 .build().execute(new StringCallback() {
@@ -336,7 +335,7 @@ public class OrderDetailActivity extends BaseActivity {
     //退款接口
     private void tuikuan() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.tuikuan).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.tuikuan).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

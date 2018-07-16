@@ -2,7 +2,6 @@ package com.hongsou.douguoshouyin.activity.login;
 
 import android.os.CountDownTimer;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +9,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.javabean.SendMsgBean;
@@ -21,7 +21,6 @@ import butterknife.OnClick;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
@@ -105,7 +104,7 @@ public class ForgetActivity extends BaseActivity {
      */
     private void sendMsg(String user) {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.sendMsg).addParams("phone", user).build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.sendMsg).addParams("phone", user).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -182,7 +181,7 @@ public class ForgetActivity extends BaseActivity {
      */
     private void yesForget() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.forgetPassword)
+        HttpFactory.post().url(ApiConfig.forgetPassword)
                 .addParams("userName", etForgetUser.getText().toString())
                 .addParams("passWord", etForgetSetPassword2.getText().toString())
                 .addParams("verificationCode", yanzhengma)

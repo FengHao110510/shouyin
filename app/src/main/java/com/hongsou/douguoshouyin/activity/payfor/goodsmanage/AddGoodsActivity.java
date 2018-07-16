@@ -1,4 +1,4 @@
-package com.hongsou.douguoshouyin.activity.payfor.shangpinguanli;
+package com.hongsou.douguoshouyin.activity.payfor.goodsmanage;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import okhttp3.Call;
 
@@ -123,7 +123,7 @@ public class AddGoodsActivity extends BaseActivity {
      */
     private void baocun() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.tianjiashangpin).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.tianjiashangpin).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

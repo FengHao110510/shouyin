@@ -1,4 +1,4 @@
-package com.hongsou.douguoshouyin.activity.payfor.shangpinguanli;
+package com.hongsou.douguoshouyin.activity.payfor.goodsmanage;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
@@ -18,7 +19,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
@@ -62,7 +62,7 @@ public class ManageClassActivity extends BaseActivity {
      */
     private void caipinfenlei() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.caipinfenlei).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.caipinfenlei).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -147,7 +147,7 @@ public class ManageClassActivity extends BaseActivity {
      */
     private void managetTianjia() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.upCaipinfenlei).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.upCaipinfenlei).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -17,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
@@ -65,7 +65,7 @@ public class ErweimaActivity extends BaseActivity {
      */
     private void showErweima() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.yimafu).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.yimafu).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

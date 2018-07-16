@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
@@ -11,7 +12,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.tool.Global;
 import okhttp3.Call;
@@ -55,7 +55,7 @@ public class AboutWeActivity extends BaseActivity {
     public void onViewClicked() {
         //检查更新  走接口 TODO
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.checkVersion).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.checkVersion).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

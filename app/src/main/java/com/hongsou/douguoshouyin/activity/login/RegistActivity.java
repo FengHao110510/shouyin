@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.LoginBean;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -20,7 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
@@ -146,7 +146,7 @@ public class RegistActivity extends BaseActivity {
      */
     private void sendMsg() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.sendMsg).addParams("", "").build().execute(new ResponseCallback<LoginBean>(this) {
+        HttpFactory.post().url(ApiConfig.sendMsg).addParams("", "").build().execute(new ResponseCallback<LoginBean>(this) {
             @Override
             public void onResponse(LoginBean response, int id) {
 
@@ -182,7 +182,7 @@ public class RegistActivity extends BaseActivity {
      */
     private void goRegist() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.regist).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.regist).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

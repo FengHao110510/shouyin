@@ -17,7 +17,7 @@ import butterknife.OnClick;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
@@ -97,7 +97,7 @@ public class ReplacePasswordActivity extends BaseActivity {
      */
     private void toOver() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.replacePassword)
+        HttpFactory.post().url(ApiConfig.replacePassword)
                 .addParams("userName", Global.getSpGlobalUtil().getUserName())
                 .addParams("passWord", Global.getSpGlobalUtil().getPassword())
                 .addParams("updatePassWord", aginPassWord)

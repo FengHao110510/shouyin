@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import okhttp3.Call;
 
@@ -83,7 +83,7 @@ public class FailActivity extends BaseActivity {
      */
     private void tongbu() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.tongbu).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.tongbu).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

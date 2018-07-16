@@ -147,15 +147,15 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.shangpinguanli.CommodityActivity"
+            android:name=".activity.payfor.goodsmanage.CommodityActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.shangpinguanli.ManageClassActivity"
+            android:name=".activity.payfor.goodsmanage.ManageClassActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.shangpinguanli.AddGoodsActivity"
+            android:name=".activity.payfor.goodsmanage.AddGoodsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -167,11 +167,11 @@
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".activity.payfor.shangpinguanli.ClassActivity"
+            android:name=".activity.payfor.goodsmanage.ClassActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.shangpinguanli.AddTaocanActivity"
+            android:name=".activity.payfor.goodsmanage.AddTaocanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -183,7 +183,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.kaidan.KaidanActivity"
+            android:name=".activity.payfor.createorder.CreateOrderActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -191,7 +191,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.kaidan.KaidanDetialsActivity"
+            android:name=".activity.payfor.createorder.KaidanDetialsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -207,11 +207,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.shangpinguanli.TaocanfenzuActivity"
+            android:name=".activity.payfor.goodsmanage.TaocanfenzuActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.shangpinguanli.AddFenzuActivity"
+            android:name=".activity.payfor.goodsmanage.AddFenzuActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity

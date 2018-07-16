@@ -14,30 +14,19 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.turnover.OrderDetailActivity;
 import com.hongsou.douguoshouyin.adapter.OrderAdapter;
 import com.hongsou.douguoshouyin.base.BaseFragment;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.OrderBean;
-import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
-import com.scwang.smartrefresh.header.BezierCircleHeader;
-import com.scwang.smartrefresh.header.DeliveryHeader;
-import com.scwang.smartrefresh.header.DropBoxHeader;
-import com.scwang.smartrefresh.header.FunGameHitBlockHeader;
-import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.footer.FalsifyFooter;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
@@ -151,7 +140,7 @@ public class TurnoverOrderFragment extends BaseFragment {
     private void getOrderList() {
         showLoadingDialog();
         Log.e("2333", "getOrderList: " + Global.getSpGlobalUtil().getShopNumber());
-        HttpFactory.get().url(Apiconfig.getOrderList)
+        HttpFactory.get().url(ApiConfig.getOrderList)
                 .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())//店铺编号
                 .addParams("orderSourcePayment", "")//订单来源
                 .addParams("orderType", "")//订单类型

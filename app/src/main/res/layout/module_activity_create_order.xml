@@ -6,25 +6,34 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.hongsou.douguoshouyin.activity.payfor.kaidan.KaidanActivity">
-    <include layout="@layout/module_include_titlebar" />
+    tools:context="com.hongsou.douguoshouyin.activity.payfor.createorder.CreateOrderActivity">
+
+    <com.hongsou.douguoshouyin.views.CommonTopBar
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:center_text="开单"
+        app:left_text="@string/icon_back" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="@color/color_main_gray"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_create_order_category"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/bg_gray"></LinearLayout>
-        <LinearLayout
+            android:layout_weight="2" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_create_order_food"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:background="@color/white"></LinearLayout>
+            android:background="@color/white" />
     </LinearLayout>
 
     <View style="@style/view_line_horizontal_05" />
@@ -35,79 +44,83 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_order_count"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:orientation="horizontal"
             android:background="@color/bg_main_top_gray"
+            android:orientation="horizontal"
             android:paddingBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
                 android:text="¥"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="bottom"
-                />
+                android:textSize="14sp" />
+
             <TextView
+                android:id="@+id/tv_order_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
                 android:text="10.5"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_marginLeft="5dp"
-                android:layout_gravity="bottom"
-                />
+                android:textSize="24sp" />
+
             <TextView
+                android:id="@+id/tv_food_count"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:text="1"
-                android:layout_marginTop="5dp"
-                android:gravity="top|center_horizontal"
-                android:background="@drawable/xiaohuangdian"
-                android:textColor="@color/white"
-                android:textSize="10sp"
                 android:layout_gravity="top"
-                />
+                android:layout_marginTop="5dp"
+                android:background="@drawable/xiaohuangdian"
+                android:gravity="top|center_horizontal"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="20dp"
                 android:text="已选"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="bottom"
-                />
+                android:textSize="14sp" />
+
             <TextView
+                android:id="@+id/tv_select_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
-                android:layout_gravity="bottom"
-                />
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:text="例"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_gravity="bottom"
-                />
+                android:textSize="14sp" />
         </LinearLayout>
+
         <TextView
-            android:id="@+id/tv_payfor_kaidan_qushoukuan_bt"
+            android:id="@+id/tv_make_money"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@color/color_base_yellow"
-            android:text="去收款"
-            android:textSize="16sp"
             android:gravity="center"
-            android:textColor="@color/gray"></TextView>
+            android:text="去收款"
+            android:textColor="@color/gray"
+            android:textSize="16sp"/>
     </LinearLayout>
 </LinearLayout>

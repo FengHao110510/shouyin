@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -32,8 +33,6 @@ import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
 import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
 import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
 import com.hongsou.douguoshouyin.base.BaseFragment;
-import com.hongsou.douguoshouyin.http.Apiconfig;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 import okhttp3.Call;
 
@@ -203,7 +202,7 @@ public class MineFragment extends BaseFragment {
      */
     private void goLogout() {
         showLoadingDialog();
-        OkHttpUtils.post().url(Apiconfig.logout).addParams("", "").build().execute(new StringCallback() {
+        OkHttpUtils.post().url(ApiConfig.logout).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

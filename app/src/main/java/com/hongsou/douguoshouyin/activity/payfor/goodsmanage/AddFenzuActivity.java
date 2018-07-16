@@ -1,4 +1,4 @@
-package com.hongsou.douguoshouyin.activity.payfor.shangpinguanli;
+package com.hongsou.douguoshouyin.activity.payfor.goodsmanage;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;

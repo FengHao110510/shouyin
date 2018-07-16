@@ -15,6 +15,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hongsou.douguoshouyin.activity.payfor.createorder.CreateOrderActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -31,9 +32,8 @@ import butterknife.Unbinder;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.payfor.TongjiActivity;
 import com.hongsou.douguoshouyin.activity.payfor.table.TableActivity;
-import com.hongsou.douguoshouyin.activity.payfor.kaidan.KaidanActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PayForActivity;
-import com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.CommodityActivity;
+import com.hongsou.douguoshouyin.activity.payfor.goodsmanage.CommodityActivity;
 import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
@@ -227,7 +227,7 @@ public class PayForFragment extends BaseFragment {
 //                startActivity(detailIntent);
 
                 //开单
-                Intent kaidanIntent = new Intent(getActivity(), KaidanActivity.class);
+                Intent kaidanIntent = new Intent(getActivity(), CreateOrderActivity.class);
                 startActivity(kaidanIntent);
                 break;
             case R.id.rv_payfor_turnover:

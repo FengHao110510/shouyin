@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.views.CircleImageView;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
@@ -308,7 +308,7 @@ public class MenDianActivity extends BaseActivity {
      */
     private void toSave() {
         showLoadingDialog();
-        HttpFactory.post().url(Apiconfig.mendianSave).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.mendianSave).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

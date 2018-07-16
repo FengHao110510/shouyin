@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.tool.Global;
@@ -502,7 +502,7 @@ public class PayForActivity extends BaseActivity {
     private void payXJ() {
         showLoadingDialog();
         //走提交订单接口
-        HttpFactory.post().url(Apiconfig.commitOder).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.commitOder).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

@@ -1,4 +1,4 @@
-package com.hongsou.douguoshouyin.activity.payfor.shangpinguanli;
+package com.hongsou.douguoshouyin.activity.payfor.goodsmanage;
 
 import android.app.Activity;
 import android.content.Intent;
