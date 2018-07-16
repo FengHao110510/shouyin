@@ -4,17 +4,17 @@ import android.app.Dialog;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
-
-import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
-import butterknife.ButterKnife;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.views.LoadingDialog;
+
+import butterknife.ButterKnife;
 
 /**
  * 文件描述：new！！com.example.administrator.myapplication.app.base
@@ -85,6 +85,24 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    /**
+     * @desc 获取店铺编号
+     * @anthor lpc
+     * @date: 2018/7/16
+     * @return 店铺编号
+     */
+    public String getShopNumber(){
+        return Global.getSpGlobalUtil().getShopNumber();
+    }
+
+    /**
+     * @desc 获取登录人编号
+     * @anthor lpc
+     * @date: 2018/7/16
+     */
+    public String getClerkNumber(){
+        return Global.getSpGlobalUtil().getClerkNumber();
+    }
 
     /**
      * 解除绑定、以免发生内存泄漏
