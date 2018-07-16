@@ -73,7 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始化布局
      */
-    public abstract void initView();
+    public void initView(){}
 
     /**
      * 设置数据
