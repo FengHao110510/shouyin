@@ -60,7 +60,6 @@ public class HttpFactory {
 
     public void execute(final Callback callback) {
         if (NetWorkStateUtils.isNetConnected()) {
-            params.put("shopNumber", Global.getSpGlobalUtil().getShopNumber());
             Log.e(TAG, "【参数】 :: " + params.toString());
             try {
                 RequestCall build;
