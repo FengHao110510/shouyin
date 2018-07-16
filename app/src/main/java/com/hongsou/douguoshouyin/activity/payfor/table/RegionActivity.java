@@ -2,9 +2,7 @@ package com.hongsou.douguoshouyin.activity.payfor.table;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.view.Display;
 import android.view.View;
@@ -14,8 +12,6 @@ import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 import butterknife.BindView;
