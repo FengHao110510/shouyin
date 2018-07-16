@@ -12,6 +12,8 @@ package com.hongsou.douguoshouyin.http;
 
 public class ApiConfig {
 
+    public static final int CODE_SUCCESS = 1000;
+
     public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";//ip
 //    public static final String BASE_URL = "http://192.168.1.2:3000/mock/20/"; // 测试IP
 
