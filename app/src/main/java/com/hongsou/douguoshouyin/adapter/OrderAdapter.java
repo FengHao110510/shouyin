@@ -28,15 +28,15 @@ import java.util.List;
  */
 
 
-public class OrderAdapter extends BaseQuickAdapter<OrderBean.DataBeanX.DataBean,BaseViewHolder> {
+public class OrderAdapter extends BaseQuickAdapter<OrderBean.DataBean.ResultBean,BaseViewHolder> {
 
 
-    public OrderAdapter(int layoutResId, @Nullable List<OrderBean.DataBeanX.DataBean> data) {
+    public OrderAdapter(int layoutResId, @Nullable List<OrderBean.DataBean.ResultBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OrderBean.DataBeanX.DataBean item) {
+    protected void convert(BaseViewHolder helper, OrderBean.DataBean.ResultBean item) {
         helper.setText(R.id.tv_item_turnover_order_ordernum,item.getBatch())
                 .setText(R.id.tv_item_turnover_order_time,item.getEndTime())
                 .setText(R.id.tv_item_turnover_order_paystate,item.getOrderType())

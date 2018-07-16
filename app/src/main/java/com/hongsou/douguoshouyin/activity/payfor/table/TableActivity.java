@@ -1,4 +1,4 @@
-package com.hongsou.douguoshouyin.activity.payfor;
+package com.hongsou.douguoshouyin.activity.payfor.table;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -9,28 +9,30 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
 
 /**
  * 桌台管理页面
  */
-public class ZhuotaiguanliActivity extends BaseActivity {
+public class TableActivity extends BaseActivity {
 
-
-    @BindView(R.id.tv_payfor_zhuotaiguanli_add)
-    TextView tvPayforZhuotaiguanliAdd;
-    @BindView(R.id.tv_payfor_zhuotaiguanli_delet)
-    TextView tvPayforZhuotaiguanliDelet;
 
     Dialog dialog;
+    @BindView(R.id.tv_payfor_table_add)
+    TextView tvPayforTableAdd;
+    @BindView(R.id.tv_payfor_table_delet)
+    TextView tvPayforTableDelet;
+    @BindView(R.id.tv_payfor_table_region)
+    TextView tvPayforTableRegion;
 
     @Override
     public int initLayout() {
-        return R.layout.module_activity_payfor_zhuotaiguanli;
+        return R.layout.module_activity_payfor_table;
     }
 
     @Override
@@ -51,15 +53,22 @@ public class ZhuotaiguanliActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_payfor_zhuotaiguanli_add, R.id.tv_payfor_zhuotaiguanli_delet})
+    @OnClick(R.id.tv_payfor_table_region)
+    public void onViewClicked() {
+    }
+
+    @OnClick({R.id.tv_payfor_table_add, R.id.tv_payfor_table_delet, R.id.tv_payfor_table_region})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_payfor_zhuotaiguanli_add:
+            case R.id.tv_payfor_table_add:
                 //弹框批量添加
                 showAddzhuotaiDialog();
                 break;
-            case R.id.tv_payfor_zhuotaiguanli_delet:
+            case R.id.tv_payfor_table_delet:
                 //批量删除
+                break;
+            case R.id.tv_payfor_table_region:
+                //区域管理
                 break;
         }
     }

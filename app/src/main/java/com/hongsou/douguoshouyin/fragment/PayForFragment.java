@@ -30,7 +30,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.payfor.TongjiActivity;
-import com.hongsou.douguoshouyin.activity.payfor.ZhuotaiguanliActivity;
+import com.hongsou.douguoshouyin.activity.payfor.table.TableActivity;
 import com.hongsou.douguoshouyin.activity.payfor.kaidan.KaidanActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PayForActivity;
 import com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.CommodityActivity;
@@ -153,7 +153,7 @@ public class PayForFragment extends BaseFragment {
 //                }
                 if (name[i].contains("桌台")) {
                     ToastUtil.showToast(name[i]);
-                    Intent zhuotaiIntent = new Intent(getActivity(), ZhuotaiguanliActivity.class);
+                    Intent zhuotaiIntent = new Intent(getActivity(), TableActivity.class);
                     startActivity(zhuotaiIntent);
                 }
                 if (name[i].contains("商品")) {

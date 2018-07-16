@@ -77,7 +77,7 @@ public class TurnoverOrderFragment extends BaseFragment {
 
     OrderAdapter orderAdapter;
     private int page;
-    ArrayList<OrderBean.DataBeanX.DataBean> listBeans = new ArrayList<>();
+    ArrayList<OrderBean.DataBean.ResultBean> listBeans = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -174,7 +174,7 @@ public class TurnoverOrderFragment extends BaseFragment {
                 OrderBean orderBean = new Gson().fromJson(response, OrderBean.class);
 
                 if (orderBean.getCode() == 1000) {
-                    showOrderList(orderBean.getData().getData());
+                    showOrderList(orderBean.getData().getResult());
                 } else {
                     ToastUtil.showToast(orderBean.getMsg());
                 }
@@ -191,7 +191,7 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @date 2018/7/12 0012 下午 15:04
      * @desc //展示订单列表
      */
-    private void showOrderList(List<OrderBean.DataBeanX.DataBean> data) {
+    private void showOrderList(List<OrderBean.DataBean.ResultBean> data) {
         if (page > 1) {
             listBeans.addAll(data);
             orderAdapter.notifyItemInserted(data.size());

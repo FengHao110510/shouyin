@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.hongsou.douguoshouyin.activity.payfor.ZhuotaiguanliActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.payfor.table.TableActivity">
 
     <include layout="@layout/module_include_titlebar" />
 
@@ -22,7 +22,7 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/tv_payfor_zhuotaiguanli_add"
+                android:id="@+id/tv_payfor_table_add"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -34,13 +34,26 @@
             <View style="@style/view_line_vertical_1" />
 
             <TextView
-                android:id="@+id/tv_payfor_zhuotaiguanli_delet"
+                android:id="@+id/tv_payfor_table_delet"
 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="批量删除"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <View style="@style/view_line_vertical_1" />
+
+            <TextView
+                android:id="@+id/tv_payfor_table_region"
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="区域管理"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>

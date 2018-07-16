@@ -66,6 +66,40 @@ public class Apiconfig {
      * TODO 添加商品
      */
     public static final String tianjiashangpin = BASE_URL + "";
+    // TODO ======================================== 桌台管理 ====================================================
+
+    /**
+     * TODO 添加桌台
+     */
+    public static final String addTable = BASE_URL + "/table/addTable";
+    /**
+     * TODO 批量删除桌台
+     */
+    public static final String batchDeleteTable = BASE_URL + "/table/batchDeleteTable";
+    /**
+     * TODO 批量添加桌台
+     */
+    public static final String batchAddTable = BASE_URL + "/table/batchAddTable";
+    /**
+     * TODO 查询桌台列表
+     */
+    public static final String getTableList = BASE_URL + "/table/getTableList";
+    /**
+     * TODO 添加区域
+     */
+    public static final String addRegion = BASE_URL + "/table/addRegion";
+    /**
+     * TODO 删除区域
+     */
+    public static final String delRegion = BASE_URL + "/table/delRegion";
+    /**
+     * TODO 编辑区域
+     */
+    public static final String updateRegion = BASE_URL + "/table/updateRegion";
+    /**
+     * TODO 查询区域
+     */
+    public static final String getRegionList = BASE_URL + "/table/getRegionList";
     // TODO ======================================== 流水模块 ====================================================
     /**
      * TODO 获取订单列表

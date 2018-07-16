@@ -32,14 +32,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.hongsou.douguoshouyin.base.BaseApplication"
+        android:name=".base.BaseApplication"
         android:allowBackup="true"
         android:icon="@drawable/dg_logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/dg_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="com.hongsou.douguoshouyin.activity.WelcomeActivity">
+        <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,177 +47,178 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_main"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.login.LoginActivity"
+            android:name=".activity.login.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.login.RegistActivity"
+            android:name=".activity.login.RegistActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_regist"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.login.ForgetActivity"
+            android:name=".activity.login.ForgetActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_forget"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.MenDianActivity"
+            android:name=".activity.mine.MenDianActivity"
             android:label="@string/title_activity_men_dian"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity"
+            android:name=".activity.mine.ReplacePasswordActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.PayForActivity"
+            android:name=".activity.payfor.payfor.PayForActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_pay_for"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.CashierActivity"
+            android:name=".activity.mine.CashierActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_cashier"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.CashierXPActivity"
+            android:name=".activity.mine.CashierXPActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_cashier_xp"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.CashierTSActivity"
+            android:name=".activity.mine.CashierTSActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_cashier_ts"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.DiscountActivity"
+            android:name=".activity.payfor.payfor.DiscountActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.ZhuoPaiActivity"
+            android:name=".activity.mine.ZhuoPaiActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.ErweimaActivity"
+            android:name=".activity.payfor.payfor.ErweimaActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.SuccessActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.BackPayActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.FailActivity"
+            android:name=".activity.payfor.payfor.SuccessActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.ShoukuanzhongActivity"
+            android:name=".activity.payfor.payfor.BackPayActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.payfor.payfor.FailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.turnover.OrderShaixuanActivity"
+            android:name=".activity.payfor.payfor.ShoukuanzhongActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.turnover.OrderShaixuanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.turnover.TurnoverShaixuanActivity"
+            android:name=".activity.turnover.TurnoverShaixuanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.turnover.OrderDetailActivity"
+            android:name=".activity.turnover.OrderDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.CommodityActivity"
+            android:name=".activity.payfor.shangpinguanli.CommodityActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.ManageClassActivity"
+            android:name=".activity.payfor.shangpinguanli.ManageClassActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.AddGoodsActivity"
+            android:name=".activity.payfor.shangpinguanli.AddGoodsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity"
+            android:name=".activity.mine.SaomaFoodsSetActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity xmlns:tools="http://schemas.android.com/tools"
-            android:name="com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity"
+            android:name=".activity.payfor.payfor.ScanQRCodeActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.ClassActivity"
+            android:name=".activity.payfor.shangpinguanli.ClassActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.AddTaocanActivity"
+            android:name=".activity.payfor.shangpinguanli.AddTaocanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.JiaobanActivity"
+            android:name=".activity.mine.JiaobanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.AboutWeActivity"
+            android:name=".activity.mine.AboutWeActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.kaidan.KaidanActivity"
+            android:name=".activity.payfor.kaidan.KaidanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.TongjiActivity"
+            android:name=".activity.payfor.TongjiActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.kaidan.KaidanDetialsActivity"
+            android:name=".activity.payfor.kaidan.KaidanDetialsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.NosaomaFoodsActivity"
+            android:name=".activity.mine.NosaomaFoodsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.AddNosaomaActivity"
+            android:name=".activity.mine.AddNosaomaActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.ZhuotaiguanliActivity"
+            android:name=".activity.payfor.table.TableActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.TaocanfenzuActivity"
+            android:name=".activity.payfor.shangpinguanli.TaocanfenzuActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.payfor.shangpinguanli.AddFenzuActivity"
+            android:name=".activity.payfor.shangpinguanli.AddFenzuActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.hongsou.douguoshouyin.activity.mine.PrinterActivity"
+            android:name=".activity.mine.PrinterActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.payfor.table.RegionActivity"></activity>
     </application>
 
 </manifest>
