@@ -127,7 +127,7 @@ public class SuccessActivity extends BaseActivity {
      */
     private void tuikuan() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.tuikuan).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.TUIKUAN).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

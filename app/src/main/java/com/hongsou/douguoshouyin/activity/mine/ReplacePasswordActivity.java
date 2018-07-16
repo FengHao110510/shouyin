@@ -7,20 +7,18 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.ReplacePasswordBean;
 import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.ApiConfig;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
-
 import okhttp3.Call;
 
 /**
@@ -97,7 +95,7 @@ public class ReplacePasswordActivity extends BaseActivity {
      */
     private void toOver() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.replacePassword)
+        HttpFactory.post().url(ApiConfig.REPLACE_PASSWORD)
                 .addParams("userName", Global.getSpGlobalUtil().getUserName())
                 .addParams("passWord", Global.getSpGlobalUtil().getPassword())
                 .addParams("updatePassWord", aginPassWord)

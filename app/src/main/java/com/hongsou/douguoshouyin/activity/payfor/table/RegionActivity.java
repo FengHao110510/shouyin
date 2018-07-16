@@ -121,7 +121,7 @@ public class RegionActivity extends BaseActivity {
      * @return
      * @author fenghao
      * @date 2018/7/16 0016 下午 15:18
-     * @desc 添加区域接口 addRegion
+     * @desc 添加区域接口 ADD_REGION
      */
     private void addRegion(String s) {
 

@@ -95,7 +95,7 @@ public class TongjiActivity extends BaseActivity {
      */
     private void tongji() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.tongji).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.TONGJI).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

@@ -148,7 +148,7 @@ public class LoginActivity extends BaseActivity {
             return;
         }
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(ApiConfig.login)
+        HttpFactory.post().url(ApiConfig.LOGIN)
                 .addParams("userName", userName)
                 .addParams("passWord", passWord)
                 .addParams("ip", Global.getIPAddress(this))

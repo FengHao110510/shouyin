@@ -123,7 +123,7 @@ public class OrderDetailActivity extends BaseActivity {
      */
     private void detailes() {
         showLoadingDialog();
-        HttpFactory.get().url(ApiConfig.orderDetails)
+        HttpFactory.get().url(ApiConfig.ORDER_DETAILS)
                 .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())
                 .addParams("batch", batch)
                 .build().execute(new StringCallback() {
@@ -335,7 +335,7 @@ public class OrderDetailActivity extends BaseActivity {
     //退款接口
     private void tuikuan() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.tuikuan).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.TUIKUAN).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

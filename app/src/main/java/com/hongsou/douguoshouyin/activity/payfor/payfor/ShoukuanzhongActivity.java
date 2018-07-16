@@ -79,7 +79,7 @@ public class ShoukuanzhongActivity extends BaseActivity {
      */
     private void tongbu() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.tongbu).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.TONGBU).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

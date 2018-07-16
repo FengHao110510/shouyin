@@ -65,7 +65,7 @@ public class ErweimaActivity extends BaseActivity {
      */
     private void showErweima() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.yimafu).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.PAY_FOR_CODE).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

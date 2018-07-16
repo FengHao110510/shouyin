@@ -9,21 +9,19 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.javabean.SendMsgBean;
 import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
-
 import okhttp3.Call;
 
 /**
@@ -104,7 +102,7 @@ public class ForgetActivity extends BaseActivity {
      */
     private void sendMsg(String user) {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.sendMsg).addParams("phone", user).build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.SEND_MSG).addParams("phone", user).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -181,7 +179,7 @@ public class ForgetActivity extends BaseActivity {
      */
     private void yesForget() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(ApiConfig.forgetPassword)
+        HttpFactory.post().url(ApiConfig.FORGET_PASSWORD)
                 .addParams("userName", etForgetUser.getText().toString())
                 .addParams("passWord", etForgetSetPassword2.getText().toString())
                 .addParams("verificationCode", yanzhengma)

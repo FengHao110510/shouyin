@@ -502,7 +502,7 @@ public class PayForActivity extends BaseActivity {
     private void payXJ() {
         showLoadingDialog();
         //走提交订单接口
-        HttpFactory.post().url(ApiConfig.commitOder).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.COMMIT_ODER).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

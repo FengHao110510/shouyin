@@ -139,8 +139,8 @@ public class TurnoverOrderFragment extends BaseFragment {
      */
     private void getOrderList() {
         showLoadingDialog();
-        Log.e("2333", "getOrderList: " + Global.getSpGlobalUtil().getShopNumber());
-        HttpFactory.get().url(ApiConfig.getOrderList)
+        Log.e("2333", "GET_ORDER_LIST: " + Global.getSpGlobalUtil().getShopNumber());
+        HttpFactory.get().url(ApiConfig.GET_ORDER_LIST)
                 .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())//店铺编号
                 .addParams("orderSourcePayment", "")//订单来源
                 .addParams("orderType", "")//订单类型

@@ -202,7 +202,7 @@ public class MineFragment extends BaseFragment {
      */
     private void goLogout() {
         showLoadingDialog();
-        OkHttpUtils.post().url(ApiConfig.logout).addParams("", "").build().execute(new StringCallback() {
+        OkHttpUtils.post().url(ApiConfig.LOGOUT).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
