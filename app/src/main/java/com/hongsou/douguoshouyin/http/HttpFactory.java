@@ -8,6 +8,7 @@ import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.http.NetWorkStateUtils;
 import com.hongsou.douguoshouyin.http.PostHttpBuilder;
 import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -59,6 +60,7 @@ public class HttpFactory {
 
     public void execute(final Callback callback) {
         if (NetWorkStateUtils.isNetConnected()) {
+            params.put("shopNumber", Global.getSpGlobalUtil().getShopNumber());
             Log.e(TAG, "【参数】 :: " + params.toString());
             try {
                 RequestCall build;
