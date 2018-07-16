@@ -9,23 +9,28 @@ import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.FoodBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.hongsou.douguoshouyin.views.CustomPopupWindow;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 版权：鸿搜网络公司 版权所有
+ * @copyright: 鸿搜网络公司 版权所有
  * <p>
- * 作者：lpc
+ * @author: lpc
  * <p>
- * 创建日期：2018/7/16
+ * @date：2018/7/16
  * <p>
- * 描述：开单主页面
- * <p>
- * 修订历史：
+ * @desc：开单主页面
  */
 public class CreateOrderActivity extends BaseActivity {
 
@@ -55,6 +60,8 @@ public class CreateOrderActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        mRvCreateOrderCategory.setLayoutManager(new LinearLayoutManager(this));
+        mRvCreateOrderFood.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -65,29 +72,29 @@ public class CreateOrderActivity extends BaseActivity {
 
     @Override
     public void initData() {
-//        HttpFactory.get()
-//                .url(ApiConfig.GET_PAY_ORDER_LIST)
-//                .build()
-//                .execute(new ResponseCallback<RootBean<>>(this) {
-//                    @Override
-//                    public void onResponse(RootBean<> response, int id) {
-//                       if (response.getCode() == 1000){
-//                            rendView(response);
-//                       }else {
-//                           ToastUtil.showToast(response.getMsg());
-//                       }
-//                    }
-//                });
+        HttpFactory.get()
+                .url(ApiConfig.GET_FOOD)
+                .addParams("shopNumber", getShopNumber())
+                .build()
+                .execute(new ResponseCallback<RootBean<List<FoodBean>>>(this) {
+                    @Override
+                    public void onResponse(RootBean<List<FoodBean>> response, int id) {
+                       if (response.getCode() == ApiConfig.CODE_SUCCESS){
+                            rendView(response.getData());
+                       }else {
+                           ToastUtil.showToast(response.getMsg());
+                       }
+                    }
+                });
     }
 
     /**
-     * @param bean 数据源
-     * @return
      * @desc 获取数据后，渲染页面
      * @anthor lpc
-     * @date: 2018/7/16
+     * @date 2018/7/16
+     * @param foodBeans 菜品数据源
      */
-    private void rendView(RootBean bean) {
+    private void rendView(List<FoodBean> foodBeans) {
 
     }
 
@@ -109,10 +116,10 @@ public class CreateOrderActivity extends BaseActivity {
     }
 
     /**
-     * @param
      * @desc 弹窗展示点餐列表
      * @anthor lpc
      * @date: 2018/7/16
+     * @param
      */
     private void showFoodListWindow() {
         CustomPopupWindow popupWindow = new CustomPopupWindow.Builder()
