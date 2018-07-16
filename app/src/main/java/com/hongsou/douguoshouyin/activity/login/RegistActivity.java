@@ -182,19 +182,7 @@ public class RegistActivity extends BaseActivity {
      */
     private void goRegist() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(ApiConfig.REGIST).addParams("", "").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
 
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-
-            }
-        });
     }
 
     @Override

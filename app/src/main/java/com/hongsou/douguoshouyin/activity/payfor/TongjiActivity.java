@@ -19,11 +19,13 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.views.CustomDatePicker;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+
 import okhttp3.Call;
 
 /**
@@ -116,9 +118,9 @@ public class TongjiActivity extends BaseActivity {
                 break;
             case R.id.ll_titlebar_payfor_tongji_shaixuan:
                 //弹框筛选
-
                 showTimeDialog();
-
+                break;
+            default:
                 break;
         }
     }

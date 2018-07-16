@@ -9,20 +9,17 @@ import android.view.ViewGroup;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.TurnoverMultipleItem;
 import com.hongsou.douguoshouyin.base.BaseFragment;
-import com.hongsou.douguoshouyin.http.Apiconfig;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.TurnoverBean;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
-import com.zhy.http.okhttp.callback.Callback;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * 版权：鸿搜网络公司 版权所有
@@ -79,7 +76,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @desc 展示列表数据
      */
     private void showTurnoverList() {
-        HttpFactory.get().url(Apiconfig.getPayOrderList)
+        HttpFactory.get().url(ApiConfig.GET_PAY_ORDER_LIST)
                 .addParams("shopNumber", "1000180614300325544")
                 .addParams("tradingTime", "")
                 .addParams("endTime", "")

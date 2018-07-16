@@ -9,7 +9,7 @@
         android:id="@+id/tv_item_payfor_region_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:text="一楼"
         android:textColor="@color/black"
         android:textSize="14sp" />
@@ -21,17 +21,30 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
+        android:layout_margin="3dp"
         android:text="@string/icon_payfor_commodity_class_tianjia"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tv_item_payfor_region_add_del"
+        android:id="@+id/tv_item_payfor_region_add_del_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/icon_payfor_commodity_class_shanchu"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_item_payfor_region_add_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/btn_red"
+        android:gravity="center"
+        android:text="删除"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 </LinearLayout>

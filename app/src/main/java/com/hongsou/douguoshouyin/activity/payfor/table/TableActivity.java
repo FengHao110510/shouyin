@@ -1,6 +1,7 @@
 package com.hongsou.douguoshouyin.activity.payfor.table;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -62,35 +63,41 @@ public class TableActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_payfor_table_add:
                 //弹框批量添加
-                showAddzhuotaiDialog();
+                showAddTableDialog();
                 break;
             case R.id.tv_payfor_table_delet:
                 //批量删除
                 break;
             case R.id.tv_payfor_table_region:
                 //区域管理
+                startActivity(new Intent(this, RegionActivity.class));
+                break;
+            default:
                 break;
         }
     }
 
     //弹框批量添加
 
-    private void showAddzhuotaiDialog() {
+    private void showAddTableDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_add_zhuotai, null);
+        //规格
+        EditText etDialogZhuotaiguige = view.findViewById(R.id.et_dialog_zhuotaiguige);
+        //数量
+        EditText etDialogZhuotaishuliang = view.findViewById(R.id.et_dialog_zhuotaishuliang);
+        //取消
+        TextView tvDialogAddzhuotaiCancle = view.findViewById(R.id.tv_dialog_addzhuotai_cancle);
+        //确定
+        TextView tvDialogAddzhuotaiYes = view.findViewById(R.id.tv_dialog_addzhuotai_yes);
 
-        EditText et_dialog_zhuotaiguige = view.findViewById(R.id.et_dialog_zhuotaiguige);//规格
-        EditText et_dialog_zhuotaishuliang = view.findViewById(R.id.et_dialog_zhuotaishuliang);//数量
-        TextView tv_dialog_addzhuotai_cancle = view.findViewById(R.id.tv_dialog_addzhuotai_cancle);//
-        TextView tv_dialog_addzhuotai_yes = view.findViewById(R.id.tv_dialog_addzhuotai_yes);//
-
-        tv_dialog_addzhuotai_cancle.setOnClickListener(new View.OnClickListener() {
+        tvDialogAddzhuotaiCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
 
             }
         });
-        tv_dialog_addzhuotai_yes.setOnClickListener(new View.OnClickListener() {
+        tvDialogAddzhuotaiYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //成功后走接口上传
@@ -104,7 +111,7 @@ public class TableActivity extends BaseActivity {
         int w = display.getWidth();
         int h = display.getHeight();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 1 / 4);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 4);
         dialog.addContentView(view, params);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);

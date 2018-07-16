@@ -123,7 +123,7 @@ public class AddGoodsActivity extends BaseActivity {
      */
     private void baocun() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.tianjiashangpin).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.TIANJIASHANGPIN).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

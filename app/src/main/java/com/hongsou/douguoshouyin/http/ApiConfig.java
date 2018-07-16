@@ -21,7 +21,11 @@ public class ApiConfig {
     /**
      * TODO 登录接口
      */
-    public static final String LOGIN = BASE_URL + "/user/LOGIN";
+    public static final String LOGIN = BASE_URL + "/user/login";
+    /**
+     * TODO 注册接口
+     */
+    public static final String regist = BASE_URL + "";
     /**
      * TODO 发送验证码接口
      */
@@ -54,76 +58,66 @@ public class ApiConfig {
      */
     public static final String TONGJI = BASE_URL + "";
     /**
-     * TODO 查询菜品分类接口
-     */
-    public static final String caipinfenlei = BASE_URL + "";
-    /**
-     * TODO 提交菜品分类接口
-     */
-    public static final String upCaipinfenlei = BASE_URL + "";
-    /**
      * TODO 添加商品
      */
-    public static final String tianjiashangpin = BASE_URL + "";
-
+    public static final String TIANJIASHANGPIN = BASE_URL + "";
     // TODO ======================================== 开单模块 ====================================================
     /**
      * TODO 查询餐品数据
      */
-    public static final String GET_FOOD = BASE_URL + "/food/GET_FOOD";
-
+    public static final String GET_FOOD = BASE_URL + "/food/getFood";
 
     // TODO ======================================== 桌台管理 ====================================================
 
     /**
      * TODO 添加桌台
      */
-    public static final String ADD_TABLE = BASE_URL + "/table/ADD_TABLE";
+    public static final String ADD_TABLE = BASE_URL + "/table/addTable";
     /**
      * TODO 批量删除桌台
      */
-    public static final String BATCH_DELETE_TABLE = BASE_URL + "/table/BATCH_DELETE_TABLE";
+    public static final String BATCH_DELETE_TABLE = BASE_URL + "/table/batchDeleteTable";
     /**
      * TODO 批量添加桌台
      */
-    public static final String BATCH_ADD_TABLE = BASE_URL + "/table/BATCH_ADD_TABLE";
+    public static final String BATCH_ADD_TABLE = BASE_URL + "/table/batchAddTable";
     /**
      * TODO 查询桌台列表
      */
-    public static final String GET_TABLE_LIST = BASE_URL + "/table/GET_TABLE_LIST";
+    public static final String GET_TABLE_LIST = BASE_URL + "/table/getTableList";
     /**
      * TODO 添加区域
      */
-    public static final String ADD_REGION = BASE_URL + "/table/ADD_REGION";
+    public static final String ADD_REGION = BASE_URL + "/table/addRegion";
     /**
      * TODO 删除区域
      */
-    public static final String DEL_REGION = BASE_URL + "/table/DEL_REGION";
+    public static final String DEL_REGION = BASE_URL + "/table/delRegion";
     /**
      * TODO 编辑区域
      */
-    public static final String UPDATE_REGION = BASE_URL + "/table/UPDATE_REGION";
+    public static final String UPDATE_REGION = BASE_URL + "/table/updateRegion";
     /**
      * TODO 查询区域
      */
-    public static final String GET_REGION_LIST = BASE_URL + "/table/GET_REGION_LIST";
+    public static final String GET_REGION_LIST = BASE_URL + "/table/getRegionList";
     // TODO ======================================== 流水模块 ====================================================
     /**
      * TODO 获取订单列表
      */
-    public static final String GET_ORDER_LIST = BASE_URL + "/ORDER_DETAILS/GET_ORDER_LIST";
+    public static final String GET_ORDER_LIST = BASE_URL + "/orderDetails/getOrderList";
     /**
      * TODO 订单详情接口
      */
-    public static final String ORDER_DETAILS = BASE_URL + "/ORDER_DETAILS/getOrderDetails";
+    public static final String GET_ORDER_DETAILS = BASE_URL + "/orderDetails/getOrderDetails";
     /**
      * TODO 获取流水列表
      */
-    public static final String GET_PAY_ORDER_LIST = BASE_URL + "/ORDER_DETAILS/GET_PAY_ORDER_LIST";
+    public static final String GET_PAY_ORDER_LIST = BASE_URL + "/orderDetails/getPayOrderList";
     /**
      * TODO 流水详情接口
      */
-    public static final String GET_PAYMENT_ORDER_BY_BATCH = BASE_URL + "/ORDER_DETAILS/GET_PAYMENT_ORDER_BY_BATCH";
+    public static final String GET_PAYMENT_ORDER_BY_BATCH = BASE_URL + "/orderDetails/getPaymentOrderByBatch";
     // TODO ======================================== 更多模块 ====================================================
     // TODO ======================================== 我的模块 ====================================================
     /**
@@ -133,7 +127,7 @@ public class ApiConfig {
     /**
      * TODO mine初始化头像和地址接口
      */
-    public static final String ADRSAND_PHOTO = BASE_URL + "";
+    public static final String ADRSANDPHOTO = BASE_URL + "";
 
     /**
      * TODO 门店信息 保存接口

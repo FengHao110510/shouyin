@@ -62,18 +62,7 @@ public class ManageClassActivity extends BaseActivity {
      */
     private void caipinfenlei() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.caipinfenlei).addParams("", "").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
 
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-            }
-        });
     }
 
     @OnClick(R.id.tv_titlebar_right)
@@ -146,21 +135,7 @@ public class ManageClassActivity extends BaseActivity {
      * 走添加接口 然后刷新ui TODO
      */
     private void managetTianjia() {
-        showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.upCaipinfenlei).addParams("", "").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
-            }
 
-            @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-
-                //走查询菜品分类
-                caipinfenlei();
-            }
-        });
     }
 
     //============================================================================================================

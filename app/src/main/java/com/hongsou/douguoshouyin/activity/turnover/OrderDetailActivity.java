@@ -123,7 +123,7 @@ public class OrderDetailActivity extends BaseActivity {
      */
     private void detailes() {
         showLoadingDialog();
-        HttpFactory.get().url(ApiConfig.ORDER_DETAILS)
+        HttpFactory.get().url(ApiConfig.GET_ORDER_DETAILS)
                 .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())
                 .addParams("batch", batch)
                 .build().execute(new StringCallback() {
