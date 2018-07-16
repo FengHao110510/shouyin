@@ -5,12 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.LoadingDialog;

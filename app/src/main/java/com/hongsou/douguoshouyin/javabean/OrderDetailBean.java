@@ -2,6 +2,8 @@ package com.hongsou.douguoshouyin.javabean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * 版权：鸿搜网络公司 版权所有
  * <p>
@@ -17,779 +19,713 @@ import com.google.gson.annotations.SerializedName;
  */
 
 
-public class OrderDetailBean extends RootBean {
+public class OrderDetailBean {
 
 
     /**
-     * package : {"batch":"20180711165632272454","shopNumber":"1000180427300326890","packageNumber":null,"packageName":null,"packagePrice":null,"packageList":null}
-     * food : {"batch":null,"shopNumber":"1000180427300326890","singleProductName":"泰国","standardNumber":"180621111113174","standardName":"小杯","sell":"4.0000"}
-     * order : {"id":null,"createUser":null,"createUserName":null,"createTime":null,"updateUser":null,"updateTime":null,"deleteFlag":0,"queryString":null,"delIds":null,"delIdsList":null,"page":0,"rows":0,"orderProperty":null,"orderDirection":null,"supplyStoreList":null,"token":null,"pageString":null,"rowsString":null,"tradingTime":null,"endTime":null,"orderSource":null,"equipmentSource":null,"orderType":"已结帐","paymentType":null,"clerkNumber":null,"orderRemarks":null,"orderAmount":"4.00","amountReceivable":"4.00","amountCollected":"5.00","cashAmount":"1.00","memberPreferences":null,"rfundAmount":null,"rfundReason":null,"freeSingleReason":null,"antiNodeReason":null,"shopNumber":null,"equipmentNumber":null,"memberNumber":null,"meiTuanCouponCode":null,"dianPingCouponCode":null,"takeoutNumber":null,"foodProductsDiscount":null,"orderDiscount":"0.00","malingSystem":null,"insertTime":"2018-07-11 16:56:32.297","antiNode":null,"order":null,"freeSingleType":null,"cash":null,"paymentOrder":null,"orderSourcePayment":null,"regionNumber":null,"tabletableNumber":null,"discountPercentage":null,"customDiscount":null,"memberMoney":null,"clerkName":"李晓鑫","registeredCell":null,"orderSourceFlag":null,"batch":"20180711165632272454"}
+     * code : 1000
+     * msg : 服务成功
+     * extInfo : null
+     * data : {"package":[{"shopNumber":"1000180427300326890","foodProductsCount":"2","packageNumber":"TC810317","packageName":"豪华总统套餐","packagePrice":"98.00","packageList":[{"singleProductName":"芬达","standardName":"大杯"},{"singleProductName":"鸡翅","standardName":"一对"},{"singleProductName":"沙拉酱","standardName":"大包"},{"singleProductName":"特大份汉堡","standardName":"个"},{"singleProductName":"特大份薯条","standardName":"份"}]}],"food":[{"foodProductsCount":"2","shopNumber":"1000180427300326890","singleProductName":"可乐","standardNumber":"180427111118129","standardName":"小杯","sell":"5.00"}],"group":[{"foodProductsNumber":"ZH180608111114582","groupFood":[{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"江小白","standardName":"瓶（中）","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"热牛奶","standardName":"中杯","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"4.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"薯条","standardName":"小份","groupNumber":"FZ180608111113341","minGroup":"11"}],"foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","groupPackageName":"6.8高考组合","groupNumber":"FZ180608111112751","minGroup":"2","groupPackagePrice":"22.00"}],"order":{"deleteFlag":0,"page":0,"rows":0,"orderType":"已结帐","orderAmount":"24.00","amountReceivable":"24.00","amountCollected":"24.00","cashAmount":"0.00","orderDiscount":"0.00","insertTime":"2018-07-10 19:38:52.923","clerkName":"李晓鑫","batch":"20180710193853992497"}}
+     * success : true
      */
 
-    @SerializedName("package")
-    private PackageBean packageX;
-    private FoodBean food;
-    private OrderBean order;
+    private int code;
+    private String msg;
+    private Object extInfo;
+    private DataBean data;
+    private boolean success;
 
-    public PackageBean getPackageX() {
-        return packageX;
+    public int getCode() {
+        return code;
     }
 
-    public void setPackageX(PackageBean packageX) {
-        this.packageX = packageX;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public FoodBean getFood() {
-        return food;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setFood(FoodBean food) {
-        this.food = food;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public OrderBean getOrder() {
-        return order;
+    public Object getExtInfo() {
+        return extInfo;
     }
 
-    public void setOrder(OrderBean order) {
-        this.order = order;
+    public void setExtInfo(Object extInfo) {
+        this.extInfo = extInfo;
     }
 
-    public static class PackageBean {
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public static class DataBean {
         /**
-         * batch : 20180711165632272454
-         * shopNumber : 1000180427300326890
-         * packageNumber : null
-         * packageName : null
-         * packagePrice : null
-         * packageList : null
+         * package : [{"shopNumber":"1000180427300326890","foodProductsCount":"2","packageNumber":"TC810317","packageName":"豪华总统套餐","packagePrice":"98.00","packageList":[{"singleProductName":"芬达","standardName":"大杯"},{"singleProductName":"鸡翅","standardName":"一对"},{"singleProductName":"沙拉酱","standardName":"大包"},{"singleProductName":"特大份汉堡","standardName":"个"},{"singleProductName":"特大份薯条","standardName":"份"}]}]
+         * food : [{"foodProductsCount":"2","shopNumber":"1000180427300326890","singleProductName":"可乐","standardNumber":"180427111118129","standardName":"小杯","sell":"5.00"}]
+         * group : [{"foodProductsNumber":"ZH180608111114582","groupFood":[{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"江小白","standardName":"瓶（中）","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"热牛奶","standardName":"中杯","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"4.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"薯条","standardName":"小份","groupNumber":"FZ180608111113341","minGroup":"11"}],"foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","groupPackageName":"6.8高考组合","groupNumber":"FZ180608111112751","minGroup":"2","groupPackagePrice":"22.00"}]
+         * order : {"deleteFlag":0,"page":0,"rows":0,"orderType":"已结帐","orderAmount":"24.00","amountReceivable":"24.00","amountCollected":"24.00","cashAmount":"0.00","orderDiscount":"0.00","insertTime":"2018-07-10 19:38:52.923","clerkName":"李晓鑫","batch":"20180710193853992497"}
          */
 
-        private String batch;
-        private String shopNumber;
-        private String packageNumber;
-        private String packageName;
-        private String packagePrice;
-        private String packageList;
-
-        public String getBatch() {
-            return batch;
-        }
-
-        public void setBatch(String batch) {
-            this.batch = batch;
-        }
-
-        public String getShopNumber() {
-            return shopNumber;
-        }
-
-        public void setShopNumber(String shopNumber) {
-            this.shopNumber = shopNumber;
-        }
-
-        public String getPackageNumber() {
-            return packageNumber;
-        }
-
-        public void setPackageNumber(String packageNumber) {
-            this.packageNumber = packageNumber;
-        }
-
-        public String getPackageName() {
-            return packageName;
-        }
-
-        public void setPackageName(String packageName) {
-            this.packageName = packageName;
-        }
-
-        public String getPackagePrice() {
-            return packagePrice;
-        }
-
-        public void setPackagePrice(String packagePrice) {
-            this.packagePrice = packagePrice;
-        }
-
-        public String getPackageList() {
-            return packageList;
-        }
-
-        public void setPackageList(String packageList) {
-            this.packageList = packageList;
-        }
-    }
-
-    public static class FoodBean {
-        /**
-         * batch : null
-         * shopNumber : 1000180427300326890
-         * singleProductName : 泰国
-         * standardNumber : 180621111113174
-         * standardName : 小杯
-         * sell : 4.0000
-         */
-
-        private String batch;
-        private String shopNumber;
-        private String singleProductName;
-        private String standardNumber;
-        private String standardName;
-        private String sell;
-
-        public String getBatch() {
-            return batch;
-        }
-
-        public void setBatch(String batch) {
-            this.batch = batch;
-        }
-
-        public String getShopNumber() {
-            return shopNumber;
-        }
-
-        public void setShopNumber(String shopNumber) {
-            this.shopNumber = shopNumber;
-        }
-
-        public String getSingleProductName() {
-            return singleProductName;
-        }
-
-        public void setSingleProductName(String singleProductName) {
-            this.singleProductName = singleProductName;
-        }
-
-        public String getStandardNumber() {
-            return standardNumber;
-        }
-
-        public void setStandardNumber(String standardNumber) {
-            this.standardNumber = standardNumber;
-        }
-
-        public String getStandardName() {
-            return standardName;
-        }
-
-        public void setStandardName(String standardName) {
-            this.standardName = standardName;
-        }
-
-        public String getSell() {
-            return sell;
-        }
-
-        public void setSell(String sell) {
-            this.sell = sell;
-        }
-    }
-
-    public static class OrderBean {
-        /**
-         * id : null
-         * createUser : null
-         * createUserName : null
-         * createTime : null
-         * updateUser : null
-         * updateTime : null
-         * deleteFlag : 0
-         * queryString : null
-         * delIds : null
-         * delIdsList : null
-         * page : 0
-         * rows : 0
-         * orderProperty : null
-         * orderDirection : null
-         * supplyStoreList : null
-         * token : null
-         * pageString : null
-         * rowsString : null
-         * tradingTime : null
-         * endTime : null
-         * orderSource : null
-         * equipmentSource : null
-         * orderType : 已结帐
-         * paymentType : null
-         * clerkNumber : null
-         * orderRemarks : null
-         * orderAmount : 4.00
-         * amountReceivable : 4.00
-         * amountCollected : 5.00
-         * cashAmount : 1.00
-         * memberPreferences : null
-         * rfundAmount : null
-         * rfundReason : null
-         * freeSingleReason : null
-         * antiNodeReason : null
-         * shopNumber : null
-         * equipmentNumber : null
-         * memberNumber : null
-         * meiTuanCouponCode : null
-         * dianPingCouponCode : null
-         * takeoutNumber : null
-         * foodProductsDiscount : null
-         * orderDiscount : 0.00
-         * malingSystem : null
-         * insertTime : 2018-07-11 16:56:32.297
-         * antiNode : null
-         * order : null
-         * freeSingleType : null
-         * cash : null
-         * paymentOrder : null
-         * orderSourcePayment : null
-         * regionNumber : null
-         * tabletableNumber : null
-         * discountPercentage : null
-         * customDiscount : null
-         * memberMoney : null
-         * clerkName : 李晓鑫
-         * registeredCell : null
-         * orderSourceFlag : null
-         * batch : 20180711165632272454
-         */
-
-        private String id;
-        private String createUser;
-        private String createUserName;
-        private String createTime;
-        private String updateUser;
-        private String updateTime;
-        private int deleteFlag;
-        private String queryString;
-        private String delIds;
-        private String delIdsList;
-        private int page;
-        private int rows;
-        private String orderProperty;
-        private String orderDirection;
-        private String supplyStoreList;
-        private String token;
-        private String pageString;
-        private String rowsString;
-        private String tradingTime;
-        private String endTime;
-        private String orderSource;
-        private String equipmentSource;
-        private String orderType;
-        private String paymentType;
-        private String clerkNumber;
-        private String orderRemarks;
-        private String orderAmount;
-        private String amountReceivable;
-        private String amountCollected;
-        private String cashAmount;
-        private String memberPreferences;
-        private String rfundAmount;
-        private String rfundReason;
-        private String freeSingleReason;
-        private String antiNodeReason;
-        private String shopNumber;
-        private String equipmentNumber;
-        private String memberNumber;
-        private String meiTuanCouponCode;
-        private String dianPingCouponCode;
-        private String takeoutNumber;
-        private String foodProductsDiscount;
-        private String orderDiscount;
-        private String malingSystem;
-        private String insertTime;
-        private String antiNode;
-        private String order;
-        private String freeSingleType;
-        private String cash;
-        private String paymentOrder;
-        private String orderSourcePayment;
-        private String regionNumber;
-        private String tabletableNumber;
-        private String discountPercentage;
-        private String customDiscount;
-        private String memberMoney;
-        private String clerkName;
-        private String registeredCell;
-        private String orderSourceFlag;
-        private String batch;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getCreateUser() {
-            return createUser;
-        }
-
-        public void setCreateUser(String createUser) {
-            this.createUser = createUser;
-        }
-
-        public String getCreateUserName() {
-            return createUserName;
-        }
-
-        public void setCreateUserName(String createUserName) {
-            this.createUserName = createUserName;
-        }
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
-
-        public String getUpdateUser() {
-            return updateUser;
-        }
-
-        public void setUpdateUser(String updateUser) {
-            this.updateUser = updateUser;
-        }
-
-        public String getUpdateTime() {
-            return updateTime;
-        }
-
-        public void setUpdateTime(String updateTime) {
-            this.updateTime = updateTime;
-        }
-
-        public int getDeleteFlag() {
-            return deleteFlag;
-        }
-
-        public void setDeleteFlag(int deleteFlag) {
-            this.deleteFlag = deleteFlag;
-        }
-
-        public String getQueryString() {
-            return queryString;
-        }
-
-        public void setQueryString(String queryString) {
-            this.queryString = queryString;
-        }
-
-        public String getDelIds() {
-            return delIds;
-        }
-
-        public void setDelIds(String delIds) {
-            this.delIds = delIds;
-        }
-
-        public String getDelIdsList() {
-            return delIdsList;
-        }
-
-        public void setDelIdsList(String delIdsList) {
-            this.delIdsList = delIdsList;
-        }
-
-        public int getPage() {
-            return page;
-        }
-
-        public void setPage(int page) {
-            this.page = page;
-        }
-
-        public int getRows() {
-            return rows;
-        }
-
-        public void setRows(int rows) {
-            this.rows = rows;
-        }
-
-        public String getOrderProperty() {
-            return orderProperty;
-        }
-
-        public void setOrderProperty(String orderProperty) {
-            this.orderProperty = orderProperty;
-        }
-
-        public String getOrderDirection() {
-            return orderDirection;
-        }
-
-        public void setOrderDirection(String orderDirection) {
-            this.orderDirection = orderDirection;
-        }
-
-        public String getSupplyStoreList() {
-            return supplyStoreList;
-        }
-
-        public void setSupplyStoreList(String supplyStoreList) {
-            this.supplyStoreList = supplyStoreList;
-        }
-
-        public String getToken() {
-            return token;
-        }
-
-        public void setToken(String token) {
-            this.token = token;
-        }
-
-        public String getPageString() {
-            return pageString;
-        }
-
-        public void setPageString(String pageString) {
-            this.pageString = pageString;
-        }
-
-        public String getRowsString() {
-            return rowsString;
-        }
-
-        public void setRowsString(String rowsString) {
-            this.rowsString = rowsString;
-        }
-
-        public String getTradingTime() {
-            return tradingTime;
-        }
-
-        public void setTradingTime(String tradingTime) {
-            this.tradingTime = tradingTime;
-        }
-
-        public String getEndTime() {
-            return endTime;
-        }
-
-        public void setEndTime(String endTime) {
-            this.endTime = endTime;
-        }
-
-        public String getOrderSource() {
-            return orderSource;
-        }
-
-        public void setOrderSource(String orderSource) {
-            this.orderSource = orderSource;
-        }
-
-        public String getEquipmentSource() {
-            return equipmentSource;
-        }
-
-        public void setEquipmentSource(String equipmentSource) {
-            this.equipmentSource = equipmentSource;
-        }
-
-        public String getOrderType() {
-            return orderType;
-        }
-
-        public void setOrderType(String orderType) {
-            this.orderType = orderType;
-        }
-
-        public String getPaymentType() {
-            return paymentType;
-        }
-
-        public void setPaymentType(String paymentType) {
-            this.paymentType = paymentType;
-        }
-
-        public String getClerkNumber() {
-            return clerkNumber;
-        }
-
-        public void setClerkNumber(String clerkNumber) {
-            this.clerkNumber = clerkNumber;
-        }
-
-        public String getOrderRemarks() {
-            return orderRemarks;
-        }
-
-        public void setOrderRemarks(String orderRemarks) {
-            this.orderRemarks = orderRemarks;
-        }
-
-        public String getOrderAmount() {
-            return orderAmount;
-        }
-
-        public void setOrderAmount(String orderAmount) {
-            this.orderAmount = orderAmount;
-        }
-
-        public String getAmountReceivable() {
-            return amountReceivable;
-        }
-
-        public void setAmountReceivable(String amountReceivable) {
-            this.amountReceivable = amountReceivable;
-        }
-
-        public String getAmountCollected() {
-            return amountCollected;
-        }
-
-        public void setAmountCollected(String amountCollected) {
-            this.amountCollected = amountCollected;
-        }
-
-        public String getCashAmount() {
-            return cashAmount;
-        }
-
-        public void setCashAmount(String cashAmount) {
-            this.cashAmount = cashAmount;
-        }
-
-        public String getMemberPreferences() {
-            return memberPreferences;
-        }
-
-        public void setMemberPreferences(String memberPreferences) {
-            this.memberPreferences = memberPreferences;
-        }
-
-        public String getRfundAmount() {
-            return rfundAmount;
-        }
-
-        public void setRfundAmount(String rfundAmount) {
-            this.rfundAmount = rfundAmount;
-        }
-
-        public String getRfundReason() {
-            return rfundReason;
-        }
-
-        public void setRfundReason(String rfundReason) {
-            this.rfundReason = rfundReason;
-        }
-
-        public String getFreeSingleReason() {
-            return freeSingleReason;
-        }
-
-        public void setFreeSingleReason(String freeSingleReason) {
-            this.freeSingleReason = freeSingleReason;
-        }
-
-        public String getAntiNodeReason() {
-            return antiNodeReason;
-        }
-
-        public void setAntiNodeReason(String antiNodeReason) {
-            this.antiNodeReason = antiNodeReason;
-        }
-
-        public String getShopNumber() {
-            return shopNumber;
-        }
-
-        public void setShopNumber(String shopNumber) {
-            this.shopNumber = shopNumber;
-        }
-
-        public String getEquipmentNumber() {
-            return equipmentNumber;
-        }
-
-        public void setEquipmentNumber(String equipmentNumber) {
-            this.equipmentNumber = equipmentNumber;
-        }
-
-        public String getMemberNumber() {
-            return memberNumber;
-        }
-
-        public void setMemberNumber(String memberNumber) {
-            this.memberNumber = memberNumber;
-        }
-
-        public String getMeiTuanCouponCode() {
-            return meiTuanCouponCode;
-        }
-
-        public void setMeiTuanCouponCode(String meiTuanCouponCode) {
-            this.meiTuanCouponCode = meiTuanCouponCode;
-        }
-
-        public String getDianPingCouponCode() {
-            return dianPingCouponCode;
-        }
-
-        public void setDianPingCouponCode(String dianPingCouponCode) {
-            this.dianPingCouponCode = dianPingCouponCode;
-        }
-
-        public String getTakeoutNumber() {
-            return takeoutNumber;
-        }
-
-        public void setTakeoutNumber(String takeoutNumber) {
-            this.takeoutNumber = takeoutNumber;
-        }
-
-        public String getFoodProductsDiscount() {
-            return foodProductsDiscount;
-        }
-
-        public void setFoodProductsDiscount(String foodProductsDiscount) {
-            this.foodProductsDiscount = foodProductsDiscount;
-        }
-
-        public String getOrderDiscount() {
-            return orderDiscount;
-        }
-
-        public void setOrderDiscount(String orderDiscount) {
-            this.orderDiscount = orderDiscount;
-        }
-
-        public String getMalingSystem() {
-            return malingSystem;
-        }
-
-        public void setMalingSystem(String malingSystem) {
-            this.malingSystem = malingSystem;
-        }
-
-        public String getInsertTime() {
-            return insertTime;
-        }
-
-        public void setInsertTime(String insertTime) {
-            this.insertTime = insertTime;
-        }
-
-        public String getAntiNode() {
-            return antiNode;
-        }
-
-        public void setAntiNode(String antiNode) {
-            this.antiNode = antiNode;
-        }
-
-        public String getOrder() {
+        private OrderBean order;
+        @SerializedName("package")
+        private List<PackageBean> packageX;
+        private List<FoodBean> food;
+        private List<GroupBean> group;
+
+        public OrderBean getOrder() {
             return order;
         }
 
-        public void setOrder(String order) {
+        public void setOrder(OrderBean order) {
             this.order = order;
         }
 
-        public String getFreeSingleType() {
-            return freeSingleType;
+        public List<PackageBean> getPackageX() {
+            return packageX;
         }
 
-        public void setFreeSingleType(String freeSingleType) {
-            this.freeSingleType = freeSingleType;
+        public void setPackageX(List<PackageBean> packageX) {
+            this.packageX = packageX;
         }
 
-        public String getCash() {
-            return cash;
+        public List<FoodBean> getFood() {
+            return food;
         }
 
-        public void setCash(String cash) {
-            this.cash = cash;
+        public void setFood(List<FoodBean> food) {
+            this.food = food;
         }
 
-        public String getPaymentOrder() {
-            return paymentOrder;
+        public List<GroupBean> getGroup() {
+            return group;
         }
 
-        public void setPaymentOrder(String paymentOrder) {
-            this.paymentOrder = paymentOrder;
+        public void setGroup(List<GroupBean> group) {
+            this.group = group;
         }
 
-        public String getOrderSourcePayment() {
-            return orderSourcePayment;
+        public static class OrderBean {
+            /**
+             * deleteFlag : 0
+             * page : 0
+             * rows : 0
+             * orderType : 已结帐
+             * orderAmount : 24.00
+             * amountReceivable : 24.00
+             * amountCollected : 24.00
+             * cashAmount : 0.00
+             * orderDiscount : 0.00
+             * insertTime : 2018-07-10 19:38:52.923
+             * clerkName : 李晓鑫
+             * batch : 20180710193853992497
+             */
+
+            private int deleteFlag;
+            private int page;
+            private int rows;
+            private String orderType;
+            private String orderAmount;
+            private String amountReceivable;
+            private String amountCollected;
+            private String cashAmount;
+            private String orderDiscount;
+            private String insertTime;
+            private String clerkName;
+            private String batch;
+            private String orderSourcePayment;
+
+            public String getOrderSourcePayment() {
+                return orderSourcePayment;
+            }
+
+            public void setOrderSourcePayment(String orderSourcePayment) {
+                this.orderSourcePayment = orderSourcePayment;
+            }
+
+
+            public int getDeleteFlag() {
+                return deleteFlag;
+            }
+
+            public void setDeleteFlag(int deleteFlag) {
+                this.deleteFlag = deleteFlag;
+            }
+
+            public int getPage() {
+                return page;
+            }
+
+            public void setPage(int page) {
+                this.page = page;
+            }
+
+            public int getRows() {
+                return rows;
+            }
+
+            public void setRows(int rows) {
+                this.rows = rows;
+            }
+
+            public String getOrderType() {
+                return orderType;
+            }
+
+            public void setOrderType(String orderType) {
+                this.orderType = orderType;
+            }
+
+            public String getOrderAmount() {
+                return orderAmount;
+            }
+
+            public void setOrderAmount(String orderAmount) {
+                this.orderAmount = orderAmount;
+            }
+
+            public String getAmountReceivable() {
+                return amountReceivable;
+            }
+
+            public void setAmountReceivable(String amountReceivable) {
+                this.amountReceivable = amountReceivable;
+            }
+
+            public String getAmountCollected() {
+                return amountCollected;
+            }
+
+            public void setAmountCollected(String amountCollected) {
+                this.amountCollected = amountCollected;
+            }
+
+            public String getCashAmount() {
+                return cashAmount;
+            }
+
+            public void setCashAmount(String cashAmount) {
+                this.cashAmount = cashAmount;
+            }
+
+            public String getOrderDiscount() {
+                return orderDiscount;
+            }
+
+            public void setOrderDiscount(String orderDiscount) {
+                this.orderDiscount = orderDiscount;
+            }
+
+            public String getInsertTime() {
+                return insertTime;
+            }
+
+            public void setInsertTime(String insertTime) {
+                this.insertTime = insertTime;
+            }
+
+            public String getClerkName() {
+                return clerkName;
+            }
+
+            public void setClerkName(String clerkName) {
+                this.clerkName = clerkName;
+            }
+
+            public String getBatch() {
+                return batch;
+            }
+
+            public void setBatch(String batch) {
+                this.batch = batch;
+            }
         }
 
-        public void setOrderSourcePayment(String orderSourcePayment) {
-            this.orderSourcePayment = orderSourcePayment;
+        public static class PackageBean {
+            /**
+             * shopNumber : 1000180427300326890
+             * foodProductsCount : 2
+             * packageNumber : TC810317
+             * packageName : 豪华总统套餐
+             * packagePrice : 98.00
+             * packageList : [{"singleProductName":"芬达","standardName":"大杯"},{"singleProductName":"鸡翅","standardName":"一对"},{"singleProductName":"沙拉酱","standardName":"大包"},{"singleProductName":"特大份汉堡","standardName":"个"},{"singleProductName":"特大份薯条","standardName":"份"}]
+             */
+
+            private String shopNumber;
+            private String foodProductsCount;
+            private String packageNumber;
+            private String packageName;
+            private String packagePrice;
+            private List<PackageListBean> packageList;
+
+            public String getShopNumber() {
+                return shopNumber;
+            }
+
+            public void setShopNumber(String shopNumber) {
+                this.shopNumber = shopNumber;
+            }
+
+            public String getFoodProductsCount() {
+                return foodProductsCount;
+            }
+
+            public void setFoodProductsCount(String foodProductsCount) {
+                this.foodProductsCount = foodProductsCount;
+            }
+
+            public String getPackageNumber() {
+                return packageNumber;
+            }
+
+            public void setPackageNumber(String packageNumber) {
+                this.packageNumber = packageNumber;
+            }
+
+            public String getPackageName() {
+                return packageName;
+            }
+
+            public void setPackageName(String packageName) {
+                this.packageName = packageName;
+            }
+
+            public String getPackagePrice() {
+                return packagePrice;
+            }
+
+            public void setPackagePrice(String packagePrice) {
+                this.packagePrice = packagePrice;
+            }
+
+            public List<PackageListBean> getPackageList() {
+                return packageList;
+            }
+
+            public void setPackageList(List<PackageListBean> packageList) {
+                this.packageList = packageList;
+            }
+
+            public static class PackageListBean {
+                /**
+                 * singleProductName : 芬达
+                 * standardName : 大杯
+                 */
+
+                private String singleProductName;
+                private String standardName;
+                private String foodProductsCount;
+
+                public String getFoodProductsCount() {
+                    return foodProductsCount;
+                }
+
+                public void setFoodProductsCount(String foodProductsCount) {
+                    this.foodProductsCount = foodProductsCount;
+                }
+
+
+                public String getSingleProductName() {
+                    return singleProductName;
+                }
+
+                public void setSingleProductName(String singleProductName) {
+                    this.singleProductName = singleProductName;
+                }
+
+                public String getStandardName() {
+                    return standardName;
+                }
+
+                public void setStandardName(String standardName) {
+                    this.standardName = standardName;
+                }
+            }
         }
 
-        public String getRegionNumber() {
-            return regionNumber;
+        public static class FoodBean {
+            /**
+             * foodProductsCount : 2
+             * shopNumber : 1000180427300326890
+             * singleProductName : 可乐
+             * standardNumber : 180427111118129
+             * standardName : 小杯
+             * sell : 5.00
+             */
+
+            private String foodProductsCount;
+            private String shopNumber;
+            private String singleProductName;
+            private String standardNumber;
+            private String standardName;
+            private String sell;
+
+            public String getFoodProductsCount() {
+                return foodProductsCount;
+            }
+
+            public void setFoodProductsCount(String foodProductsCount) {
+                this.foodProductsCount = foodProductsCount;
+            }
+
+            public String getShopNumber() {
+                return shopNumber;
+            }
+
+            public void setShopNumber(String shopNumber) {
+                this.shopNumber = shopNumber;
+            }
+
+            public String getSingleProductName() {
+                return singleProductName;
+            }
+
+            public void setSingleProductName(String singleProductName) {
+                this.singleProductName = singleProductName;
+            }
+
+            public String getStandardNumber() {
+                return standardNumber;
+            }
+
+            public void setStandardNumber(String standardNumber) {
+                this.standardNumber = standardNumber;
+            }
+
+            public String getStandardName() {
+                return standardName;
+            }
+
+            public void setStandardName(String standardName) {
+                this.standardName = standardName;
+            }
+
+            public String getSell() {
+                return sell;
+            }
+
+            public void setSell(String sell) {
+                this.sell = sell;
+            }
         }
 
-        public void setRegionNumber(String regionNumber) {
-            this.regionNumber = regionNumber;
-        }
+        public static class GroupBean {
+            /**
+             * foodProductsNumber : ZH180608111114582
+             * groupFood : [{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"江小白","standardName":"瓶（中）","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"热牛奶","standardName":"中杯","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"4.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"薯条","standardName":"小份","groupNumber":"FZ180608111113341","minGroup":"11"}]
+             * foodProductsType : 2
+             * foodProductsCount : 2
+             * increasePrice : 0.0000
+             * memberPreferences : 0.0000
+             * discountAmount : 0.0000
+             * costPrice : 0.0000
+             * serialNumber : 1
+             * antiNodeCount : 0
+             * antiNode : 0
+             * groupPackageName : 6.8高考组合
+             * groupNumber : FZ180608111112751
+             * minGroup : 2
+             * groupPackagePrice : 22.00
+             */
 
-        public String getTabletableNumber() {
-            return tabletableNumber;
-        }
+            private String foodProductsNumber;
+            private String foodProductsType;
+            private String foodProductsCount;
+            private String increasePrice;
+            private String memberPreferences;
+            private String discountAmount;
+            private String costPrice;
+            private String serialNumber;
+            private String antiNodeCount;
+            private String antiNode;
+            private String groupPackageName;
+            private String groupNumber;
+            private String minGroup;
+            private String groupPackagePrice;
+            private List<GroupFoodBean> groupFood;
 
-        public void setTabletableNumber(String tabletableNumber) {
-            this.tabletableNumber = tabletableNumber;
-        }
+            public String getFoodProductsNumber() {
+                return foodProductsNumber;
+            }
 
-        public String getDiscountPercentage() {
-            return discountPercentage;
-        }
+            public void setFoodProductsNumber(String foodProductsNumber) {
+                this.foodProductsNumber = foodProductsNumber;
+            }
 
-        public void setDiscountPercentage(String discountPercentage) {
-            this.discountPercentage = discountPercentage;
-        }
+            public String getFoodProductsType() {
+                return foodProductsType;
+            }
 
-        public String getCustomDiscount() {
-            return customDiscount;
-        }
+            public void setFoodProductsType(String foodProductsType) {
+                this.foodProductsType = foodProductsType;
+            }
 
-        public void setCustomDiscount(String customDiscount) {
-            this.customDiscount = customDiscount;
-        }
+            public String getFoodProductsCount() {
+                return foodProductsCount;
+            }
 
-        public String getMemberMoney() {
-            return memberMoney;
-        }
+            public void setFoodProductsCount(String foodProductsCount) {
+                this.foodProductsCount = foodProductsCount;
+            }
 
-        public void setMemberMoney(String memberMoney) {
-            this.memberMoney = memberMoney;
-        }
+            public String getIncreasePrice() {
+                return increasePrice;
+            }
 
-        public String getClerkName() {
-            return clerkName;
-        }
+            public void setIncreasePrice(String increasePrice) {
+                this.increasePrice = increasePrice;
+            }
 
-        public void setClerkName(String clerkName) {
-            this.clerkName = clerkName;
-        }
+            public String getMemberPreferences() {
+                return memberPreferences;
+            }
 
-        public String getRegisteredCell() {
-            return registeredCell;
-        }
+            public void setMemberPreferences(String memberPreferences) {
+                this.memberPreferences = memberPreferences;
+            }
 
-        public void setRegisteredCell(String registeredCell) {
-            this.registeredCell = registeredCell;
-        }
+            public String getDiscountAmount() {
+                return discountAmount;
+            }
 
-        public String getOrderSourceFlag() {
-            return orderSourceFlag;
-        }
+            public void setDiscountAmount(String discountAmount) {
+                this.discountAmount = discountAmount;
+            }
 
-        public void setOrderSourceFlag(String orderSourceFlag) {
-            this.orderSourceFlag = orderSourceFlag;
-        }
+            public String getCostPrice() {
+                return costPrice;
+            }
 
-        public String getBatch() {
-            return batch;
-        }
+            public void setCostPrice(String costPrice) {
+                this.costPrice = costPrice;
+            }
 
-        public void setBatch(String batch) {
-            this.batch = batch;
+            public String getSerialNumber() {
+                return serialNumber;
+            }
+
+            public void setSerialNumber(String serialNumber) {
+                this.serialNumber = serialNumber;
+            }
+
+            public String getAntiNodeCount() {
+                return antiNodeCount;
+            }
+
+            public void setAntiNodeCount(String antiNodeCount) {
+                this.antiNodeCount = antiNodeCount;
+            }
+
+            public String getAntiNode() {
+                return antiNode;
+            }
+
+            public void setAntiNode(String antiNode) {
+                this.antiNode = antiNode;
+            }
+
+            public String getGroupPackageName() {
+                return groupPackageName;
+            }
+
+            public void setGroupPackageName(String groupPackageName) {
+                this.groupPackageName = groupPackageName;
+            }
+
+            public String getGroupNumber() {
+                return groupNumber;
+            }
+
+            public void setGroupNumber(String groupNumber) {
+                this.groupNumber = groupNumber;
+            }
+
+            public String getMinGroup() {
+                return minGroup;
+            }
+
+            public void setMinGroup(String minGroup) {
+                this.minGroup = minGroup;
+            }
+
+            public String getGroupPackagePrice() {
+                return groupPackagePrice;
+            }
+
+            public void setGroupPackagePrice(String groupPackagePrice) {
+                this.groupPackagePrice = groupPackagePrice;
+            }
+
+            public List<GroupFoodBean> getGroupFood() {
+                return groupFood;
+            }
+
+            public void setGroupFood(List<GroupFoodBean> groupFood) {
+                this.groupFood = groupFood;
+            }
+
+            public static class GroupFoodBean {
+                /**
+                 * foodProductsNumber : ZH180608111114582
+                 * foodProductsType : 2
+                 * foodProductsCount : 2
+                 * increasePrice : 0.0000
+                 * memberPreferences : 0.0000
+                 * discountAmount : 0.0000
+                 * costPrice : 0.0000
+                 * serialNumber : 1
+                 * antiNodeCount : 0
+                 * antiNode : 0
+                 * singleProductName : 江小白
+                 * standardName : 瓶（中）
+                 * groupNumber : FZ180608111112751
+                 * minGroup : 2
+                 */
+
+                private String foodProductsNumber;
+                private String foodProductsType;
+                private String foodProductsCount;
+                private String increasePrice;
+                private String memberPreferences;
+                private String discountAmount;
+                private String costPrice;
+                private String serialNumber;
+                private String antiNodeCount;
+                private String antiNode;
+                private String singleProductName;
+                private String standardName;
+                private String groupNumber;
+                private String minGroup;
+
+                public String getFoodProductsNumber() {
+                    return foodProductsNumber;
+                }
+
+                public void setFoodProductsNumber(String foodProductsNumber) {
+                    this.foodProductsNumber = foodProductsNumber;
+                }
+
+                public String getFoodProductsType() {
+                    return foodProductsType;
+                }
+
+                public void setFoodProductsType(String foodProductsType) {
+                    this.foodProductsType = foodProductsType;
+                }
+
+                public String getFoodProductsCount() {
+                    return foodProductsCount;
+                }
+
+                public void setFoodProductsCount(String foodProductsCount) {
+                    this.foodProductsCount = foodProductsCount;
+                }
+
+                public String getIncreasePrice() {
+                    return increasePrice;
+                }
+
+                public void setIncreasePrice(String increasePrice) {
+                    this.increasePrice = increasePrice;
+                }
+
+                public String getMemberPreferences() {
+                    return memberPreferences;
+                }
+
+                public void setMemberPreferences(String memberPreferences) {
+                    this.memberPreferences = memberPreferences;
+                }
+
+                public String getDiscountAmount() {
+                    return discountAmount;
+                }
+
+                public void setDiscountAmount(String discountAmount) {
+                    this.discountAmount = discountAmount;
+                }
+
+                public String getCostPrice() {
+                    return costPrice;
+                }
+
+                public void setCostPrice(String costPrice) {
+                    this.costPrice = costPrice;
+                }
+
+                public String getSerialNumber() {
+                    return serialNumber;
+                }
+
+                public void setSerialNumber(String serialNumber) {
+                    this.serialNumber = serialNumber;
+                }
+
+                public String getAntiNodeCount() {
+                    return antiNodeCount;
+                }
+
+                public void setAntiNodeCount(String antiNodeCount) {
+                    this.antiNodeCount = antiNodeCount;
+                }
+
+                public String getAntiNode() {
+                    return antiNode;
+                }
+
+                public void setAntiNode(String antiNode) {
+                    this.antiNode = antiNode;
+                }
+
+                public String getSingleProductName() {
+                    return singleProductName;
+                }
+
+                public void setSingleProductName(String singleProductName) {
+                    this.singleProductName = singleProductName;
+                }
+
+                public String getStandardName() {
+                    return standardName;
+                }
+
+                public void setStandardName(String standardName) {
+                    this.standardName = standardName;
+                }
+
+                public String getGroupNumber() {
+                    return groupNumber;
+                }
+
+                public void setGroupNumber(String groupNumber) {
+                    this.groupNumber = groupNumber;
+                }
+
+                public String getMinGroup() {
+                    return minGroup;
+                }
+
+                public void setMinGroup(String minGroup) {
+                    this.minGroup = minGroup;
+                }
+            }
         }
     }
 }

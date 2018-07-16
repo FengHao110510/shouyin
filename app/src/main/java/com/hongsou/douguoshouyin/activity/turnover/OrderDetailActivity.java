@@ -2,24 +2,31 @@ package com.hongsou.douguoshouyin.activity.turnover;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.Apiconfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.OrderDetailBean;
-import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.javabean.OrderFoodBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,9 +75,26 @@ public class OrderDetailActivity extends BaseActivity {
     TextView tvTurnoverOrderdetailShangpinzongjia;
     @BindView(R.id.tv_turnover_orderdetail_shangpinfenshu)
     TextView tvTurnoverOrderdetailShangpinfenshu;
+    @BindView(R.id.ll_turnover_orderdetail_xianshijine)
+    LinearLayout llTurnoverOrderdetailXianshijine;
+    @BindView(R.id.rv_turnover_orderdetail_foodlist)
+    RecyclerView rvTurnoverOrderdetailFoodlist;
 
     private String batch;//订单号
     Dialog dialog;
+
+    //套餐
+    List<OrderDetailBean.DataBean.PackageBean> packageBeanList;
+
+    //组合套餐
+    List<OrderDetailBean.DataBean.GroupBean> groupBeanList;
+    //单品
+    List<OrderDetailBean.DataBean.FoodBean> foodBeanList;
+
+    //总集合
+    List<OrderFoodBean> orderFoodBeanList = new ArrayList<>();
+
+    OrderDetailsFoodAdapter orderDetailsFoodAdapter;
 
     @Override
     public int initLayout() {
@@ -107,43 +131,172 @@ public class OrderDetailActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
+                ToastUtil.showError();
             }
 
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
+                Log.e(TAG, "onResponse: " + response.toString());
+                OrderDetailBean orderDetailBean = new Gson().fromJson(response, OrderDetailBean.class);
 
-                RootBean<OrderDetailBean> orderDetailBeanRootBean = new Gson().fromJson(response, new TypeToken<RootBean<OrderDetailBean>>() {
-                }.getType());
+                if (orderDetailBean.getCode() == 1000) {
+                    OrderDetailBean.DataBean.OrderBean order = orderDetailBean.getData().getOrder();
 
-                if (orderDetailBeanRootBean.getCode() == 1000) {
-                    OrderDetailBean.OrderBean orderDetailBean = orderDetailBeanRootBean.getData().getOrder();
+                    addOrderDetails(order);
 
-                    //TODO 判断是不是已退款的 是的话隐藏退款按钮
-                    if (orderDetailBean.getOrderType().contains("已退款")) {
-                        vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
-                        tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+                    packageBeanList = orderDetailBean.getData().getPackageX();
+                    groupBeanList = orderDetailBean.getData().getGroup();
+                    foodBeanList = orderDetailBean.getData().getFood();
+
+                    //总份数
+                    tvTurnoverOrderdetailShangpinfenshu.setText((packageBeanList.size() + groupBeanList.size() + foodBeanList.size()) + "");
+
+                    if (packageBeanList.size() > 0) {
+                        addPackage(packageBeanList);
+                    }
+                    if (groupBeanList.size() > 0) {
+                        addGroup(groupBeanList);
+                    }
+                    if (foodBeanList.size() > 0) {
+                        addFood(foodBeanList);
                     }
 
-                    tvTurnoverOrderdetailXianshijine.setText(orderDetailBean.getOrderAmount());
-                    tvTurnoverOrderdetailDingdanhao.setText(orderDetailBean.getBatch());
-                    tvTurnoverOrderdetailLeixing.setText(orderDetailBean.getOrderSourcePayment());
-                    tvTurnoverOrderdetailDingdanzhuangtai.setText(orderDetailBean.getOrderType());
-                    tvTurnoverOrderdetailCaozuoren.setText(orderDetailBean.getClerkName());
-                    tvTurnoverOrderdetailXiadanshijian.setText(orderDetailBean.getInsertTime());
-                    tvTurnoverOrderdetailYingshou.setText(orderDetailBean.getAmountReceivable());
-                    tvTurnoverOrderdetailZhaoling.setText(orderDetailBean.getCashAmount());
-                    tvTurnoverOrderdetailShishoujine.setText(orderDetailBean.getAmountCollected());
-                    tvTurnoverOrderdetailDingdanjine.setText(orderDetailBean.getOrderAmount());
-                    tvTurnoverOrderdetailYouhuijine.setText(orderDetailBean.getOrderDiscount());
-                    tvTurnoverOrderdetailShoukuanjine.setText(orderDetailBean.getAmountCollected());
+                    //展示
+                    showFoodList();
+
                 } else {
-                    ToastUtil.showToast(orderDetailBeanRootBean.getMsg());
+                    ToastUtil.showToast(orderDetailBean.getMsg());
                 }
 
 
             }
         });
+    }
+
+
+    /**
+     * @param
+     * @param order
+     * @return
+     * @author fenghao
+     * @date 2018/7/14 0014 下午 15:25
+     * @desc 显示订单详情的数据
+     */
+    private void addOrderDetails(OrderDetailBean.DataBean.OrderBean order) {
+        //TODO 判断是不是已退款的 是的话隐藏退款按钮
+        if (order.getOrderType().contains("已退款")) {
+            vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
+            tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+        }
+        tvTurnoverOrderdetailDingdanzhuangtai.setText(order.getOrderType());
+
+        tvTurnoverOrderdetailXianshijine.setText(order.getOrderAmount());
+        tvTurnoverOrderdetailDingdanhao.setText(order.getBatch());
+        tvTurnoverOrderdetailLeixing.setText(order.getOrderSourcePayment());
+        tvTurnoverOrderdetailCaozuoren.setText(order.getClerkName());
+        tvTurnoverOrderdetailXiadanshijian.setText(order.getInsertTime());
+        tvTurnoverOrderdetailYingshou.setText(order.getAmountReceivable());
+        tvTurnoverOrderdetailZhaoling.setText(order.getCashAmount());
+        tvTurnoverOrderdetailShishoujine.setText(order.getAmountCollected());
+        tvTurnoverOrderdetailDingdanjine.setText(order.getOrderAmount());
+        tvTurnoverOrderdetailYouhuijine.setText(order.getOrderDiscount());
+        tvTurnoverOrderdetailShoukuanjine.setText(order.getAmountCollected());
+
+        //总价
+        tvTurnoverOrderdetailShangpinzongjia.setText(order.getOrderAmount());
+    }
+
+    /**
+     * @param packageBeanList
+     * @return
+     * @author fenghao
+     * @date 2018/7/14 0014 下午 15:06
+     * @desc 将套餐添加进集合
+     */
+    private void addPackage(List<OrderDetailBean.DataBean.PackageBean> packageBeanList) {
+        //将标题添加进去  套餐名 个数 价钱
+        for (int i = 0; i < packageBeanList.size(); i++) {
+            OrderFoodBean orderFoodBeanA = new OrderFoodBean();
+            orderFoodBeanA.setFoodName(packageBeanList.get(i).getPackageName());
+            orderFoodBeanA.setFoodCount("X" + packageBeanList.get(i).getFoodProductsCount());
+            orderFoodBeanA.setFoodPrice("¥" + packageBeanList.get(i).getPackagePrice());
+
+            orderFoodBeanList.add(orderFoodBeanA);
+            //将单个餐品添加进去
+            for (int j = 0; j < packageBeanList.get(i).getPackageList().size(); j++) {
+                OrderFoodBean orderFoodBeanB = new OrderFoodBean();
+                orderFoodBeanB.setFoodName("");
+                orderFoodBeanB.setFoodCount("--" + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
+                        + "(" + packageBeanList.get(i).getPackageList().get(j).getStandardName() + ")");
+                orderFoodBeanB.setFoodPrice("*" + packageBeanList.get(i).getPackageList().get(j).getFoodProductsCount());
+                orderFoodBeanList.add(orderFoodBeanB);
+            }
+        }
+    }
+
+    /**
+     * @param groupBeanList
+     * @return
+     * @author fenghao
+     * @date 2018/7/14 0014 下午 15:21
+     * @desc 将组合套餐添加进集合
+     */
+    private void addGroup(List<OrderDetailBean.DataBean.GroupBean> groupBeanList) {
+        for (int i = 0; i < groupBeanList.size(); i++) {
+            //把头添加进去
+            OrderFoodBean orderFoodBeanA = new OrderFoodBean();
+            orderFoodBeanA.setFoodName(groupBeanList.get(i).getGroupPackageName());
+            orderFoodBeanA.setFoodCount("X" + groupBeanList.get(i).getFoodProductsCount());
+            orderFoodBeanA.setFoodPrice("¥" + groupBeanList.get(i).getGroupPackagePrice());
+
+            orderFoodBeanList.add(orderFoodBeanA);
+
+            //将 菜品加进去
+            for (int j = 0 ;j<groupBeanList.get(i).getGroupFood().size();j++){
+                OrderFoodBean orderFoodBeanB = new OrderFoodBean();
+                orderFoodBeanB.setFoodName("");
+                orderFoodBeanB.setFoodCount("--" + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
+                        + "(" + groupBeanList.get(i).getGroupFood().get(j).getStandardName() + ")");
+                orderFoodBeanB.setFoodPrice("*" + groupBeanList.get(i).getGroupFood().get(j).getFoodProductsCount());
+                orderFoodBeanList.add(orderFoodBeanB);
+            }
+        }
+    }
+
+    /**
+     * @param foodBeanList
+     * @return
+     * @author fenghao
+     * @date 2018/7/14 0014 下午 15:21
+     * @desc 将单品添加进集合
+     */
+    private void addFood(List<OrderDetailBean.DataBean.FoodBean> foodBeanList) {
+        for (int i = 0; i < foodBeanList.size(); i++) {
+            OrderFoodBean orderFoodBean = new OrderFoodBean();
+            orderFoodBean.setFoodName(foodBeanList.get(i).getSingleProductName()
+                    + "(" + foodBeanList.get(i).getStandardName() + ")");
+            orderFoodBean.setFoodCount("X" + foodBeanList.get(i).getFoodProductsCount());
+            orderFoodBean.setFoodPrice("¥" + foodBeanList.get(i).getSell());
+            orderFoodBeanList.add(orderFoodBean);
+        }
+    }
+
+    /**
+     * @param
+     * @return
+     * @author fenghao
+     * @date 2018/7/14 0014 下午 16:03
+     * @desc 展示菜品列表
+     */
+    private void showFoodList() {
+        //创建适配器
+        orderDetailsFoodAdapter = new OrderDetailsFoodAdapter(R.layout.module_item_orderdetail_foods, orderFoodBeanList);
+        rvTurnoverOrderdetailFoodlist.setAdapter(orderDetailsFoodAdapter);
+        //创建布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rvTurnoverOrderdetailFoodlist.setLayoutManager(linearLayoutManager);
     }
 
     //弹框输入密码

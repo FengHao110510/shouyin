@@ -164,6 +164,7 @@ public class TurnoverOrderFragment extends BaseFragment {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
+                ToastUtil.showError();
 
             }
 
@@ -174,7 +175,7 @@ public class TurnoverOrderFragment extends BaseFragment {
 
                 if (orderBean.getCode() == 1000) {
                     showOrderList(orderBean.getData().getData());
-                }else {
+                } else {
                     ToastUtil.showToast(orderBean.getMsg());
                 }
 
@@ -184,11 +185,11 @@ public class TurnoverOrderFragment extends BaseFragment {
 
 
     /**
-     *  @author  fenghao
-     *  @date    2018/7/12 0012 下午 15:04
-     *  @param   data
-     *  @return
-     *  @desc   //展示订单列表
+     * @param data
+     * @return
+     * @author fenghao
+     * @date 2018/7/12 0012 下午 15:04
+     * @desc //展示订单列表
      */
     private void showOrderList(List<OrderBean.DataBeanX.DataBean> data) {
         if (page > 1) {
@@ -210,7 +211,7 @@ public class TurnoverOrderFragment extends BaseFragment {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Intent itemIntent = new Intent(getActivity(), OrderDetailActivity.class);
-                        itemIntent.putExtra("batch",listBeans.get(position).getBatch());
+                        itemIntent.putExtra("batch", listBeans.get(position).getBatch());
                         startActivity(itemIntent);
                     }
                 });

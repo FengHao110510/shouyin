@@ -159,7 +159,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-
+                ToastUtil.showError();
             }
 
             @Override

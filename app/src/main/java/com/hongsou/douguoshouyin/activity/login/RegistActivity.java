@@ -146,7 +146,7 @@ public class RegistActivity extends BaseActivity {
      */
     private void sendMsg() {
         showLoadingDialog("加载中...");
-        HttpFactory.post().url(Apiconfig.sendMsg).addParams("", "").build().execute(new ResponseCallback<LoginBean>(this,LoginBean.class) {
+        HttpFactory.post().url(Apiconfig.sendMsg).addParams("", "").build().execute(new ResponseCallback<LoginBean>(this) {
             @Override
             public void onResponse(LoginBean response, int id) {
 

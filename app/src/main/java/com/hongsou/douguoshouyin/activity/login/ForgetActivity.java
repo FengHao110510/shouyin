@@ -83,7 +83,7 @@ public class ForgetActivity extends BaseActivity {
                 String user = etForgetUser.getText().toString();
                 if (TextUtils.isEmpty(user)) {
                     ToastUtil.showToast("请输入账号");
-                }else {
+                } else {
                     sendMsg(user);
                 }
                 break;
@@ -100,6 +100,7 @@ public class ForgetActivity extends BaseActivity {
 
     /**
      * 发送验证码
+     *
      * @param user 用户手机号
      */
     private void sendMsg(String user) {
@@ -134,7 +135,7 @@ public class ForgetActivity extends BaseActivity {
                             btForgetSendMsg.setClickable(true);
                         }
                     }.start();
-                }else {
+                } else {
                     ToastUtil.showToast(sendMsgBean.getMsg());
                 }
 
@@ -189,6 +190,8 @@ public class ForgetActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
+                ToastUtil.showError();
+
             }
 
             @Override
@@ -199,7 +202,7 @@ public class ForgetActivity extends BaseActivity {
                 if (baseBean.getCode() == 1000) {
                     Global.getSpGlobalUtil().setPassword(etForgetSetPassword2.getText().toString());
                     finishActivity();
-                }else {
+                } else {
                     ToastUtil.showToast(baseBean.getMsg());
                 }
             }

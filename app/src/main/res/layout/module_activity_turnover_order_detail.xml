@@ -399,36 +399,51 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="商品名称"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
 
                 <TextView
 
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
+                    android:layout_weight="2"
                     android:text="数量"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_weight="1"
+                    android:gravity="right"
                     android:text="金额"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
-            </RelativeLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_turnover_orderdetail_foodlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp">
+
+            </android.support.v7.widget.RecyclerView>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -451,8 +466,8 @@
 
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
+                    android:layout_weight="3"
+                    android:gravity="center"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -461,7 +476,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:gravity="center"
                     android:text="份数(个)："
 
