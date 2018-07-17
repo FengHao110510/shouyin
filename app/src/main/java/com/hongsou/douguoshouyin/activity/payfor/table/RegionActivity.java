@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.adapter.OrderAdapter;
 import com.hongsou.douguoshouyin.adapter.RegionAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
@@ -42,6 +41,9 @@ public class RegionActivity extends BaseActivity {
     List<RegionListBean.DataBean> dataBeanList;
     private Dialog dialog;
     private RegionAdapter regionAdapter;
+
+    private final int ADD_REGION = 1;//添加区域接口
+    private final int UPDATE_REGION = 2;//更新区域接口
 
     @Override
     public int initLayout() {
@@ -96,7 +98,7 @@ public class RegionActivity extends BaseActivity {
      * @date 2018/7/16 0016 下午 17:55
      * @desc 展示区域列表
      */
-    private void showRegionList(List<RegionListBean.DataBean> dataBeanList) {
+    private void showRegionList(final List<RegionListBean.DataBean> dataBeanList) {
 
         regionAdapter = new RegionAdapter(R.layout.module_item_region, dataBeanList);
         //创建适配器
@@ -113,16 +115,19 @@ public class RegionActivity extends BaseActivity {
 //                ImageView ivItemPayforRegionAddDelIcon = view.findViewById(R.id.iv_item_payfor_region_add_del_icon);
                 TextView tvItemPayforRegionAddDel = (TextView) adapter.getViewByPosition(rvPayforTableRegionList, position, R.id.tv_item_payfor_region_add_del);
                 ImageView ivItemPayforRegionAddDelIcon = (ImageView) adapter.getViewByPosition(rvPayforTableRegionList, position, R.id.iv_item_payfor_region_add_del_icon);
+                TextView tvItemPayforRegionName = (TextView) adapter.getViewByPosition(rvPayforTableRegionList, position, R.id.tv_item_payfor_region_name);
 
                 if (view.getId() == R.id.iv_item_payfor_region_add_icon) {
                     //编辑区域
-                    ToastUtil.showToast("编辑");
-
+//                    ToastUtil.showToast("编辑");
+                    showRegionDialog(UPDATE_REGION, dataBeanList.get(position).getLogGid(),regionAdapter,position);
                 } else if (view.getId() == R.id.iv_item_payfor_region_add_del_icon) {
+                    //删除icon 点击时隐藏   显示删除汉字
                     tvItemPayforRegionAddDel.setVisibility(View.VISIBLE);
                     ivItemPayforRegionAddDelIcon.setVisibility(View.GONE);
                 } else if (view.getId() == R.id.tv_item_payfor_region_add_del) {
-
+                    //走删除接口
+                    itemDelete(dataBeanList.get(position).getLogGid(), adapter, position);
 
                     tvItemPayforRegionAddDel.setVisibility(View.GONE);
                     ivItemPayforRegionAddDelIcon.setVisibility(View.VISIBLE);
@@ -131,18 +136,53 @@ public class RegionActivity extends BaseActivity {
         });
     }
 
+    /**
+     * @param logGid
+     * @param adapter
+     * @param position
+     * @author fenghao
+     * @date 2018/7/17 0017 上午 9:35
+     * @desc 删除接口
+     */
+    private void itemDelete(String logGid, final BaseQuickAdapter adapter, final int position) {
+        HttpFactory.post().url(ApiConfig.DEL_REGION)
+                .addParams("logGid", logGid)
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("删除成功");
+                    //删除 删除这条item
+                    adapter.remove(position);
+                    // 更新视图
+                    adapter.notifyDataSetChanged();
+                } else {
+                    ToastUtil.showToast("删除失败");
+                }
+            }
+        });
+    }
+
+
     @OnClick(R.id.tv_titlebar_right)
     public void onViewClicked() {
         //点击添加
-        showAddDialog();
+        showRegionDialog(ADD_REGION, "", null, 0);
     }
 
     /**
+     * @param regionFlag  判断是添加 还是编辑
+     * @param logGid       区域id
+     * @param regionAdapter
+     * @param position    更改位置
      * @author fenghao
      * @date 2018/7/16 0016 下午 15:04
      * @desc 弹框添加区域的操作
      */
-    private void showAddDialog() {
+    private void showRegionDialog(final int regionFlag, final String logGid,
+                                  final RegionAdapter regionAdapter, final int position) {
+
         View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_add, null);
         Display display = this.getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
@@ -167,7 +207,13 @@ public class RegionActivity extends BaseActivity {
                 if (TextUtils.isEmpty(etDialogRegionContent.getText().toString())) {
                     ToastUtil.showToast("请填写区域名称");
                 } else {
-                    addRegion(etDialogRegionContent.getText().toString());
+                    if (regionFlag == 1) {
+                        //添加接口
+                        addRegion(etDialogRegionContent.getText().toString());
+                    } else {
+                        //编辑接口
+                        updateRegion(etDialogRegionContent.getText().toString(), logGid,regionAdapter,position);
+                    }
                 }
             }
         });
@@ -184,14 +230,44 @@ public class RegionActivity extends BaseActivity {
     }
 
     /**
+     * @param regionName    区域名称
+     * @param logGid        区域id
+     * @param regionAdapter adapter
+     * @param position      位置
+     * @author fenghao
+     * @date 2018/7/17 0017 上午 9:58
+     * @desc 更新区域名称接口
+     */
+    private void updateRegion(final String regionName, String logGid, final RegionAdapter regionAdapter, final int position) {
+        HttpFactory.post().url(ApiConfig.UPDATE_REGION)
+                .addParams("logGid", logGid)
+                .addParams("regionName", regionName)
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("更改失败");
+                } else {
+                    ToastUtil.showToast("更改成功");
+                    dataBeanList.get(position).setRegionNamer(regionName);
+                    regionAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                }
+            }
+        });
+    }
+
+    /**
+     * @param regionName 区域名称
      * @author fenghao
      * @date 2018/7/16 0016 下午 15:18
      * @desc 添加区域接口 ADD_REGION
      */
-    private void addRegion(String s) {
+    private void addRegion(String regionName) {
         HttpFactory.post().url(ApiConfig.ADD_REGION)
                 .addParams("shopNumber", getShopNumber())
-                .addParams("regionName", s)
+                .addParams("regionName", regionName)
                 .build().execute(new ResponseCallback<BaseBean>(this) {
             @Override
             public void onResponse(BaseBean response, int id) {
