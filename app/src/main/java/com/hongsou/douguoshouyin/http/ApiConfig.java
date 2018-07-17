@@ -15,7 +15,7 @@ public class ApiConfig {
     public static final int CODE_SUCCESS = 1000;
 
     public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";//ip
-//    public static final String BASE_URL = "http://192.168.1.2:3000/mock/20/"; // 测试IP
+    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20"; // 测试IP
 
     // TODO ======================================== 登录模块 ====================================================
     /**
@@ -72,35 +72,35 @@ public class ApiConfig {
     /**
      * TODO 添加桌台
      */
-    public static final String ADD_TABLE = BASE_URL + "/table/addTable";
+    public static final String ADD_TABLE = BASE_URL_MOCK + "/table/addTable";
     /**
      * TODO 批量删除桌台
      */
-    public static final String BATCH_DELETE_TABLE = BASE_URL + "/table/batchDeleteTable";
+    public static final String BATCH_DELETE_TABLE = BASE_URL_MOCK + "/table/batchDeleteTable";
     /**
      * TODO 批量添加桌台
      */
-    public static final String BATCH_ADD_TABLE = BASE_URL + "/table/batchAddTable";
+    public static final String BATCH_ADD_TABLE = BASE_URL_MOCK + "/table/batchAddTable";
     /**
      * TODO 查询桌台列表
      */
-    public static final String GET_TABLE_LIST = BASE_URL + "/table/getTableList";
+    public static final String GET_TABLE_LIST = BASE_URL_MOCK + "/table/getTableList";
     /**
      * TODO 添加区域
      */
-    public static final String ADD_REGION = BASE_URL + "/table/addRegion";
+    public static final String ADD_REGION = BASE_URL_MOCK + "/table/addRegion";
     /**
      * TODO 删除区域
      */
-    public static final String DEL_REGION = BASE_URL + "/table/delRegion";
+    public static final String DEL_REGION = BASE_URL_MOCK + "/table/delRegion";
     /**
      * TODO 编辑区域
      */
-    public static final String UPDATE_REGION = BASE_URL + "/table/updateRegion";
+    public static final String UPDATE_REGION = BASE_URL_MOCK + "/table/updateRegion";
     /**
      * TODO 查询区域
      */
-    public static final String GET_REGION_LIST = BASE_URL + "/table/getRegionList";
+    public static final String GET_REGION_LIST = BASE_URL_MOCK + "/table/getRegionList";
     // TODO ======================================== 流水模块 ====================================================
     /**
      * TODO 获取订单列表

@@ -56,7 +56,9 @@ public class WelcomeActivity extends BaseActivity {
     private void intentMainAct() {
         Intent mainIntent = null;
 //        mainIntent = new Intent(this, LoginActivity.class);
-        mainIntent = new Intent(this, LoginActivity.class);
+//        mainIntent = new Intent(this, LoginActivity.class);
+        mainIntent = new Intent(this, MainActivity.class);
+
         startActivity(mainIntent);
         if (timer != null) {
             timer.cancel();
