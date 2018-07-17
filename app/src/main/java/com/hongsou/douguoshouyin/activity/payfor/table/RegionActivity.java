@@ -273,6 +273,7 @@ public class RegionActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("添加成功");
+                    getRegionList();
                 } else {
                     ToastUtil.showToast("添加失败");
                 }

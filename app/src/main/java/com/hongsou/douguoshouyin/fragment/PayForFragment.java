@@ -152,14 +152,12 @@ public class PayForFragment extends BaseFragment {
 //                    ToastUtil.showToast(name[i]);
 //                }
                 if (name[i].contains("桌台")) {
-                    ToastUtil.showToast(name[i]);
                     Intent zhuotaiIntent = new Intent(getActivity(), TableActivity.class);
                     startActivity(zhuotaiIntent);
                 }
                 if (name[i].contains("商品")) {
                     Intent shangpinIntent = new Intent(getActivity(), CommodityActivity.class);
                     startActivity(shangpinIntent);
-                    ToastUtil.showToast(name[i]);
                 }
                 if (name[i].contains("扫码")) {
                     ToastUtil.showToast(name[i]);

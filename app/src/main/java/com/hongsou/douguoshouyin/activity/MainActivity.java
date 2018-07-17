@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.BaseApplication;
@@ -244,6 +245,8 @@ public class MainActivity extends BaseActivity {
                 tvTagTurnoverIcon.setTextColor(getResources().getColor(R.color.black));
                 tvTagMoreIcon.setTextColor(getResources().getColor(R.color.black));
                 tvTagMineIcon.setTextColor(getResources().getColor(R.color.color_base_yellow));
+                break;
+            default:
                 break;
 
         }
