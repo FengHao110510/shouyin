@@ -39,24 +39,47 @@ public class TableListContentBean implements MultiItemEntity {
 
 
     /**
-     * shopNumber : 53000019990814726X
-     * tabletableNumber : quis cillum ut
-     * pedestal : 2
-     * number : 50
+     * shopNumber : 340000198009023896
+     * logGid : c6FDf7D8-e31B-Eba1-305A-76FBCdfCF449
+     * tabletableNumber : F6C5C3AE-2d1c-BA6e-69F5-BbdeEedcc4d4
+     * pedestal : 4
+     * number : 5
+     * regionNumber : f32ece98-fe8E-A
      */
 
     private String shopNumber;
+    private String logGid;
     private String tabletableNumber;
     private int pedestal;
     private int number;
+    private String regionNumber;
 
-    public TableListContentBean(String shopNumber, String tabletableNumber, int pedestal, int number) {
+    public TableListContentBean(String shopNumber, String logGid, String tabletableNumber, int pedestal, int number, String regionNumber) {
         this.shopNumber = shopNumber;
+        this.logGid = logGid;
         this.tabletableNumber = tabletableNumber;
         this.pedestal = pedestal;
         this.number = number;
+        this.regionNumber = regionNumber;
     }
 
+    /**
+     *  {
+     "shopNumber": "340000198009023896",
+     "logGid": "c6FDf7D8-e31B-Eba1-305A-76FBCdfCF449",
+     "tabletableNumber": "F6C5C3AE-2d1c-BA6e-69F5-BbdeEedcc4d4",
+     "pedestal": 4,
+     "number": 5,
+     "regionNumber": "f32ece98-fe8E-A"
+     }
+     */
+
+
+
+    @Override
+    public int getItemType() {
+        return TableAdapter.TYPE_TABLE_CONTENT;
+    }
 
     public String getShopNumber() {
         return shopNumber;
@@ -64,6 +87,14 @@ public class TableListContentBean implements MultiItemEntity {
 
     public void setShopNumber(String shopNumber) {
         this.shopNumber = shopNumber;
+    }
+
+    public String getLogGid() {
+        return logGid;
+    }
+
+    public void setLogGid(String logGid) {
+        this.logGid = logGid;
     }
 
     public String getTabletableNumber() {
@@ -90,8 +121,11 @@ public class TableListContentBean implements MultiItemEntity {
         this.number = number;
     }
 
-    @Override
-    public int getItemType() {
-        return TableAdapter.TYPE_TABLE_CONTENT;
+    public String getRegionNumber() {
+        return regionNumber;
+    }
+
+    public void setRegionNumber(String regionNumber) {
+        this.regionNumber = regionNumber;
     }
 }

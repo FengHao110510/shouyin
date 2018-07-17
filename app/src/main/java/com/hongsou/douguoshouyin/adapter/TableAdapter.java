@@ -62,12 +62,23 @@ public class TableAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, Bas
         switch (helper.getItemViewType()) {
             case TYPE_TABLE_TITLE:
                 final TableRegionTitleBean tableRegionTitleBean = (TableRegionTitleBean) item;
-                helper.setText(R.id.tv_item_table_title_region,tableRegionTitleBean.getRegionName())
-                .setText(R.id.tv_item_table_title_guige,tableRegionTitleBean.getPedestal()+"");
+                helper.setText(R.id.tv_item_table_title_region, tableRegionTitleBean.getRegionName())
+                        .setText(R.id.tv_item_table_title_guige, tableRegionTitleBean.getPedestal() + "");
                 break;
             case TYPE_TABLE_CONTENT:
                 TableListContentBean tableListContentBean = (TableListContentBean) item;
-                helper.setText(R.id.tv_item_table_content_pedestal,tableListContentBean.getNumber()+"");
+                if (tableListContentBean.getNumber() != 110510) {
+                    helper .addOnClickListener(R.id.iv_item_table_content_add)
+                            .addOnClickListener(R.id.tv_item_table_content_pedestal)
+                            .setText(R.id.tv_item_table_content_pedestal, tableListContentBean.getNumber() + "")
+                            .setVisible(R.id.iv_item_table_content_add, false)
+                            .setVisible(R.id.tv_item_table_content_pedestal, true);
+                } else {
+                    helper .addOnClickListener(R.id.iv_item_table_content_add)
+                            .addOnClickListener(R.id.tv_item_table_content_pedestal)
+                            .setVisible(R.id.iv_item_table_content_add, true)
+                            .setVisible(R.id.tv_item_table_content_pedestal, false);
+                }
                 break;
             default:
                 break;
