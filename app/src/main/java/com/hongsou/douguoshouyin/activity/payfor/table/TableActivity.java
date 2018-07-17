@@ -26,6 +26,7 @@ import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.TableBean;
 import com.hongsou.douguoshouyin.javabean.TableListContentBean;
 import com.hongsou.douguoshouyin.javabean.TableRegionTitleBean;
@@ -197,9 +198,10 @@ public class TableActivity extends BaseActivity {
         TextView tvDialogEditTitle = view.findViewById(R.id.tv_dialog_edit_title);
         TextView tvDialogEditYes = view.findViewById(R.id.tv_dialog_edit_yes);
         TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);
-        EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
+        final EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
 
         tvDialogEditTitle.setText("请输入桌台号码");
+        etDialogEditContent.setHint("桌台号");
         etDialogEditContent.setInputType(InputType.TYPE_CLASS_NUMBER);
         tvDialogEditCancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,21 +213,48 @@ public class TableActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //走添加单个桌台的接口
-                addOneTable(tableListContentBean);
+                if (!TextUtils.isEmpty(etDialogEditContent.getText().toString())){
+                    addOneTable(tableListContentBean,etDialogEditContent.getText().toString());
+
+                }else {
+                    ToastUtil.showToast("请输入桌台号");
+                }
             }
         });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 2 / 7);
-
+        addOneDialog.addContentView(view,params);
+        addOneDialog.setCancelable(false);
+        addOneDialog.setCanceledOnTouchOutside(false);
+        addOneDialog.show();
     }
 
     /**
-     * @param tableListContentBean
+     * @param tableListContentBean 上传的数据
+     * @param number      桌台号
      * @author fenghao
      * @date 2018/7/17 0017 下午 18:54
      * @desc 添加单个接口
      */
-    private void addOneTable(TableListContentBean tableListContentBean) {
-//        HttpFactory.post()
+    private void addOneTable(TableListContentBean tableListContentBean, String number) {
+        HttpFactory.post().url(ApiConfig.ADD_TABLE)
+                .addParams("shopNumber",getShopNumber())
+                .addParams("pedestal",tableListContentBean.getPedestal()+"")
+                .addParams("regionNumber",tableListContentBean.getRegionNumber())
+                .addParams("number",number)
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()){
+                    ToastUtil.showToast("添加成功");
+                    addOneDialog.dismiss();
+                    getTableList();
+                }else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
+
     }
 
 
