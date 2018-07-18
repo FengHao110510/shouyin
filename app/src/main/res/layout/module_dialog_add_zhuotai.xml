@@ -16,11 +16,20 @@
         android:textColor="@color/black"
         android:textSize="16sp" />
 
+    <Spinner
+        android:id="@+id/sp_dialog_zhuotairegion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:overlapAnchor="false">
+
+    </Spinner>
+
     <EditText
         android:id="@+id/et_dialog_zhuotaiguige"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
         android:background="@null"
         android:hint="桌台规格，例如4人桌输入4"
         android:inputType="number"
@@ -36,7 +45,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="13dp"
         android:background="@null"
         android:hint="桌台数量"
         android:inputType="number"

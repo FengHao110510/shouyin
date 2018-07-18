@@ -17,10 +17,12 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+
 import okhttp3.Call;
 
 //管理分类页面
@@ -78,19 +80,20 @@ public class ManageClassActivity extends BaseActivity {
         dialog = new Dialog(this, R.style.CommonDialog);
 
         View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_fenlei_text, null);
-        TextView tv_dialog_fenlei_cancle = view.findViewById(R.id.tv_dialog_fenlei_cancle);
-        TextView tv_dialog_fenlei_yes = view.findViewById(R.id.tv_dialog_fenlei_yes);
-        EditText et_dialog_fenlei_content = view.findViewById(R.id.et_dialog_fenlei_content);
-        TextView tv_dialog_fenlei_content_icon = view.findViewById(R.id.tv_dialog_fenlei_content_icon);
-        Spinner sp_dialog_fenlei_dantao = view.findViewById(R.id.sp_dialog_fenlei_dantao);
+        TextView tvDialogFenleiCancle = view.findViewById(R.id.tv_dialog_fenlei_cancle);
+        TextView tvDialogFenleiYes = view.findViewById(R.id.tv_dialog_fenlei_yes);
+        EditText etDialogFenleiContent = view.findViewById(R.id.et_dialog_fenlei_content);
+        TextView tvDialogFenleiContentIcon = view.findViewById(R.id.tv_dialog_fenlei_content_icon);
+        Spinner spDialogFenleiDantao = view.findViewById(R.id.sp_dialog_fenlei_dantao);
+
 
 //        final String[] dantao = new String[1];//看用户选择的是单品还是套餐
-        sp_dialog_fenlei_dantao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spDialogFenleiDantao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i==0){
+                if (i == 0) {
                     ToastUtil.showToast("单品");
-                }else {
+                } else {
                     ToastUtil.showToast("套餐");
 
 
@@ -102,18 +105,17 @@ public class ManageClassActivity extends BaseActivity {
                 ToastUtil.showToast("单品");
             }
         });
-        setIconFont(new TextView[]{tv_dialog_fenlei_content_icon});
+        setIconFont(new TextView[]{tvDialogFenleiContentIcon});
 
-        tv_dialog_fenlei_cancle.setOnClickListener(new View.OnClickListener() {
+        tvDialogFenleiCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
             }
         });
-        tv_dialog_fenlei_yes.setOnClickListener(new View.OnClickListener() {
+        tvDialogFenleiYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //走添加接口
                 managetTianjia();
             }
@@ -122,7 +124,7 @@ public class ManageClassActivity extends BaseActivity {
         int w = display.getWidth();
         int h = display.getHeight();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 3 / 10);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 2 / 7);
         dialog.addContentView(view, params);
 
         dialog.setCanceledOnTouchOutside(false);

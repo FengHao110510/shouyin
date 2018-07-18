@@ -11,11 +11,10 @@
     <Spinner
         android:id="@+id/sp_dialog_fenlei_dantao"
         android:layout_width="match_parent"
+        android:paddingTop="20dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-
-
-        android:entries="@array/spinnerClass" />
+        android:entries="@array/spinnerClass"
+        android:overlapAnchor="false" />
 
     <RelativeLayout
         android:layout_width="match_parent"

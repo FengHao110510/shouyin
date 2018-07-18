@@ -46,6 +46,23 @@ public class HttpFactory {
         this.type = type;
     }
 
+    public static void postString(String url,String content,ResponseCallback responseCallback){
+        if (NetWorkStateUtils.isNetConnected()) {
+            Log.e(TAG, "【参数】 :: " + content);
+            try {
+               OkHttpUtils.postString().content(content).url(url).build().execute(responseCallback);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ToastUtil.showToast("参数有误");
+                BaseActivity.dismissLoadingDialog();
+                BaseFragment.dismissLoadingDialog();
+            }
+        } else {
+            BaseActivity.dismissLoadingDialog();
+            BaseFragment.dismissLoadingDialog();
+            ToastUtil.showToast("网络未连接，请检查网络");
+        }
+    }
     public static PostHttpBuilder post() {
         return new PostHttpBuilder();
     }
