@@ -51,7 +51,7 @@ public class RegionAdapter extends BaseQuickAdapter<RegionListBean.DataBean, Bas
 
     @Override
     protected void convert(BaseViewHolder helper, RegionListBean.DataBean item) {
-        helper.setText(R.id.tv_item_payfor_region_name, item.getRegionNamer())
+        helper.setText(R.id.tv_item_payfor_region_name, item.getRegionName())
                 .addOnClickListener(R.id.iv_item_payfor_region_add_del_icon)
                 .addOnClickListener(R.id.iv_item_payfor_region_add_icon)
                 .addOnClickListener(R.id.tv_item_payfor_region_add_del);

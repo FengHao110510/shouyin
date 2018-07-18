@@ -55,8 +55,8 @@ public class WelcomeActivity extends BaseActivity {
     //跳转方向
     private void intentMainAct() {
         Intent mainIntent = null;
-        mainIntent = new Intent(this, LoginActivity.class);
-//        mainIntent = new Intent(this, MainActivity.class);
+//        mainIntent = new Intent(this, LoginActivity.class);
+        mainIntent = new Intent(this, MainActivity.class);
 
         startActivity(mainIntent);
         if (timer != null) {
