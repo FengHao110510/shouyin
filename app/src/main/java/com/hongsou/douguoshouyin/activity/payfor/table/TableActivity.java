@@ -4,13 +4,9 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.InputType;
-import android.text.Layout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,13 +29,10 @@ import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.DeletTableBean;
 import com.hongsou.douguoshouyin.javabean.RegionListBean;
-import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.javabean.TableBean;
 import com.hongsou.douguoshouyin.javabean.TableListContentBean;
 import com.hongsou.douguoshouyin.javabean.TableRegionTitleBean;
-import com.hongsou.douguoshouyin.tool.GsonUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +57,8 @@ public class TableActivity extends BaseActivity {
     TextView tvPayforTableRegion;
     @BindView(R.id.rv_payfor_table_list)
     RecyclerView rvPayforTableList;
+    @BindView(R.id.tv_titlebar_right)
+    TextView tvTitlebarRight;
     //桌台数据
     private List<TableBean.DataBean> dataBeanList;
     //区域数据
@@ -98,7 +93,8 @@ public class TableActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        tvTitlebarRight.setText("打包下载");
+        tvTitlebarRight.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -210,7 +206,6 @@ public class TableActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TableListContentBean tableListContentBean = (TableListContentBean) res.get(position);
                 if (view.getId() == R.id.tv_item_table_content_pedestal) {
-
                     //点击选中状态改变
                     if (tableListContentBean.isSelectFlag()) {
                         view.setBackground(getResources().getDrawable(R.drawable.btn_logout));
@@ -323,7 +318,7 @@ public class TableActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_payfor_table_add, R.id.tv_payfor_table_delet, R.id.tv_payfor_table_region})
+    @OnClick({R.id.tv_payfor_table_add, R.id.tv_payfor_table_delet, R.id.tv_payfor_table_region, R.id.tv_titlebar_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_payfor_table_add:
@@ -337,6 +332,9 @@ public class TableActivity extends BaseActivity {
             case R.id.tv_payfor_table_region:
                 //区域管理
                 startActivity(new Intent(this, RegionActivity.class));
+                break;
+            case R.id.tv_titlebar_right:
+                //打包下载
                 break;
             default:
                 break;
@@ -357,14 +355,14 @@ public class TableActivity extends BaseActivity {
         TextView tvAlertDialogCancle = view.findViewById(R.id.tv_alert_dialog_cancle);
         TextView tvAlertDialogYes = view.findViewById(R.id.tv_alert_dialog_yes);
         for (int w = 0; w < res.size(); w++) {
-           if (res.get(w).getItemType()==TableAdapter.TYPE_TABLE_CONTENT){
-               TableListContentBean tableListContentBean = (TableListContentBean) res.get(w);
-               //根据条目数形判断有没有被选中
-               if (tableListContentBean.isSelectFlag()) {
-                   DeletTableBean deletTableBean = new DeletTableBean(tableListContentBean.getLogGid());
-                   deletTableBeanArrayList.add(deletTableBean);
-               }
-           }
+            if (res.get(w).getItemType() == TableAdapter.TYPE_TABLE_CONTENT) {
+                TableListContentBean tableListContentBean = (TableListContentBean) res.get(w);
+                //根据条目数形判断有没有被选中
+                if (tableListContentBean.isSelectFlag()) {
+                    DeletTableBean deletTableBean = new DeletTableBean(tableListContentBean.getLogGid());
+                    deletTableBeanArrayList.add(deletTableBean);
+                }
+            }
 
         }
         tvAlertDialogContent.setText("您确定要删除这" + deletTableBeanArrayList.size() + "个桌台吗");
@@ -388,11 +386,15 @@ public class TableActivity extends BaseActivity {
         int w = display.getWidth();
         int h = display.getHeight();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w*4/5,h/6);
-        deletDialog.addContentView(view,params);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 6);
+        deletDialog.addContentView(view, params);
         deletDialog.setCanceledOnTouchOutside(false);
         deletDialog.setCancelable(false);
-        deletDialog.show();
+        if (deletTableBeanArrayList.size() > 0) {
+            deletDialog.show();
+        } else {
+            ToastUtil.showToast("请先选择要删除的桌台");
+        }
 
     }
 
@@ -418,8 +420,11 @@ public class TableActivity extends BaseActivity {
                 });
     }
 
-    //弹框批量添加
-
+    /**
+     * @author fenghao
+     * @date 2018/7/18 0018 下午 15:21
+     * @desc //弹框批量添加
+     */
     private void showAddTableDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_add_zhuotai, null);
         //规格
@@ -510,7 +515,9 @@ public class TableActivity extends BaseActivity {
      * @desc 给下拉框添加数据 并绑定点击事件
      */
 
+    //下拉框数据
     private List<String> spList;
+    //下拉框适配器
     private ArrayAdapter<String> arrAdapter;
 
     private void getRegionToSp(final Spinner spDialogZhuotairegion) {
@@ -573,7 +580,6 @@ public class TableActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 
