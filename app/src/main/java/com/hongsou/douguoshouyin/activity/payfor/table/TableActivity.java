@@ -31,7 +31,9 @@ import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
+import com.hongsou.douguoshouyin.javabean.DeletTableBean;
 import com.hongsou.douguoshouyin.javabean.RegionListBean;
+import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.javabean.TableBean;
 import com.hongsou.douguoshouyin.javabean.TableListContentBean;
 import com.hongsou.douguoshouyin.javabean.TableRegionTitleBean;
@@ -73,8 +75,13 @@ public class TableActivity extends BaseActivity {
     private Dialog dialog;
     //添加单个的弹框
     private Dialog addOneDialog;
+    //添加单个的弹框
+    private Dialog deletDialog;
     //区域编号
     private String regionNumber;
+    //数据源
+    ArrayList<MultiItemEntity> res = new ArrayList<>();
+    ;
 
     @Override
     public int initLayout() {
@@ -105,6 +112,7 @@ public class TableActivity extends BaseActivity {
      * @desc 获取桌台列表
      */
     private void getTableList() {
+        res.clear();
         HttpFactory.get().url(ApiConfig.GET_TABLE_LIST)
                 .addParams("shopNumber", getShopNumber())
                 .build().execute(new ResponseCallback<TableBean>(this) {
@@ -128,26 +136,41 @@ public class TableActivity extends BaseActivity {
      * @desc 展示桌台列表
      */
     private void showTableList(List<TableBean.DataBean> dataBeanList) {
-        final ArrayList<MultiItemEntity> res = new ArrayList<>();
+
         for (int i = 0; i < dataBeanList.size(); i++) {
             //添加头部
             TableBean.DataBean dataBean = dataBeanList.get(i);
             TableRegionTitleBean tableRegionTitleBean = new TableRegionTitleBean(dataBean.getRegionName()
                     , dataBean.getPedestal(), dataBean.getRegionNumber());
             List<TableBean.DataBean.TableListBean> tableList = dataBean.getTableList();
-            //添加二级菜单
-            for (int k = 0; k < tableList.size(); k++) {
-                TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber(),
-                        tableList.get(k).getLogGid()
-                        , tableList.get(k).getTabletableNumber()
-                        , tableList.get(k).getPedestal()
-                        , tableList.get(k).getNumber()
-                        , tableList.get(k).getRegionNumber());
-                tableRegionTitleBean.addSubItem(i, tableListContentBean);
+            //添加二级菜单  莫名其妙的错误  第一组数据总是反的
+            if (i == 0) {
+                for (int k = tableList.size() - 1; k >= 0; k--) {
+                    TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber(),
+                            tableList.get(k).getLogGid()
+                            , tableList.get(k).getTabletableNumber()
+                            , tableList.get(k).getPedestal()
+                            , tableList.get(k).getNumber()
+                            , tableList.get(k).getRegionNumber()
+                            , false);
+                    tableRegionTitleBean.addSubItem(i, tableListContentBean);
+                }
+            } else {
+                for (int k = 0; k < tableList.size(); k++) {
+                    TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber(),
+                            tableList.get(k).getLogGid()
+                            , tableList.get(k).getTabletableNumber()
+                            , tableList.get(k).getPedestal()
+                            , tableList.get(k).getNumber()
+                            , tableList.get(k).getRegionNumber()
+                            , false);
+                    tableRegionTitleBean.addSubItem(i, tableListContentBean);
+                }
             }
+
             //添加一个空白的 + 按钮  110510瞎写的用作区分  dataBean.getPedestal() 规格 dataBean.getRegionNumber()区域编号  添加单个桌台有用
             TableListContentBean tableListContentBean2 = new TableListContentBean("",
-                    "", "", dataBean.getPedestal(), 110510, dataBean.getRegionNumber());
+                    "", "", dataBean.getPedestal(), 110510, dataBean.getRegionNumber(), false);
             tableRegionTitleBean.addSubItem(tableList.size(), tableListContentBean2);
             res.add(tableRegionTitleBean);
         }
@@ -168,6 +191,7 @@ public class TableActivity extends BaseActivity {
         //先添加adapter 在添加manager setSpanSizeLookup才会被调用
         rvPayforTableList.setAdapter(tableAdapter);
         rvPayforTableList.setLayoutManager(gridLayoutManager);
+
         //设置点击事件
         setChildClick(tableAdapter, res);
 
@@ -184,11 +208,19 @@ public class TableActivity extends BaseActivity {
         tableAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                TableListContentBean tableListContentBean = (TableListContentBean) res.get(position);
                 if (view.getId() == R.id.tv_item_table_content_pedestal) {
+
                     //点击选中状态改变
+                    if (tableListContentBean.isSelectFlag()) {
+                        view.setBackground(getResources().getDrawable(R.drawable.btn_logout));
+                        tableListContentBean.setSelectFlag(false);
+                    } else {
+                        tableListContentBean.setSelectFlag(true);
+                        view.setBackground(getResources().getDrawable(R.drawable.btn_stroke_red));
+                    }
                 } else if (view.getId() == R.id.iv_item_table_content_add) {
                     //点击的最后一个添加图片时
-                    TableListContentBean tableListContentBean = (TableListContentBean) res.get(position);
                     //走单个添加接口
                     showAddOneTableDialog(tableListContentBean);
                 }
@@ -256,7 +288,7 @@ public class TableActivity extends BaseActivity {
         addOneMap.put("regionNumber", tableListContentBean.getRegionNumber());
         addOneMap.put("number", number);
         Gson gson = new Gson();
-        HttpFactory.postString(ApiConfig.ADD_TABLE,gson.toJson(addOneMap), new ResponseCallback<BaseBean>(this) {
+        HttpFactory.postString(ApiConfig.ADD_TABLE, gson.toJson(addOneMap), new ResponseCallback<BaseBean>(this) {
             @Override
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
@@ -267,7 +299,7 @@ public class TableActivity extends BaseActivity {
                     ToastUtil.showToast(response.getMsg());
                 }
             }
-        }) ;
+        });
     }
 
 
@@ -287,7 +319,6 @@ public class TableActivity extends BaseActivity {
         } else {
             count = 1;
         }
-
         return count;
     }
 
@@ -301,6 +332,7 @@ public class TableActivity extends BaseActivity {
                 break;
             case R.id.tv_payfor_table_delet:
                 //批量删除
+                showDeletListTableDialog();
                 break;
             case R.id.tv_payfor_table_region:
                 //区域管理
@@ -309,6 +341,81 @@ public class TableActivity extends BaseActivity {
             default:
                 break;
         }
+    }
+
+    /**
+     * @author fenghao
+     * @date 2018/7/18 0018 下午 12:30
+     * @desc 询问用户是否删除
+     */
+    private void showDeletListTableDialog() {
+        final ArrayList<DeletTableBean> deletTableBeanArrayList = new ArrayList<>();
+
+        deletDialog = new Dialog(this, R.style.CommonDialog);
+        View view = LayoutInflater.from(this).inflate(R.layout.module_alert_dialog, null);
+        TextView tvAlertDialogContent = view.findViewById(R.id.tv_alert_dialog_content);
+        TextView tvAlertDialogCancle = view.findViewById(R.id.tv_alert_dialog_cancle);
+        TextView tvAlertDialogYes = view.findViewById(R.id.tv_alert_dialog_yes);
+        for (int w = 0; w < res.size(); w++) {
+           if (res.get(w).getItemType()==TableAdapter.TYPE_TABLE_CONTENT){
+               TableListContentBean tableListContentBean = (TableListContentBean) res.get(w);
+               //根据条目数形判断有没有被选中
+               if (tableListContentBean.isSelectFlag()) {
+                   DeletTableBean deletTableBean = new DeletTableBean(tableListContentBean.getLogGid());
+                   deletTableBeanArrayList.add(deletTableBean);
+               }
+           }
+
+        }
+        tvAlertDialogContent.setText("您确定要删除这" + deletTableBeanArrayList.size() + "个桌台吗");
+        tvAlertDialogCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deletDialog.dismiss();
+                deletTableBeanArrayList.clear();
+            }
+        });
+        tvAlertDialogYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Gson gson = new Gson();
+                //走删除接口
+                toDeletTable(gson.toJson(deletTableBeanArrayList));
+            }
+        });
+
+        Display display = this.getWindowManager().getDefaultDisplay();
+        int w = display.getWidth();
+        int h = display.getHeight();
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w*4/5,h/6);
+        deletDialog.addContentView(view,params);
+        deletDialog.setCanceledOnTouchOutside(false);
+        deletDialog.setCancelable(false);
+        deletDialog.show();
+
+    }
+
+    /**
+     * @param json
+     * @author fenghao
+     * @date 2018/7/18 0018 下午 14:48
+     * @desc 删除桌台接口
+     */
+    private void toDeletTable(String json) {
+        HttpFactory.postString(ApiConfig.BATCH_DELETE_TABLE
+                , json, new ResponseCallback<BaseBean>(this) {
+                    @Override
+                    public void onResponse(BaseBean response, int id) {
+                        if (response.isSuccess()) {
+                            ToastUtil.showToast("删除成功");
+                            getTableList();
+                            deletDialog.dismiss();
+                        } else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
     }
 
     //弹框批量添加
@@ -368,25 +475,26 @@ public class TableActivity extends BaseActivity {
     private void addListTable(String regionNumber, String pedestal, String count) {
         if (!TextUtils.isEmpty(pedestal)) {
             if (!TextUtils.isEmpty(count)) {
-                HttpFactory.post().url(ApiConfig.BATCH_ADD_TABLE)
-                        .addParams("shopNumber", getShopNumber())
-                        .addParams("regionNumber", regionNumber)
-                        .addParams("pedestal", pedestal)
-                        .addParams("count", count)
-                        .build().execute(new ResponseCallback<BaseBean>(this) {
-                    @Override
-                    public void onResponse(BaseBean response, int id) {
-                        if (response.isSuccess()) {
-                            getTableList();
-                            dialog.dismiss();
-                            ToastUtil.showToast("批量添加成功");
-                        } else {
-                            ToastUtil.showToast(response.getMsg());
-                        }
-                    }
-
-
-                });
+                Map<String, Object> addListTableMap = new HashMap<>();
+                addListTableMap.put("shopNumber", getShopNumber());
+                addListTableMap.put("regionNumber", regionNumber);
+                addListTableMap.put("pedestal", Integer.valueOf(pedestal));
+                addListTableMap.put("count", Integer.valueOf(count));
+                Gson gson = new Gson();
+                HttpFactory.postString(ApiConfig.BATCH_ADD_TABLE
+                        , gson.toJson(addListTableMap)
+                        , new ResponseCallback<BaseBean>(this) {
+                            @Override
+                            public void onResponse(BaseBean response, int id) {
+                                if (response.isSuccess()) {
+                                    getTableList();
+                                    dialog.dismiss();
+                                    ToastUtil.showToast("批量添加成功");
+                                } else {
+                                    ToastUtil.showToast(response.getMsg());
+                                }
+                            }
+                        });
             } else {
                 ToastUtil.showToast("请添加桌台数量");
             }
@@ -414,38 +522,51 @@ public class TableActivity extends BaseActivity {
             public void onResponse(RegionListBean response, int id) {
                 if (response.isSuccess()) {
                     regionDataBeanList = response.getData();
-                    //默认区域
-                    regionNumber = regionDataBeanList.get(0).getRegionNumber();
+                    if (regionDataBeanList.size() > 0) {
+                        regionDataBeanList = response.getData();
+                        //默认区域
+                        regionNumber = regionDataBeanList.get(0).getRegionNumber();
 
-                    //数据
-                    spList = new ArrayList<String>();
-                    for (int i = 0; i < regionDataBeanList.size(); i++) {
-                        spList.add(regionDataBeanList.get(i).getRegionNamer());
+                        //数据
+                        spList = new ArrayList<String>();
+                        for (int i = 0; i < regionDataBeanList.size(); i++) {
+                            spList.add(regionDataBeanList.get(i).getRegionName());
+                        }
+                        //适配器
+                        arrAdapter = new ArrayAdapter<String>(TableActivity.this, android.R.layout.simple_spinner_item, spList);
+                        //设置样式
+                        arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        //加载适配器
+                        spDialogZhuotairegion.setAdapter(arrAdapter);
+
+                        spDialogZhuotairegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                regionNumber = regionDataBeanList.get(i).getRegionNumber();
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+                                regionNumber = regionDataBeanList.get(0).getRegionNumber();
+                            }
+                        });
+                    } else {
+                        ToastUtil.showToast("请先添加区域");
+                        dialog.dismiss();
                     }
-                    //适配器
-                    arrAdapter = new ArrayAdapter<String>(TableActivity.this, android.R.layout.simple_spinner_item, spList);
-                    //设置样式
-                    arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    //加载适配器
-                    spDialogZhuotairegion.setAdapter(arrAdapter);
 
-                    spDialogZhuotairegion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            regionNumber = regionDataBeanList.get(i).getRegionNumber();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                            regionNumber = regionDataBeanList.get(0).getRegionNumber();
-                        }
-                    });
                 } else {
                     ToastUtil.showToast("查询失败");
                 }
             }
 
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getTableList();
     }
 
     //===============================================================================================

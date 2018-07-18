@@ -53,32 +53,16 @@ public class TableListContentBean implements MultiItemEntity {
     private int pedestal;
     private int number;
     private String regionNumber;
+    private boolean selectFlag;
 
-    public TableListContentBean(String shopNumber, String logGid, String tabletableNumber, int pedestal, int number, String regionNumber) {
+    public TableListContentBean(String shopNumber, String logGid, String tabletableNumber, int pedestal, int number, String regionNumber, boolean selectFlag) {
         this.shopNumber = shopNumber;
         this.logGid = logGid;
         this.tabletableNumber = tabletableNumber;
         this.pedestal = pedestal;
         this.number = number;
         this.regionNumber = regionNumber;
-    }
-
-    /**
-     *  {
-     "shopNumber": "340000198009023896",
-     "logGid": "c6FDf7D8-e31B-Eba1-305A-76FBCdfCF449",
-     "tabletableNumber": "F6C5C3AE-2d1c-BA6e-69F5-BbdeEedcc4d4",
-     "pedestal": 4,
-     "number": 5,
-     "regionNumber": "f32ece98-fe8E-A"
-     }
-     */
-
-
-
-    @Override
-    public int getItemType() {
-        return TableAdapter.TYPE_TABLE_CONTENT;
+        this.selectFlag = selectFlag;
     }
 
     public String getShopNumber() {
@@ -127,5 +111,18 @@ public class TableListContentBean implements MultiItemEntity {
 
     public void setRegionNumber(String regionNumber) {
         this.regionNumber = regionNumber;
+    }
+
+    public boolean isSelectFlag() {
+        return selectFlag;
+    }
+
+    public void setSelectFlag(boolean selectFlag) {
+        this.selectFlag = selectFlag;
+    }
+
+    @Override
+    public int getItemType() {
+        return TableAdapter.TYPE_TABLE_CONTENT;
     }
 }

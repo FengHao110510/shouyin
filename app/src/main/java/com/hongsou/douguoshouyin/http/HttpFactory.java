@@ -22,6 +22,7 @@ import java.util.Map;
 
 
 import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by Administrator on 2018/7/2.
@@ -50,7 +51,9 @@ public class HttpFactory {
         if (NetWorkStateUtils.isNetConnected()) {
             Log.e(TAG, "【参数】 :: " + content);
             try {
-               OkHttpUtils.postString().content(content).url(url).build().execute(responseCallback);
+               OkHttpUtils.postString().content(content)
+                       .mediaType(MediaType.parse("application/json"))
+                       .url(url).build().execute(responseCallback);
             } catch (Exception e) {
                 e.printStackTrace();
                 ToastUtil.showToast("参数有误");
