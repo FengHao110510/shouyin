@@ -3,8 +3,8 @@
 
     <string-array name="spinnerClass">
         <item>单品</item>
-        <item>套餐</item>
-
+        <item>固定套餐</item>
+        <item>分组套餐</item>
     </string-array>
 
 </resources>

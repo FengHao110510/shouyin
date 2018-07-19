@@ -102,9 +102,9 @@ public class RegionActivity extends BaseActivity {
      * @desc 展示区域列表
      */
     private void showRegionList(final List<RegionListBean.DataBean> dataBeanList) {
-
-        regionAdapter = new RegionAdapter(R.layout.module_item_region, dataBeanList);
         //创建适配器
+        regionAdapter = new RegionAdapter(R.layout.module_item_region, dataBeanList);
+
         rvPayforTableRegionList.setAdapter(regionAdapter);
         //创建布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -115,9 +115,9 @@ public class RegionActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 
+                //获取其他子控件
                 TextView tvItemPayforRegionAddDel = (TextView) adapter.getViewByPosition(rvPayforTableRegionList, position, R.id.tv_item_payfor_region_add_del);
-                ImageView ivItemPayforRegionAddDelIcon = (ImageView) adapter.getViewByPosition(rvPayforTableRegionList, position, R.id.iv_item_payfor_region_add_del_icon);
-                TextView tvItemPayforRegionName = (TextView) adapter.getViewByPosition(rvPayforTableRegionList, position, R.id.tv_item_payfor_region_name);
+                ImageView ivItemPayforRegionAddDelIcon  = (ImageView) adapter.getViewByPosition(rvPayforTableRegionList, position, R.id.iv_item_payfor_region_add_del_icon);
 
                 if (view.getId() == R.id.iv_item_payfor_region_add_icon) {
                     //编辑区域
