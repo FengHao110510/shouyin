@@ -167,10 +167,6 @@
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
         <activity
-            android:name=".activity.payfor.goodsmanage.ClassActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.payfor.goodsmanage.AddTaocanActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
@@ -212,6 +208,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.payfor.goodsmanage.AddFenzuActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.payfor.goodsmanage.ChooseCategoryActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity

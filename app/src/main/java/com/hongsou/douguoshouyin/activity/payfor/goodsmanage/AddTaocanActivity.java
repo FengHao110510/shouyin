@@ -101,7 +101,7 @@ public class AddTaocanActivity extends BaseActivity {
             case R.id.rl_payfor_addtaocan_fenlei:
                 //跳转套餐分类页面
                 //跳转到选择分类页面
-                Intent classIntent = new Intent(this, ClassActivity.class);
+                Intent classIntent = new Intent(this, ChooseCategoryActivity.class);
                 startActivityForResult(classIntent, 2);//2表示在本页面跳转到分类页面的  只显示套餐分类 TODO
                 break;
             case R.id.rl_payfor_addtaocan_taocanleixing:
