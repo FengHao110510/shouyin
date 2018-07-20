@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_payfor_addgoods"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -33,6 +34,15 @@
                     android:text="@string/icon_payfor_commodity_addclass_tianjia"
                     android:textColor="@color/gray"
                     android:textSize="50sp" />
+
+                <ImageView
+                    android:id="@+id/iv_payfor_addgoods_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:visibility="gone" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -204,7 +214,6 @@
                     android:layout_alignParentRight="true"
                     android:background="@null"
                     android:hint="输入单位"
-                    android:inputType="numberDecimal|number"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -261,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
-                    android:text=""
+                    android:text="不限制售卖时间"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

@@ -7,6 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.hongsou.douguoshouyin.activity.payfor.createorder.CreateOrderActivity">
+
     <include layout="@layout/module_include_titlebar" />
 
     <LinearLayout
@@ -19,26 +20,45 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="@color/bg_gray"></LinearLayout>
+            android:background="@color/gray"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_payfor_addtaocan_food_category"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:background="@color/white"></LinearLayout>
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_payfor_addtaocan_food_foods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
     </LinearLayout>
 
     <View style="@style/view_line_horizontal_05" />
 
     <TextView
-        android:id="@+id/tv_mine_addnosaoma_wancheng"
+        android:id="@+id/tv_payfor_addtaocan_food_wancheng"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-       android:background="@color/color_tag_black"
-        android:text="完成"
-        android:textSize="18sp"
+        android:background="@color/color_tag_black"
         android:gravity="center"
-        android:textColor="@color/white">
-
+        android:text="完成"
+        android:textColor="@color/white"
+        android:textSize="18sp">
 
     </TextView>
 </LinearLayout>

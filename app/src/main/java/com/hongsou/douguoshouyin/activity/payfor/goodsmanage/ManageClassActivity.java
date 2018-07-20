@@ -88,7 +88,7 @@ public class ManageClassActivity extends BaseActivity {
             dataBeanList.clear();
         }
         HttpFactory.get().url(ApiConfig.GET_CATEGORY)
-                .addParams("shopNumber", "111")
+                .addParams("shopNumber", getShopNumber())
                 .build().execute(new ResponseCallback<FoodCategoryBean>(this) {
             @Override
             public void onResponse(FoodCategoryBean response, int id) {

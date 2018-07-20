@@ -99,7 +99,7 @@ public class ChooseCategoryActivity extends BaseActivity {
      */
     private void getCategoryList() {
         HttpFactory.get().url(ApiConfig.GET_CATEGORY)
-                .addParams("shopNumber", "111")
+                .addParams("shopNumber", getShopNumber())
                 .build().execute(new ResponseCallback<FoodCategoryBean>(this) {
             @Override
             public void onResponse(FoodCategoryBean response, int id) {
@@ -125,6 +125,7 @@ public class ChooseCategoryActivity extends BaseActivity {
      */
     private void showCategoryList(final List<FoodCategoryBean.DataBean> dataBeanList) {
         for (int k =0;k<dataBeanList.size();k++){
+            //为了展示单品
             if (!dataBeanList.get(k).getCategoryType().equals("0")){
                 dataBeanList.remove(k);
                 k--;

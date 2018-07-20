@@ -96,6 +96,7 @@
             android:layout_alignParentRight="true"
             android:background="@null"
             android:hint="输入金额"
+            android:inputType="numberDecimal"
             android:textColor="@color/black"
             android:textSize="14sp" />
 

@@ -9,6 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.payfor.goodsmanage.AddTaocanFoodsActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 /**
  * 不参与扫码点餐的商品页面
@@ -47,7 +48,7 @@ public class NosaomaFoodsActivity extends BaseActivity {
     @OnClick(R.id.tv_mine_nosaoma_addnosaoma)
     public void onViewClicked() {
         //跳转到添加不参与扫码商品的页面
-        Intent addnoIntent = new Intent(this,AddNosaomaActivity.class);
+        Intent addnoIntent = new Intent(this,AddTaocanFoodsActivity.class);
         addnoIntent.putExtra("flag",2);//2  表示从本页面跳转添加商品页面的 1表示从添加单品套餐商品页面跳转的AddTaocanActivity
         startActivity(addnoIntent);
         

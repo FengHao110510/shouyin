@@ -35,6 +35,15 @@
                     android:textColor="@color/gray"
                     android:textSize="50sp" />
 
+                <ImageView
+                    android:id="@+id/iv_payfor_addtaocan_icon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:visibility="gone" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,41 +122,6 @@
                 android:layout_marginRight="20dp" />
 
             <RelativeLayout
-                android:id="@+id/rl_payfor_addtaocan_fenlei"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="* 套餐分类"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_payfor_addtaocan_fenlei"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    android:text="单人套餐"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text=">"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/rl_payfor_addtaocan_taocanleixing"
 
                 android:layout_width="match_parent"
@@ -168,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
-                    android:text="单人套餐"
+                    android:text=""
                     android:textColor="@color/gray"
                     android:textSize="14sp" />
 
@@ -182,10 +156,43 @@
 
             </RelativeLayout>
 
-            <View
-                style="@style/view_line_horizontal_05"
+            <View style="@style/view_line_horizontal_05" />
 
-                android:layout_height="8dp" />
+            <RelativeLayout
+                android:id="@+id/rl_payfor_addtaocan_fenlei"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="* 套餐分类"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_payfor_addtaocan_fenlei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:text=""
+                    android:textColor="@color/gray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text=">"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:id="@+id/ll_payfor_addtaocan_zuhe"
@@ -235,7 +242,6 @@
                     android:gravity="center"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-
                     android:text="添加分组"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -325,6 +331,7 @@
                     android:id="@+id/tv_payfor_addtaocan_danpin_addshangpin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="80dp"
                     android:layout_marginRight="80dp"
                     android:layout_marginTop="5dp"
@@ -335,6 +342,10 @@
                     android:text="添加商品"
                     android:textColor="@color/white" />
             </LinearLayout>
+
+            <View
+                style="@style/view_line_horizontal_05"
+                android:layout_height="8dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -266,15 +266,15 @@ public class AddGoodsActivity extends BaseActivity {
     }
 
     /**
+     * @param upAddGoodsMap
      * @author fenghao
      * @date 2018/7/19 0019 下午 18:31
      * @desc 上传图片
-     * @param upAddGoodsMap
      */
     private void postImg(final Map<String, Object> upAddGoodsMap) {
-        if (file1==null){
+        if (file1 == null) {
             ToastUtil.showToast("请先选择商品图片");
-        }else {
+        } else {
             showLoadingDialog();
             Log.e(TAG, "postImg: " + file1.getName());
 
@@ -293,7 +293,7 @@ public class AddGoodsActivity extends BaseActivity {
                     if (upImgBean.isSuccess()) {
                         foodProductsPicture = upImgBean.getData().getFoodProductsPicture();
                         //图片编号
-                        upAddGoodsMap.put("foodProductsPicture",foodProductsPicture);
+                        upAddGoodsMap.put("foodProductsPicture", foodProductsPicture);
                         upAdd(upAddGoodsMap);
 
                     } else {
@@ -310,75 +310,75 @@ public class AddGoodsActivity extends BaseActivity {
      * @author fenghao
      * @date 2018/7/20 0020 上午 9:36
      * @desc 整理上传所需数据
-     *  //走上传接口 把所需信息上传
-    upAddGoods();
+     * //走上传接口 把所需信息上传
+     * upAddGoods();
      */
     private void upAddGoods() {
-        Map<String,Object> upAddGoodsMap = new HashMap<>();
+        Map<String, Object> upAddGoodsMap = new HashMap<>();
         //店铺编号
-        upAddGoodsMap.put("shopNumber",getShopNumber());
+        upAddGoodsMap.put("shopNumber", getShopNumber());
         //商品名称
-        if (TextUtils.isEmpty(etPayforAddgoodsMingcheng.getText().toString())){
+        if (TextUtils.isEmpty(etPayforAddgoodsMingcheng.getText().toString())) {
             ToastUtil.showToast("请输入商品名称");
             return;
         }
-        upAddGoodsMap.put("singleProductName",etPayforAddgoodsMingcheng.getText().toString());
+        upAddGoodsMap.put("singleProductName", etPayforAddgoodsMingcheng.getText().toString());
         //商品类型编号
-        if (TextUtils.isEmpty(singleProductType)){
+        if (TextUtils.isEmpty(singleProductType)) {
             ToastUtil.showToast("请选择商品类型");
             return;
         }
-        upAddGoodsMap.put("singleProductType",singleProductType);
+        upAddGoodsMap.put("singleProductType", singleProductType);
         //在售状态0在售 1不在售
         int sellingStatus;
-        if (zaishouFlag){
+        if (zaishouFlag) {
             sellingStatus = 0;
-        }else {
+        } else {
             sellingStatus = 1;
         }
-        upAddGoodsMap.put("sellingStatus",sellingStatus);
+        upAddGoodsMap.put("sellingStatus", sellingStatus);
         //可售卖时间状态 0有时间 1不限时间
-        upAddGoodsMap.put("selling",selling);
+        upAddGoodsMap.put("selling", selling);
 
         //商品单位
-        if (TextUtils.isEmpty(etPayforAddgoodsDanwei.getText().toString())){
+        if (TextUtils.isEmpty(etPayforAddgoodsDanwei.getText().toString())) {
             ToastUtil.showToast("请填写商品单位");
             return;
         }
-        upAddGoodsMap.put("singleProductUnit",etPayforAddgoodsDanwei.getText().toString());
+        upAddGoodsMap.put("singleProductUnit", etPayforAddgoodsDanwei.getText().toString());
         //起售份数
-        upAddGoodsMap.put("phr","");
+        upAddGoodsMap.put("phr", "");
         //起始时间
-        upAddGoodsMap.put("startTime",startTime);
+        upAddGoodsMap.put("startTime", startTime);
         //结束时间
-        upAddGoodsMap.put("endTime",endTime);
+        upAddGoodsMap.put("endTime", endTime);
         //规格列表 判断规格中有没有空值
         boolean isEmpty = false;
-        for (int i =0;i<shopStandarLists.size();i++){
-            if (TextUtils.isEmpty(shopStandarLists.get(i).getStandardName())){
-                ToastUtil.showToast("规格"+(i+1)+"的名称没有填写");
+        for (int i = 0; i < shopStandarLists.size(); i++) {
+            if (TextUtils.isEmpty(shopStandarLists.get(i).getStandardName())) {
+                ToastUtil.showToast("规格" + (i + 1) + "的名称没有填写");
                 isEmpty = true;
                 break;
             }
-            if (TextUtils.isEmpty(shopStandarLists.get(i).getSell())){
-                ToastUtil.showToast("规格"+(i+1)+"的金额没有填写");
+            if (TextUtils.isEmpty(shopStandarLists.get(i).getSell())) {
+                ToastUtil.showToast("规格" + (i + 1) + "的金额没有填写");
                 isEmpty = true;
                 break;
             }
         }
-        if (isEmpty){
+        if (isEmpty) {
             return;
         }
-        upAddGoodsMap.put("shopStandarList",shopStandarLists);
+        upAddGoodsMap.put("shopStandarList", shopStandarLists);
 
         postImg(upAddGoodsMap);
     }
 
     /**
-     *  @author  fenghao
-     *  @date    2018/7/20 0020 上午 9:58
-     *  @desc   添加商品接口
      * @param upAddGoodsMap
+     * @author fenghao
+     * @date 2018/7/20 0020 上午 9:58
+     * @desc 添加商品接口
      */
     private void upAdd(Map<String, Object> upAddGoodsMap) {
         Gson gson = new Gson();
@@ -386,10 +386,10 @@ public class AddGoodsActivity extends BaseActivity {
         HttpFactory.postString(ApiConfig.ADD_SINGLE_FOOD, gson.toJson(upAddGoodsMap), new ResponseCallback<BaseBean>(this) {
             @Override
             public void onResponse(BaseBean response, int id) {
-                if (response.isSuccess()){
+                if (response.isSuccess()) {
                     ToastUtil.showToast("添加成功");
                     finishActivity();
-                }else {
+                } else {
                     ToastUtil.showToast(response.getMsg());
 
                 }
@@ -485,13 +485,13 @@ public class AddGoodsActivity extends BaseActivity {
         switch (requestCode) {
             case 1:
                 //获取返回的分类信息
-                if (data==null){
+                if (data == null) {
                     break;
                 }
-                if (TextUtils.isEmpty(data.getStringExtra("singleProductType"))){
+                if (TextUtils.isEmpty(data.getStringExtra("singleProductType"))) {
                     break;
                 }
-                if (TextUtils.isEmpty(data.getStringExtra("categoryName"))){
+                if (TextUtils.isEmpty(data.getStringExtra("categoryName"))) {
                     break;
                 }
                 singleProductType = data.getStringExtra("singleProductType");
@@ -564,6 +564,12 @@ public class AddGoodsActivity extends BaseActivity {
 
     }
 
+    /**
+     * @param bitmap
+     * @author fenghao
+     * @date 2018/7/20 0020 上午 11:16
+     * @desc 展示图片
+     */
     private void showImage(Bitmap bitmap) {
         ivPayforAddgoodsIcon.setImageBitmap(bitmap);
         ivPayforAddgoodsIcon.setVisibility(View.VISIBLE);

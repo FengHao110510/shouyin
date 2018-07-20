@@ -201,7 +201,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.mine.AddNosaomaActivity"
+            android:name=".activity.payfor.goodsmanage.AddTaocanFoodsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
