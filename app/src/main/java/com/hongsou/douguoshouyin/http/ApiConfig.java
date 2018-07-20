@@ -132,6 +132,10 @@ public class ApiConfig {
      * TODO 添加分组
      */
     public static final String ADD_GROUP = BASE_URL_MOCK + "/food/addGroup";
+    /**
+     * TODO 上传图片
+     */
+    public static final String UPLOAD_IMG = BASE_URL_MOCK + "/food/uploadImg";
     // TODO ======================================== 流水模块 ====================================================
     /**
      * TODO 获取订单列表

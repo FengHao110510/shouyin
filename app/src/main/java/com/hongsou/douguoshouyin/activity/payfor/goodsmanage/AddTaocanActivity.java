@@ -19,6 +19,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.mine.AddNosaomaActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
@@ -116,7 +117,7 @@ public class AddTaocanActivity extends BaseActivity {
             case R.id.tv_payfor_addtaocan_danpin_addshangpin:
                 //添加单品按钮  跳转添加单品页面
                 Intent danpinIntent = new Intent(this, AddNosaomaActivity.class);
-                danpinIntent.putExtra("flag",1);//1  表示从本页面跳转添加商品页面的 2表示从不参与扫码商品页面跳转的NosapmaFoodActivity
+                danpinIntent.putExtra("flag", 1);//1  表示从本页面跳转添加商品页面的 2表示从不参与扫码商品页面跳转的NosapmaFoodActivity
                 startActivity(danpinIntent);
                 break;
             case R.id.tv_payfor_addtaocan_shifouzaishou:
@@ -130,11 +131,10 @@ public class AddTaocanActivity extends BaseActivity {
                     tvPayforAddtaocanShifouzaishou.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
                 }
                 break;
+            default:
+                break;
         }
     }
-
-
-
 
 
     /**
@@ -153,14 +153,13 @@ public class AddTaocanActivity extends BaseActivity {
         setIconFont(new TextView[]{tv_pop_add_taocanleixing_danpin_icon, tv_pop_add_taocanleixing_zuhe_icon});
 
         //套餐模式回显   默认单品套餐
-        if (taocanleixingFlag){
+        if (taocanleixingFlag) {
             tv_pop_add_taocanleixing_danpin_icon.setVisibility(View.VISIBLE);
             tv_pop_add_taocanleixing_zuhe_icon.setVisibility(View.GONE);
-        }else {
+        } else {
             tv_pop_add_taocanleixing_danpin_icon.setVisibility(View.GONE);
             tv_pop_add_taocanleixing_zuhe_icon.setVisibility(View.VISIBLE);
         }
-
 
 
         rl_pop_add_taocanleixing_danpin.setOnClickListener(new View.OnClickListener() {

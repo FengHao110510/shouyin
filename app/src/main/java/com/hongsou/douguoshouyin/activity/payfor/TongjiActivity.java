@@ -81,10 +81,7 @@ public class TongjiActivity extends BaseActivity {
     public void initView() {
         setIconFont(new TextView[]{tvTitlebarTongjiFinishBack, tvTitlebarPayforTongjiShaixuanIcon});
         tvTitlebarTongjiTitle.setText("统计");
-
-
     }
-
 
     @Override
     public void initData() {
@@ -133,15 +130,17 @@ public class TongjiActivity extends BaseActivity {
      */
     private void showTimeDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_time_shaixuan, null);
-        final TextView tv_dialog_time_shaixuan_start = view.findViewById(R.id.tv_dialog_time_shaixuan_start);
-        final TextView tv_dialog_time_shaixuan_end = view.findViewById(R.id.tv_dialog_time_shaixuan_end);
-        TextView tv_dialog_time_shaixuan_bt = view.findViewById(R.id.tv_dialog_time_shaixuan_bt);
+        final TextView tvDialogTimeShaixuanStart = view.findViewById(R.id.tv_dialog_time_shaixuan_start);
+        final TextView tvDialogTimeShaixuanEnd = view.findViewById(R.id.tv_dialog_time_shaixuan_end);
+        TextView tvDialogTimeShaixuanBt = view.findViewById(R.id.tv_dialog_time_shaixuan_bt);
+        TextView tvDialogTimeShaixuanTitle = view.findViewById(R.id.tv_dialog_time_shaixuan_title);
+        tvDialogTimeShaixuanTitle.setText("统计时间");
 
-        tv_dialog_time_shaixuan_bt.setOnClickListener(new View.OnClickListener() {
+        tvDialogTimeShaixuanBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //判断起始时间不得大于结束时间
-                if (tv_dialog_time_shaixuan_start.getText().toString().compareTo(tv_dialog_time_shaixuan_end.getText().toString()) > 0) {
+                if (tvDialogTimeShaixuanStart.getText().toString().compareTo(tvDialogTimeShaixuanEnd.getText().toString()) > 0) {
                     ToastUtil.showToast("起始时间不得大于结束时间");
                 } else {
                     tongji();
@@ -150,44 +149,38 @@ public class TongjiActivity extends BaseActivity {
 
             }
         });
-
         //设置开始时间
-        tv_dialog_time_shaixuan_start.setOnClickListener(new View.OnClickListener() {
+        tvDialogTimeShaixuanStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 日期格式为yyyy-MM-dd HH:mm
-                customDatePickerStart.show(tv_dialog_time_shaixuan_start.getText().toString());
+                customDatePickerStart.show(tvDialogTimeShaixuanStart.getText().toString());
             }
         });
-
         //设置结束时间
-        tv_dialog_time_shaixuan_end.setOnClickListener(new View.OnClickListener() {
+        tvDialogTimeShaixuanEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 日期格式为yyyy-MM-dd HH:mm
-                customDatePickerEnd.show(tv_dialog_time_shaixuan_end.getText().toString());
+                customDatePickerEnd.show(tvDialogTimeShaixuanEnd.getText().toString());
             }
         });
-
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         //初始化起始时间
-        initDateStartPicker(now, tv_dialog_time_shaixuan_start);
+        initDateStartPicker(now, tvDialogTimeShaixuanStart);
         //初始化结束时间
-        initDateEndPicker("2010-01-01 00:00", now, tv_dialog_time_shaixuan_end);
-
+        initDateEndPicker("2010-01-01 00:00", now, tvDialogTimeShaixuanEnd);
 
         Display display = this.getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
         int h = display.getHeight();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 7 / 8, h * 2 / 7);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 7 / 8, h * 5 / 21);
 
         dialog = new Dialog(this, R.style.TRCommonDialog);
         dialog.setContentView(view, params);
         dialog.show();
-
-
     }
 
     //endtime 最后期限  初始化开始时间

@@ -32,12 +32,14 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.views.CircleImageView;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+
 import okhttp3.Call;
 
 /**
@@ -105,6 +107,8 @@ public class MenDianActivity extends BaseActivity {
             case R.id.bt_mine_mendian_save:
                 //保存
                 save();
+                break;
+            default:
                 break;
         }
     }
@@ -272,6 +276,8 @@ public class MenDianActivity extends BaseActivity {
 
 
                 }
+                break;
+            default:
                 break;
         }
 

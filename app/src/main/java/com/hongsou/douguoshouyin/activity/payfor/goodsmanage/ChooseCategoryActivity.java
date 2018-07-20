@@ -72,6 +72,8 @@ public class ChooseCategoryActivity extends BaseActivity {
     private String singleProductType;
     //类型名称
     private String categoryName;
+    private Intent intent;
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_payfor_choose_category;
@@ -82,6 +84,7 @@ public class ChooseCategoryActivity extends BaseActivity {
         initData();
         initBack();
         initTitle("选择分类");
+
     }
 
     @Override
@@ -155,11 +158,11 @@ public class ChooseCategoryActivity extends BaseActivity {
     @OnClick(R.id.tv_payfor_choose_category_yes)
     public void onViewClicked() {
         //确定
-        Intent intent = new Intent();
+        intent = new Intent();
         intent.putExtra("categoryName",categoryName);
         intent.putExtra("singleProductType",singleProductType);
         Log.e(TAG, "onActivityResult: "+categoryName.toString() );
-        setResult(1,intent);
+        setResult(1, intent);
         finishActivity();
     }
     //==============================================================================================
