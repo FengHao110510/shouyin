@@ -96,6 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public String getShopNumber(){
         return Global.getSpGlobalUtil().getShopNumber();
+//        return "111";
     }
 
     /**

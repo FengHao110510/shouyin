@@ -1,6 +1,8 @@
 package com.hongsou.douguoshouyin.tool;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.WindowManager;
 
 /**
  * 版权：鸿搜网络公司 版权所有
@@ -51,6 +53,18 @@ public class ScreenUtil {
     public static int sp2px(Context context, float spValue) {
         final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
+    }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public static void backgroundAlpha(Activity context, float bgAlpha) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        context.getWindow().setAttributes(lp);
     }
 
 }

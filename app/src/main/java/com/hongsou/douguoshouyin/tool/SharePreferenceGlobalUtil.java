@@ -332,6 +332,16 @@ public class SharePreferenceGlobalUtil {
         return sp.getString("shopNumber", "");
     }
 
+    /**
+     * 存储每日订单序号
+     */
+    public void setDateOrderNumber(String date, String number) {
+        editor.putString("dateOrderNumber", date + "=_=" + number);
+        editor.commit();
+    }
 
+    public String getDateOrderNumber() {
+        return sp.getString("dateOrderNumber", null);
+    }
 
 }

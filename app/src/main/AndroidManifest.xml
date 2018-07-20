@@ -178,16 +178,22 @@
             android:name=".activity.mine.AboutWeActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.payfor.createorder.CreateOrderActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.payfor.createorder.CollectMoneyForCashActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.payfor.TongjiActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.createorder.KaidanDetialsActivity"
+            android:name=".activity.payfor.createorder.CollectMoneyActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity

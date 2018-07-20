@@ -20,9 +20,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
+import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,13 +37,6 @@ import org.greenrobot.eventbus.Subscribe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.ApiConfig;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
-import com.hongsou.douguoshouyin.tool.Global;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 /**
  * 支付主页面
@@ -502,7 +501,7 @@ public class PayForActivity extends BaseActivity {
     private void payXJ() {
         showLoadingDialog();
         //走提交订单接口
-        HttpFactory.post().url(ApiConfig.COMMIT_ODER).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.INSERT_ORDER).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();

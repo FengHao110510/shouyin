@@ -1,52 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/color_main_gray"
     android:orientation="vertical"
-    tools:context="com.hongsou.douguoshouyin.activity.payfor.createorder.CreateOrderActivity">
+    >
 
     <com.hongsou.douguoshouyin.views.CommonTopBar
-        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:center_text="开单"
-        app:left_text="@string/icon_back" />
+        android:id="@+id/top_bar"
+        app:center_text="收款"
+        app:left_text="@string/icon_back"
+        />
 
     <LinearLayout
-        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/color_main_gray"
-        android:orientation="horizontal">
-
-        <com.hongsou.douguoshouyin.views.tablayout.VerticalTabLayout
-            android:id="@+id/tab_create_category"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/transparent"
-            android:paddingTop="@dimen/margin_20"
-            app:dividerHeight="@null"
-            app:tabHeight="40dp"
-            app:tabIndicatorColor="@color/white"
-            app:tabIndicatorGravity="fill"
-            app:tabPaddingLeft="12dp"
-            app:tabPaddingRight="12dp"
-            app:tabSelectedTextColor="@color/color_subtitle"
-            app:tabTextColor="@color/color_subtitle"
-            app:tabTextSize="@dimen/txt_16"
-            app:tabViewGravity="center" />
+        android:layout_margin="@dimen/margin_12"
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_create_order_food"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:background="@color/white" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:id="@+id/rv_collect_money"
+            android:layout_above="@+id/ll_edit_content"
+            />
+
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/ll_edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:layout_gravity="center_vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/txt_16"
+                    android:textColor="@color/color_subtitle"
+                    android:text="收款金额"
+                    />
+
+                <EditText
+                    android:id="@+id/et_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:background="@color/white"
+                    android:hint="请输入收款金额"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="@dimen/margin_12"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10"
+                android:layout_gravity="center_vertical"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/txt_16"
+                    android:textColor="@color/color_subtitle"
+                    android:text="备注"
+                    />
+
+                <EditText
+                    android:id="@+id/et_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:background="@color/white"
+                    android:hint="请输入备注信息"
+                    android:inputType="numberDecimal"
+                    android:layout_marginLeft="@dimen/margin_12"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <View style="@style/view_line_horizontal_05" />
@@ -58,7 +107,6 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/ll_order_count"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
@@ -76,7 +124,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/tv_order_money"
+                android:id="@+id/tv_total_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -95,8 +143,7 @@
                 android:gravity="top|center_horizontal"
                 android:text="0"
                 android:textColor="@color/white"
-                android:textSize="10sp"
-                android:visibility="invisible" />
+                android:textSize="10sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -128,14 +175,14 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_make_money"
+            android:id="@+id/tv_collect_money_collect"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@color/color_base_yellow"
             android:gravity="center"
-            android:text="去收款"
+            android:text="收款"
             android:textColor="@color/color_subtitle"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </LinearLayout>
 </LinearLayout>

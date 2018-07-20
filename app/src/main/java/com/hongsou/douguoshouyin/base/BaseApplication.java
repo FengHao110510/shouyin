@@ -2,9 +2,13 @@ package com.hongsou.douguoshouyin.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.greendao.gen.DaoMaster;
+import com.hongsou.greendao.gen.DaoSession;
+import com.litesuits.orm.LiteOrm;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -13,7 +17,6 @@ import com.scwang.smartrefresh.layout.api.RefreshFooter;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
@@ -39,15 +42,35 @@ public class BaseApplication extends Application {
     /***寄存整个应用Activity**/
     private final Stack<AppCompatActivity> activitys = new Stack<AppCompatActivity>();
 
+    public static LiteOrm liteOrm;
+    private DaoMaster.DevOpenHelper devOpenHelper;
+    private SQLiteDatabase db;
+    private DaoMaster daoMaster;
+    private DaoSession daoSession;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         initApp();
         settingOkHttp();
-
+        settingOrm();
+        initGreenDao();
 //        //初始化全局异常捕获
 //        CrashHandler.getInstance().init(this);
+    }
+
+    /**
+     * @desc 初始化数据库
+     * @anthor lpc
+     * @date: 2018/7/17
+     */
+    private void settingOrm() {
+        if (liteOrm == null) {
+            liteOrm = LiteOrm.newSingleInstance(this, "shouyin.db");
+        }
+        // open the log
+        liteOrm.setDebugged(true);
     }
 
 
@@ -63,8 +86,20 @@ public class BaseApplication extends Application {
         return app;
     }
 
+    /**
+     * @desc 初始化GreenDao
+     * @anthor lpc
+     * @date: 2018/7/19
+     */
+    private void initGreenDao() {
+        devOpenHelper = new DaoMaster.DevOpenHelper(this, "shouyinapp.db", null);
+        daoMaster = new DaoMaster(devOpenHelper.getWritableDb());
+        daoSession = daoMaster.newSession();
+    }
 
-    //用来放置内存溢出 oom
+    public DaoSession getDaoSession() {
+        return daoSession;
+    }
 
     /**
      * 将Activity压入Application栈

@@ -43,6 +43,16 @@ public class CustomPopupWindow {
     }
 
     /**
+     * 监听PopupWindow的关闭
+     * @param dismissListener
+     */
+    public void setOnDismissListener(PopupWindow.OnDismissListener dismissListener){
+        if (mPopupWindow != null){
+            mPopupWindow.setOnDismissListener(dismissListener);
+        }
+    }
+
+    /**
      * popup 消失
      */
     public void dismiss() {
@@ -147,6 +157,7 @@ public class CustomPopupWindow {
     public CustomPopupWindow showAsLaction(View targetview, int gravity, int orientation) {
         targetview.getLocationOnScreen(location);  //获取控件的位置坐标
         int width = ((Activity) mContext).getWindowManager().getDefaultDisplay().getWidth();
+        int height = ((Activity) mContext).getWindowManager().getDefaultDisplay().getHeight();
         if (mPopupWindow != null) {
             if (orientation == horizontal) {
                 // 左右弹出
@@ -157,11 +168,32 @@ public class CustomPopupWindow {
                     // 左边弹出
                     mPopupWindow.showAtLocation(targetview, Gravity.NO_GRAVITY, location[0] - mPopupWindow.getWidth(), location[1]);
                 }
+            }else {
+                if (location[1] > height / 2 + 100) {  //若是控件的y轴位置大于屏幕高度的一半，向上弹出
+                    mPopupWindow.showAtLocation(targetview,
+                            gravity, (location[0]), location[1] - targetview.getMeasuredHeight());  //显示指定控件的上方
+                } else {
+                    mPopupWindow.showAsDropDown(targetview, 0, 0);    //显示指定控件的下方
+                }
             }
         }
         return this;
     }
 
+    /**
+     * @desc 显示在控件上方
+     * @anthor lpc
+     * @date: 2018/7/19
+     * @param v 控件对象
+     */
+    public void showUp(View v) {
+        //获取需要在其上方显示的控件的位置信息
+        int[] location = new int[2];
+        v.getLocationOnScreen(location);
+        //在控件上方显示
+        mPopupWindow.showAtLocation(v, Gravity.NO_GRAVITY,
+                (location[0] + v.getWidth() / 2) - mPopupWindow.getWidth() / 2, location[1] - mPopupWindow.getHeight());
+    }
 
     /**
      * 根据id设置焦点监听

@@ -15,4 +15,10 @@
     <dimen name="txt_14">14sp</dimen>
     <dimen name="txt_12">12sp</dimen>
     <dimen name="txt_10">10sp</dimen>
+
+    <!--自定义键盘的各尺寸-->
+    <dimen name="keyboard_height">70dp</dimen>
+    <dimen name="keyboard_height2">141dp</dimen>
+    <dimen name="keyboard_margin">0.2dp</dimen>
+
 </resources>
