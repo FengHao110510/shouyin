@@ -14,9 +14,14 @@ public class ApiConfig {
 
     public static final int CODE_SUCCESS = 1000;
 
-    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";//邓辽航ip
-    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20"; // 测试IP
-//    public static final String BASE_URL_MOCK = "http://192.168.1.109:5003/hs-app-server"; // 李哥IP
+    /**
+     * 测试IP
+     */
+    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20";
+    /**
+     * 邓辽航ip  "http://192.168.1.111:5003/hs-app-server"
+     */
+    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server" ;
 
     // TODO ======================================== 登录模块 ====================================================
     /**
@@ -41,10 +46,7 @@ public class ApiConfig {
      * TODO 获取一码付二维码接口
      */
     public static final String PAY_FOR_CODE = BASE_URL + "";
-    /**
-     * TODO 提交订单接口
-     */
-    public static final String COMMIT_ODER = BASE_URL + "";
+
     /**
      * TODO 退款接口
      */
@@ -58,12 +60,23 @@ public class ApiConfig {
      * TODO 统计接口
      */
     public static final String TONGJI = BASE_URL + "";
-
+    /**
+     * TODO 添加商品
+     */
+    public static final String TIANJIASHANGPIN = BASE_URL + "";
     // TODO ======================================== 开单模块 ====================================================
     /**
      * TODO 查询餐品数据
      */
     public static final String GET_FOOD = BASE_URL + "/food/getFood";
+    /**
+     * TODO 查询餐品分类
+     */
+    public static final String GET_CATEGORY = BASE_URL + "/food/getCategory";
+    /**
+     * TODO 提交订单接口
+     */
+    public static final String INSERT_ORDER = BASE_URL + "/order/insertOrder";
 
     // TODO ======================================== 桌台管理 ====================================================
 
@@ -99,43 +112,6 @@ public class ApiConfig {
      * TODO 查询区域
      */
     public static final String GET_REGION_LIST = BASE_URL_MOCK + "/table/getRegionList";
-    // TODO ======================================== 商品管理 ====================================================
-    /**
-     * TODO 查询分类
-     */
-    public static final String GET_CATEGORY = BASE_URL_MOCK + "/food/getCategory";
-    /**
-     * TODO 添加分类
-     */
-    public static final String ADD_CATEGORY = BASE_URL_MOCK + "/food/addCategory";
-    /**
-     * TODO 编辑分类
-     */
-    public static final String UPDATE_CATEGORY = BASE_URL_MOCK + "/food/updateCategory";
-    /**
-     * TODO 删除分类
-     */
-    public static final String DELETE_CATEGORY = BASE_URL_MOCK + "/food/deleteCategory";
-    /**
-     * TODO 添加单品
-     */
-    public static final String ADD_SINGLE_FOOD = BASE_URL_MOCK + "/food/addSingleFood";
-    /**
-     * TODO 添加固定套餐
-     */
-    public static final String ADD_PACKAGE = BASE_URL_MOCK + "/food/addPackage";
-    /**
-     * TODO 添加分组套餐
-     */
-    public static final String ADD_GROUP_PACKAGE = BASE_URL_MOCK + "/food/addGroupPackage";
-    /**
-     * TODO 添加分组
-     */
-    public static final String ADD_GROUP = BASE_URL_MOCK + "/food/addGroup";
-    /**
-     * TODO 上传图片
-     */
-    public static final String UPLOAD_IMG = BASE_URL_MOCK + "/food/uploadImg";
     // TODO ======================================== 流水模块 ====================================================
     /**
      * TODO 获取订单列表
