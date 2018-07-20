@@ -64,6 +64,14 @@ public class ApiConfig {
      * TODO 查询餐品数据
      */
     public static final String GET_FOOD = BASE_URL + "/food/getFood";
+    /**
+     * TODO 查询餐品分类
+     */
+    public static final String GET_CATEGORY = BASE_URL + "/food/getCategory";
+    /**
+     * TODO 提交订单接口
+     */
+    public static final String INSERT_ORDER = BASE_URL + "/order/insertOrder";
 
     // TODO ======================================== 桌台管理 ====================================================
 
@@ -100,10 +108,7 @@ public class ApiConfig {
      */
     public static final String GET_REGION_LIST = BASE_URL_MOCK + "/table/getRegionList";
     // TODO ======================================== 商品管理 ====================================================
-    /**
-     * TODO 查询分类
-     */
-    public static final String GET_CATEGORY = BASE_URL_MOCK + "/food/getCategory";
+
     /**
      * TODO 添加分类
      */
