@@ -138,6 +138,14 @@ public class ApiConfig {
      */
     public static final String ADD_GROUP = BASE_URL_MOCK + "/food/addGroup";
     /**
+     * TODO 查询分组
+     */
+    public static final String GET_GROUP_LIST = BASE_URL_MOCK + "/food/getGroupList";
+    /**
+     * TODO 删除分组
+     */
+    public static final String DELETE_GROUP = BASE_URL_MOCK + "/food/deleteGroup";
+    /**
      * TODO 上传图片
      */
     public static final String UPLOAD_IMG = BASE_URL_MOCK + "/food/uploadImg";
