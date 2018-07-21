@@ -1,13 +1,14 @@
 package com.hongsou.douguoshouyin.adapter;
 
-import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
+import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * 作者：冯大鱼
  * 版本：1.0
  * 创建日期：2018/7/20 0020
- * 描述：添加套餐中选择商品中的分类
+ * 描述： 选择单品的页面中的food
  * 修订历史：
  * ┌─┐       ┌─┐
  * ┌──┘ ┴───────┘ ┴──┐
@@ -43,17 +44,23 @@ import java.util.List;
  */
 
 
-public class AddTaocanCategoryAdapter extends BaseQuickAdapter<FoodCategoryBean.DataBean, BaseViewHolder> {
+public class AddTaocanFoodsAdapter extends BaseQuickAdapter<SingleFoodsBean, BaseViewHolder> {
+    private Typeface mTypeface;
 
-    public AddTaocanCategoryAdapter(int layoutResId, @Nullable List<FoodCategoryBean.DataBean> data) {
+    public AddTaocanFoodsAdapter(int layoutResId, @Nullable List<SingleFoodsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, FoodCategoryBean.DataBean item) {
-        if (helper.getPosition()==0){
-            helper.setBackgroundColor(R.id.tv_item_addfoods_category, Color.WHITE);
-        }
-        helper.setText(R.id.tv_item_addfoods_category,item.getCategoryName());
+    protected void convert(BaseViewHolder helper, SingleFoodsBean item) {
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "iconfont.ttf");
+        ((TextView) helper.getView(R.id.tv_subtract)).setTypeface(mTypeface);
+        ((TextView) helper.getView(R.id.tv_add)).setTypeface(mTypeface);
+
+        helper.setText(R.id.tv_food_name, item.getSingleProductName() + "(" + item.getStandardName() + ")")
+                .setText(R.id.tv_food_price, item.getSingleProductPrice())
+                .setText(R.id.tv_food_count, item.getSingleQuantity()+"")
+                .addOnClickListener(R.id.tv_subtract)
+                .addOnClickListener(R.id.tv_add);
     }
 }

@@ -27,26 +27,36 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.adapter.AddTaocanSinglefoodAdapter;
 import com.hongsou.douguoshouyin.adapter.ChooseCategoryAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
+import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
+import com.hongsou.douguoshouyin.javabean.UpImgBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * 添加套餐页面
@@ -88,6 +98,8 @@ public class AddTaocanActivity extends BaseActivity {
     LinearLayout llPayforAddtaocan;
     @BindView(R.id.iv_payfor_addtaocan_icon)
     ImageView ivPayforAddtaocanIcon;
+    @BindView(R.id.tv_titlebar_right)
+    TextView tvTitlebarRight;
     //在售的状态 默认true
     private boolean zaishouFlag;
     //套餐类型 1 单品套餐  2 组合套餐
@@ -110,7 +122,8 @@ public class AddTaocanActivity extends BaseActivity {
     String packageType;
     //分类名称
     String packageName;
-    //
+    //从选择商品页面返回的数据
+    List<SingleFoodsBean> singleFoodsBeanList;
 
     /**
      * @return
@@ -132,6 +145,8 @@ public class AddTaocanActivity extends BaseActivity {
     public void initView() {
         setIconFont(new TextView[]{tvPayforAddtaocanIcon});
         zaishouFlag = true;
+        tvTitlebarRight.setText("保存");
+        tvTitlebarRight.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -140,7 +155,7 @@ public class AddTaocanActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_payfor_addtaocan_icon, R.id.tv_payfor_addtaocan_icon,
+    @OnClick({R.id.tv_titlebar_right, R.id.iv_payfor_addtaocan_icon, R.id.tv_payfor_addtaocan_icon,
             R.id.rl_payfor_addtaocan_fenlei,
             R.id.tv_payfor_addtaocan_shifouzaishou,
             R.id.rl_payfor_addtaocan_taocanleixing,
@@ -148,6 +163,10 @@ public class AddTaocanActivity extends BaseActivity {
             R.id.tv_payfor_addtaocan_danpin_addshangpin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_titlebar_right:
+                //检查该填的数据填写了么  然后保存操作
+                checkSave();
+                break;
             case R.id.iv_payfor_addtaocan_icon:
                 showImg();
                 break;
@@ -155,6 +174,7 @@ public class AddTaocanActivity extends BaseActivity {
                 showImg();
                 break;
             case R.id.rl_payfor_addtaocan_fenlei:
+
                 if (TextUtils.isEmpty(taocanleixingFlag)) {
                     ToastUtil.showToast("请先选择套餐类型");
                 } else {
@@ -162,7 +182,8 @@ public class AddTaocanActivity extends BaseActivity {
                 }
                 break;
             case R.id.rl_payfor_addtaocan_taocanleixing:
-                //选择套餐类型  如果是单品套餐 显示添加单品  组合套餐 显示添加分组   默认显示添加单人套餐
+                //选择套餐类型  如果是单品套餐 显示添加单品  组合套餐 显示添加分组
+
                 showPopWindow();
                 break;
             case R.id.tv_payfor_addtaocan_zuhe_addfenzu:
@@ -173,7 +194,7 @@ public class AddTaocanActivity extends BaseActivity {
             case R.id.tv_payfor_addtaocan_danpin_addshangpin:
                 //添加单品按钮  跳转添加单品页面
                 Intent danpinIntent = new Intent(this, AddTaocanFoodsActivity.class);
-                startActivity(danpinIntent);
+                startActivityForResult(danpinIntent, 2);
                 break;
             case R.id.tv_payfor_addtaocan_shifouzaishou:
                 //是否在售状态
@@ -191,6 +212,129 @@ public class AddTaocanActivity extends BaseActivity {
         }
     }
 
+    /**
+     * @author fenghao
+     * @date 2018/7/21 0021 上午 9:59
+     * @desc 检查该填的数据填写了么  然后保存操作
+     */
+    private void checkSave() {
+        if (file1 == null) {
+            ToastUtil.showToast("请上传照片");
+            return;
+        }
+        if (TextUtils.isEmpty(etPayforAddtaocanMingcheng.getText().toString())) {
+            ToastUtil.showToast("请填写套餐名称");
+            return;
+        }
+        if (TextUtils.isEmpty(taocanleixingFlag)) {
+            ToastUtil.showToast("请先选择套餐类型");
+            return;
+        }
+        if (TextUtils.isEmpty(etPayforAddtaocanJine.getText().toString())) {
+            ToastUtil.showToast("请先填写套餐金额");
+            return;
+        }
+        if (TextUtils.isEmpty(packageType)) {
+            ToastUtil.showToast("请先选择套餐分类");
+            return;
+        }
+        if (singleFoodsBeanList.size() < 1) {
+            ToastUtil.showToast("请先选择套餐中的餐品");
+            return;
+        }
+        if (TextUtils.isEmpty(etPayforAddtaocanDanwei.getText().toString())) {
+            ToastUtil.showToast("请先选择套餐单位");
+            return;
+        }
+
+
+        Map<String, Object> upAddGoodsMap = new HashMap<>();
+        //店铺编号
+        upAddGoodsMap.put("shopNumber", getShopNumber());
+        //套餐名称
+        upAddGoodsMap.put("packageName", etPayforAddtaocanMingcheng.getText().toString());
+        //套餐分类
+        upAddGoodsMap.put("packageType", packageType);
+        //套餐单位
+        upAddGoodsMap.put("packageUnit", etPayforAddtaocanDanwei.getText().toString());
+        //套餐价格
+        upAddGoodsMap.put("packagePrice", etPayforAddtaocanJine.getText().toString());
+        //售卖状态
+        upAddGoodsMap.put("sellingStatus", zaishouFlag);
+
+        //套餐描述
+        upAddGoodsMap.put("foodProductsDescribe", "");
+        //备注
+        upAddGoodsMap.put("remarks", "");
+        //商品列表
+        upAddGoodsMap.put("productList", singleFoodsBeanList);
+
+
+        postImg(upAddGoodsMap);
+
+    }
+
+    /**
+     * @param upAddGoodsMap
+     * @author fenghao
+     * @date 2018/7/19 0019 下午 18:31
+     * @desc 上传图片
+     */
+    private void postImg(final Map<String, Object> upAddGoodsMap) {
+        if (file1 == null) {
+            ToastUtil.showToast("请先选择商品图片");
+        } else {
+            showLoadingDialog();
+            Log.e(TAG, "postImg: " + file1.getName());
+
+            OkHttpUtils.post().addFile("foodImg", file1.getName(), file1)
+                    .url(ApiConfig.UPLOAD_IMG).addHeader("Content-Type", "multipart/form-data").build().execute(new StringCallback() {
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    dismissLoadingDialog();
+                    ToastUtil.showToast("网络连接出错");
+                }
+
+                @Override
+                public void onResponse(String response, int id) {
+                    dismissLoadingDialog();
+                    UpImgBean upImgBean = new Gson().fromJson(response, UpImgBean.class);
+                    if (upImgBean.isSuccess()) {
+                        foodProductsPicture = upImgBean.getData().getFoodProductsPicture();
+                        //图片编号
+                        upAddGoodsMap.put("packagePicture", foodProductsPicture);
+                        upAdd(upAddGoodsMap);
+
+                    } else {
+                        ToastUtil.showToast("上传图片失败");
+
+                    }
+                }
+            });
+        }
+
+    }
+    /**
+     * @param upAddGoodsMap
+     * @author fenghao
+     * @date 2018/7/20 0020 上午 9:58
+     * @desc 添加商品接口
+     */
+    private void upAdd(Map<String, Object> upAddGoodsMap) {
+        Gson gson = new Gson();
+
+        HttpFactory.postString(ApiConfig.ADD_PACKAGE, gson.toJson(upAddGoodsMap), new ResponseCallback<BaseBean>(this) {
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("添加成功");
+                    finishActivity();
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
+    }
     /**
      * @author fenghao
      * @date 2018/7/20 0020 上午 11:36
@@ -226,8 +370,6 @@ public class AddTaocanActivity extends BaseActivity {
         });
 
     }
-
-
 
 
     /**
@@ -271,7 +413,7 @@ public class AddTaocanActivity extends BaseActivity {
                 k--;
             }
         }
-        if (dataBeanList.size()<1){
+        if (dataBeanList.size() < 1) {
             ToastUtil.showToast("暂无套餐分类请添加");
             categoryPopupWindow.dismiss();
             return;
@@ -294,6 +436,14 @@ public class AddTaocanActivity extends BaseActivity {
                         packageName = dataBeanList.get(i).getCategoryName();
                         tvPayforAddtaocanFenlei.setText(packageName.toString());
                         categoryPopupWindow.dismiss();
+                        if ("1".equals(taocanleixingFlag)){
+                            llPayforAddtaocanDanpinTaocan.setVisibility(View.VISIBLE);
+                            llPayforAddtaocanZuhe.setVisibility(View.GONE);
+                        }else {
+                            llPayforAddtaocanDanpinTaocan.setVisibility(View.GONE);
+                            llPayforAddtaocanZuhe.setVisibility(View.VISIBLE);
+                        }
+
                     } else {
                         tvItemChooseCategoryYes.setVisibility(View.GONE);
                     }
@@ -388,6 +538,15 @@ public class AddTaocanActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            case 2:
+                //从选择商品页面返回的数据singleFoodsBeanList
+                if (singleFoodsBeanList != null) {
+                    singleFoodsBeanList.clear();
+                }
+                singleFoodsBeanList = (List<SingleFoodsBean>) data.getSerializableExtra("singleFoodsBeanList");
+                Log.e(TAG, "onActivityResult: " + singleFoodsBeanList.size());
+                setSingleFoodsBeanList(singleFoodsBeanList);
+                break;
             case 10:
                 if (resultCode == Activity.RESULT_OK) {
                     String sdStatus = Environment.getExternalStorageState();
@@ -450,6 +609,48 @@ public class AddTaocanActivity extends BaseActivity {
     }
 
     /**
+     * @param singleFoodsBeanList 从选择商品页面传回的数据元
+     * @author fenghao
+     * @date 2018/7/21 0021 上午 9:20
+     * @desc 设置数据
+     */
+    private void setSingleFoodsBeanList(List<SingleFoodsBean> singleFoodsBeanList) {
+        for (int i = 0; i < singleFoodsBeanList.size(); i++) {
+            if (singleFoodsBeanList.get(i).getSingleQuantity() == 0) {
+                singleFoodsBeanList.remove(i);
+                i--;
+            }
+        }
+
+        showSingleFoods(singleFoodsBeanList);
+    }
+
+    AddTaocanSinglefoodAdapter addTaocanSinglefoodAdapter;
+
+    /**
+     * @param singleFoodsBeanList 处理后的数据
+     * @author fenghao
+     * @date 2018/7/21 0021 上午 9:22
+     * @desc 展示返回的商品
+     */
+    private void showSingleFoods(final List<SingleFoodsBean> singleFoodsBeanList) {
+        Log.e(TAG, "showSingleFoods: " + singleFoodsBeanList.size());
+
+        addTaocanSinglefoodAdapter = new AddTaocanSinglefoodAdapter(R.layout.module_item_addtaocan_singfoods, singleFoodsBeanList);
+        rvPayforAddtaocanDanpinShangpin.setAdapter(addTaocanSinglefoodAdapter);
+        rvPayforAddtaocanDanpinShangpin.setLayoutManager(new LinearLayoutManager(this));
+        addTaocanSinglefoodAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.tv_item_addtaocan_singlefoods_del) {
+                    singleFoodsBeanList.remove(position);
+                    addTaocanSinglefoodAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
+
+    /**
      * @param bitmap
      * @author fenghao
      * @date 2018/7/20 0020 上午 11:16
@@ -502,8 +703,7 @@ public class AddTaocanActivity extends BaseActivity {
         rlPopAddTaocanleixingDanpin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPayforAddtaocanDanpinTaocan.setVisibility(View.VISIBLE);
-                llPayforAddtaocanZuhe.setVisibility(View.GONE);
+
                 tvPayforAddtaocanLeixing.setText("单品套餐");
                 taocanleixingFlag = "1";
                 mPopupWindow.dismiss();
@@ -512,8 +712,6 @@ public class AddTaocanActivity extends BaseActivity {
         rlPopAddTaocanleixingZuhe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPayforAddtaocanDanpinTaocan.setVisibility(View.GONE);
-                llPayforAddtaocanZuhe.setVisibility(View.VISIBLE);
                 tvPayforAddtaocanLeixing.setText("组合套餐");
                 taocanleixingFlag = "2";
                 mPopupWindow.dismiss();
@@ -544,7 +742,6 @@ public class AddTaocanActivity extends BaseActivity {
             }
         });
     }
-
 
 
     /**

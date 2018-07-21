@@ -1,13 +1,13 @@
 package com.hongsou.douguoshouyin.adapter;
 
-import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
+import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import java.util.List;
  * 版权：鸿搜网络公司 版权所有
  * 作者：冯大鱼
  * 版本：1.0
- * 创建日期：2018/7/20 0020
- * 描述：添加套餐中选择商品中的分类
+ * 创建日期：2018/7/21 0021
+ * 描述：  添加套餐中的商品显示
  * 修订历史：
  * ┌─┐       ┌─┐
  * ┌──┘ ┴───────┘ ┴──┐
@@ -43,17 +43,17 @@ import java.util.List;
  */
 
 
-public class AddTaocanCategoryAdapter extends BaseQuickAdapter<FoodCategoryBean.DataBean, BaseViewHolder> {
+public class AddTaocanSinglefoodAdapter extends BaseQuickAdapter<SingleFoodsBean, BaseViewHolder> {
 
-    public AddTaocanCategoryAdapter(int layoutResId, @Nullable List<FoodCategoryBean.DataBean> data) {
+    public AddTaocanSinglefoodAdapter(int layoutResId, @Nullable List<SingleFoodsBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, FoodCategoryBean.DataBean item) {
-        if (helper.getPosition()==0){
-            helper.setBackgroundColor(R.id.tv_item_addfoods_category, Color.WHITE);
-        }
-        helper.setText(R.id.tv_item_addfoods_category,item.getCategoryName());
+    protected void convert(BaseViewHolder helper, SingleFoodsBean item) {
+        helper.setText(R.id.tv_item_addtaocan_singlefoods_name, item.getSingleProductName() + "(" + item.getStandardName() + ")")
+                .setText(R.id.tv_item_addtaocan_singlefoods_price, (Float.valueOf(item.getSingleProductPrice())*item.getSingleQuantity())+"")
+                .setText(R.id.tv_item_addtaocan_singlefoods_count, item.getSingleQuantity() + "")
+                .addOnClickListener(R.id.tv_item_addtaocan_singlefoods_del);
     }
 }

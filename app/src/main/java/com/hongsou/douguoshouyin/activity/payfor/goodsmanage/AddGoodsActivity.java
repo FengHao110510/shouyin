@@ -38,6 +38,7 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.ShopStandarList;
+import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 import com.hongsou.douguoshouyin.javabean.UpImgBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
@@ -46,6 +47,9 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -787,6 +791,9 @@ public class AddGoodsActivity extends BaseActivity {
         context.getWindow().setAttributes(lp);
     }
 
+
+
+
     //===================================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -795,5 +802,8 @@ public class AddGoodsActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
