@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.SuccessActivity;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
@@ -110,7 +110,7 @@ public class CollectMoneyForCashActivity extends BaseActivity {
         new KeyboardUtil(mKeyboardCollectMoney, mEtCollectMoney, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mGiveMoney >= 0) {
+                if (mGiveMoney >= 0 && !TextUtils.isEmpty(mEtCollectMoney.getText())) {
                     bean.setCashAmount(mTvGiveMoney.getText().toString());
                     bean.setAmountReceivable(mTvReceivableMoney.getText().toString());
                     bean.setAmountCollected(mEtCollectMoney.getText().toString());
@@ -141,7 +141,7 @@ public class CollectMoneyForCashActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     String batch = response.getMsg();
-                    Intent intent = new Intent(CollectMoneyForCashActivity.this, SuccessActivity.class);
+                    Intent intent = new Intent(CollectMoneyForCashActivity.this, PaymentDetailActivity.class);
                     intent.putExtra("batch", batch);
                     startActivity(intent);
                     finish();
@@ -151,6 +151,8 @@ public class CollectMoneyForCashActivity extends BaseActivity {
             }
         });
     }
+
+
 
     //=============================================================================================
     @Override

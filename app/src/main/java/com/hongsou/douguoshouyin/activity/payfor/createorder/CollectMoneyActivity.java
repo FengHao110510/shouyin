@@ -17,7 +17,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.ErweimaActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.SuccessActivity;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.CollectMoneyAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.BaseApplication;
@@ -225,7 +225,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         bean.setEquipmentSource("");
         bean.setEquipmentNumber("");
         bean.setTradingTime(DateUtils.getStringToday());
-        bean.setOrderSource("");
+        bean.setOrderSource("开单");
         bean.setOrderType("0");
         bean.setPaymentType("现金");
         bean.setClerkName(Global.getSpGlobalUtil().getClerkName());
@@ -258,7 +258,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     String batch = response.getMsg();
-                    Intent intent = new Intent(CollectMoneyActivity.this, SuccessActivity.class);
+                    Intent intent = new Intent(CollectMoneyActivity.this, PaymentDetailActivity.class);
                     startActivity(intent);
                 } else {
                     ToastUtil.showToast(response.getMsg());

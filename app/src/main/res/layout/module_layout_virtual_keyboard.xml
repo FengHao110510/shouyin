@@ -31,7 +31,7 @@
                     android:gravity="center"
                     android:text="1"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_2"
@@ -43,7 +43,7 @@
                     android:gravity="center"
                     android:text="2"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_3"
@@ -55,7 +55,7 @@
                     android:gravity="center"
                     android:text="3"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_delete"
@@ -67,7 +67,7 @@
                     android:gravity="center"
                     android:text="@string/icon_main_payfor_cancle"
                     android:textColor="@color/black"
-                    android:textSize="30sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -84,7 +84,7 @@
                     android:gravity="center"
                     android:text="4"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_5"
@@ -96,7 +96,7 @@
                     android:gravity="center"
                     android:text="5"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_6"
@@ -108,7 +108,7 @@
                     android:gravity="center"
                     android:text="6"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_clean"
@@ -153,7 +153,7 @@
                     android:gravity="center"
                     android:text="7"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_8"
@@ -165,7 +165,7 @@
                     android:gravity="center"
                     android:text="8"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_9"
@@ -177,7 +177,7 @@
                     android:gravity="center"
                     android:text="9"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
             </LinearLayout>
 
             <LinearLayout
@@ -194,7 +194,7 @@
                     android:gravity="center"
                     android:text="."
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_0"
@@ -206,7 +206,7 @@
                     android:gravity="center"
                     android:text="0"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
 
                 <TextView
                     android:id="@+id/keyboard_00"
@@ -218,7 +218,7 @@
                     android:gravity="center"
                     android:text="00"
                     android:textColor="@color/color_title"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/keyboard_txt_size" />
             </LinearLayout>
 
         </LinearLayout>
@@ -228,12 +228,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/keyboard_margin"
+            android:paddingLeft="@dimen/margin_20"
+            android:paddingRight="@dimen/margin_20"
             android:layout_weight="1"
             android:ems="1"
-            android:background="@drawable/selector_gird_item"
+            android:background="@color/gray"
             android:gravity="center"
             android:text="收款"
-            android:textColor="@color/color_title"
-            android:textSize="30sp" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/keyboard_txt_size" />
     </LinearLayout>
 </LinearLayout>

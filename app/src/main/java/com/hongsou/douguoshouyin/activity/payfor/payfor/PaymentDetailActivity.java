@@ -8,78 +8,114 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.ApiConfig;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
 import okhttp3.Call;
 
 /**
- * 收款成功页面
+ * @author lpc
+ *         <p>
+ * @copyright 鸿搜网络公司 版权所有
+ * <p>
+ * @date 2018/7/23
+ * <p>
+ * @desc 支付订单详情页
  */
-public class SuccessActivity extends BaseActivity {
+public class PaymentDetailActivity extends BaseActivity {
 
 
-    @BindView(R.id.tv_payfor_success_shoukuanjine)
-    TextView tvPayforSuccessShoukuanjine;
-    @BindView(R.id.tv_payfor_success_dingdanhao)
-    TextView tvPayforSuccessDingdanhao;
-    @BindView(R.id.tv_payfor_success_jiaoyishijian)
-    TextView tvPayforSuccessJiaoyishijian;
-    @BindView(R.id.tv_payfor_success_jiaoyijine)
-    TextView tvPayforSuccessJiaoyijine;
-    @BindView(R.id.tv_payfor_success_zhifufangshi)
-    TextView tvPayforSuccessZhifufangshi;
-    @BindView(R.id.tv_payfor_success_zhifuzhuangtai)
-    TextView tvPayforSuccessZhifuzhuangtai;
-    @BindView(R.id.bt_payfor_success_tuikuan)
-    Button btPayforSuccessTuikuan;
-    @BindView(R.id.bt_payfor_success_dayin)
-    Button btPayforSuccessDayin;
-
+    @BindView(R.id.top_bar)
+    CommonTopBar mTopBar;
+    @BindView(R.id.iv_order_status)
+    ImageView mIvOrderStatus;
+    @BindView(R.id.tv_order_title)
+    TextView mTvOrderTitle;
+    @BindView(R.id.tv_order_money)
+    TextView mTvOrderMoney;
+    @BindView(R.id.tv_order_batch)
+    TextView mTvOrderBatch;
+    @BindView(R.id.tv_order_pay_time)
+    TextView mTvOrderPayTime;
+    @BindView(R.id.tv_order_pay_money)
+    TextView mTvOrderPayMoney;
+    @BindView(R.id.tv_order_pay_type)
+    TextView mTvOrderPayType;
+    @BindView(R.id.tv_order_pay_status)
+    TextView mTvOrderPayStatus;
+    @BindView(R.id.btn_order_back_money)
+    Button mBtnOrderBackMoney;
+    @BindView(R.id.btn_order_print)
+    Button mBtnOrderPrint;
+    @BindView(R.id.btn_order_again)
+    Button mBtnOrderAgain;
     private Dialog dialog;
+    private String mBatch;
 
     @Override
     public int initLayout() {
-        return R.layout.module_activity_payfor_success;
+        return R.layout.module_activity_order_detail;
     }
 
     @Override
     protected void init() {
-        initView();
+        if (getIntent().hasExtra("batch")){
+            mBatch = getIntent().getStringExtra("batch");
+        }
+
         initData();
-        initBack();
-        initTitle("收款成功");
-    }
-
-    @Override
-    public void initView() {
-
     }
 
     @Override
     public void initData() {
         //TODO 需要初始化数据 订单号啥的
-
+        HttpFactory.get().url(ApiConfig.GET_PAYMENT_ORDER_BY_BATCH)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("batch", mBatch)
+                .build()
+                .execute(new ResponseCallback<RootBean>(this) {
+                    @Override
+                    public void onResponse(RootBean response, int id) {
+                        if (response.isSuccess()) {
+                            response.getData();
+                        }else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
     }
 
-    @OnClick({R.id.bt_payfor_success_tuikuan, R.id.bt_payfor_success_dayin})
+
+    @OnClick({R.id.btn_order_back_money, R.id.btn_order_print, R.id.btn_order_again})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.bt_payfor_success_tuikuan:
+            case R.id.btn_order_back_money:
                 //走退款接口
                 tuikuanDialog();
                 break;
-            case R.id.bt_payfor_success_dayin:
+            case R.id.btn_order_print:
+                // 打印小票
+
+                break;
+            case R.id.btn_order_again:
+                // 继续收款
+
+                break;
+            default:
                 break;
         }
     }
@@ -138,7 +174,7 @@ public class SuccessActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
                 //TODO 成功之后跳转到退款成功页面 此页面关闭
-                Intent backIntent = new Intent(SuccessActivity.this, BackPayActivity.class);
+                Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
                 startActivity(backIntent);
                 finishActivity();
             }
@@ -153,6 +189,5 @@ public class SuccessActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-
 
 }

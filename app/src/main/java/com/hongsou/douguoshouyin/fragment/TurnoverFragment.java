@@ -14,6 +14,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.turnover.OrderConditionActivity;
+import com.hongsou.douguoshouyin.base.BaseFragment;
+import com.hongsou.douguoshouyin.fragment.turnover.TurnoverOrderFragment;
+import com.hongsou.douguoshouyin.fragment.turnover.TurnoverTurnoverFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.turnover.OrderShaixuanActivity;
-import com.hongsou.douguoshouyin.activity.turnover.TurnoverShaixuanActivity;
-import com.hongsou.douguoshouyin.base.BaseFragment;
-import com.hongsou.douguoshouyin.fragment.turnover.TurnoverOrderFragment;
-import com.hongsou.douguoshouyin.fragment.turnover.TurnoverTurnoverFragment;
 
 /**
  * 文件描述：new！！com.example.administrator.myapplication.app.fragment
@@ -129,14 +129,13 @@ public class TurnoverFragment extends BaseFragment {
     public void onViewClicked() {
         //筛选 判断是流水还是订单
 
+        Intent intent = new Intent(getActivity(), OrderConditionActivity.class);
         if (tabTitlebarTurnoverTab.getSelectedTabPosition() == 0) {
-            Intent orderSXIntent = new Intent(getActivity(), OrderShaixuanActivity.class);
-            startActivity(orderSXIntent);
-        } else {
-            Intent turnoverSXIntent = new Intent(getActivity(), TurnoverShaixuanActivity.class);
-            startActivity(turnoverSXIntent);
-
+            intent.putExtra("type", 0);
+        }else {
+            intent.putExtra("type", 1);
         }
+        startActivity(intent);
 
     }
 

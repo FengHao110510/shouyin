@@ -507,7 +507,7 @@ public class PayForActivity extends BaseActivity {
                 dismissLoadingDialog();
                 ToastUtil.showToast("提交订单失败");
                 //成功后跳转支付成功页面 TODO
-                Intent successIntent = new Intent(PayForActivity.this, SuccessActivity.class);
+                Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
                 startActivity(successIntent);
 
             }
@@ -516,7 +516,7 @@ public class PayForActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
                 //成功后跳转支付成功页面 TODO
-                Intent successIntent = new Intent(PayForActivity.this, SuccessActivity.class);
+                Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
                 startActivity(successIntent);
                 //失败后跳转支付失败页面 TODO
                 Intent failIntent = new Intent(PayForActivity.this, FailActivity.class);

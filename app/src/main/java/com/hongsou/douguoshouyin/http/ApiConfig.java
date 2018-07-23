@@ -167,6 +167,10 @@ public class ApiConfig {
      * TODO 流水详情接口
      */
     public static final String GET_PAYMENT_ORDER_BY_BATCH = BASE_URL + "/orderDetails/getPaymentOrderByBatch";
+    /**
+     * TODO 查询筛选条件
+     */
+    public static final String GET_ORDER_CONDITION = BASE_URL + "/orderDetails/getOrderCondition";
     // TODO ======================================== 更多模块 ====================================================
     // TODO ======================================== 我的模块 ====================================================
     /**

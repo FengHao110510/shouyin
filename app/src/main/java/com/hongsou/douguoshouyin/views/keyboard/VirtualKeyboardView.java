@@ -1,6 +1,7 @@
 package com.hongsou.douguoshouyin.views.keyboard;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,15 +72,14 @@ public class VirtualKeyboardView extends LinearLayout {
 
     public VirtualKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         this.context = context;
-
         View view = View.inflate(context, R.layout.module_layout_virtual_keyboard, null);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(params);
         ButterKnife.bind(this, view);
         //必须要，不然不显示控件
         addView(view);
+        mKeyboardDelete.setTypeface(Typeface.createFromAsset(context.getAssets(), "iconfont.ttf"));
     }
 
     public void setOnKeyboardActionListener(OnKeyboardActionListener onKeyboardActionListener) {
