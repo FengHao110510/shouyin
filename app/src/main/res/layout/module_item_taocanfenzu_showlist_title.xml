@@ -37,10 +37,20 @@
             android:text="3选1"
             android:textSize="12sp" />
 
+
+        <ImageView
+            android:id="@+id/iv_item_taocanfenzu_shoulist_title_check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/weixuan"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
         <LinearLayout
             android:id="@+id/ll_item_taocanfenzu_shoulist_title_del"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:orientation="vertical"
             android:paddingLeft="5dp"
