@@ -20,13 +20,14 @@
             android:textColor="@color/color_pop_order_btn_back_order_checked"
             android:text="可乐"
             android:layout_weight="1"
+            android:layout_marginRight="@dimen/margin_12"
             />
 
         <TextView
             android:id="@+id/tv_selected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/icon_main_mine_duigou"
+            android:text="@string/icon_check_normal"
             android:textColor="@color/tip_text_black"
             android:textSize="24sp"
             />

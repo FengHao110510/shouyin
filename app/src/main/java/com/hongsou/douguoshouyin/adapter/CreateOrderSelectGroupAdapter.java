@@ -42,8 +42,10 @@ public class CreateOrderSelectGroupAdapter extends BaseQuickAdapter<List<FoodZuh
 
         if (pos == helper.getLayoutPosition()) {
             ((TextView) helper.getView(R.id.tv_selected)).setTextColor(mContext.getResources().getColor(R.color.red));
+            helper.setText(R.id.tv_selected, R.string.icon_check_selected);
         } else {
-            helper.setTextColor(R.id.tv_selected, R.color.tip_text_black);
+            ((TextView) helper.getView(R.id.tv_selected)).setTextColor(mContext.getResources().getColor(R.color.tip_text_black));
+            helper.setText(R.id.tv_selected, R.string.icon_check_normal);
         }
 
         helper.addOnClickListener(R.id.tv_selected);
