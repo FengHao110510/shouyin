@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.db.SelectMealEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -28,7 +29,8 @@ public class CollectMoneyAdapter extends BaseQuickAdapter<SelectMealEntity, Base
     @Override
     protected void convert(BaseViewHolder helper, SelectMealEntity item) {
         String foodType = item.getFoodProductsType();
-        helper.setText(R.id.tv_food_price, item.getFoodPrice());
+        BigDecimal bigDecimal = new BigDecimal(item.getFoodPrice()).multiply(new BigDecimal(item.getFoodProductsCount()));
+        helper.setText(R.id.tv_food_price, bigDecimal.setScale(1).toString());
         helper.setText(R.id.tv_food_count, item.getFoodProductsCount() + "");
         if ("1".equals(foodType)) {
             // 单品

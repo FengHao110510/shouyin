@@ -465,8 +465,13 @@ public class SelectMealEntity {
                 return false;
             }
         }else if ("2".equals(entity.getFoodProductsType())){
-            Log.e("aaaasdfdsf", "equals: 99999999999999");
-            return false;
+            Log.e("aaaasdfdsf", "equals: 8888888888888888");
+            if (foodProductsNumber != null ? !foodProductsNumber.equals(entity.foodProductsNumber) : entity.getFoodProductsNumber() != null){
+                Log.e("aaaasdfdsf", "equals: 99999999999999");
+                return false;
+            }
+            Log.e("aaaasdfdsf", "equals: zzzzzzzzzzzzzzzzzz" + isListEqual(groupFood, entity.groupFood));
+            return  isListEqual(groupFood, entity.groupFood);
         }
         return true;
     }
@@ -480,8 +485,28 @@ public class SelectMealEntity {
         return result;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public static boolean isListEqual(List<FoodZuheTaocanXQ> l0, List<FoodZuheTaocanXQ> l1){
+        if (l0 == l1) {
+            return true;
+        }
+        if (l0 == null || l1 == null) {
+            return false;
+        }
+        if (l0.size() != l1.size()) {
+            return false;
+        }
+        for (FoodZuheTaocanXQ o : l0) {
+            if (!l1.contains(o)) {
+                return false;
+            }
+        }
+        for (FoodZuheTaocanXQ o : l1) {
+            if (!l0.contains(o)) {
+                return false;
+            }
+        }
+        return true;
     }
+
 
 }

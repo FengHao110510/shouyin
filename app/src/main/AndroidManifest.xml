@@ -187,6 +187,10 @@
             android:name=".activity.payfor.createorder.CollectMoneyForCashActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.payfor.createorder.CreateOrderSelectGroupActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.payfor.TongjiActivity"

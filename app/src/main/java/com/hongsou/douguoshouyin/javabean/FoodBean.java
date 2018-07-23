@@ -1,5 +1,7 @@
 package com.hongsou.douguoshouyin.javabean;
 
+import com.hongsou.douguoshouyin.db.FoodZuheTaocanXQ;
+
 import java.util.List;
 
 /**
@@ -435,6 +437,15 @@ public class FoodBean {
             private String standardName;
             private String standardNumber;
             private String vipPrice;
+            private int selectCount;
+
+            public int getSelectCount() {
+                return selectCount;
+            }
+
+            public void setSelectCount(int selectCount) {
+                this.selectCount = selectCount;
+            }
 
             public int getDeleteFlag() {
                 return deleteFlag;
@@ -678,7 +689,7 @@ public class FoodBean {
             private String groupNumber;
             private String groupPackageNumber;
             private String shopNumber;
-            private List<List<ListThreeBean>> listThree;
+            private List<List<FoodZuheTaocanXQ>> listThree;
 
             public String getDeletionFlag() {
                 return deletionFlag;
@@ -712,11 +723,11 @@ public class FoodBean {
                 this.shopNumber = shopNumber;
             }
 
-            public List<List<ListThreeBean>> getListThree() {
+            public List<List<FoodZuheTaocanXQ>> getListThree() {
                 return listThree;
             }
 
-            public void setListThree(List<List<ListThreeBean>> listThree) {
+            public void setListThree(List<List<FoodZuheTaocanXQ>> listThree) {
                 this.listThree = listThree;
             }
 

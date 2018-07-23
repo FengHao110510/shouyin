@@ -243,9 +243,7 @@ public class PackageFoodEntity {
         }
         PackageFoodEntity entity = (PackageFoodEntity) obj;
         return entity.singleProductName.equals(singleProductName) &&
-                entity.standardName == standardName &&
-                entity.serialNumber.equals(serialNumber)&&
-                entity.replaceStatus.equals(replaceStatus);
+                entity.standardName == standardName;
     }
 
     @Override

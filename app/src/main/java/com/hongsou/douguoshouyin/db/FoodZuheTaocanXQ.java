@@ -220,7 +220,23 @@ public class FoodZuheTaocanXQ {
     }
 
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof FoodZuheTaocanXQ)) {
+            return false;
+        }
+        FoodZuheTaocanXQ entity = (FoodZuheTaocanXQ) obj;
+        return entity.singleProductName.equals(singleProductName) &&
+                entity.standardName.equals(standardName) &&
+                entity.foodProductsCount.equals(foodProductsCount);
+    }
 
+    @Override
+    public int hashCode() {
+
+        return singleProductName.hashCode();
+    }
 
 
 }

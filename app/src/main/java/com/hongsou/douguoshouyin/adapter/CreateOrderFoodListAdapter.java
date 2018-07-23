@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.db.FoodZuheTaocanXQ;
+import com.hongsou.douguoshouyin.db.PackageFoodEntity;
 import com.hongsou.douguoshouyin.db.SelectMealEntity;
 
 import java.math.BigDecimal;
@@ -49,9 +51,24 @@ public class CreateOrderFoodListAdapter extends BaseQuickAdapter<SelectMealEntit
         if ("1".equals(foodType)) {
             // 单品
             helper.setText(R.id.tv_food_name, item.getFoodName() + "(" + item.getStandardName() + ")");
-        } else {
+            helper.setVisible(R.id.tv_food_content, false);
+        } else if ("0".equals(foodType)){
             // 套餐
             helper.setText(R.id.tv_food_name, item.getFoodName());
+            helper.setVisible(R.id.tv_food_content, true);
+            StringBuffer s = new StringBuffer();
+            for (PackageFoodEntity entity : item.getPackageFood()) {
+                s.append(entity.getSingleProductName()+"("+ entity.getStandardName()+")*"+entity.getSingleQuantity()+"; ");
+            }
+            helper.setText(R.id.tv_food_content, s.toString());
+        }else {
+            helper.setText(R.id.tv_food_name, item.getFoodName());
+            helper.setVisible(R.id.tv_food_content, true);
+            StringBuffer s = new StringBuffer();
+            for (FoodZuheTaocanXQ entity : item.getGroupFood()) {
+                s.append(entity.getSingleProductName()+"("+ entity.getStandardName()+")*"+entity.getFoodProductsCount()+"; ");
+            }
+            helper.setText(R.id.tv_food_content, s.toString());
         }
     }
 

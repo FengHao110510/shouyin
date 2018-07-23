@@ -59,12 +59,18 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
         String foodType = item.getFoodType();
         if ("1".equals(foodType)) {
             // 单品
-            helper.setText(R.id.tv_food_name, item.getSingleProductName());
             List<FoodBean.DataBean.ShopStandarListBean> shopStandarList = item.getShopStandarList();
-            if (shopStandarList != null && shopStandarList.size() > 0) {
+            if (shopStandarList != null) {
                 helper.setText(R.id.tv_food_price, shopStandarList.get(0).getSell());
-                helper.setVisible(R.id.ll_count, false);
-                helper.setVisible(R.id.rl_standard, true);
+                if (shopStandarList.size() == 1) {
+                    helper.setText(R.id.tv_food_name, item.getSingleProductName() + "(" + shopStandarList.get(0).getStandardName() + ")");
+                    helper.setVisible(R.id.ll_count, true);
+                    helper.setVisible(R.id.rl_standard, false);
+                } else {
+                    helper.setText(R.id.tv_food_name, item.getSingleProductName());
+                    helper.setVisible(R.id.ll_count, false);
+                    helper.setVisible(R.id.rl_standard, true);
+                }
             }
             if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
                 String[] split = item.getFoodProductsPicture().split("-");
@@ -82,8 +88,8 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             // 组合套餐
             helper.setText(R.id.tv_food_name, item.getGroupPackageName());
             helper.setText(R.id.tv_food_price, item.getGroupPackagePrice());
-            helper.setVisible(R.id.ll_count, true);
-            helper.setVisible(R.id.rl_standard, false);
+            helper.setVisible(R.id.ll_count, false);
+            helper.setVisible(R.id.rl_standard, true).setText(R.id.tv_select_standard, "选餐品");
             // 组合套餐没有图片
 //            Glide.with(mContext).load(item.getFoodProductsPicture()).into((ImageView) helper.getView(R.id.iv_food_img));
         }

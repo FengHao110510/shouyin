@@ -2,10 +2,12 @@ package com.hongsou.douguoshouyin.activity.payfor.createorder.presenter;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.hongsou.douguoshouyin.activity.payfor.createorder.model.ICreateOrderModel;
 import com.hongsou.douguoshouyin.activity.payfor.createorder.view.ICreateOrderView;
 import com.hongsou.douguoshouyin.base.Constant;
+import com.hongsou.douguoshouyin.db.FoodZuheTaocanXQ;
 import com.hongsou.douguoshouyin.db.PackageFoodEntity;
 import com.hongsou.douguoshouyin.db.SelectMealEntity;
 import com.hongsou.douguoshouyin.javabean.FoodBean;
@@ -34,7 +36,7 @@ public class CreateOrderPresenter {
     public static final int TAG_SUBTRACT = 2;
     public static final int TAG_CLEAR = 3;
 
-    public int DAO_ID = 0;
+    public static int DAO_ID = 0;
 
     private List<SelectMealEntity> mealForSelects;
 
@@ -172,14 +174,20 @@ public class CreateOrderPresenter {
             entity.setPackageFood(entityList);
         }else if ("2".equals(bean.getFoodType())){
             // 组合套餐
-
-//            entity.setFoodName(bean.getSingleProductName());
-//            entity.setFoodProductsNumber(bean.getSingleProductNumber());
-//            entity.setFoodProductsCount(1);
-//            entity.setFoodProductsType(bean.getFoodType());
-//            entity.setIncreasePrice("0");
-//            entity.setFoodPrice(bean.getGroupPackagePrice());
-//            entity.setMemberPreferences(bean.getVipprice());
+            entity.setFoodName(bean.getGroupPackageName());
+            entity.setFoodProductsNumber(bean.getGroupPackageNumber());
+            entity.setFoodPrice(bean.getGroupPackagePrice());
+            entity.setFoodProductsCount(1);
+            entity.setFoodProductsType(bean.getFoodType());
+            entity.setIncreasePrice("0");
+            entity.setMemberPreferences(bean.getVipprice());
+            List<PackageFoodEntity> entityList = new ArrayList<>();
+            List<FoodZuheTaocanXQ> groups = new ArrayList<>();
+            for (FoodBean.DataBean.ListBean listBean : bean.getList()) {
+                PackageFoodEntity packageFoodEntity = JavaBeanUtils.copyData(listBean, PackageFoodEntity.class);
+                entityList.add(packageFoodEntity);
+            }
+            entity.setPackageFood(entityList);
         }
         return entity;
     }
@@ -195,13 +203,17 @@ public class CreateOrderPresenter {
      */
     private void saveSelectFoods(int tag, List<FoodBean.DataBean> beanList, SelectMealEntity entity, int position) {
         int indexOf = mealForSelects.indexOf(entity);
+        Log.e("saveSelectFoods:", "小标 ：： " + indexOf);
         if (tag == TAG_ADD) {
+            int count = 0;
             if (indexOf < 0) {
                 mealForSelects.add(entity);
+                count = 1;
             } else {
-                int count = mealForSelects.get(indexOf).getFoodProductsCount() + 1;
-                setSelectCount(beanList, entity, indexOf, count);
+                // 如果是组合套餐，那么每次增加都新增一个对象，其他的需要判断是否需要新增
+                count = mealForSelects.get(indexOf).getFoodProductsCount() + 1;
             }
+            setSelectCount(beanList, entity, indexOf, count);
         } else if (tag == TAG_SUBTRACT) {
             if (mealForSelects.size() <= 0 || indexOf < 0) {
                 return;
@@ -228,12 +240,12 @@ public class CreateOrderPresenter {
         int totalCount = 0;
         for (SelectMealEntity listEntity : mealForSelects) {
             String priceStr;
-            if (listEntity.getFoodProductsType().equals("1")) {
+            if ("1".equals(listEntity.getFoodProductsType())) {
                 priceStr = listEntity.getFoodPrice() != null ? listEntity.getFoodPrice() : listEntity.getSell();
-            } else if (listEntity.getFoodProductsType().equals("2")) {
-                priceStr =listEntity.getFoodPrice();
+            } else if ("2".equals(listEntity.getFoodProductsType())) {
+                priceStr = listEntity.getFoodPrice();
             } else {
-                priceStr =listEntity.getFoodPrice() != null ? listEntity.getFoodPrice() : listEntity.getPackagePrice();
+                priceStr = listEntity.getFoodPrice() != null ? listEntity.getFoodPrice() : listEntity.getPackagePrice();
             }
             int currentNum = listEntity.getFoodProductsCount();
             String in = listEntity.getIncreasePrice();
@@ -258,14 +270,56 @@ public class CreateOrderPresenter {
      */
     private void setSelectCount(List<FoodBean.DataBean> beanList, SelectMealEntity entity, int indexOf, int count) {
         entity.setFoodProductsCount(count);
+        Log.e("setSelectCount", "saveSelectFoods: 11111111111111111" );
         for (FoodBean.DataBean dataBean : beanList) {
             if ("0".equals(dataBean.getFoodType())){
                 if (dataBean.getPackageNumber().equals(entity.getPackageNumber())){
                     dataBean.setFoodProductsCount(count);
                     break;
                 }
+            }else if ("1".equals(dataBean.getFoodType())){
+                // 判断单品
+                if (dataBean.getSingleProductNumber().equals(entity.getFoodProductsNumber())){
+                    int c = 0;
+                    // 再循环判断单品对应的规格
+                    for (FoodBean.DataBean.ShopStandarListBean shopStandarListBean : dataBean.getShopStandarList()) {
+                        if (shopStandarListBean.getStandardNumber().equals(entity.getStandardNumber())){
+                            shopStandarListBean.setSelectCount(count);
+                            c += count;
+                        }else {
+                            c += shopStandarListBean.getSelectCount();
+                        }
+                    }
+                    dataBean.setFoodProductsCount(c);
+                }
+            }else if ("2".equals(dataBean.getFoodType())){
+                Log.e("setSelectCount", "bbbbbbbb: " + count);
+                // 先找到对应的组合套餐
+                if (dataBean.getGroupPackageNumber().equals(entity.getFoodProductsNumber())){
+                    int c = 0;
+                    // 循环购物车
+                    for (int i = 0; i < mealForSelects.size(); i++) {
+                        // 判断操作的是否是当前下标
+                        if (i != indexOf){
+                            // 判断是否是同一个组合套餐
+                            if (mealForSelects.get(i).getFoodProductsNumber().equals(entity.getFoodProductsNumber())){
+                                // 同一个组合套餐，只是单品内容不同，需要累加所有数量
+                                c += mealForSelects.get(i).getFoodProductsCount();
+                            }
+                        }else {
+                            // 当前操作的组合套餐，直接累加count
+                            c += count;
+                        }
+                    }
+                    dataBean.setFoodProductsCount(c);
+                    Log.e("setSelectCount", "aaaaaaaaa: " + dataBean.getFoodProductsCount());
+                    break;
+                }
             }
         }
-        mealForSelects.set(indexOf, entity);
+        if (indexOf >= 0){
+            Log.e("setSelectCount: ", "数量：："+entity.getFoodProductsCount() );
+            mealForSelects.set(indexOf, entity);
+        }
     }
 }

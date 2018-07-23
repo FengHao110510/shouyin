@@ -17,6 +17,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.payfor.createorder.model.CreateOrderModel;
 import com.hongsou.douguoshouyin.activity.payfor.createorder.presenter.CreateOrderPresenter;
@@ -102,7 +103,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     private SelectMealEntityDao mSelectMealEntityDao;
 
     @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -131,9 +132,9 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         mBadgeList = new ArrayList<>();
         // 获取接口数据
         mPresenter.getFoodList();
-        mPresenter.getCategory();
+//        mPresenter.getCategory();
 
-        if (mSelectMealEntities == null){
+        if (mSelectMealEntities == null) {
             mSelectMealEntities = new ArrayList<>();
         }
     }
@@ -265,18 +266,24 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 // 按钮 加
                 dataBean = mFoodBeanList.get(position);
                 dataBean.setFoodProductsCount(dataBean.getFoodProductsCount() + 1);
-                mPresenter.addFood(mFoodBeanList, dataBean, -1);
+                mPresenter.addFood(mFoodBeanList, dataBean, 0);
                 break;
             case R.id.tv_subtract:
                 // 按钮 减
                 dataBean = mFoodBeanList.get(position);
                 dataBean.setFoodProductsCount(dataBean.getFoodProductsCount() - 1);
-                mPresenter.subtractFood(mFoodBeanList, dataBean, -1);
+                mPresenter.subtractFood(mFoodBeanList, dataBean, 0);
                 break;
             case R.id.rl_standard:
                 // 按钮 选择规格
                 dataBean = mFoodBeanList.get(position);
-                showStandardWindow(dataBean, dataBean.getShopStandarList());
+                if ("2".equals(dataBean.getFoodType())) {
+                    Intent intent = new Intent(this, CreateOrderSelectGroupActivity.class);
+                    intent.putExtra("data", new Gson().toJson(dataBean));
+                    startActivityForResult(intent, 100);
+                } else {
+                    showStandardWindow(dataBean, dataBean.getShopStandarList());
+                }
                 break;
             case R.id.tv_add_select:
                 // 按钮 加
@@ -397,6 +404,19 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 mCreateOrderFoodListAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == 101) {
+            String bean = data.getStringExtra("bean");
+            String meal = data.getStringExtra("meal");
+            FoodBean.DataBean dataBean = new Gson().fromJson(bean, FoodBean.DataBean.class);
+            SelectMealEntity entity = new Gson().fromJson(meal, SelectMealEntity.class);
+            mPresenter.addFood(mFoodBeanList, entity, 0);
+        }
     }
 
     @Override
