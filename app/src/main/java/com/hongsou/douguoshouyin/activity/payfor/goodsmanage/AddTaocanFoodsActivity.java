@@ -69,7 +69,6 @@ public class AddTaocanFoodsActivity extends BaseActivity {
         initView();
         initData();
         initBack();
-
     }
 
     @Override
@@ -287,7 +286,6 @@ public class AddTaocanFoodsActivity extends BaseActivity {
         Intent intentPut = new Intent();
         intentPut.putExtra("singleFoodsBeanList",(Serializable) singleFoodsBeanList);
         setResult(2,intentPut);
-
     }
 
     @Override

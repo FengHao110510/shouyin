@@ -1,5 +1,7 @@
 package com.hongsou.douguoshouyin.javabean;
 
+import java.io.Serializable;
+
 /**
  * 版权：鸿搜网络公司 版权所有
  * 作者：冯大鱼
@@ -32,7 +34,7 @@ package com.hongsou.douguoshouyin.javabean;
  */
 
 
-public class GroupContentBean {
+public class GroupContentBean implements Serializable{
 
     /**
      * foodFullName : ex eu veniam culpa eiusmod

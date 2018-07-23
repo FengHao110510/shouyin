@@ -14,6 +14,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 
@@ -89,8 +90,9 @@ public class CommodityActivity extends BaseActivity {
                 startActivity(addgoodsIntent);
                 break;
             case R.id.ll_payfor_commodity_tag_tianjiazuhe:
-                //添加组合页面
+                //添加分组页面
                 Intent addzuheIntent = new Intent(this, TaocanfenzuActivity.class);
+                addzuheIntent.putExtra("choose","");
                 startActivity(addzuheIntent);
                 break;
             case R.id.ll_payfor_commodity_tag_gengduocaozuo:
@@ -101,6 +103,8 @@ public class CommodityActivity extends BaseActivity {
                 //跳转添加套餐页面
                 Intent addtaocanIntent = new Intent(this, AddTaocanActivity.class);
                 startActivity(addtaocanIntent);
+                break;
+            default:
                 break;
         }
     }

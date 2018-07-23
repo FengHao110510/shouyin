@@ -3,6 +3,7 @@ package com.hongsou.douguoshouyin.adapter;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -51,12 +52,14 @@ public class GroupAdapter extends BaseMultiItemQuickAdapter<GroupMultiItemEntity
      *
      * @param data A new list is created out of this one to avoid mutable list
      */
-    public GroupAdapter(List data) {
+    private int choseFlag;
+
+    public GroupAdapter(List data, int choseFlag) {
         super(data);
         //必须绑定type和layout的关系
         addItemType(GroupMultiItemEntity.TITLE, R.layout.module_item_taocanfenzu_showlist_title);
         addItemType(GroupMultiItemEntity.CONTENT, R.layout.module_item_taocanfenzu_showlist_content);
-
+        this.choseFlag = choseFlag;
     }
 
 
@@ -67,10 +70,18 @@ public class GroupAdapter extends BaseMultiItemQuickAdapter<GroupMultiItemEntity
             case GroupMultiItemEntity.TITLE:
                 helper.setText(R.id.tv_item_taocanfenzu_shoulist_title_name, item.getGroupTitleBean().getGroupName())
                         .setText(R.id.tv_item_taocanfenzu_shoulist_title_choose, item.getGroupTitleBean().getGroupCount())
-                        .addOnClickListener(R.id.ll_item_taocanfenzu_shoulist_title_del);
+                        .addOnClickListener(R.id.ll_item_taocanfenzu_shoulist_title_del)
+                        .addOnClickListener(R.id.iv_item_taocanfenzu_shoulist_title_check);
+                if (choseFlag==1){
+                    helper.setVisible(R.id.iv_item_taocanfenzu_shoulist_title_check,true);
+                    helper.setVisible(R.id.ll_item_taocanfenzu_shoulist_title_del,false);
+                }else {
+                    helper.setVisible(R.id.iv_item_taocanfenzu_shoulist_title_check,false);
+                    helper.setVisible(R.id.ll_item_taocanfenzu_shoulist_title_del,true);
+                }
                 break;
             case GroupMultiItemEntity.CONTENT:
-                helper.setText(R.id.tv_item_taocanfenzu_shoulist_content_name, item.getGroupContentBean().getFoodFullName() + "(" + item.getGroupContentBean().getStandard() + ")")
+                helper.setText(R.id.tv_item_taocanfenzu_shoulist_content_name, item.getGroupContentBean().getFoodFullName())
                         .setText(R.id.tv_item_taocanfenzu_shoulist_content_count, item.getGroupContentBean().getFoodProductsCount() + "")
                         .setText(R.id.tv_item_taocanfenzu_shoulist_content_num, item.getGroupContentBean().getMinGroup());
                 break;

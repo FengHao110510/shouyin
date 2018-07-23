@@ -13,10 +13,11 @@ package com.hongsou.douguoshouyin.http;
 public class ApiConfig {
 
     public static final int CODE_SUCCESS = 1000;
+    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";//邓辽航ip
 
-    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";//邓辽航ip
-    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20"; // 测试IP
-//    public static final String BASE_URL_MOCK = "http://192.168.1.109:5003/hs-app-server"; // 李哥IP
+//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";//邓辽航ip
+//    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20"; // 测试IP
+    public static final String BASE_URL_MOCK = "http://47.93.0.117:5003/hs-app-server"; // 李哥IP
 
     // TODO ======================================== 登录模块 ====================================================
     /**

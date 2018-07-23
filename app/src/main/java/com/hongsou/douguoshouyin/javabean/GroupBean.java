@@ -1,5 +1,6 @@
 package com.hongsou.douguoshouyin.javabean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ import java.util.List;
  */
 
 
-public class GroupBean {
+public class GroupBean implements Serializable{
 
     /**
      * code : 1468
@@ -93,7 +94,7 @@ public class GroupBean {
     public static class ExtInfoBean {
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * groupName : eu
          * groupNumber : sint esse
@@ -138,7 +139,7 @@ public class GroupBean {
             this.productList = productList;
         }
 
-        public static class ProductListBean {
+        public static class ProductListBean implements Serializable{
             /**
              * foodFullName : ex eu veniam culpa eiusmod
              * foodProductsCount : 8978270
