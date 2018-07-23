@@ -39,10 +39,13 @@
     <string name="icon_main_mine_duigou">&#xe659;</string>
     <string name="icon_payfor_addfenzu_jia">&#xe65e;</string>
     <string name="icon_payfor_addfenzu_jian">&#xe641;</string>
-    <string name="icon_add_button">&#xe65e;</string>
-    <string name="icon_subtract_button">&#xe641;</string>
+    <string name="icon_add_button">&#xe6db;</string>
+    <string name="icon_subtract_button">&#xe628;</string>
     <string name="icon_mine_dianhua">&#xe678;</string>
     <string name="icon_login_check">&#xe640;</string>
+    <string name="icon_check_selected">&#xe6a0;</string>
+    <string name="icon_check_normal">&#xe606;</string>
+    <string name="icon_shopping">&#xe605;</string>
 
 
     <string name="title_activity_main">MainActivity</string>

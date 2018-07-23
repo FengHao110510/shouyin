@@ -303,33 +303,52 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     }
 
     /**
-     * @param dataBean
+     * @param dataBean 全部餐品结合
      * @param shopStandarList 规格集合
      * @desc 选择规格弹窗
      * @anthor lpc
      * @date: 2018/7/17
      */
     private void showStandardWindow(final FoodBean.DataBean dataBean, final List<FoodBean.DataBean.ShopStandarListBean> shopStandarList) {
-        final String foodName = dataBean.getSingleProductName();
         View view = LayoutInflater.from(this).inflate(R.layout.module_pop_create_order_standard, null);
         final Dialog dialog = new Dialog(this, R.style.CommonDialog);
         //设置dialog的宽高
         Display display = getWindowManager().getDefaultDisplay();
         int width = (int) (display.getWidth() * 0.8);
-        int height = (int) (display.getHeight() * 0.3);
+        int height = (int) (display.getHeight() * 0.4);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
         dialog.setContentView(view, params);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
         dialog.show();
 
+        // 初始化界面
+        initStandardView(dataBean, shopStandarList, view, dialog);
+    }
+
+    /**
+     * @desc 初始化规则选择框
+     * @anthor lpc
+     * @date: 2018/7/23
+     * @param dataBean 全部餐品结合
+     * @param shopStandarList 规格集合
+     * @param view 父布局对象
+     * @param dialog dialog对象
+     */
+    private void initStandardView(final FoodBean.DataBean dataBean, final List<FoodBean.DataBean.ShopStandarListBean> shopStandarList, View view, final Dialog dialog) {
         final TagFlowLayout tflStandard = view.findViewById(R.id.tfl_standard);
         final TextView tvFoodName = view.findViewById(R.id.tv_food_name);
         final TextView tvStandardName = view.findViewById(R.id.tv_standard_name);
         final TextView tvStandardPrice = view.findViewById(R.id.tv_standard_price);
         final LinearLayout llAddShopping = view.findViewById(R.id.ll_add_shopping);
-
+        final LinearLayout llCount = view.findViewById(R.id.ll_count);
+        final TextView tvSubtract = view.findViewById(R.id.tv_subtract);
+        final TextView tvAdd = view.findViewById(R.id.tv_add);
+        final TextView tvFoodCount = view.findViewById(R.id.tv_food_count);
+        setIconFont(new TextView[]{tvAdd, tvSubtract, ((TextView) view.findViewById(R.id.tv_shopping_icon))});
+        // 当前选择的规格
         final int[] standardPosition = {-1};
+        final String foodName = dataBean.getSingleProductName();
         tvFoodName.setText(foodName);
         tflStandard.setAdapter(new TagAdapter<FoodBean.DataBean.ShopStandarListBean>(shopStandarList) {
             @Override
@@ -346,10 +365,18 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 tvStandardName.setText(foodName + "(" + shopStandarList.get(position).getStandardName() + ")");
                 tvStandardPrice.setText("￥" + shopStandarList.get(position).getSell());
                 standardPosition[0] = position;
+                // 判断当前选择的规格是否之前已经选择过了
+                if (shopStandarList.get(position).getSelectCount() > 0) {
+                    llCount.setVisibility(View.VISIBLE);
+                    llAddShopping.setVisibility(View.GONE);
+                    tvFoodCount.setText(shopStandarList.get(position).getSelectCount() + "");
+                } else {
+                    llCount.setVisibility(View.GONE);
+                    llAddShopping.setVisibility(View.VISIBLE);
+                }
                 return false;
             }
         });
-
         // 加入购物车
         llAddShopping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -358,9 +385,24 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                     ToastUtil.showToast("请先选择规格");
                 } else {
                     mPresenter.addFood(mFoodBeanList, dataBean, standardPosition[0]);
-                    dataBean.setFoodProductsCount(dataBean.getFoodProductsCount() + 1);
                     dialog.dismiss();
                 }
+            }
+        });
+        // 加号的监听
+        tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvFoodCount.setText(shopStandarList.get(standardPosition[0]).getSelectCount() + 1 + "");
+                mPresenter.addFood(mFoodBeanList, dataBean, standardPosition[0]);
+            }
+        });
+        // 减号的监听
+        tvSubtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvFoodCount.setText(shopStandarList.get(standardPosition[0]).getSelectCount() - 1 + "");
+                mPresenter.subtractFood(mFoodBeanList, dataBean, standardPosition[0]);
             }
         });
     }
@@ -372,7 +414,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
      */
     private void showFoodListWindow() {
         int height = getWindowManager().getDefaultDisplay().getHeight();
-        CustomPopupWindow popupWindow = new CustomPopupWindow.Builder()
+        final CustomPopupWindow popupWindow = new CustomPopupWindow.Builder()
                 .setContext(this)
                 .setContentView(R.layout.module_pop_create_order_food_list)
                 .setwidth(LinearLayout.LayoutParams.MATCH_PARENT)
@@ -399,9 +441,10 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         popupWindow.getItemView(R.id.tv_clear_food).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.clearFoods();
+                mPresenter.clearFoods(mFoodBeanList);
                 mSelectMealEntities.clear();
                 mCreateOrderFoodListAdapter.notifyDataSetChanged();
+                popupWindow.dismiss();
             }
         });
     }

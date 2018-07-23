@@ -48,18 +48,18 @@ public class CreateOrderPresenter {
     }
 
     /**
+     * @param foodBeanList      选择后的数据
+     * @param finalFoodBeanList 全部餐品数据
      * @desc 根据分类切换数据显示
      * @anthor lpc
      * @date: 2018/7/18
-     * @param foodBeanList 选择后的数据
-     * @param finalFoodBeanList 全部餐品数据
      */
-    public void getFoodByCategory(List<FoodBean.DataBean> foodBeanList, List<FoodBean.DataBean> finalFoodBeanList, String type){
+    public void getFoodByCategory(List<FoodBean.DataBean> foodBeanList, List<FoodBean.DataBean> finalFoodBeanList, String type) {
         foodBeanList.clear();
-        if ("-1".equals(type)){
+        if ("-1".equals(type)) {
             // 全部
             foodBeanList.addAll(finalFoodBeanList);
-        }else {
+        } else {
             for (FoodBean.DataBean entity : finalFoodBeanList) {
                 if (type.equals(entity.getCateGoryType())) {
                     foodBeanList.add(entity);
@@ -97,10 +97,10 @@ public class CreateOrderPresenter {
      * @date: 2018/7/17
      */
     public void addFood(List<FoodBean.DataBean> beanList, Object obj, int standardPosition) {
-        if (obj instanceof FoodBean.DataBean){
-            saveSelectFoods(TAG_ADD, beanList, beanConverter(((FoodBean.DataBean) obj), standardPosition), standardPosition);
-        }else if (obj instanceof SelectMealEntity){
-            saveSelectFoods(TAG_ADD, beanList, (SelectMealEntity) obj, standardPosition);
+        if (obj instanceof FoodBean.DataBean) {
+            saveSelectFoods(TAG_ADD, beanList, beanConverter(((FoodBean.DataBean) obj), standardPosition));
+        } else if (obj instanceof SelectMealEntity) {
+            saveSelectFoods(TAG_ADD, beanList, (SelectMealEntity) obj);
         }
     }
 
@@ -112,10 +112,10 @@ public class CreateOrderPresenter {
      * @date: 2018/7/17
      */
     public void subtractFood(List<FoodBean.DataBean> beanList, Object obj, int standardPosition) {
-        if (obj instanceof FoodBean.DataBean){
-            saveSelectFoods(TAG_SUBTRACT, beanList, beanConverter(((FoodBean.DataBean) obj), standardPosition), standardPosition);
-        }else if (obj instanceof SelectMealEntity){
-            saveSelectFoods(TAG_SUBTRACT, beanList, (SelectMealEntity) obj, standardPosition);
+        if (obj instanceof FoodBean.DataBean) {
+            saveSelectFoods(TAG_SUBTRACT, beanList, beanConverter(((FoodBean.DataBean) obj), standardPosition));
+        } else if (obj instanceof SelectMealEntity) {
+            saveSelectFoods(TAG_SUBTRACT, beanList, (SelectMealEntity) obj);
         }
     }
 
@@ -126,29 +126,29 @@ public class CreateOrderPresenter {
      * @anthor lpc
      * @date: 2018/7/17
      */
-    public void clearFoods() {
-        saveSelectFoods(TAG_CLEAR, null, null, -1);
+    public void clearFoods(List<FoodBean.DataBean> beanList) {
+        saveSelectFoods(TAG_CLEAR, beanList, null);
     }
 
     /**
+     * @param bean             转换前的餐品对象
+     * @param standardPosition 单品规格的下标
+     * @return 转换后的餐品对象
      * @desc 将餐品转换为点餐后的餐品对象
      * @anthor lpc
      * @date: 2018/7/18
-     * @param bean 转换前的餐品对象
-     * @param standardPosition 单品规格的下标
-     * @return 转换后的餐品对象
      */
-    private SelectMealEntity beanConverter(FoodBean.DataBean bean, int standardPosition){
+    private SelectMealEntity beanConverter(FoodBean.DataBean bean, int standardPosition) {
         SelectMealEntity entity = new SelectMealEntity();
         entity.setId(++DAO_ID);
-        if ("1".equals(bean.getFoodType()) ) {
+        if ("1".equals(bean.getFoodType())) {
             // 单品
             entity.setFoodName(bean.getSingleProductName());
             entity.setFoodProductsNumber(bean.getSingleProductNumber());
             entity.setFoodProductsCount(1);
             entity.setFoodProductsType(bean.getFoodType());
             entity.setIncreasePrice("0");
-            if ( standardPosition >= 0){
+            if (standardPosition >= 0) {
                 FoodBean.DataBean.ShopStandarListBean shopStandarListBean = bean.getShopStandarList().get(standardPosition);
                 entity.setStandardName(shopStandarListBean.getStandardName());
                 entity.setStandard(shopStandarListBean.getStandardNumber());
@@ -156,7 +156,7 @@ public class CreateOrderPresenter {
                 entity.setFoodPrice(shopStandarListBean.getSell());
                 entity.setMemberPreferences(shopStandarListBean.getVipPrice());
             }
-        }else if ("0".equals(bean.getFoodType())){
+        } else if ("0".equals(bean.getFoodType())) {
             // 固定套餐
             entity.setFoodName(bean.getPackageName());
             entity.setFoodProductsType(bean.getFoodType());
@@ -172,7 +172,7 @@ public class CreateOrderPresenter {
                 entityList.add(packageFoodEntity);
             }
             entity.setPackageFood(entityList);
-        }else if ("2".equals(bean.getFoodType())){
+        } else if ("2".equals(bean.getFoodType())) {
             // 组合套餐
             entity.setFoodName(bean.getGroupPackageName());
             entity.setFoodProductsNumber(bean.getGroupPackageNumber());
@@ -194,14 +194,13 @@ public class CreateOrderPresenter {
 
     /**
      * @param
-     * @param tag      操作类型
-     * @param entity   操作对象
-     * @param position
+     * @param tag    操作类型
+     * @param entity 操作对象
      * @desc 保存选择的餐品数据
      * @anthor lpc
      * @date: 2018/7/17
      */
-    private void saveSelectFoods(int tag, List<FoodBean.DataBean> beanList, SelectMealEntity entity, int position) {
+    private void saveSelectFoods(int tag, List<FoodBean.DataBean> beanList, SelectMealEntity entity) {
         int indexOf = mealForSelects.indexOf(entity);
         Log.e("saveSelectFoods:", "小标 ：： " + indexOf);
         if (tag == TAG_ADD) {
@@ -225,6 +224,7 @@ public class CreateOrderPresenter {
             }
         } else if (tag == TAG_CLEAR) {
             mealForSelects.clear();
+            setSelectCount(beanList, null, -1, 0);
         }
 
         setTotalResult();
@@ -260,65 +260,86 @@ public class CreateOrderPresenter {
     }
 
     /**
+     * @param beanList 全部餐品列表数据
+     * @param entity   操作对应的餐品对象
+     * @param indexOf  购物车列表对应的下标位置
+     * @param count    剩下的选中数量
      * @desc 设置选择的餐品数量
      * @anthor lpc
      * @date: 2018/7/19
-     * @param beanList 全部餐品列表数据
-     * @param entity 操作对应的餐品对象
-     * @param indexOf 购物车列表对应的下标位置
-     * @param count 剩下的选中数量
      */
     private void setSelectCount(List<FoodBean.DataBean> beanList, SelectMealEntity entity, int indexOf, int count) {
-        entity.setFoodProductsCount(count);
-        Log.e("setSelectCount", "saveSelectFoods: 11111111111111111" );
+        // 是否是清空操作
+        boolean clear = false;
+        if (entity != null){
+            entity.setFoodProductsCount(count);
+            clear = false;
+        }else {
+            clear = true;
+        }
         for (FoodBean.DataBean dataBean : beanList) {
-            if ("0".equals(dataBean.getFoodType())){
-                if (dataBean.getPackageNumber().equals(entity.getPackageNumber())){
+            if ("0".equals(dataBean.getFoodType())) {
+                if (clear){
+                    // 清空购物车，将选择的数量清零
+                    dataBean.setFoodProductsCount(0);
+                    continue;
+                }
+                if (dataBean.getPackageNumber().equals(entity.getPackageNumber())) {
                     dataBean.setFoodProductsCount(count);
                     break;
                 }
-            }else if ("1".equals(dataBean.getFoodType())){
+            } else if ("1".equals(dataBean.getFoodType())) {
                 // 判断单品
-                if (dataBean.getSingleProductNumber().equals(entity.getFoodProductsNumber())){
+                if (clear){
+                    // 清空购物车，将选择的数量清零
+                    dataBean.setFoodProductsCount(0);
+                    for (FoodBean.DataBean.ShopStandarListBean shopStandarListBean : dataBean.getShopStandarList()) {
+                        shopStandarListBean.setSelectCount(0);
+                    }
+                    continue;
+                }
+                if (dataBean.getSingleProductNumber().equals(entity.getFoodProductsNumber())) {
                     int c = 0;
                     // 再循环判断单品对应的规格
                     for (FoodBean.DataBean.ShopStandarListBean shopStandarListBean : dataBean.getShopStandarList()) {
-                        if (shopStandarListBean.getStandardNumber().equals(entity.getStandardNumber())){
+                        if (shopStandarListBean.getStandardNumber().equals(entity.getStandardNumber())) {
                             shopStandarListBean.setSelectCount(count);
                             c += count;
-                        }else {
+                        } else {
                             c += shopStandarListBean.getSelectCount();
                         }
                     }
                     dataBean.setFoodProductsCount(c);
                 }
-            }else if ("2".equals(dataBean.getFoodType())){
-                Log.e("setSelectCount", "bbbbbbbb: " + count);
+            } else if ("2".equals(dataBean.getFoodType())) {
+                if (clear){
+                    // 清空购物车，将选择的数量清零
+                    dataBean.setFoodProductsCount(0);
+                    continue;
+                }
                 // 先找到对应的组合套餐
-                if (dataBean.getGroupPackageNumber().equals(entity.getFoodProductsNumber())){
+                if (dataBean.getGroupPackageNumber().equals(entity.getFoodProductsNumber())) {
                     int c = 0;
                     // 循环购物车
                     for (int i = 0; i < mealForSelects.size(); i++) {
                         // 判断操作的是否是当前下标
-                        if (i != indexOf){
+                        if (i != indexOf) {
                             // 判断是否是同一个组合套餐
-                            if (mealForSelects.get(i).getFoodProductsNumber().equals(entity.getFoodProductsNumber())){
+                            if (mealForSelects.get(i).getFoodProductsNumber().equals(entity.getFoodProductsNumber())) {
                                 // 同一个组合套餐，只是单品内容不同，需要累加所有数量
                                 c += mealForSelects.get(i).getFoodProductsCount();
                             }
-                        }else {
+                        } else {
                             // 当前操作的组合套餐，直接累加count
                             c += count;
                         }
                     }
                     dataBean.setFoodProductsCount(c);
-                    Log.e("setSelectCount", "aaaaaaaaa: " + dataBean.getFoodProductsCount());
                     break;
                 }
             }
         }
-        if (indexOf >= 0){
-            Log.e("setSelectCount: ", "数量：："+entity.getFoodProductsCount() );
+        if (indexOf >= 0) {
             mealForSelects.set(indexOf, entity);
         }
     }
