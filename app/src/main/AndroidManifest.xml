@@ -117,7 +117,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.payfor.ErweimaActivity"
+            android:name=".activity.payfor.payfor.QRCode"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity

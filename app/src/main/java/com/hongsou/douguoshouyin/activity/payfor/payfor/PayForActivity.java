@@ -24,9 +24,11 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
+import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -92,7 +94,7 @@ public class PayForActivity extends BaseActivity {
     @BindView(R.id.bt_payfor_payfor_btn_xia)
     Button btPayforPayforBtnXia;
 
-    private boolean flag;//判断是折扣优惠还是现金优惠
+    private String flag;//判断是折扣优惠还是现金优惠 0折扣 1优惠
     private float content;//折扣或现金的数据
     private float xiaofeijine;
     private float yingshoujine;//应收金额
@@ -145,7 +147,7 @@ public class PayForActivity extends BaseActivity {
                     //没有选择折扣
                     tvPayforPayforYingshoujine.setText(xiaofeijine + "");
                 } else {
-                    if (flag) {
+                    if ("0".equals(flag)) {
                         //获得折后的应收金额
                         yingshoujine = xiaofeijine * content / 10;
                         setyingshoujine(yingshoujine + "");
@@ -207,10 +209,11 @@ public class PayForActivity extends BaseActivity {
                 IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 if (result != null) {
                     if (result.getContents() == null) {
+                        Toast.makeText(this, "支付失败", Toast.LENGTH_LONG).show();
 
                     } else {
-                        Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
                         //TODO 成功之后走接口
+                        toPay(result.getContents());
                     }
                 }
                 break;
@@ -218,14 +221,14 @@ public class PayForActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     if (data.getBooleanExtra("zkorxj", true)) {
                         tvPayforPayforShezhi.setText(data.getStringExtra("content") + "折");
-                        flag = true;
+                        flag = "0";
                         content = Float.valueOf(data.getStringExtra("content"));
                         //获得折后的应收金额
                         yingshoujine = xiaofeijine * content / 10;
                         setyingshoujine(yingshoujine + "");
 
                     } else {
-                        flag = false;
+                        flag = "1";
                         content = Float.valueOf(data.getStringExtra("content"));
                         //获得减现金后的应收金额
                         yingshoujine = xiaofeijine - content;
@@ -241,6 +244,8 @@ public class PayForActivity extends BaseActivity {
                         }
                     }
                 }
+                break;
+            default:
                 break;
         }
     }
@@ -342,7 +347,7 @@ public class PayForActivity extends BaseActivity {
 
     //设置消费金额
     private void setNum(String s) {
-        if (s.equals(".")) {
+        if (".".equals(s)) {
             s = "";
         }
         // 限制最多能输入6位整数
@@ -382,8 +387,17 @@ public class PayForActivity extends BaseActivity {
     //判断是否输入金额
     private void payfor() {
         if (Float.valueOf(tvPayforPayforYingshoujine.getText().toString()) > 0) {
-            showPopWindow();
             Global.getSpGlobalUtil().setYingshouJE(tvPayforPayforYingshoujine.getText().toString());
+            if (flag!=null){
+                    Global.getSpGlobalUtil().setZhekou(flag);
+                if ("0".equals(flag)){
+                    Global.getSpGlobalUtil().setZheKouJE(content*10+"");
+                }else {
+                    Global.getSpGlobalUtil().setZheKouJE(content+"");
+                }
+            }
+            showPopWindow();
+
         } else {
             if (!TextUtils.isEmpty(tvPayforPayforXiaofeijine.getText().toString())) {
                 if (Float.valueOf(tvPayforPayforXiaofeijine.getText().toString()) <= 0) {
@@ -403,15 +417,15 @@ public class PayForActivity extends BaseActivity {
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = layoutInflater.inflate(R.layout.module_pop_pay, null);
 
-        TextView tv_payfor_pop_sao_icon = v.findViewById(R.id.tv_payfor_pop_sao_icon);
-        TextView tv_payfor_pop_erwei_icon = v.findViewById(R.id.tv_payfor_pop_erwei_icon);
-        TextView tv_payfor_pop_xianjin_icon = v.findViewById(R.id.tv_payfor_pop_xianjin_icon);
+        TextView tvPayforPopSaoIcon = v.findViewById(R.id.tv_payfor_pop_sao_icon);
+        TextView tvPayforPopErweiIcon = v.findViewById(R.id.tv_payfor_pop_erwei_icon);
+        TextView tvPayforPopXianjinIcon = v.findViewById(R.id.tv_payfor_pop_xianjin_icon);
 
-        setIconFont(new TextView[]{tv_payfor_pop_erwei_icon, tv_payfor_pop_sao_icon, tv_payfor_pop_xianjin_icon});
-        LinearLayout ll_payfor_pop_sao = v.findViewById(R.id.ll_payfor_pop_sao);
-        LinearLayout ll_payfor_pop_erwei = v.findViewById(R.id.ll_payfor_pop_erwei);
+        setIconFont(new TextView[]{tvPayforPopErweiIcon, tvPayforPopSaoIcon, tvPayforPopXianjinIcon});
+        LinearLayout llPayforPopSao = v.findViewById(R.id.ll_payfor_pop_sao);
+        LinearLayout llPayforPopErwei = v.findViewById(R.id.ll_payfor_pop_erwei);
         LinearLayout ll_payfor_pop_xianjin = v.findViewById(R.id.ll_payfor_pop_xianjin);
-        ll_payfor_pop_sao.setOnClickListener(new View.OnClickListener() {
+        llPayforPopSao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPopupWindow.dismiss();
@@ -422,21 +436,16 @@ public class PayForActivity extends BaseActivity {
                         .setCameraId(0)// 选择摄像头,可使用前置或者后置
                         .setBeepEnabled(false)// 是否开启声音,扫完码之后会"哔"的一声
                         .setBarcodeImageEnabled(true)// 扫完码之后生成二维码的图片
-
                         .initiateScan();// 初始化扫码
-
-
                 ToastUtil.showToast("扫一扫");
             }
         });
-        ll_payfor_pop_erwei.setOnClickListener(new View.OnClickListener() {
+        llPayforPopErwei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPopupWindow.dismiss();
-                Intent erweimaIntent = new Intent(PayForActivity.this, ErweimaActivity.class);
+                Intent erweimaIntent = new Intent(PayForActivity.this, QRCode.class);
                 startActivity(erweimaIntent);
-
-
                 ToastUtil.showToast("二维码");
             }
         });
@@ -522,7 +531,36 @@ public class PayForActivity extends BaseActivity {
 
 
     //跳转支付
-    private void toPay() {
+    private void toPay(String contents) {
+        HttpFactory.post().url(ApiConfig.TABBY_PAY)
+                .addParams("equipmentNumber", Global.getSpGlobalUtil().getCode())
+                .addParams("equipmentType", "3")
+                .addParams("uniquelyCode", Global.getSpGlobalUtil().getAliCode())
+                .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
+                .addParams("totalFee", Global.getSpGlobalUtil().getYingshouJE())
+                .addParams("authCode", contents)
+                .addParams("batch", "s"+ DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("storeId", getShopNumber())
+                .addParams("operatorId", getClerkNumber())
+                .addParams("discountType", Global.getSpGlobalUtil().getZhekou())
+                .addParams("discountMoney", Global.getSpGlobalUtil().getZheKouJE())
+                .addParams("masterSecret", Constant.MASTER_SECRET)
+                .addParams("appKey", Constant.APP_KEY).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.showError();
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e(TAG, "onResponse: "+response.toString() );
+            }
+        
+        });
+
+        Global.getSpGlobalUtil().setZheKouJE("");
+        Global.getSpGlobalUtil().setZhekou("");
+        Global.getSpGlobalUtil().setYingshouJE("");
 
     }
 
@@ -532,8 +570,8 @@ public class PayForActivity extends BaseActivity {
 
         String msg = "onEventMainThread收到了消息：" + event.getSaomahao();
         Log.d("harvic", msg);
-        ToastUtil.showToast(msg);
         //TODO 走成功接口
+        toPay(msg);
     }
 
 

@@ -219,6 +219,34 @@ public class SharePreferenceGlobalUtil {
     }
 
     /**
+     * 折扣还是减钱
+     *
+     * @param zheKou
+     */
+    public void setZhekou(String zheKou) {
+        editor.putString("zheKou", zheKou);
+        editor.commit();
+    }
+
+    public String getZhekou() {
+        return sp.getString("zheKou", "");
+    }
+
+    /**
+     * 折扣金额
+     *
+     * @param zheKouJE
+     */
+    public void setZheKouJE(String zheKouJE) {
+        editor.putString("zheKouJE", zheKouJE);
+        editor.commit();
+    }
+
+    public String getZheKouJE() {
+        return sp.getString("zheKouJE", "");
+    }
+
+    /**
      * 扫码模式  点餐 or 点餐+支付
      *
      * @param saomamoshi
@@ -252,6 +280,34 @@ public class SharePreferenceGlobalUtil {
     }
 
     /**
+     * wecharCode
+     *
+     * @param wecharCode
+     */
+    public void setWecharCode(String wecharCode) {
+        editor.putString("wecharCode", wecharCode);
+        editor.commit();
+    }
+
+    public String getWecharCode() {
+        return sp.getString("wecharCode", "");
+    }
+
+    /**
+     * aliCode
+     *
+     * @param aliCode
+     */
+    public void setAliCode(String aliCode) {
+        editor.putString("aliCode", aliCode);
+        editor.commit();
+    }
+
+    public String getAliCode() {
+        return sp.getString("aliCode", "");
+    }
+
+    /**
      * 账号
      *
      * @param userName
@@ -278,6 +334,7 @@ public class SharePreferenceGlobalUtil {
     public String getPassword() {
         return sp.getString("password", "");
     }
+
     /**
      * 保存手机设备编号
      *
@@ -305,6 +362,7 @@ public class SharePreferenceGlobalUtil {
     public String getClerkNumber() {
         return sp.getString("clerkNumber", "");
     }
+
     /**
      * 保存店员名字
      *
@@ -318,6 +376,7 @@ public class SharePreferenceGlobalUtil {
     public String getClerkName() {
         return sp.getString("clerkName", "");
     }
+
     /**
      * 保存店铺编号
      *
@@ -333,6 +392,20 @@ public class SharePreferenceGlobalUtil {
     }
 
     /**
+     * 保存商户编号
+     *
+     * @param paymentUser
+     */
+    public void setPaymentUser(String paymentUser) {
+        editor.putString("paymentUser", paymentUser);
+        editor.commit();
+    }
+
+    public String getPaymentUser() {
+        return sp.getString("paymentUser", "");
+    }
+
+    /**
      * 存储每日订单序号
      */
     public void setDateOrderNumber(String date, String number) {
@@ -343,6 +416,7 @@ public class SharePreferenceGlobalUtil {
     public String getDateOrderNumber() {
         return sp.getString("dateOrderNumber", null);
     }
+
     /**
      * 存储是否强制更新//强制刷新状态 0强制刷新 1不强制刷新
      */
