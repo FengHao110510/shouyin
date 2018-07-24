@@ -2,26 +2,16 @@ package com.hongsou.douguoshouyin.http;
 
 import android.util.Log;
 
-import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.BaseFragment;
-import com.hongsou.douguoshouyin.http.NetWorkStateUtils;
-import com.hongsou.douguoshouyin.http.PostHttpBuilder;
-import com.hongsou.douguoshouyin.javabean.RootBean;
-import com.hongsou.douguoshouyin.tool.Global;
-import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.builder.GetBuilder;
-import com.zhy.http.okhttp.builder.PostFormBuilder;
 import com.zhy.http.okhttp.callback.Callback;
-import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
 
+import java.util.HashMap;
 import java.util.Map;
 
-
-import okhttp3.Call;
 import okhttp3.MediaType;
 
 /**
@@ -80,6 +70,9 @@ public class HttpFactory {
 
     public void execute(final Callback callback) {
         if (NetWorkStateUtils.isNetConnected()) {
+            if (params == null){
+                params = new HashMap<>();
+            }
             Log.e(TAG, "【参数】 :: " + params.toString());
             try {
                 RequestCall build;

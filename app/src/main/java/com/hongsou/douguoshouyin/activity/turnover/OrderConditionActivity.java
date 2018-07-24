@@ -21,9 +21,11 @@ import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -82,6 +84,7 @@ public class OrderConditionActivity extends BaseActivity {
     private String orderSource;
     private String payStatus;
     private String payChannel;
+    private int mType;
 
     @Override
     public int initLayout() {
@@ -90,10 +93,11 @@ public class OrderConditionActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        if (getIntent().hasExtra("type")){
-            if (getIntent().getIntExtra("type", 0) == 0){
+        if (getIntent().hasExtra("type")) {
+            mType = getIntent().getIntExtra("type", 0);
+            if (mType == 0) {
                 mLlOrderSource.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mLlOrderSource.setVisibility(View.GONE);
             }
         }
@@ -236,9 +240,20 @@ public class OrderConditionActivity extends BaseActivity {
                     ToastUtil.showToast("起始时间不得大于结束时间");
                 } else {
                     //上个界面应该 startActivityForResult  这里返回数据给上个fragment  重新加载筛选后的数据
+                    HashMap<String, String> data = new HashMap<>();
+                    //订单来源
+                    data.put("orderSourcePayment", orderSource);
+                    //订单类型
+                    data.put("orderType", payStatus);
+                    //支付方式
+                    data.put("paymentType", payChannel);
+                    //开始时间
+                    data.put("tradingTime", mTvTurnoverTurnoverShaixuanStarttime.getText().toString());
+                    //结束时间
+                    data.put("endTime", mTvTurnoverTurnoverShaixuanEndtime.getText().toString());
                     Intent reIntent = new Intent();
-                    reIntent.putExtra("", "");
-                    setResult(RESULT_OK, reIntent);
+                    reIntent.putExtra("data", ((Serializable) data));
+                    setResult(mType, reIntent);
                     finishActivity();
                 }
                 break;

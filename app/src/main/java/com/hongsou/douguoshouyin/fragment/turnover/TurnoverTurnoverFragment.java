@@ -15,6 +15,7 @@ import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.TurnoverBean;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,14 +38,15 @@ import butterknife.Unbinder;
 
 
 public class TurnoverTurnoverFragment extends BaseFragment {
+
     @BindView(R.id.rv_turnover_turnover_list)
     RecyclerView rvTurnoverTurnoverList;
     Unbinder unbinder;
 
-
     private int page;
     List<TurnoverBean.DataBean.ResultBean> result;
     List<TurnoverMultipleItem> turnoverMultipleItemList;
+    private HashMap<String, String> mParam = new HashMap<>();
 
     @Override
     public int getLayoutId() {
@@ -65,7 +67,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @desc 初始化列表数据
      */
     private void initData() {
-//        showTurnoverList();
+        showTurnoverList(mParam);
     }
 
     /**
@@ -75,7 +77,10 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @date 2018/7/16 0016 上午 9:30
      * @desc 展示列表数据
      */
-    private void showTurnoverList() {
+    public void showTurnoverList(HashMap<String, String> param) {
+        param.put("shopNumber", getShopNumber());
+        param.put("pageString", page + "");
+        // todo 参数需要和订单列表的统一一下
         HttpFactory.get().url(ApiConfig.GET_PAY_ORDER_LIST)
                 .addParams("shopNumber", "1000180614300325544")
                 .addParams("tradingTime", "")
@@ -94,7 +99,6 @@ public class TurnoverTurnoverFragment extends BaseFragment {
                     ToastUtil.showToast(response.getMsg());
                 }
             }
-
         });
     }
 
@@ -106,19 +110,14 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @desc 设置适配器
      */
     private void setTurnoverAdapter(List<TurnoverBean.DataBean.ResultBean> result) {
-
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i).getBatch().equals("1")) {
                 turnoverMultipleItemList.add(new TurnoverMultipleItem(TurnoverMultipleItem.FIRST_TYPE, result.get(i)));
             }else {
                 turnoverMultipleItemList.add(new TurnoverMultipleItem(TurnoverMultipleItem.SECOND_TYPE, result.get(i)));
-
             }
-
-
         }
     }
-
 
     //====================================================================================================
     @Override

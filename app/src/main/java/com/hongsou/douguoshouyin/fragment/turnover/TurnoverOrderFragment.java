@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.turnover.OrderDetailActivity;
 import com.hongsou.douguoshouyin.adapter.OrderAdapter;
 import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.OrderBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
@@ -27,15 +26,14 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import okhttp3.Call;
 
 /**
  * 版权：鸿搜网络公司 版权所有
@@ -53,6 +51,9 @@ import okhttp3.Call;
 
 
 public class TurnoverOrderFragment extends BaseFragment {
+
+    private static final String TAG = "TurnoverOrderFragment";
+
     @BindView(R.id.tv_turnover_order_order_icon)
     TextView tvTurnoverOrderOrderIcon;
     @BindView(R.id.et_turnover_order_order)
@@ -67,6 +68,7 @@ public class TurnoverOrderFragment extends BaseFragment {
     OrderAdapter orderAdapter;
     private int page;
     ArrayList<OrderBean.DataBean.ResultBean> listBeans = new ArrayList<>();
+    private HashMap<String, String> mParam = new HashMap<>();
 
     @Override
     public int getLayoutId() {
@@ -96,7 +98,7 @@ public class TurnoverOrderFragment extends BaseFragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
-                getOrderList();
+                getOrderList(new HashMap<String, String>());
                 smTurnoverOrder.finishRefresh();
 
             }
@@ -106,7 +108,7 @@ public class TurnoverOrderFragment extends BaseFragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
-                getOrderList();
+                getOrderList(mParam);
                 smTurnoverOrder.finishLoadMore();//不传时间则立即停止刷新    传入false表示加载失败
 
             }
@@ -127,7 +129,7 @@ public class TurnoverOrderFragment extends BaseFragment {
      * 初始化数据
      */
     private void initData() {
-        getOrderList();
+        getOrderList(mParam);
     }
 
     /**
@@ -137,41 +139,23 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @date 2018/7/11 0011 下午 12:23
      * @desc 获取数据
      */
-    private void getOrderList() {
-        showLoadingDialog();
-        Log.e("2333", "GET_ORDER_LIST: " + Global.getSpGlobalUtil().getShopNumber());
+    public void getOrderList(HashMap<String, String> param) {
+        param.put("shopNumber", Global.getSpGlobalUtil().getShopNumber());
+        param.put("pageString", page + "");
         HttpFactory.get().url(ApiConfig.GET_ORDER_LIST)
-                .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())//店铺编号
-                .addParams("orderSourcePayment", "")//订单来源
-                .addParams("orderType", "")//订单类型
-                .addParams("paymentType", "")//支付方式
-                .addParams("tradingTime", "")//开始时间
-                .addParams("endTime", "")//结束时间
-                .addParams("pageString", page + "")//当前页
-                .addParams("rowsString", "10")//行数
-                .build().execute(new StringCallback() {
+                //店铺编号
+                .params(param)
+                .build().execute(new ResponseCallback<OrderBean>(getActivity()) {
             @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
-                ToastUtil.showError();
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-                OrderBean orderBean = new Gson().fromJson(response, OrderBean.class);
-
-                if (orderBean.getCode() == 1000) {
+            public void onResponse(OrderBean orderBean, int id) {
+                if (orderBean.isSuccess()) {
                     showOrderList(orderBean.getData().getResult());
                 } else {
                     ToastUtil.showToast(orderBean.getMsg());
                 }
-
             }
         });
     }
-
 
     /**
      * @param data
@@ -213,7 +197,6 @@ public class TurnoverOrderFragment extends BaseFragment {
 
 
     }
-
 
     //==============================================================================================================
     @Override

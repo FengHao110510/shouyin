@@ -21,6 +21,7 @@ import com.hongsou.douguoshouyin.fragment.turnover.TurnoverOrderFragment;
 import com.hongsou.douguoshouyin.fragment.turnover.TurnoverTurnoverFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,17 +30,16 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * 文件描述：new！！com.example.administrator.myapplication.app.fragment
- * 作者：fh
- * 创建时间：2018/6/13
- * 更改时间：2018/6/13
- * 版本号：1
- * 用途：流水fragment
+ * @copyright 鸿搜网络公司 版权所有
+ * @author fh
+ * @date 2018/6/13
+ * @desc 流水fragment
  */
-
 
 public class TurnoverFragment extends BaseFragment {
 
+    private static final String TAG = "TurnoverFragment";
+    public static final int REQUEST_CODE = 11;
 
     @BindView(R.id.tab_titlebar_turnover_tab)
     TabLayout tabTitlebarTurnoverTab;
@@ -54,6 +54,9 @@ public class TurnoverFragment extends BaseFragment {
 
     CustomViewPagerAdapter customViewPagerAdapter;
     private List<Fragment> list;
+    private HashMap<String, String> mParam;
+    private TurnoverOrderFragment mTurnoverOrderFragment;
+    private TurnoverTurnoverFragment mTurnoverTurnoverFragment;
 
     @Override
     public int getLayoutId() {
@@ -72,11 +75,13 @@ public class TurnoverFragment extends BaseFragment {
      */
     private void initView() {
         setIconFont(new TextView[]{tvTitlebarTurnoverShaixuanIcon});
+        mTurnoverOrderFragment = new TurnoverOrderFragment();
+        mTurnoverTurnoverFragment = new TurnoverTurnoverFragment();
         //限定预加载个数
         vpTitlebarTurnoverViewpager.setOffscreenPageLimit(2);
         customViewPagerAdapter = new CustomViewPagerAdapter(this.getFragmentManager());
-        customViewPagerAdapter.addFragment(new TurnoverOrderFragment(), "  订单  ");
-        customViewPagerAdapter.addFragment(new TurnoverTurnoverFragment(), "  流水  ");
+        customViewPagerAdapter.addFragment(mTurnoverOrderFragment, "  订单  ");
+        customViewPagerAdapter.addFragment(mTurnoverTurnoverFragment, "  流水  ");
         vpTitlebarTurnoverViewpager.setAdapter(customViewPagerAdapter);
         //制定初始化页面
         vpTitlebarTurnoverViewpager.setCurrentItem(0);
@@ -135,10 +140,21 @@ public class TurnoverFragment extends BaseFragment {
         }else {
             intent.putExtra("type", 1);
         }
-        startActivity(intent);
-
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TurnoverFragment.REQUEST_CODE){
+            mParam = (HashMap<String, String>) data.getSerializableExtra("data");
+            if (resultCode == 0){
+                mTurnoverOrderFragment.getOrderList(mParam);
+            }else {
+                mTurnoverTurnoverFragment.showTurnoverList(mParam);
+            }
+        }
+    }
 
     //==========================================================================================================================
 
