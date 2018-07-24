@@ -15,7 +15,9 @@ public class ApiConfig {
     /**
      * 邓辽航ip
      */
-//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+    public static final String IMG_URL = "http://images.hongxiaosou.cn/";
+
     /**
      * 测试IP
      */
@@ -23,7 +25,7 @@ public class ApiConfig {
     /**
      * 正式ip
      */
-    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
+//    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
 
 
 
@@ -40,6 +42,10 @@ public class ApiConfig {
      */
     public static final String LOGIN = BASE_URL + "/user/login";
     /**
+     * TODO 查询商户标识接口
+     */
+    public static final String PAYCODE = BASE_URL + "/pay/paycode";
+    /**
      * TODO 发送验证码接口
      */
     public static final String SEND_MSG = BASE_URL + "/user/sendMessageCode";
@@ -50,13 +56,13 @@ public class ApiConfig {
 
     // TODO ======================================== 支付模块 ====================================================
     /**
+     * TODO 扫码支付接口
+     */
+    public static final String TABBY_PAY = BASE_URL + "/eatpay/tabbyPay";
+    /**
      * TODO 获取一码付二维码接口
      */
-    public static final String PAY_FOR_CODE = BASE_URL + "";
-    /**
-     * TODO 提交订单接口
-     */
-    public static final String COMMIT_ODER = BASE_URL + "";
+    public static final String PAY_FOR_CODE = BASE_URL + "/oneCode/openPay.html";
     /**
      * TODO 退款接口
      */
@@ -65,7 +71,6 @@ public class ApiConfig {
      * TODO 同步接口
      */
     public static final String TONGBU = BASE_URL + "";
-
     /**
      * TODO 统计接口
      */
