@@ -176,7 +176,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.mine.JiaobanActivity"
+            android:name=".activity.mine.HandoverActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
