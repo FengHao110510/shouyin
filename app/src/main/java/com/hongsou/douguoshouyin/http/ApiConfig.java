@@ -12,22 +12,24 @@ package com.hongsou.douguoshouyin.http;
 
 public class ApiConfig {
 
-    public static final int CODE_SUCCESS = 1000;
-    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";//邓辽航ip
-
-//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";//邓辽航ip
-//    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20"; // 测试IP
-    public static final String BASE_URL_MOCK = "http://47.93.0.117:5003/hs-app-server"; // 李哥IP
+    /**
+     * 邓辽航ip
+     */
+//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+    /**
+     * 测试IP
+     */
+    //    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20";
+    /**
+     * 正式ip
+     */
+    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
 
     // TODO ======================================== 登录模块 ====================================================
     /**
      * TODO 登录接口
      */
     public static final String LOGIN = BASE_URL + "/user/login";
-    /**
-     * TODO 注册接口
-     */
-    public static final String regist = BASE_URL + "";
     /**
      * TODO 发送验证码接口
      */
@@ -79,77 +81,77 @@ public class ApiConfig {
     /**
      * TODO 添加桌台
      */
-    public static final String ADD_TABLE = BASE_URL_MOCK + "/table/addTable";
+    public static final String ADD_TABLE = BASE_URL + "/table/addTable";
     /**
      * TODO 批量删除桌台
      */
-    public static final String BATCH_DELETE_TABLE = BASE_URL_MOCK + "/table/batchDeleteTable";
+    public static final String BATCH_DELETE_TABLE = BASE_URL + "/table/batchDeleteTable";
     /**
      * TODO 批量添加桌台
      */
-    public static final String BATCH_ADD_TABLE = BASE_URL_MOCK + "/table/batchAddTable";
+    public static final String BATCH_ADD_TABLE = BASE_URL + "/table/batchAddTable";
     /**
      * TODO 查询桌台列表
      */
-    public static final String GET_TABLE_LIST = BASE_URL_MOCK + "/table/getTableList";
+    public static final String GET_TABLE_LIST = BASE_URL + "/table/getTableList";
     /**
      * TODO 添加区域
      */
-    public static final String ADD_REGION = BASE_URL_MOCK + "/table/addRegion";
+    public static final String ADD_REGION = BASE_URL + "/table/addRegion";
     /**
      * TODO 删除区域
      */
-    public static final String DEL_REGION = BASE_URL_MOCK + "/table/delRegion";
+    public static final String DEL_REGION = BASE_URL + "/table/delRegion";
     /**
      * TODO 编辑区域
      */
-    public static final String UPDATE_REGION = BASE_URL_MOCK + "/table/updateRegion";
+    public static final String UPDATE_REGION = BASE_URL + "/table/updateRegion";
     /**
      * TODO 查询区域
      */
-    public static final String GET_REGION_LIST = BASE_URL_MOCK + "/table/getRegionList";
+    public static final String GET_REGION_LIST = BASE_URL + "/table/getRegionList";
     // TODO ======================================== 商品管理 ====================================================
 
     /**
      * TODO 添加分类
      */
-    public static final String ADD_CATEGORY = BASE_URL_MOCK + "/food/addCategory";
+    public static final String ADD_CATEGORY = BASE_URL + "/food/addCategory";
     /**
      * TODO 编辑分类
      */
-    public static final String UPDATE_CATEGORY = BASE_URL_MOCK + "/food/updateCategory";
+    public static final String UPDATE_CATEGORY = BASE_URL + "/food/updateCategory";
     /**
      * TODO 删除分类
      */
-    public static final String DELETE_CATEGORY = BASE_URL_MOCK + "/food/deleteCategory";
+    public static final String DELETE_CATEGORY = BASE_URL + "/food/deleteCategory";
     /**
      * TODO 添加单品
      */
-    public static final String ADD_SINGLE_FOOD = BASE_URL_MOCK + "/food/addSingleFood";
+    public static final String ADD_SINGLE_FOOD = BASE_URL + "/food/addSingleFood";
     /**
      * TODO 添加固定套餐
      */
-    public static final String ADD_PACKAGE = BASE_URL_MOCK + "/food/addPackage";
+    public static final String ADD_PACKAGE = BASE_URL + "/food/addPackage";
     /**
      * TODO 添加分组套餐
      */
-    public static final String ADD_GROUP_PACKAGE = BASE_URL_MOCK + "/food/addGroupPackage";
+    public static final String ADD_GROUP_PACKAGE = BASE_URL + "/food/addGroupPackage";
     /**
      * TODO 添加分组
      */
-    public static final String ADD_GROUP = BASE_URL_MOCK + "/food/addGroup";
+    public static final String ADD_GROUP = BASE_URL + "/food/addGroup";
     /**
      * TODO 查询分组
      */
-    public static final String GET_GROUP_LIST = BASE_URL_MOCK + "/food/getGroupList";
+    public static final String GET_GROUP_LIST = BASE_URL + "/food/getGroupList";
     /**
      * TODO 删除分组
      */
-    public static final String DELETE_GROUP = BASE_URL_MOCK + "/food/deleteGroup";
+    public static final String DELETE_GROUP = BASE_URL + "/food/deleteGroup";
     /**
      * TODO 上传图片
      */
-    public static final String UPLOAD_IMG = BASE_URL_MOCK + "/food/uploadImg";
+    public static final String UPLOAD_IMG = BASE_URL + "/food/uploadImg";
     // TODO ======================================== 流水模块 ====================================================
     /**
      * TODO 获取订单列表

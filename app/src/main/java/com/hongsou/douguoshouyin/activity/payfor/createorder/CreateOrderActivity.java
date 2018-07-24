@@ -132,7 +132,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         mBadgeList = new ArrayList<>();
         // 获取接口数据
         mPresenter.getFoodList();
-//        mPresenter.getCategory();
+        mPresenter.getCategory();
 
         if (mSelectMealEntities == null) {
             mSelectMealEntities = new ArrayList<>();

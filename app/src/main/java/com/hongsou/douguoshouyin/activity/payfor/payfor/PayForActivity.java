@@ -38,6 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+
 /**
  * 支付主页面
  */
@@ -162,7 +163,6 @@ public class PayForActivity extends BaseActivity {
                         }
                     }
                 }
-
             }
         });
 
@@ -248,19 +248,16 @@ public class PayForActivity extends BaseActivity {
     //设置应收金额
     private void setyingshoujine(String s) {
         // 判断小数点后只能输入两位
-        if (s.toString().contains(".")) {
-            if (s.length() - 1 - s.toString().indexOf(".") > 2) {
-                s = (String) s.toString().subSequence(0,
-                        s.toString().indexOf(".") + 3);
+        if (s.contains(".")) {
+            if (s.length() - 1 - s.indexOf(".") > 2) {
+                s = (String) s.subSequence(0, s.indexOf(".") + 3);
             }
         }
         tvPayforPayforYingshoujine.setText(s);
     }
 
-
     @OnClick({R.id.rl_payfor_payfor_xuanzeyouhui, R.id.bt_payfor_payfor_btn1, R.id.bt_payfor_payfor_btn2, R.id.bt_payfor_payfor_btn3, R.id.bt_payfor_payfor_btn_delet, R.id.bt_payfor_payfor_btn4, R.id.bt_payfor_payfor_btn5, R.id.bt_payfor_payfor_btn6, R.id.bt_payfor_payfor_btn_cancle, R.id.bt_payfor_payfor_btn7, R.id.bt_payfor_payfor_btn8, R.id.bt_payfor_payfor_btn9, R.id.bt_payfor_payfor_btn_shang, R.id.bt_payfor_payfor_btn_dian, R.id.bt_payfor_payfor_btn0, R.id.bt_payfor_payfor_btn00, R.id.bt_payfor_payfor_btn_xia})
     public void onViewClicked(View view) {
-
         switch (view.getId()) {
             case R.id.rl_payfor_payfor_xuanzeyouhui:
                 //跳转到优惠页面
@@ -272,45 +269,35 @@ public class PayForActivity extends BaseActivity {
                 break;
             case R.id.bt_payfor_payfor_btn2:
                 numRecordStr.append("2");
-
                 break;
             case R.id.bt_payfor_payfor_btn3:
                 numRecordStr.append("3");
-
                 break;
             case R.id.bt_payfor_payfor_btn4:
                 numRecordStr.append("4");
-
                 break;
             case R.id.bt_payfor_payfor_btn5:
                 numRecordStr.append("5");
-
                 break;
             case R.id.bt_payfor_payfor_btn6:
                 numRecordStr.append("6");
-
                 break;
             case R.id.bt_payfor_payfor_btn7:
                 numRecordStr.append("7");
-
                 break;
             case R.id.bt_payfor_payfor_btn8:
                 numRecordStr.append("8");
-
                 break;
             case R.id.bt_payfor_payfor_btn9:
                 numRecordStr.append("9");
-
                 break;
             case R.id.bt_payfor_payfor_btn_dian:
-                if (!numRecordStr.toString().contains(".")) {
+                if (!TextUtils.isEmpty(numRecordStr.toString()) && !numRecordStr.toString().contains(".")) {
                     numRecordStr.append(".");
                 }
-
                 break;
             case R.id.bt_payfor_payfor_btn0:
                 numRecordStr.append("0");
-
                 break;
             case R.id.bt_payfor_payfor_btn00:
                 if (numRecordStr.toString().contains(".")) {
@@ -322,17 +309,12 @@ public class PayForActivity extends BaseActivity {
                         numRecordStr.append("00");
                     }
                 }
-
-
                 break;
-
             //上下都是收银  表现为一个按钮
             case R.id.bt_payfor_payfor_btn_shang:
-
                 payfor();
                 break;
             case R.id.bt_payfor_payfor_btn_xia:
-
                 payfor();
                 break;
             //清空
@@ -340,14 +322,13 @@ public class PayForActivity extends BaseActivity {
                 numRecordStr.delete(0, numRecordStr.length());
                 break;
             case R.id.bt_payfor_payfor_btn_cancle:
-                if (numRecordStr.length() != 0)
-
-                {
+                if (numRecordStr.length() != 0) {
                     numRecordStr.deleteCharAt(numRecordStr.length() - 1);
                 }
                 break;
+            default:
+                break;
         }
-
         setNum(numRecordStr.toString());
     }
 
@@ -361,7 +342,9 @@ public class PayForActivity extends BaseActivity {
 
     //设置消费金额
     private void setNum(String s) {
-
+        if (s.equals(".")) {
+            s = "";
+        }
         // 限制最多能输入6位整数
         if (s.toString().contains(".")) {
             if (s.toString().indexOf(".") > 6) {
@@ -393,8 +376,6 @@ public class PayForActivity extends BaseActivity {
                 return;
             }
         }
-
-
         tvPayforPayforXiaofeijine.setText(s);
     }
 
@@ -403,14 +384,13 @@ public class PayForActivity extends BaseActivity {
         if (Float.valueOf(tvPayforPayforYingshoujine.getText().toString()) > 0) {
             showPopWindow();
             Global.getSpGlobalUtil().setYingshouJE(tvPayforPayforYingshoujine.getText().toString());
-
         } else {
             if (!TextUtils.isEmpty(tvPayforPayforXiaofeijine.getText().toString())) {
-                if (!(Float.valueOf(tvPayforPayforXiaofeijine.getText().toString()) > 0))
+                if (Float.valueOf(tvPayforPayforXiaofeijine.getText().toString()) <= 0) {
                     ToastUtil.showToast("请输入金额");
+                }
             } else {
                 ToastUtil.showToast("请输入金额");
-
             }
 
         }

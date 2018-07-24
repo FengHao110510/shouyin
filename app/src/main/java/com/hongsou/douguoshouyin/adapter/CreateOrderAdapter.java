@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.javabean.FoodBean;
 
 import java.util.List;
@@ -69,12 +70,12 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
                 } else {
                     helper.setText(R.id.tv_food_name, item.getSingleProductName());
                     helper.setVisible(R.id.ll_count, false);
-                    helper.setVisible(R.id.rl_standard, true);
+                    helper.setVisible(R.id.rl_standard, true).setText(R.id.tv_select_standard, "选规格");
                 }
             }
             if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
                 String[] split = item.getFoodProductsPicture().split("-");
-                Glide.with(mContext).load(split[0]).into((ImageView) helper.getView(R.id.iv_food_img));
+                Glide.with(mContext).load(ApiConfig.BASE_URL + split[0]).into((ImageView) helper.getView(R.id.iv_food_img));
             }
         } else if ("0".equals(foodType)) {
             // 固定套餐
@@ -83,7 +84,10 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             helper.setVisible(R.id.ll_count, true);
             helper.setVisible(R.id.rl_standard, false);
             // 固定套餐没有图片
-//            Glide.with(mContext).load(item.getFoodProductsPicture()).into((ImageView) helper.getView(R.id.iv_food_img));
+            if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
+                String[] split = item.getFoodProductsPicture().split("-");
+                Glide.with(mContext).load(ApiConfig.BASE_URL + split[0]).into((ImageView) helper.getView(R.id.iv_food_img));
+            }
         } else if ("2".equals(foodType)) {
             // 组合套餐
             helper.setText(R.id.tv_food_name, item.getGroupPackageName());
@@ -91,7 +95,10 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             helper.setVisible(R.id.ll_count, false);
             helper.setVisible(R.id.rl_standard, true).setText(R.id.tv_select_standard, "选餐品");
             // 组合套餐没有图片
-//            Glide.with(mContext).load(item.getFoodProductsPicture()).into((ImageView) helper.getView(R.id.iv_food_img));
+            if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
+                String[] split = item.getFoodProductsPicture().split("-");
+                Glide.with(mContext).load(ApiConfig.BASE_URL + split[0]).into((ImageView) helper.getView(R.id.iv_food_img));
+            }
         }
     }
 
