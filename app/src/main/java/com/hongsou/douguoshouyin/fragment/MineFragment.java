@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -28,7 +29,6 @@ import butterknife.Unbinder;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.mine.AboutWeActivity;
 import com.hongsou.douguoshouyin.activity.mine.CashierActivity;
-import com.hongsou.douguoshouyin.activity.mine.JiaobanActivity;
 import com.hongsou.douguoshouyin.activity.mine.MenDianActivity;
 import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
 import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
@@ -140,7 +140,7 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_jiaoban:
                 //交班打印
-                Intent jiaobanIntent = new Intent(getActivity(), JiaobanActivity.class);
+                Intent jiaobanIntent = new Intent(getActivity(), HandoverActivity.class);
                 startActivity(jiaobanIntent);
                 break;
             case R.id.rl_mine_douguo:
