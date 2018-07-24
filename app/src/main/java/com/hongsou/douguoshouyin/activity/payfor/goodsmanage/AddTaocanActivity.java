@@ -47,6 +47,7 @@ import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 import com.hongsou.douguoshouyin.javabean.UpImgBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -426,6 +427,7 @@ public class AddTaocanActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("添加成功");
+                    Global.getSpGlobalUtil().setForceState("0");
                     finishActivity();
                 } else {
                     ToastUtil.showToast(response.getMsg());
@@ -448,6 +450,7 @@ public class AddTaocanActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("添加成功");
+                    Global.getSpGlobalUtil().setForceState("0");
                     finishActivity();
                 } else {
                     ToastUtil.showToast(response.getMsg());

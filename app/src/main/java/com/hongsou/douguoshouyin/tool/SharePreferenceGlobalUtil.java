@@ -343,5 +343,16 @@ public class SharePreferenceGlobalUtil {
     public String getDateOrderNumber() {
         return sp.getString("dateOrderNumber", null);
     }
+    /**
+     * 存储是否强制更新//强制刷新状态 0强制刷新 1不强制刷新
+     */
+    public void setForceState(String forcestate) {
+        editor.putString("forcestate", forcestate);
+        editor.commit();
+    }
+
+    public String getForceState() {
+        return sp.getString("forcestate", "1");
+    }
 
 }

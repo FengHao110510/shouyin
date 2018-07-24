@@ -41,6 +41,7 @@ import com.hongsou.douguoshouyin.javabean.ShopStandarList;
 import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 import com.hongsou.douguoshouyin.javabean.UpImgBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CustomDatePicker;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -392,6 +393,7 @@ public class AddGoodsActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("添加成功");
+                    Global.getSpGlobalUtil().setForceState("0");
                     finishActivity();
                 } else {
                     ToastUtil.showToast(response.getMsg());

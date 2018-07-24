@@ -25,6 +25,7 @@ import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.FoodBean;
 import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
 import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 import java.util.ArrayList;
@@ -86,6 +87,8 @@ public class CommodityActivity extends BaseActivity {
     //分类编号
     private String categoryNumber;
 
+    //强制刷新状态 0强制刷新 1不强制刷新
+    private String state;
     @Override
     public int initLayout() {
         return R.layout.module_activity_payfor_commodity;
@@ -108,6 +111,7 @@ public class CommodityActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        state="1";
         getCategoryList();
         getFoodsList();
     }
@@ -193,10 +197,13 @@ public class CommodityActivity extends BaseActivity {
     private void getFoodsList() {
         HttpFactory.get().url(ApiConfig.GET_FOOD)
                 .addParams("shopNumber", getShopNumber())
+                .addParams("state",state)
                 .build().execute(new ResponseCallback<FoodBean>(this) {
             @Override
             public void onResponse(FoodBean response, int id) {
                 if (response.isSuccess()) {
+                    state="1";
+                    Global.getSpGlobalUtil().setForceState("1");
                     List<FoodBean.DataBean> data = response.getData();
                     setSingleFoodsBean(data);
                 } else {
@@ -352,6 +359,27 @@ public class CommodityActivity extends BaseActivity {
         mPopupWindow.showAtLocation(llPayforCommodity, Gravity.BOTTOM, w * 4 / 9, h / 11);
 
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if ("0".equals(Global.getSpGlobalUtil().getForceState())){
+            state="0";
+            if (dataBeanList!=null){
+                dataBeanList.clear();
+            }
+            if (singleFoodsBeanList!=null){
+                singleFoodsBeanList.clear();
+            }
+            if (singleFoodsBeanList2!=null){
+                singleFoodsBeanList2.clear();
+            }
+            getCategoryList();
+            getFoodsList();
+
+
+        }
     }
 
     //---------------======================================================================
