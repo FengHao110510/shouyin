@@ -90,7 +90,6 @@
                     android:gravity="right"
                     android:background="@color/white"
                     android:hint="请输入备注信息"
-                    android:inputType="numberDecimal"
                     android:layout_marginLeft="@dimen/margin_12"
                     />
             </LinearLayout>
