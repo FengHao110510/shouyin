@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -144,6 +145,7 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_douguo:
                 //豆果收银授权
+                MscSpeechUtils.speech("豆果收银授权", getActivity());
                 break;
             case R.id.rl_mine_guanyu:
                 //关于我们
@@ -156,6 +158,8 @@ public class MineFragment extends BaseFragment {
             case R.id.btn_mine_logout:
                 //注销
                 showLogoutDialog();
+                break;
+            default:
                 break;
         }
     }

@@ -358,7 +358,6 @@ public class CommodityActivity extends BaseActivity {
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.showAtLocation(llPayforCommodity, Gravity.BOTTOM, w * 4 / 9, h / 11);
 
-
     }
 
     @Override

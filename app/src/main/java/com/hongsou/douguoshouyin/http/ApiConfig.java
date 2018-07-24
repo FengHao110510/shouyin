@@ -25,6 +25,15 @@ public class ApiConfig {
      */
     public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
 
+
+
+
+
+    /**
+     * TODO 科大讯飞的AppId
+     */
+    public static String KEDAXUNFEI_APPID = "5b568e6e";
+
     // TODO ======================================== 登录模块 ====================================================
     /**
      * TODO 登录接口

@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.greendao.gen.DaoMaster;
 import com.hongsou.greendao.gen.DaoSession;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.litesuits.orm.LiteOrm;
 import com.scwang.smartrefresh.header.BezierCircleHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -56,10 +59,16 @@ public class BaseApplication extends Application {
         settingOkHttp();
         settingOrm();
         initGreenDao();
+        initKedaxunfei();
 //        //初始化全局异常捕获
 //        CrashHandler.getInstance().init(this);
     }
-
+    /**
+     * 科大讯飞
+     */
+    private void initKedaxunfei() {
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=" + ApiConfig.KEDAXUNFEI_APPID);
+    }
     /**
      * @desc 初始化数据库
      * @anthor lpc
