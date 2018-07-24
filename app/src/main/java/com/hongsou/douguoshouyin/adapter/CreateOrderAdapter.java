@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.javabean.FoodBean;
 
@@ -56,8 +57,8 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
                     .setVisible(R.id.tv_subtract, true)
                     .setVisible(R.id.tv_tip_count, true);
         }
-
         String foodType = item.getFoodType();
+        String img_url = "";
         if ("1".equals(foodType)) {
             // 单品
             List<FoodBean.DataBean.ShopStandarListBean> shopStandarList = item.getShopStandarList();
@@ -74,8 +75,16 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
                 }
             }
             if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
-                String[] split = item.getFoodProductsPicture().split("-");
-                Glide.with(mContext).load(ApiConfig.BASE_URL + split[0]).into((ImageView) helper.getView(R.id.iv_food_img));
+                img_url = item.getFoodProductsPicture();
+                if (item.getFoodProductsPicture().contains("-")){
+                    String[] split = item.getFoodProductsPicture().split("-");
+                    img_url = split[0];
+                }
+                if (img_url.contains(Constant.IMG_REPLACE1)){
+                    img_url.replace(Constant.IMG_REPLACE1,"");
+                }else if (img_url.contains(Constant.IMG_REPLACE2)){
+                    img_url.replace(Constant.IMG_REPLACE2,"");
+                }
             }
         } else if ("0".equals(foodType)) {
             // 固定套餐
@@ -83,10 +92,17 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             helper.setText(R.id.tv_food_price, item.getPackagePrice());
             helper.setVisible(R.id.ll_count, true);
             helper.setVisible(R.id.rl_standard, false);
-            // 固定套餐没有图片
-            if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
-                String[] split = item.getFoodProductsPicture().split("-");
-                Glide.with(mContext).load(ApiConfig.BASE_URL + split[0]).into((ImageView) helper.getView(R.id.iv_food_img));
+            if (!TextUtils.isEmpty(item.getPackagePicture())) {
+                img_url = item.getPackagePicture();
+                if (item.getPackagePicture().contains("-")){
+                    String[] split = item.getPackagePicture().split("-");
+                    img_url = split[0];
+                }
+                if (img_url.contains(Constant.IMG_REPLACE1)){
+                    img_url.replace(Constant.IMG_REPLACE1,"");
+                }else if (img_url.contains(Constant.IMG_REPLACE2)){
+                    img_url.replace(Constant.IMG_REPLACE2,"");
+                }
             }
         } else if ("2".equals(foodType)) {
             // 组合套餐
@@ -94,12 +110,23 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             helper.setText(R.id.tv_food_price, item.getGroupPackagePrice());
             helper.setVisible(R.id.ll_count, false);
             helper.setVisible(R.id.rl_standard, true).setText(R.id.tv_select_standard, "选餐品");
-            // 组合套餐没有图片
-            if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
-                String[] split = item.getFoodProductsPicture().split("-");
-                Glide.with(mContext).load(ApiConfig.BASE_URL + split[0]).into((ImageView) helper.getView(R.id.iv_food_img));
+            // 图片路径
+            if (!TextUtils.isEmpty(item.getPackagePicture())) {
+                img_url = item.getPackagePicture();
+                // 是否有分隔符’-’
+                if (item.getPackagePicture().contains("-")){
+                    String[] split = item.getPackagePicture().split("-");
+                    img_url = split[0];
+                }
+                // 是否有旧数据中无用的字符链接
+                if (img_url.contains(Constant.IMG_REPLACE1)){
+                    img_url.replace(Constant.IMG_REPLACE1,"");
+                }else if (img_url.contains(Constant.IMG_REPLACE2)){
+                    img_url.replace(Constant.IMG_REPLACE2,"");
+                }
             }
         }
+        Glide.with(mContext).load(ApiConfig.IMG_URL + img_url).into((ImageView) helper.getView(R.id.iv_food_img));
     }
 
 }
