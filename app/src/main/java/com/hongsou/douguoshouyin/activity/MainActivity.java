@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
@@ -27,6 +29,7 @@ import com.hongsou.douguoshouyin.fragment.MineFragment;
 import com.hongsou.douguoshouyin.fragment.MoreFragment;
 import com.hongsou.douguoshouyin.fragment.PayForFragment;
 import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 /**
@@ -98,6 +101,18 @@ public class MainActivity extends BaseActivity {
         initView();
         initData();
         initBack();
+        getSkuNum();
+    }
+    //获取设备唯一标识
+    private void getSkuNum() {
+        String code = Global.getSpGlobalUtil().getCode();
+        setAlias(code);
+    }
+    //设置别名
+    private void setAlias(String name) {
+        // 调用 Handler 来异步设置别名
+        JPushInterface.setAlias(this, 1, name);
+        Log.i("JPushInterface", "----->" + name);
     }
 
 

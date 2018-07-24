@@ -17,6 +17,12 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "58655fc8bb336cc07d639b35", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
     }
 
     buildTypes {
@@ -83,4 +89,8 @@ dependencies {
     // 流式布局
     compile 'com.hyman:flowlayout-lib:1.1.2'
     implementation files('libs/Msc.jar')
+    compile 'cn.jiguang.sdk:jpush:3.1.2'
+    // 此处以JPush 3.1.1 版本为例。 极光推送
+    compile 'cn.jiguang.sdk:jcore:1.2.0'
+    // 此处以JCore 1.1.9 版本为例。
 }
