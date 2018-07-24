@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape>
-            <stroke android:color="@color/color_base_yellow" android:width="@dimen/margin_0.5"/>
+            <stroke android:color="@color/color_base_yellow" android:width="@dimen/margin_1"/>
             <corners android:radius="@dimen/dp_4"/>
             <solid android:color="#f5e5ba"/>
         </shape>
@@ -12,7 +12,7 @@
         <shape>
             <solid android:color="@color/white"/>
             <corners android:radius="@dimen/dp_4"/>
-            <stroke android:color="@color/bg_gray" android:width="@dimen/margin_0.5"/>
+            <stroke android:color="@color/btn_mine_mendian_bg" android:width="@dimen/margin_1"/>
         </shape>
     </item>
 </selector>

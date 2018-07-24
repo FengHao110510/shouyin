@@ -116,7 +116,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.payfor.payfor.SuccessActivity"
+            android:name=".activity.payfor.payfor.PaymentDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
@@ -139,7 +139,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.turnover.TurnoverShaixuanActivity"
+            android:name=".activity.turnover.OrderConditionActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg_white_shape_6"
     android:orientation="vertical"
     android:padding="@dimen/margin_12">
 
@@ -16,19 +16,24 @@
 
     <TextView
         style="@style/tv_subtitle"
-        android:layout_marginBottom="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_12"
         android:text="规格：" />
 
-    <com.zhy.view.flowlayout.TagFlowLayout
-        android:id="@+id/tfl_standard"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="4dp"
         android:layout_weight="1"
-        android:padding="4dp"
-        app:max_select="-1"
-        />
+        android:layout_height="0dp">
+        <!-- max_select 设置最大的选择数量，-1为不限制数量。
+             multi_suppout 是否支持选择（如果为false，意味着你只能通过setOnTagClickListener去做一些操作)
+         -->
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/tfl_standard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="4dp"
+            app:max_select="1"
+            />
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,11 +69,58 @@
             android:paddingTop="@dimen/dp_4">
 
             <TextView
+                android:id="@+id/tv_shopping_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/color_subtitle"
+                android:text="@string/icon_shopping"
+                android:layout_marginRight="@dimen/margin_8"
+                />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="加入菜单"
                 android:textColor="@color/color_title"
                 android:textSize="@dimen/txt_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_count"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_subtract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingTop="@dimen/margin_8"
+                android:text="@string/icon_subtract_button"
+                android:textColor="@color/tip_text_black"
+                android:textSize="@dimen/txt_20" />
+
+            <TextView
+                android:id="@+id/tv_food_count"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_8"
+                android:paddingTop="@dimen/margin_8"
+                android:text="@string/icon_add_button"
+                android:textColor="@color/color_base_yellow"
+                android:textSize="@dimen/txt_20" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
