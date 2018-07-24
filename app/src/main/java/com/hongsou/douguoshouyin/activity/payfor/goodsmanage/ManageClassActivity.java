@@ -25,6 +25,7 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public class ManageClassActivity extends BaseActivity {
 
     //区分添加还是编辑 0 add  1 update
     private int addFlag;
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_payfor_manageclass;
@@ -147,7 +149,6 @@ public class ManageClassActivity extends BaseActivity {
     }
 
 
-
     /**
      * @param categoryNumber logGid 唯一标识
      * @param categoryType   分类类型 0 单品 1固定套餐  2分组套餐
@@ -155,11 +156,12 @@ public class ManageClassActivity extends BaseActivity {
      * @date 2018/7/18 0018 下午 16:59
      * @desc 编辑分类接口
      */
-    private void updateCategory(String categoryNumber,String categoryName, int categoryType) {
+    private void updateCategory(String categoryNumber, String categoryName, int categoryType) {
         Map<String, Object> updateCategoryMap = new HashMap<>();
-        updateCategoryMap.put("logGid",categoryNumber);
-        updateCategoryMap.put("categoryName",categoryNumber);
-        updateCategoryMap.put("categoryType",categoryType);
+        updateCategoryMap.put("categoryNumber", categoryNumber);
+        updateCategoryMap.put("categoryName", categoryName);
+        updateCategoryMap.put("shopNumber", getShopNumber());
+        updateCategoryMap.put("categoryType", categoryType);
         Gson gson = new Gson();
 
         HttpFactory.postString(ApiConfig.UPDATE_CATEGORY, gson.toJson(updateCategoryMap)
@@ -169,6 +171,8 @@ public class ManageClassActivity extends BaseActivity {
                         if (response.isSuccess()) {
                             ToastUtil.showToast("修改成功");
                             getCategory();
+                            //强制刷新页面
+                            Global.getSpGlobalUtil().setForceState("0");
                             dialog.dismiss();
                         } else {
                             ToastUtil.showToast(response.getMsg());
@@ -185,7 +189,8 @@ public class ManageClassActivity extends BaseActivity {
      */
     private void deleteCategory(String categoryNumber) {
         Map<String, Object> deleteCategoryMap = new HashMap<>();
-        deleteCategoryMap.put("logGid",categoryNumber);
+        deleteCategoryMap.put("categoryNumber", categoryNumber);
+        deleteCategoryMap.put("shopNumber", getShopNumber());
         Gson gson = new Gson();
         HttpFactory.postString(ApiConfig.DELETE_CATEGORY, gson.toJson(deleteCategoryMap)
                 , new ResponseCallback<BaseBean>(this) {
@@ -206,15 +211,15 @@ public class ManageClassActivity extends BaseActivity {
     public void onViewClicked() {
         addFlag = 0;
         //点击添加后弹框
-        showAddCatagoryDialog(addFlag,"");
+        showAddCatagoryDialog(addFlag, "");
     }
 
     /**
+     * @param addFlag
+     * @param categoryNumber
      * @author fenghao
      * @date 2018/7/18 0018 下午 16:04
      * @desc 弹出添加或编辑类别弹框
-     * @param addFlag
-     * @param categoryNumber
      */
     private void showAddCatagoryDialog(final int addFlag, final String categoryNumber) {
         dialog = new Dialog(this, R.style.CommonDialog);
@@ -233,6 +238,7 @@ public class ManageClassActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 type[0] = i;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 type[0] = 0;
@@ -250,11 +256,11 @@ public class ManageClassActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (!TextUtils.isEmpty(etDialogFenleiContent.getText().toString())) {
-                    if (addFlag==0){
+                    if (addFlag == 0) {
                         //走添加接口
-                        addCategory(etDialogFenleiContent.getText().toString(),type[0]);
-                    }else {
-                        updateCategory(categoryNumber,etDialogFenleiContent.getText().toString(), type[0]);
+                        addCategory(etDialogFenleiContent.getText().toString(), type[0]);
+                    } else {
+                        updateCategory(categoryNumber, etDialogFenleiContent.getText().toString(), type[0]);
                     }
 
                 } else {
@@ -277,27 +283,27 @@ public class ManageClassActivity extends BaseActivity {
     }
 
     /**
-     *  @author  fenghao
-     *  @date    2018/7/18 0018 下午 17:10
-     *  @param   categoryName 分类名称
-     *  @param   categoryType   分类类型
-     *  @desc
+     * @param categoryName 分类名称
+     * @param categoryType 分类类型
+     * @author fenghao
+     * @date 2018/7/18 0018 下午 17:10
+     * @desc
      */
     private void addCategory(String categoryName, int categoryType) {
-        Map<String,Object> addCategoryMap = new HashMap<>();
-        addCategoryMap.put("shopNumber",getShopNumber());
-        addCategoryMap.put("categoryName",categoryName);
-        addCategoryMap.put("categoryType",categoryType);
+        Map<String, Object> addCategoryMap = new HashMap<>();
+        addCategoryMap.put("shopNumber", getShopNumber());
+        addCategoryMap.put("categoryName", categoryName);
+        addCategoryMap.put("categoryType", categoryType);
         Gson gson = new Gson();
         HttpFactory.postString(ApiConfig.ADD_CATEGORY, gson.toJson(addCategoryMap)
                 , new ResponseCallback<BaseBean>(this) {
                     @Override
                     public void onResponse(BaseBean response, int id) {
-                        if (response.isSuccess()){
+                        if (response.isSuccess()) {
                             ToastUtil.showToast("添加成功");
                             getCategory();
                             dialog.dismiss();
-                        }else {
+                        } else {
                             ToastUtil.showToast(response.getMsg());
                         }
                     }
