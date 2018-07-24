@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.activity.MainActivity;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.LoginBean;
+import com.hongsou.douguoshouyin.javabean.PayCodeBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -166,9 +168,11 @@ public class LoginActivity extends BaseActivity {
                 Log.e(TAG, "onResponse: " + response.toString());
                 RootBean<LoginBean> loginBean = new Gson().fromJson(response, new TypeToken<RootBean<LoginBean>>() {
                 }.getType());
-                if (loginBean.getCode() == 1000) {
+                if (loginBean.isSuccess()) {
                     LoginBean dataBean = loginBean.getData();
-                    isLogined(dataBean);
+//                    payCode(dataBean);
+                    isLogined(dataBean,"","");
+
                 } else {
                     ToastUtil.showToast(loginBean.getMsg());
 
@@ -179,21 +183,47 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
+     *  @author  fenghao
+     *  @date    2018/7/24 0024 下午 16:14
+     *  @param   dataBean
+     *  @desc   获取支付标识
+     */
+    private void payCode(final LoginBean dataBean) {
+
+        HttpFactory.get().url(ApiConfig.PAYCODE).addParams("paymentUser",dataBean.getPaymentUser())
+                .build().execute(new ResponseCallback<PayCodeBean>(this) {
+            @Override
+            public void onResponse(PayCodeBean response, int id) {
+                Log.e(TAG, "onResponse: "+response.toString());
+                if (response.isSuccess()){
+                    isLogined(dataBean,response.getData().getAliCode(),response.getData().getWecharCode());
+                }else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+
+            }
+        });
+    }
+
+    /**
      * @param dataBean
-     * @return
+     * @param aliCode
+     *@param wecharCode @return
      * @author fenghao
      * @date 2018/7/9 0009 下午 17:43
      * @desc 将登录数据存储
      */
 
-    private void isLogined(LoginBean dataBean) {
+    private void isLogined(LoginBean dataBean, String aliCode, String wecharCode) {
         ToastUtil.showToast("登陆成功");
         Global.getSpGlobalUtil().setClerkName(dataBean.getClerkName());
         Global.getSpGlobalUtil().setClerkNumber(dataBean.getClerkNumber());
         Global.getSpGlobalUtil().setShopNumber(dataBean.getShopNumber());
-
+        Global.getSpGlobalUtil().setPaymentUser(dataBean.getPaymentUser());
         Global.getSpGlobalUtil().setUserName(userName);
         Global.getSpGlobalUtil().setPassword(passWord);
+        Global.getSpGlobalUtil().setAliCode(aliCode);
+        Global.getSpGlobalUtil().setWecharCode(wecharCode);
 
         if (isChecked) {
             Global.getSpGlobalUtil().setCheckPassword(true);

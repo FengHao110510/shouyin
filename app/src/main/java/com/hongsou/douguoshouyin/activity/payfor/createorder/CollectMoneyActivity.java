@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.ErweimaActivity;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.QRCode;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.CollectMoneyAdapter;
@@ -179,7 +179,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.ll_payfor_pop_erwei:
                 mPopupWindow.dismiss();
-                Intent intent = new Intent(CollectMoneyActivity.this, ErweimaActivity.class);
+                Intent intent = new Intent(CollectMoneyActivity.this, QRCode.class);
                 startActivity(intent);
                 ToastUtil.showToast("二维码");
                 break;

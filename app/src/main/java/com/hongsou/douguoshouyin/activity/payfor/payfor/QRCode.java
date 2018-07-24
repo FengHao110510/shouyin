@@ -3,12 +3,15 @@ package com.hongsou.douguoshouyin.activity.payfor.payfor;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -16,18 +19,20 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.Global;
+
 import okhttp3.Call;
 
 /**
  * 二维码收款页面
  */
-public class ErweimaActivity extends BaseActivity {
+public class QRCode extends BaseActivity {
 
 
     @BindView(R.id.tv_payfor_erweima_shoukuanjine)
@@ -65,7 +70,22 @@ public class ErweimaActivity extends BaseActivity {
      */
     private void showErweima() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.PAY_FOR_CODE).addParams("", "").build().execute(new StringCallback() {
+
+        HttpFactory.post().url(ApiConfig.PAY_FOR_CODE)
+                .addParams("operatorId", getClerkNumber())
+                .addParams("storeId", getShopNumber())
+                .addParams("equipmentNumber", Global.getSpGlobalUtil().getCode())
+                .addParams("equipmentType", "3")
+                .addParams("userType", "")
+                .addParams("uniquelyCode", Global.getSpGlobalUtil().getAliCode())
+                .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
+                .addParams("totalFee", tvPayforErweimaShoukuanjine.getText().toString())
+                .addParams("batch", "s"+DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("discountType", Global.getSpGlobalUtil().getZhekou())
+                .addParams("discountMoney", Global.getSpGlobalUtil().getZheKouJE())
+                .addParams("masterSecret", Constant.MASTER_SECRET)
+                .addParams("appKey", Constant.APP_KEY)
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -74,11 +94,15 @@ public class ErweimaActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
+                Log.e(TAG, "onResponse: "+ response);
                 dismissLoadingDialog();
                 Bitmap bitmap = BitmapUtil.create2DCoderBitmap("https://blog.csdn.net/w815878564/article/details/51115562", 500, 500);
                 ivPayforErweimaErweima.setImageBitmap(bitmap);
             }
         });
+        Global.getSpGlobalUtil().setZheKouJE("");
+        Global.getSpGlobalUtil().setZhekou("");
+        Global.getSpGlobalUtil().setYingshouJE("");
     }
 
     @Override
@@ -106,13 +130,15 @@ public class ErweimaActivity extends BaseActivity {
                     }
                 }
                 break;
+            default:
+                break;
         }
     }
 
     @OnClick(R.id.tv_payfor_erweima_saoyisao_icon)
     public void onViewClicked() {
         //转到扫一扫界面
-        new IntentIntegrator(ErweimaActivity.this).
+        new IntentIntegrator(QRCode.this).
                 setCaptureActivity(ScanQRCodeActivity.class)
                 .setPrompt("")// 设置提示语
                 .setCameraId(0)// 选择摄像头,可使用前置或者后置

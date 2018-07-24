@@ -16,13 +16,14 @@ package com.hongsou.douguoshouyin.javabean;
 
 
 public class LoginBean  extends RootBean{
+
     /**
      * clerkNumber : D180427111111528
      * shopNumber : 1000180427300326890
      * clerkName : 李晓鑫
+     * paymentUser : 171128165119624
      * registeredCell : 13832352792
      * insertTime : 2018-04-27 10:11:00.853
-     * updatePassWord : null
      * updateTime : 2018-07-11 11:25:57.367
      * deletionFlag : 0
      * passWord : e10adc3949ba59abbe56e057f20f883e
@@ -37,9 +38,9 @@ public class LoginBean  extends RootBean{
     private String clerkNumber;
     private String shopNumber;
     private String clerkName;
+    private String paymentUser;
     private String registeredCell;
     private String insertTime;
-    private Object updatePassWord;
     private String updateTime;
     private String deletionFlag;
     private String passWord;
@@ -74,6 +75,14 @@ public class LoginBean  extends RootBean{
         this.clerkName = clerkName;
     }
 
+    public String getPaymentUser() {
+        return paymentUser;
+    }
+
+    public void setPaymentUser(String paymentUser) {
+        this.paymentUser = paymentUser;
+    }
+
     public String getRegisteredCell() {
         return registeredCell;
     }
@@ -88,14 +97,6 @@ public class LoginBean  extends RootBean{
 
     public void setInsertTime(String insertTime) {
         this.insertTime = insertTime;
-    }
-
-    public Object getUpdatePassWord() {
-        return updatePassWord;
-    }
-
-    public void setUpdatePassWord(Object updatePassWord) {
-        this.updatePassWord = updatePassWord;
     }
 
     public String getUpdateTime() {
