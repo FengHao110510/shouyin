@@ -35,7 +35,7 @@
                 android:id="@+id/iv_order_status"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/success" />
+                android:background="@drawable/icon_pay_success" />
 
             <TextView
                 android:id="@+id/tv_order_title"
