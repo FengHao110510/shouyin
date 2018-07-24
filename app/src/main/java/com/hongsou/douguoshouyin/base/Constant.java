@@ -15,4 +15,12 @@ import java.text.DecimalFormat;
 public class Constant {
 
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+    /**
+     * 传给后台的极光推送 Secret
+     */
+    public static final String MASTER_SECRET = "280ff86ecd27f6a02a060f2a";
+    /**
+     * 传给后台的极光推送 APP_KEY
+     */
+    public static final String APP_KEY = "58655fc8bb336cc07d639b35";
 }
