@@ -17,6 +17,7 @@ import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
@@ -76,27 +77,88 @@ public class PaymentDetailActivity extends BaseActivity {
         if (getIntent().hasExtra("batch")){
             mBatch = getIntent().getStringExtra("batch");
         }
+        mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
+            @Override
+            public void onClick(View v) {
+                // 右上角同步按钮
 
+            }
+        });
+        // 点击返回按钮，跳转到首页
+//        mTopBar.setLeftViewClickListener(new CommonTopBar.ClickCallBack() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
+//                finish();
+//            }
+//        });
         initData();
     }
 
     @Override
     public void initData() {
-        //TODO 需要初始化数据 订单号啥的
+        //TODO 需要初始化数据
         HttpFactory.get().url(ApiConfig.GET_PAYMENT_ORDER_BY_BATCH)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("batch", mBatch)
                 .build()
-                .execute(new ResponseCallback<RootBean>(this) {
+                .execute(new ResponseCallback<RootBean<PaymentDetailBean>>(this) {
                     @Override
-                    public void onResponse(RootBean response, int id) {
+                    public void onResponse(RootBean<PaymentDetailBean> response, int id) {
                         if (response.isSuccess()) {
-                            response.getData();
+                            PaymentDetailBean data = response.getData();
+                            renderView(data);
                         }else {
                             ToastUtil.showToast(response.getMsg());
                         }
                     }
                 });
+    }
+
+    /**
+     * @desc 数据显示
+     * @anthor lpc
+     * @date: 2018/7/24
+     * @param data 数据源
+     */
+    private void renderView(PaymentDetailBean data) {
+        // OrderState 0 '支付中'  1'收款成功'  -2 '支付中' -3'已退款'
+        if ("0".equals(data.getOrderState())){
+            setViewInfo("收款中", R.drawable.icon_paying, View.VISIBLE);
+        }else if ("-2".equals(data.getOrderState())){
+            setViewInfo("收款中", R.drawable.icon_paying, View.GONE);
+        }else if ("1".equals(data.getOrderState())){
+            setViewInfo("收款成功", R.drawable.icon_pay_success, View.GONE);
+        }else if ("-3".equals(data.getOrderState())){
+            setViewInfo("退款成功", R.drawable.icon_pay_back_money, View.GONE);
+        }
+        mTvOrderBatch.setText(data.getBatch());
+        mTvOrderPayTime.setText(data.getTradingTime());
+        mTvOrderPayMoney.setText(data.getPayAmount() + "元");
+        mTvOrderMoney.setText(data.getPayAmount());
+        if (data.getPaymentType().contains("支付宝")){
+            mTvOrderPayType.setText("支付宝");
+        }else if (data.getPaymentType().contains("微信")){
+            mTvOrderPayType.setText("微信");
+        }else if (data.getPaymentType().contains("现金")){
+            mTvOrderPayType.setText("现金");
+        }
+    }
+
+    /**
+     * @desc 设置标题图片等内容
+     * @anthor lpc
+     * @date: 2018/7/24
+     * @param title 标题
+     * @param imgRes 图标的图片id
+     * @param visible 右上角同步按钮是否显示
+     */
+    private void setViewInfo(String title, int imgRes, int visible) {
+        mTopBar.setCenterText(title);
+        mIvOrderStatus.setImageResource(imgRes);
+        mTvOrderTitle.setText(title);
+        mTopBar.setRightVisibility(visible);
+        mTvOrderPayStatus.setText(title);
     }
 
 
