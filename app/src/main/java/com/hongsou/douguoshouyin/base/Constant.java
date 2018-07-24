@@ -14,6 +14,9 @@ import java.text.DecimalFormat;
 
 public class Constant {
 
+    /**
+     * Double数据格式化两位小数
+     */
     public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
     /**
      * 传给后台的极光推送 Secret
@@ -23,4 +26,12 @@ public class Constant {
      * 传给后台的极光推送 APP_KEY
      */
     public static final String APP_KEY = "58655fc8bb336cc07d639b35";
+    /**
+     * 餐品图片链接中多余的字符,第一种情况
+     */
+    public static final String IMG_REPLACE1 = "/www/wwwroot/h5.hongxiaosou.cn/";
+    /**
+     * 餐品图片链接中多余的字符,第二种情况
+     */
+    public static final String IMG_REPLACE2 = "/www/wwwroot/images.hongxiaosou.cn/";
 }
