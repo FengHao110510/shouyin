@@ -112,7 +112,7 @@ public class AddTaocanFoodsActivity extends BaseActivity {
      * @param dataBeanList 分类数据源
      * @author fenghao
      * @date 2018/7/20 0020 下午 15:07
-     * @desc
+     * @desc 展示分类列表
      */
     private void showCategoryList(final List<FoodCategoryBean.DataBean> dataBeanList) {
         for (int k = 0; k < dataBeanList.size(); k++) {
@@ -228,7 +228,7 @@ public class AddTaocanFoodsActivity extends BaseActivity {
      * @desc 展示商品列表
      */
     private void showFoodsList() {
-        addTaocanFoodsAdapter = new AddTaocanFoodsAdapter(R.layout.module_recycle_item_create_order_food, singleFoodsBeanList2);
+        addTaocanFoodsAdapter = new AddTaocanFoodsAdapter(R.layout.module_recycle_item_create_order_food, singleFoodsBeanList2,0);
         rvPayforAddtaocanFoodFoods.setAdapter(addTaocanFoodsAdapter);
         rvPayforAddtaocanFoodFoods.setLayoutManager(new LinearLayoutManager(this));
 
@@ -241,14 +241,14 @@ public class AddTaocanFoodsActivity extends BaseActivity {
                     case R.id.tv_subtract:
                         //减
                         //获取点击的商品编号 去找singleFoodsBeanList中的对应商品-1
-                        for (int i=0;i<singleFoodsBeanList.size();i++){
+                        for (int i = 0; i < singleFoodsBeanList.size(); i++) {
                             if (singleFoodsBeanList.get(i).getSingleProductNumber().
-                                    equals(singleFoodsBeanList2.get(position).getSingleProductNumber())){
-                                if (singleFoodsBeanList.get(i).getSingleQuantity()<1){
+                                    equals(singleFoodsBeanList2.get(position).getSingleProductNumber())) {
+                                if (singleFoodsBeanList.get(i).getSingleQuantity() < 1) {
                                     ToastUtil.showToast("商品数量不得小于0");
-                                }else {
-                                    tvFoodCount.setText((singleFoodsBeanList.get(i).getSingleQuantity()-1)+"");
-                                    singleFoodsBeanList.get(i).setSingleQuantity(singleFoodsBeanList.get(i).getSingleQuantity()-1);
+                                } else {
+                                    tvFoodCount.setText((singleFoodsBeanList.get(i).getSingleQuantity() - 1) + "");
+                                    singleFoodsBeanList.get(i).setSingleQuantity(singleFoodsBeanList.get(i).getSingleQuantity() - 1);
                                 }
 
                             }
@@ -257,12 +257,12 @@ public class AddTaocanFoodsActivity extends BaseActivity {
                     case R.id.tv_add:
                         //加
                         //获取点击的商品编号 去找singleFoodsBeanList中的对应商品+1
-                        for (int i=0;i<singleFoodsBeanList.size();i++){
+                        for (int i = 0; i < singleFoodsBeanList.size(); i++) {
                             if (singleFoodsBeanList.get(i).getSingleProductNumber().
-                                    equals(singleFoodsBeanList2.get(position).getSingleProductNumber())){
-                                tvFoodCount.setText((singleFoodsBeanList.get(i).getSingleQuantity()+1)+"");
-                                singleFoodsBeanList.get(i).setSingleQuantity(singleFoodsBeanList.get(i).getSingleQuantity()+1);
-                                Log.e(TAG, "onItemChildClick: "+ tvFoodCount.getText().toString());
+                                    equals(singleFoodsBeanList2.get(position).getSingleProductNumber())) {
+                                tvFoodCount.setText((singleFoodsBeanList.get(i).getSingleQuantity() + 1) + "");
+                                singleFoodsBeanList.get(i).setSingleQuantity(singleFoodsBeanList.get(i).getSingleQuantity() + 1);
+                                Log.e(TAG, "onItemChildClick: " + tvFoodCount.getText().toString());
                             }
                         }
                         break;
@@ -284,8 +284,8 @@ public class AddTaocanFoodsActivity extends BaseActivity {
 
     private void startForTaocanResult() {
         Intent intentPut = new Intent();
-        intentPut.putExtra("singleFoodsBeanList",(Serializable) singleFoodsBeanList);
-        setResult(2,intentPut);
+        intentPut.putExtra("singleFoodsBeanList", (Serializable) singleFoodsBeanList);
+        setResult(2, intentPut);
     }
 
     @Override
@@ -296,7 +296,7 @@ public class AddTaocanFoodsActivity extends BaseActivity {
 
     }
 
-    @OnClick({ R.id.tv_payfor_addtaocan_food_wancheng})
+    @OnClick({R.id.tv_payfor_addtaocan_food_wancheng})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -309,7 +309,6 @@ public class AddTaocanFoodsActivity extends BaseActivity {
                 break;
         }
     }
-
 
 
     //=============================================================================================

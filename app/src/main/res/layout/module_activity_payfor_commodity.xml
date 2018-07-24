@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.hongsou.douguoshouyin.activity.payfor.goodsmanage.CommodityActivity">
 
     <include layout="@layout/module_include_titlebar" />
@@ -22,12 +22,30 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="@color/bg_gray"></LinearLayout>
+            android:background="@color/bg_gray">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_payfor_commodity_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:background="@color/white"></LinearLayout>
+            android:background="@color/white">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_payfor_commodity_foods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="15dp" />
+        </LinearLayout>
     </LinearLayout>
 
     <View style="@style/view_line_horizontal_05" />
@@ -74,6 +92,7 @@
                 android:padding="3dp"
                 android:text="添加商品" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_payfor_commodity_tag_tianjiataocan"
 
@@ -89,6 +108,7 @@
                 android:padding="3dp"
                 android:text="添加套餐" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_payfor_commodity_tag_tianjiazuhe"
 

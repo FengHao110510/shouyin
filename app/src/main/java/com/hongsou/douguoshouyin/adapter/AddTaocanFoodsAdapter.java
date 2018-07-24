@@ -2,6 +2,7 @@ package com.hongsou.douguoshouyin.adapter;
 
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -46,9 +47,12 @@ import java.util.List;
 
 public class AddTaocanFoodsAdapter extends BaseQuickAdapter<SingleFoodsBean, BaseViewHolder> {
     private Typeface mTypeface;
-
-    public AddTaocanFoodsAdapter(int layoutResId, @Nullable List<SingleFoodsBean> data) {
+    //show=0 显示 =1不显示
+    private int show;
+    public AddTaocanFoodsAdapter(int layoutResId, @Nullable List<SingleFoodsBean> data,int show) {
         super(layoutResId, data);
+        this.show = show;
+
     }
 
     @Override
@@ -57,9 +61,17 @@ public class AddTaocanFoodsAdapter extends BaseQuickAdapter<SingleFoodsBean, Bas
         ((TextView) helper.getView(R.id.tv_subtract)).setTypeface(mTypeface);
         ((TextView) helper.getView(R.id.tv_add)).setTypeface(mTypeface);
 
-        helper.setText(R.id.tv_food_name, item.getSingleProductName() + "(" + item.getStandardName() + ")")
-                .setText(R.id.tv_food_price, item.getSingleProductPrice())
-                .setText(R.id.tv_food_count, item.getSingleQuantity()+"")
+        if (!TextUtils.isEmpty(item.getStandardName())) {
+            helper.setText(R.id.tv_food_name, item.getSingleProductName() + "(" + item.getStandardName() + ")");
+        } else {
+            helper.setText(R.id.tv_food_name, item.getSingleProductName());
+
+        }
+        if (show==1){
+            helper.setVisible(R.id.ll_count,false);
+        }
+        helper.setText(R.id.tv_food_price, item.getSingleProductPrice())
+                .setText(R.id.tv_food_count, item.getSingleQuantity() + "")
                 .addOnClickListener(R.id.tv_subtract)
                 .addOnClickListener(R.id.tv_add);
     }

@@ -3,6 +3,9 @@ package com.hongsou.douguoshouyin.activity.payfor.goodsmanage;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,12 +14,25 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.adapter.AddTaocanCategoryAdapter;
+import com.hongsou.douguoshouyin.adapter.AddTaocanFoodsAdapter;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.FoodBean;
+import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
+import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
 
 /**
  * 商品管理主页面
@@ -49,7 +65,26 @@ public class CommodityActivity extends BaseActivity {
     LinearLayout llPayforCommodityTag;
     @BindView(R.id.ll_payfor_commodity_tag_tianjiazuhe)
     LinearLayout llPayforCommodityTagTianjiazuhe;
+    @BindView(R.id.rv_payfor_commodity_category)
+    RecyclerView rvPayforCommodityCategory;
+    @BindView(R.id.rv_payfor_commodity_foods)
+    RecyclerView rvPayforCommodityFoods;
     private PopupWindow mPopupWindow;
+
+
+    //分类适配器
+    AddTaocanCategoryAdapter addTaocanCategoryAdapter;
+    //分类数据源
+    List<FoodCategoryBean.DataBean> dataBeanList;
+    //food数据源 修改后的
+    List<SingleFoodsBean> singleFoodsBeanList = new ArrayList<>();
+    //分类下的餐品 数据
+    List<SingleFoodsBean> singleFoodsBeanList2 = new ArrayList<>();
+
+    //适配器
+    AddTaocanFoodsAdapter addTaocanFoodsAdapter;
+    //分类编号
+    private String categoryNumber;
 
     @Override
     public int initLayout() {
@@ -73,8 +108,169 @@ public class CommodityActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        getCategoryList();
+        getFoodsList();
+    }
+
+    /**
+     * @author fenghao
+     * @date 2018/7/20 0020 下午 15:05
+     * @desc 获取分类列表
+     */
+    private void getCategoryList() {
+        HttpFactory.get().url(ApiConfig.GET_CATEGORY)
+                .addParams("shopNumber", getShopNumber())
+                .build().execute(new ResponseCallback<FoodCategoryBean>(this) {
+            @Override
+            public void onResponse(FoodCategoryBean response, int id) {
+                if (response.isSuccess()) {
+                    dataBeanList = response.getData();
+                    if (dataBeanList.size() > 0) {
+                        showCategoryList(dataBeanList);
+                    } else {
+                        ToastUtil.showToast("暂无分类，请先添加分类");
+                    }
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
+    }
+
+    /**
+     * @param dataBeanList 分类数据源
+     * @author fenghao
+     * @date 2018/7/20 0020 下午 15:07
+     * @desc 展示分类列表
+     */
+    private void showCategoryList(final List<FoodCategoryBean.DataBean> dataBeanList) {
+
+        if (dataBeanList.size() < 1) {
+            ToastUtil.showToast("暂无商品，请先添加商品");
+            finishActivity();
+        }
+        addTaocanCategoryAdapter = new AddTaocanCategoryAdapter(R.layout.module_item_addfoods_category, dataBeanList);
+        rvPayforCommodityCategory.setAdapter(addTaocanCategoryAdapter);
+        rvPayforCommodityCategory.setLayoutManager(new LinearLayoutManager(this));
+
+        addTaocanCategoryAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                TextView tvItemAddfoodsCategory;
+
+                //获取其他子控件 变色
+                for (int i = 0; i < dataBeanList.size(); i++) {
+                    if (i == position) {
+                        tvItemAddfoodsCategory = (TextView) adapter.getViewByPosition(rvPayforCommodityCategory, position
+                                , R.id.tv_item_addfoods_category);
+                        tvItemAddfoodsCategory.setBackgroundColor(getResources().getColor(R.color.white));
+
+                    } else {
+                        tvItemAddfoodsCategory = (TextView) adapter.getViewByPosition(rvPayforCommodityCategory, i
+                                , R.id.tv_item_addfoods_category);
+                        tvItemAddfoodsCategory.setBackgroundColor(getResources().getColor(R.color.bg_gray));
+                    }
+                }
+                singleFoodsBeanList2.clear();
+                //取出同类型的商品放入集合2 显示
+                for (int n = 0; n < singleFoodsBeanList.size(); n++) {
+                    if (singleFoodsBeanList.get(n).getCategoryNumber().equals(dataBeanList.get(position).getCategoryNumber())) {
+                        singleFoodsBeanList2.add(singleFoodsBeanList.get(n));
+                    }
+                }
+
+                addTaocanFoodsAdapter.notifyDataSetChanged();
+            }
+        });
 
     }
+
+    /**
+     * @author fenghao
+     * @date 2018/7/20 0020 下午 15:06
+     * @desc 获取food列表
+     */
+    private void getFoodsList() {
+        HttpFactory.get().url(ApiConfig.GET_FOOD)
+                .addParams("shopNumber", getShopNumber())
+                .build().execute(new ResponseCallback<FoodBean>(this) {
+            @Override
+            public void onResponse(FoodBean response, int id) {
+                if (response.isSuccess()) {
+                    List<FoodBean.DataBean> data = response.getData();
+                    setSingleFoodsBean(data);
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
+    }
+
+    /**
+     * @param data 原始数据
+     * @author fenghao
+     * @date 2018/7/20 0020 下午 16:36
+     * @desc 设置数据
+     */
+    private void setSingleFoodsBean(List<FoodBean.DataBean> data) {
+        FoodBean.DataBean foodDataBean;
+
+        for (int i = 0; i < data.size(); i++) {
+            //循环商品规格
+            foodDataBean = data.get(i);
+            if ("1".equals(data.get(i).getFoodType())) {
+                for (int k = 0; k < data.get(i).getShopStandarList().size(); k++) {
+                    SingleFoodsBean singleFoodsBean = new SingleFoodsBean(foodDataBean.getSingleProductNumber()
+                            , foodDataBean.getShopStandarList().get(k).getStandardNumber()
+                            , foodDataBean.getSingleProductName()
+                            , foodDataBean.getShopStandarList().get(k).getStandardName()
+                            , foodDataBean.getShopStandarList().get(k).getSell()
+                            , foodDataBean.getFoodProductsPicture()
+                            , foodDataBean.getSingleProductType()
+                            , 0
+                    );
+                    singleFoodsBeanList.add(singleFoodsBean);
+                }
+            } else if ("0".equals(data.get(i).getFoodType())) {
+                //固定套餐
+                singleFoodsBeanList.add(new SingleFoodsBean(foodDataBean.getPackageNumber()
+                        , "", foodDataBean.getPackageName()
+                        , "", foodDataBean.getPackagePrice()
+                        , foodDataBean.getPackagePicture()
+                        , foodDataBean.getPackageType()
+                        , 0));
+            } else if ("2".equals(data.get(i).getFoodType())) {
+                //组合套餐
+                singleFoodsBeanList.add(new SingleFoodsBean(foodDataBean.getGroupPackageNumber()
+                        , "", foodDataBean.getGroupPackageName()
+                        , "", foodDataBean.getGroupPackagePrice()
+                        , foodDataBean.getPackagePicture()
+                        , foodDataBean.getCateGoryType()
+                        , 0));
+            }
+
+        }
+        //取出同类型的商品放入集合2 显示  默认显示第一个分类的数据
+        for (int n = 0; n < singleFoodsBeanList.size(); n++) {
+            if (singleFoodsBeanList.get(n).getCategoryNumber().equals(dataBeanList.get(0).getCategoryNumber())) {
+                singleFoodsBeanList2.add(singleFoodsBeanList.get(n));
+            }
+        }
+        showFoodsList();
+    }
+
+    /**
+     * @author fenghao
+     * @date 2018/7/20 0020 下午 16:55
+     * @desc 展示商品列表
+     */
+    private void showFoodsList() {
+        addTaocanFoodsAdapter = new AddTaocanFoodsAdapter(R.layout.module_recycle_item_create_order_food, singleFoodsBeanList2,1);
+        rvPayforCommodityFoods.setAdapter(addTaocanFoodsAdapter);
+        rvPayforCommodityFoods.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
 
     @OnClick({R.id.ll_payfor_commodity_tag_tianjiataocan, R.id.ll_payfor_commodity_tag_guanlifenlei, R.id.ll_payfor_commodity_tag_tianjiashangpin, R.id.ll_payfor_commodity_tag_tianjiazuhe, R.id.ll_payfor_commodity_tag_gengduocaozuo})
     public void onViewClicked(View view) {
@@ -92,7 +288,7 @@ public class CommodityActivity extends BaseActivity {
             case R.id.ll_payfor_commodity_tag_tianjiazuhe:
                 //添加分组页面
                 Intent addzuheIntent = new Intent(this, TaocanfenzuActivity.class);
-                addzuheIntent.putExtra("choose","");
+                addzuheIntent.putExtra("choose", "");
                 startActivity(addzuheIntent);
                 break;
             case R.id.ll_payfor_commodity_tag_gengduocaozuo:
