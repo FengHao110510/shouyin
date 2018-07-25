@@ -45,7 +45,7 @@ public class CreateOrderFoodListAdapter extends BaseQuickAdapter<SelectMealEntit
         // 根据选择的餐品数量是否大于0，决定数量角标和减号按钮是否显示
         helper.setText(R.id.tv_food_count, item.getFoodProductsCount() + "");
         BigDecimal bigDecimal = new BigDecimal(item.getFoodPrice()).multiply(new BigDecimal(item.getFoodProductsCount()));
-        helper.setText(R.id.tv_food_price, bigDecimal.setScale(1).toString());
+        helper.setText(R.id.tv_food_price, bigDecimal.setScale(2).toString());
 
         String foodType = item.getFoodProductsType();
         if ("1".equals(foodType)) {
