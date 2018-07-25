@@ -58,7 +58,7 @@ public class SaomaFoodsSetActivity extends BaseActivity {
         tvMineSaomafoodsetSaomamoshi.setText(Global.getSpGlobalUtil().getSaomamoshi());
 
         //初始化扫码点餐按钮
-        if (Global.getSpGlobalUtil().getSaomaDiancan()) {
+        if (Global.getSpGlobalUtil().getScanCreateMeal()) {
             tvMineSaomafoodsetSaomafoodBt.setBackground(this.getResources().getDrawable(R.drawable.imgbt_selector));
 
         } else {
@@ -75,12 +75,12 @@ public class SaomaFoodsSetActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_mine_saomafoodset_saomafood_bt:
-                if (Global.getSpGlobalUtil().getSaomaDiancan()) {
+                if (Global.getSpGlobalUtil().getScanCreateMeal()) {
                     tvMineSaomafoodsetSaomafoodBt.setBackground(this.getResources().getDrawable(R.drawable.imgbt_nomal));
-                    Global.getSpGlobalUtil().setSaomaDiancan(false);
+                    Global.getSpGlobalUtil().setScanCreateMeal(false);
                 } else {
                     tvMineSaomafoodsetSaomafoodBt.setBackground(this.getResources().getDrawable(R.drawable.imgbt_selector));
-                    Global.getSpGlobalUtil().setSaomaDiancan(true);
+                    Global.getSpGlobalUtil().setScanCreateMeal(true);
 
                 }
                 break;
