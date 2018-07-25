@@ -30,7 +30,7 @@ public class CollectMoneyAdapter extends BaseQuickAdapter<SelectMealEntity, Base
     protected void convert(BaseViewHolder helper, SelectMealEntity item) {
         String foodType = item.getFoodProductsType();
         BigDecimal bigDecimal = new BigDecimal(item.getFoodPrice()).multiply(new BigDecimal(item.getFoodProductsCount()));
-        helper.setText(R.id.tv_food_price, bigDecimal.setScale(1).toString());
+        helper.setText(R.id.tv_food_price, bigDecimal.setScale(2).toString());
         helper.setText(R.id.tv_food_count, item.getFoodProductsCount() + "");
         if ("1".equals(foodType)) {
             // 单品
