@@ -36,24 +36,26 @@ import com.hongsou.douguoshouyin.javabean.TurnoverBean;
 
 
 public class TurnoverMultipleItem implements MultiItemEntity {
-    //用于区分不同的布局
-    public static final int FIRST_TYPE = 1;
-    public static final int SECOND_TYPE = 2;
 
+    /**
+     * 用于区分不同的布局
+     */
+    public static final int TYPE_DATE = 1;
+    public static final int TYPE_INFO = 2;
+    /**
+     * 数据源
+     */
+    private TurnoverBean data;
     private int itemType;
-    //数据源
 
-
-    public TurnoverBean.DataBean.ResultBean getData() {
-        return data;
-    }
-
-    public TurnoverMultipleItem(int itemType, TurnoverBean.DataBean.ResultBean data) {
+    public TurnoverMultipleItem(int itemType, TurnoverBean data) {
         this.itemType = itemType;
         this.data = data;
     }
 
-    private TurnoverBean.DataBean.ResultBean data;
+    public TurnoverBean getData() {
+        return data;
+    }
 
     @Override
     public int getItemType() {

@@ -2,6 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_12"
+    android:paddingRight="@dimen/margin_12"
+    android:paddingTop="@dimen/margin_6"
+    android:paddingBottom="@dimen/margin_6"
     android:background="@color/white">
 
     <LinearLayout
@@ -15,11 +19,11 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_item_turnover_turnover_second_type"
+                android:id="@+id/tv_payment_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="现金"
-                android:textColor="@color/black"
+                android:textColor="@color/color_subtitle"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -27,16 +31,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" [ "
-                android:textColor="@color/black"
+                android:textColor="@color/color_subtitle"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <TextView
-                android:id="@+id/tv_item_turnover_turnover_second_state"
+                android:id="@+id/tv_payment_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="收款成功"
-                android:textColor="@color/black"
+                android:textColor="@color/color_subtitle"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -44,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" ]"
-                android:textColor="@color/black"
+                android:textColor="@color/color_subtitle"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -59,39 +64,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="收款时间  "
-                android:textColor="@color/black"
+                android:textColor="@color/color_subtitle"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_item_turnover_turnover_second_time"
+                android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2018-07-16 18:00:00"
-                android:textColor="@color/black"
+                android:textColor="@color/color_subtitle"
                 android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_item_turnover_turnover_second_price"
+        android:id="@+id/tv_money"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/tv_item_turnover_turnover_second_you"
-        android:text="8.0"
-        android:textColor="@color/black"
+        android:text="0"
+        android:textColor="@color/color_subtitle"
+        android:layout_marginRight="@dimen/margin_6"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/tv_item_turnover_turnover_second_you"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-
         android:background="@drawable/right" />
 
 </RelativeLayout>

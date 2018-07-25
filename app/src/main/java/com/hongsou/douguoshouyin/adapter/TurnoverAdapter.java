@@ -3,6 +3,7 @@ package com.hongsou.douguoshouyin.adapter;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.javabean.TurnoverBean;
 
 import java.util.List;
 
@@ -39,28 +40,31 @@ import java.util.List;
 
 
 public class TurnoverAdapter extends BaseMultiItemQuickAdapter<TurnoverMultipleItem, BaseViewHolder> {
-    /**
-     * Same as QuickAdapter#QuickAdapter(Context,int) but with
-     * some initialization data.
-     *
-     * @param data A new list is created out of this one to avoid mutable list
-     */
+
     public TurnoverAdapter(List<TurnoverMultipleItem> data) {
         super(data);
         //必须绑定type和layout的关系
-        addItemType(TurnoverMultipleItem.FIRST_TYPE, R.layout.module_item_turnover_turnover_first);
-        addItemType(TurnoverMultipleItem.SECOND_TYPE, R.layout.module_item_turnover_turnover_second);
+        addItemType(TurnoverMultipleItem.TYPE_DATE, R.layout.module_item_turnover_turnover_first);
+        addItemType(TurnoverMultipleItem.TYPE_INFO, R.layout.module_item_turnover_turnover_second);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, TurnoverMultipleItem item) {
+        TurnoverBean data = item.getData();
         switch (item.getItemType()) {
-            case TurnoverMultipleItem.FIRST_TYPE:
-
+            case TurnoverMultipleItem.TYPE_DATE:
+                helper.setText(R.id.tv_time, data.getTime())
+                        .setText(R.id.tv_money, data.getMoney());
                 break;
-            case TurnoverMultipleItem.SECOND_TYPE:
+            case TurnoverMultipleItem.TYPE_INFO:
+                if (data.getOrderType().equals(""));
+                helper.setText(R.id.tv_payment_type, data.getPaymentType())
+                        .setText(R.id.tv_payment_state, data.getOrderState())
+                        .setText(R.id.tv_time, data.getTradingTime())
+                        .setText(R.id.tv_money,data.getPayAmount());
                 break;
-
+            default:
+                break;
         }
     }
 }

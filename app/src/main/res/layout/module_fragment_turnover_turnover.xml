@@ -4,11 +4,17 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-  <android.support.v7.widget.RecyclerView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/rv_turnover_turnover_list"
-      android:layout_margin="20dp"></android.support.v7.widget.RecyclerView>
 
+  <com.scwang.smartrefresh.layout.SmartRefreshLayout
+      android:id="@+id/srl_turnover"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rv_turnover_turnover_list"
+        />
+  </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </RelativeLayout>
