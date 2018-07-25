@@ -20,6 +20,7 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -86,6 +87,8 @@ public class PaymentDetailActivity extends BaseActivity {
             mTvOrderPayType.setText(payOnLineSuccessBean.getTradeType());
             mTvOrderPayMoney.setText(payOnLineSuccessBean.getMoney());
             mTvOrderPayStatus.setText("支付成功");
+            MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType()+"收款到账"
+                    +payOnLineSuccessBean.getMoney()+"元",this);
         }
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
