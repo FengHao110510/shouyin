@@ -52,6 +52,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
     private List<TurnoverMultipleItem> turnoverMultipleItemList;
     private TurnoverAdapter mTurnoverAdapter;
     private HashMap<String, String> mParam = new HashMap<>();
+    private String mTradingTime = "";
 
     @Override
     public int getLayoutId() {
@@ -60,7 +61,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
 
     @Override
     public void init() {
-        turnoverMultipleItemList = new ArrayList<>();
+        result = new ArrayList<>();
         rvTurnoverTurnoverList.setLayoutManager(new LinearLayoutManager(getActivity()));
         initPullRefresher();
         initData();
@@ -79,6 +80,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
+                mTradingTime = "";
                 showTurnoverList(new HashMap<String, String>());
                 mSrlTurnover.finishRefresh();
 
@@ -124,8 +126,12 @@ public class TurnoverTurnoverFragment extends BaseFragment {
                 .build().execute(new ResponseCallback<RootBean<List<TurnoverBean>>>(getActivity()) {
             @Override
             public void onResponse(RootBean<List<TurnoverBean>> response, int id) {
-                if (response.getCode() == 1000) {
-                    result = response.getData();
+                if (response.isSuccess()) {
+                    if (page == 1){
+                        result.clear();
+                    }
+                    result.addAll(response.getData());
+                    mTradingTime = result.get(result.size() - 1).getTradingTime();
                     setTurnoverAdapter(result);
                 } else {
                     ToastUtil.showToast(response.getMsg());
@@ -142,6 +148,12 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @desc 设置适配器
      */
     private void setTurnoverAdapter(List<TurnoverBean> result) {
+        if (turnoverMultipleItemList == null){
+            turnoverMultipleItemList = new ArrayList<>();
+            mTurnoverAdapter = new TurnoverAdapter(turnoverMultipleItemList);
+            rvTurnoverTurnoverList.setAdapter(mTurnoverAdapter);
+        }
+        turnoverMultipleItemList.clear();
         for (int i = 0; i < result.size(); i++) {
             if (result.get(i).getItem() == 1) {
                 turnoverMultipleItemList.add(new TurnoverMultipleItem(TurnoverMultipleItem.TYPE_DATE, result.get(i)));
@@ -149,7 +161,6 @@ public class TurnoverTurnoverFragment extends BaseFragment {
                 turnoverMultipleItemList.add(new TurnoverMultipleItem(TurnoverMultipleItem.TYPE_INFO, result.get(i)));
             }
         }
-        mTurnoverAdapter = new TurnoverAdapter(turnoverMultipleItemList);
-        rvTurnoverTurnoverList.setAdapter(mTurnoverAdapter);
+        mTurnoverAdapter.notifyDataSetChanged();
     }
 }

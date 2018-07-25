@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
@@ -98,13 +100,25 @@ public class PaymentDetailActivity extends BaseActivity {
             }
         });
         // 点击返回按钮，跳转到首页
-//        mTopBar.setLeftViewClickListener(new CommonTopBar.ClickCallBack() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
-//                finish();
-//            }
-//        });
+        mTopBar.setLeftViewClickListener(new CommonTopBar.ClickCallBack() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
+            finish();
+            return false;
+        }else {
+            return super.onKeyDown(keyCode, event);
+        }
+
     }
 
     @Override

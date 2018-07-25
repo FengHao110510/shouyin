@@ -30,6 +30,7 @@ public class SelectMealEntity {
     private String foodName;
     private String foodPrice;
     private String standardName;
+    private String foodProductPicture;
 
     /**
      * deletionFlag : 0
@@ -87,18 +88,19 @@ public class SelectMealEntity {
     @Convert(columnType = String.class, converter = GroupFoodConverter.class)
     private List<FoodZuheTaocanXQ> groupFood;
 
-    @Generated(hash = 817945036)
-    public SelectMealEntity(long id, String foodName, String foodPrice, String standardName, double VIPPrice, double amount, String mealCode,
-            String sell, int sellingStatus, String singleProductName, String standardNumber, int PHR, long endTime, String packageInitials,
-            String packageName, String packagePrice, String packageType, String packageUnit, int selling, long startTime, int takeout,
-            int theKitchenPrint, int antiNodeCount, String deletionFlag, String discountAmount, int foodProductsCount,
-            String foodProductsNumber, String packageNumber, String foodProductsType, String increasePrice, String memberPreferences,
-            String remarks, String replace, String serialNumber, String shopNumber, String standard, List<PackageFoodEntity> packageFood,
-            List<FoodZuheTaocanXQ> groupFood) {
+    @Generated(hash = 1230439640)
+    public SelectMealEntity(long id, String foodName, String foodPrice, String standardName, String foodProductPicture, double VIPPrice,
+            double amount, String mealCode, String sell, int sellingStatus, String singleProductName, String standardNumber, int PHR,
+            long endTime, String packageInitials, String packageName, String packagePrice, String packageType, String packageUnit, int selling,
+            long startTime, int takeout, int theKitchenPrint, int antiNodeCount, String deletionFlag, String discountAmount,
+            int foodProductsCount, String foodProductsNumber, String packageNumber, String foodProductsType, String increasePrice,
+            String memberPreferences, String remarks, String replace, String serialNumber, String shopNumber, String standard,
+            List<PackageFoodEntity> packageFood, List<FoodZuheTaocanXQ> groupFood) {
         this.id = id;
         this.foodName = foodName;
         this.foodPrice = foodPrice;
         this.standardName = standardName;
+        this.foodProductPicture = foodProductPicture;
         this.VIPPrice = VIPPrice;
         this.amount = amount;
         this.mealCode = mealCode;
@@ -506,6 +508,14 @@ public class SelectMealEntity {
             }
         }
         return true;
+    }
+
+    public String getFoodProductPicture() {
+        return this.foodProductPicture;
+    }
+
+    public void setFoodProductPicture(String foodProductPicture) {
+        this.foodProductPicture = foodProductPicture;
     }
 
 
