@@ -548,7 +548,8 @@ public class PayForActivity extends BaseActivity {
                 .addParams("discountType", Global.getSpGlobalUtil().getZhekou())
                 .addParams("discountMoney", Global.getSpGlobalUtil().getZheKouJE())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
-                .addParams("appKey", Constant.APP_KEY).build().execute(new StringCallback() {
+                .addParams("appKey", Constant.APP_KEY)
+                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtil.showError();
@@ -561,10 +562,14 @@ public class PayForActivity extends BaseActivity {
         
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         Global.getSpGlobalUtil().setZheKouJE("");
         Global.getSpGlobalUtil().setZhekou("");
         Global.getSpGlobalUtil().setYingshouJE("");
-
     }
 
     //获取event发过来的额二维码号

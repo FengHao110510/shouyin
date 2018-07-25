@@ -93,6 +93,7 @@ public class QRCode extends BaseActivity {
                 .addParams("discountMoney", Global.getSpGlobalUtil().getZheKouJE())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
+                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -119,12 +120,9 @@ public class QRCode extends BaseActivity {
                     e.printStackTrace();
                 }
 
-
             }
         });
-        Global.getSpGlobalUtil().setZheKouJE("");
-        Global.getSpGlobalUtil().setZhekou("");
-        Global.getSpGlobalUtil().setYingshouJE("");
+
     }
 
     @Override

@@ -214,5 +214,5 @@ public class ApiConfig {
     /**
      * TODO 检查更新
      */
-    public static final String checkVersion = BASE_URL + "";
+    public static final String GET_SYSTEM_SETUP = BASE_URL + "/setting/getSystemSetup";
 }

@@ -3,11 +3,15 @@ package com.hongsou.douguoshouyin.adapter;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.Constant;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
 import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 
@@ -74,5 +78,24 @@ public class AddTaocanFoodsAdapter extends BaseQuickAdapter<SingleFoodsBean, Bas
                 .setText(R.id.tv_food_count, item.getSingleQuantity() + "")
                 .addOnClickListener(R.id.tv_subtract)
                 .addOnClickListener(R.id.tv_add);
+        // 图片路径
+        String img_url = "";
+
+        if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
+            img_url = item.getFoodProductsPicture();
+            // 是否有分隔符’-’
+            if (item.getFoodProductsPicture().contains("--")) {
+                String[] split = item.getFoodProductsPicture().split("--");
+                img_url = split[0];
+            }
+            // 是否有旧数据中无用的字符链接
+            if (img_url.contains(Constant.IMG_REPLACE1) || img_url.contains(Constant.IMG_REPLACE2)) {
+                img_url = img_url.substring(img_url.indexOf("shopPic/"), img_url.length());
+            }
+        }
+        Glide.with(mContext).load(ApiConfig.IMG_URL + img_url)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.drawable.dg_logo)
+                .into((ImageView) helper.getView(R.id.iv_food_img));
     }
 }
