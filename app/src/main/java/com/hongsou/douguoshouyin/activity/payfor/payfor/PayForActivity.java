@@ -25,6 +25,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.Constant;
+import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
@@ -35,6 +36,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -573,7 +576,12 @@ public class PayForActivity extends BaseActivity {
         //TODO 走成功接口
         toPay(msg);
     }
-
+    @Subscribe
+    public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean){
+        Intent successIntent = new Intent(this,PaymentDetailActivity.class);
+        successIntent.putExtra("payOnLineSuccessBean",(Serializable) payOnLineSuccessBean);
+        startActivity(successIntent);
+    }
 
     @Override
     protected void onDestroy() {

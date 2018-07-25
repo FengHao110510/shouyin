@@ -11,12 +11,14 @@ import android.widget.TextView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.hongsou.douguoshouyin.base.Constant;
+import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.ScreenUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,6 +32,8 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.Global;
+
+import java.io.Serializable;
 
 import okhttp3.Call;
 
@@ -167,13 +171,26 @@ public class QRCode extends BaseActivity {
 
     }
 
+    @Subscribe
+    public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean){
+        Intent successIntent = new Intent(this,PaymentDetailActivity.class);
+        successIntent.putExtra("payOnLineSuccessBean",(Serializable) payOnLineSuccessBean);
+        startActivity(successIntent);
+        finish();
+    }
+
     //====================================================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
