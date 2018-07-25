@@ -3,6 +3,7 @@ package com.hongsou.douguoshouyin.adapter;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -76,14 +77,12 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             }
             if (!TextUtils.isEmpty(item.getFoodProductsPicture())) {
                 img_url = item.getFoodProductsPicture();
-                if (item.getFoodProductsPicture().contains("-")){
-                    String[] split = item.getFoodProductsPicture().split("-");
+                if (item.getFoodProductsPicture().contains("--")) {
+                    String[] split = item.getFoodProductsPicture().split("--");
                     img_url = split[0];
                 }
-                if (img_url.contains(Constant.IMG_REPLACE1)){
-                    img_url.replace(Constant.IMG_REPLACE1,"");
-                }else if (img_url.contains(Constant.IMG_REPLACE2)){
-                    img_url.replace(Constant.IMG_REPLACE2,"");
+                if (img_url.contains(Constant.IMG_REPLACE1) || img_url.contains(Constant.IMG_REPLACE2)) {
+                    img_url = img_url.substring(img_url.indexOf("shopPic/"), img_url.length());
                 }
             }
         } else if ("0".equals(foodType)) {
@@ -94,14 +93,12 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             helper.setVisible(R.id.rl_standard, false);
             if (!TextUtils.isEmpty(item.getPackagePicture())) {
                 img_url = item.getPackagePicture();
-                if (item.getPackagePicture().contains("-")){
-                    String[] split = item.getPackagePicture().split("-");
+                if (item.getPackagePicture().contains("--")) {
+                    String[] split = item.getPackagePicture().split("--");
                     img_url = split[0];
                 }
-                if (img_url.contains(Constant.IMG_REPLACE1)){
-                    img_url.replace(Constant.IMG_REPLACE1,"");
-                }else if (img_url.contains(Constant.IMG_REPLACE2)){
-                    img_url.replace(Constant.IMG_REPLACE2,"");
+                if (img_url.contains(Constant.IMG_REPLACE1) || img_url.contains(Constant.IMG_REPLACE2)) {
+                    img_url = img_url.substring(img_url.indexOf("shopPic/"), img_url.length());
                 }
             }
         } else if ("2".equals(foodType)) {
@@ -114,19 +111,21 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             if (!TextUtils.isEmpty(item.getPackagePicture())) {
                 img_url = item.getPackagePicture();
                 // 是否有分隔符’-’
-                if (item.getPackagePicture().contains("-")){
-                    String[] split = item.getPackagePicture().split("-");
+                if (item.getPackagePicture().contains("--")) {
+                    String[] split = item.getPackagePicture().split("--");
                     img_url = split[0];
                 }
                 // 是否有旧数据中无用的字符链接
-                if (img_url.contains(Constant.IMG_REPLACE1)){
-                    img_url.replace(Constant.IMG_REPLACE1,"");
-                }else if (img_url.contains(Constant.IMG_REPLACE2)){
-                    img_url.replace(Constant.IMG_REPLACE2,"");
+                if (img_url.contains(Constant.IMG_REPLACE1) || img_url.contains(Constant.IMG_REPLACE2)) {
+                    img_url = img_url.substring(img_url.indexOf("shopPic/"), img_url.length());
                 }
             }
         }
-        Glide.with(mContext).load(ApiConfig.IMG_URL + img_url).into((ImageView) helper.getView(R.id.iv_food_img));
+        Log.e(TAG, "convert: " + ApiConfig.IMG_URL + img_url);
+        Glide.with(mContext).load(ApiConfig.IMG_URL + img_url)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.drawable.dg_logo)
+                .into((ImageView) helper.getView(R.id.iv_food_img));
     }
 
 }

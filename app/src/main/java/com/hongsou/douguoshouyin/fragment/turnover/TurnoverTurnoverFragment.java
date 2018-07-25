@@ -82,19 +82,13 @@ public class TurnoverTurnoverFragment extends BaseFragment {
         param.put("pageString", page + "");
         // todo 参数需要和订单列表的统一一下
         HttpFactory.get().url(ApiConfig.GET_PAY_ORDER_LIST)
-                .addParams("shopNumber", "1000180614300325544")
-                .addParams("tradingTime", "")
-                .addParams("endTime", "")
-                .addParams("paymentType", "")
-                .addParams("orderState", "")
-                .addParams("pageString", page + "")
-                .addParams("rowsString", "10")
+                .params(param)
                 .build().execute(new ResponseCallback<TurnoverBean>(getActivity()) {
             @Override
             public void onResponse(TurnoverBean response, int id) {
                 if (response.getCode() == 1000) {
                     result = response.getData().getResult();
-                    setTurnoverAdapter(result);
+//                    setTurnoverAdapter(result);
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }

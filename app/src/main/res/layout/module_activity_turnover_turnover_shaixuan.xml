@@ -8,6 +8,7 @@
     >
 
     <com.hongsou.douguoshouyin.views.CommonTopBar
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:left_text="@string/icon_back"
@@ -118,7 +119,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tv_turnover_turnover_shaixuan_starttime"
+                        android:id="@+id/tv_handover_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:background="@drawable/shaixuan_nomal"
@@ -138,7 +139,7 @@
                         android:textColor="@color/gray" />
 
                     <TextView
-                        android:id="@+id/tv_turnover_turnover_shaixuan_endtime"
+                        android:id="@+id/tv_handover_end_time"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:background="@drawable/shaixuan_nomal"
@@ -155,7 +156,7 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/bt_turnover_turnover_shaixuan_shaixuan"
+        android:id="@+id/btn_handover_condition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

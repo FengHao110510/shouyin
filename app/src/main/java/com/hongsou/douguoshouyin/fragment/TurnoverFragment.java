@@ -146,7 +146,7 @@ public class TurnoverFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == TurnoverFragment.REQUEST_CODE){
+        if (requestCode == TurnoverFragment.REQUEST_CODE && data != null){
             mParam = (HashMap<String, String>) data.getSerializableExtra("data");
             if (resultCode == 0){
                 mTurnoverOrderFragment.getOrderList(mParam);

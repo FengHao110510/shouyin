@@ -15,7 +15,9 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.OrderConditionBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.hongsou.douguoshouyin.views.CustomDatePicker;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -53,12 +55,16 @@ public class OrderConditionActivity extends BaseActivity {
     TagFlowLayout mTflPayStatus;
     @BindView(R.id.tfl_pay_channel)
     TagFlowLayout mTflPayChannel;
-    @BindView(R.id.tv_turnover_turnover_shaixuan_starttime)
-    TextView mTvTurnoverTurnoverShaixuanStarttime;
-    @BindView(R.id.tv_turnover_turnover_shaixuan_endtime)
-    TextView mTvTurnoverTurnoverShaixuanEndtime;
-    @BindView(R.id.bt_turnover_turnover_shaixuan_shaixuan)
-    Button mBtTurnoverTurnoverShaixuanShaixuan;
+    @BindView(R.id.top_bar)
+    CommonTopBar mTopBar;
+    @BindView(R.id.tv_order_channel)
+    TextView mTvOrderChannel;
+    @BindView(R.id.tv_handover_start_time)
+    TextView mTvHandoverStartTime;
+    @BindView(R.id.tv_handover_end_time)
+    TextView mTvHandoverEndTime;
+    @BindView(R.id.btn_handover_condition)
+    Button mBtnHandoverCondition;
 
     /**
      * 订单来源选择
@@ -82,8 +88,11 @@ public class OrderConditionActivity extends BaseActivity {
      * 选择的筛选条件
      */
     private String orderSource;
+    private int orderSourcePosition;
     private String payStatus;
+    private int payStatusPosition;
     private String payChannel;
+    private int payChannelPosition;
     private int mType;
 
     @Override
@@ -114,8 +123,82 @@ public class OrderConditionActivity extends BaseActivity {
         initDateEndPicker("2010-01-01 00:00", now);
 
         initData();
+
+        setRightListener();
     }
 
+    /**
+     * @desc 右上角重置按钮
+     * @anthor lpc
+     * @date: 2018/7/25
+     */
+    private void setRightListener() {
+        mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
+            @Override
+            public void onClick(View v) {
+                // 重置
+                orderSource = "";
+                payStatus = "";
+                payChannel = "";
+                mTvHandoverStartTime.setText(DateUtils.getStringDateNotSS());
+                mTvHandoverEndTime.setText(DateUtils.getStringDateNotSS());
+                if (orderSourceList.size() > 0) {
+                    mTflOrderSource.getChildAt(orderSourcePosition).setSelected(false);
+                }
+                if (payChannelList.size() > 0){
+                    mTflPayChannel.getChildAt(payChannelPosition).setSelected(false);
+                }
+                if (payStatusList.size() > 0){
+                    mTflPayStatus.getChildAt(payStatusPosition).setSelected(false);
+                }
+            }
+        });
+    }
+
+    /**
+     * @param endTime 最后期限  初始化开始时间
+     * @desc 初始化开始时间
+     * @anthor lpc
+     * @date: 2018/7/23
+     */
+    private void initDateStartPicker(String endTime) {
+        mTvHandoverStartTime.setText(endTime);
+        customDatePickerStart = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                // 回调接口，获得选中的时间
+                mTvHandoverStartTime.setText(time);
+            }
+        }, "2010-01-01 00:00", endTime);
+        // 显示时和分
+        customDatePickerStart.showSpecificTime(true);
+        // 允许循环滚动
+        customDatePickerStart.setIsLoop(true);
+    }
+
+    /**
+     * @param startTime 开始期限  初始化开始时间
+     * @param endTime   endTime 最后期限 现在
+     * @desc 初始化结束时间
+     * @anthor lpc
+     * @date: 2018/7/23
+     */
+    private void initDateEndPicker(String startTime, String endTime) {
+        customDatePickerEnd = null;
+        mTvHandoverEndTime.setText(endTime);
+        customDatePickerEnd = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) {
+                // 回调接口，获得选中的时间
+                mTvHandoverEndTime.setText(time);
+
+            }
+        }, startTime, endTime);
+        // 显示时和分
+        customDatePickerEnd.showSpecificTime(true);
+        // 允许循环滚动
+        customDatePickerEnd.setIsLoop(true);
+    }
 
     @Override
     public void initData() {
@@ -167,10 +250,13 @@ public class OrderConditionActivity extends BaseActivity {
                 public boolean onTagClick(View view, int position, FlowLayout parent) {
                     if ("orderSource".equals(type)) {
                         orderSource = data.get(position).getOrderSourcePayment();
+                        orderSourcePosition = position;
                     } else if ("payStatus".equals(type)) {
                         payStatus = data.get(position).getOrderSourcePayment();
+                        payStatusPosition = position;
                     } else if ("payChannel".equals(type)) {
                         payChannel = data.get(position).getOrderSourcePayment();
+                        payChannelPosition = position;
                     }
                     return false;
                 }
@@ -178,65 +264,20 @@ public class OrderConditionActivity extends BaseActivity {
         }
     }
 
-    /**
-     * @param endTime 最后期限  初始化开始时间
-     * @desc 初始化开始时间
-     * @anthor lpc
-     * @date: 2018/7/23
-     */
-    private void initDateStartPicker(String endTime) {
-        mTvTurnoverTurnoverShaixuanStarttime.setText(endTime);
-        customDatePickerStart = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
-            @Override
-            public void handle(String time) {
-                // 回调接口，获得选中的时间
-                mTvTurnoverTurnoverShaixuanStarttime.setText(time);
-            }
-        }, "2010-01-01 00:00", endTime); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
-        // 显示时和分
-        customDatePickerStart.showSpecificTime(true);
-        // 允许循环滚动
-        customDatePickerStart.setIsLoop(true);
-    }
-
-    /**
-     * @param startTime 开始期限  初始化开始时间
-     * @param endTime   endTime 最后期限 现在
-     * @desc 初始化结束时间
-     * @anthor lpc
-     * @date: 2018/7/23
-     */
-    private void initDateEndPicker(String startTime, String endTime) {
-        customDatePickerEnd = null;
-        mTvTurnoverTurnoverShaixuanEndtime.setText(endTime);
-        customDatePickerEnd = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
-            @Override
-            public void handle(String time) {
-                // 回调接口，获得选中的时间
-                mTvTurnoverTurnoverShaixuanEndtime.setText(time);
-
-            }
-        }, startTime, endTime); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
-        // 显示时和分
-        customDatePickerEnd.showSpecificTime(true);
-        // 允许循环滚动
-        customDatePickerEnd.setIsLoop(true);
-    }
-
-    @OnClick({R.id.tv_turnover_turnover_shaixuan_starttime, R.id.tv_turnover_turnover_shaixuan_endtime, R.id.bt_turnover_turnover_shaixuan_shaixuan})
+    @OnClick({R.id.tv_handover_end_time, R.id.tv_handover_start_time, R.id.btn_handover_condition})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_turnover_turnover_shaixuan_starttime:
+            case R.id.tv_handover_start_time:
                 // 日期格式为yyyy-MM-dd HH:mm
-                customDatePickerStart.show(mTvTurnoverTurnoverShaixuanStarttime.getText().toString());
+                customDatePickerStart.show(mTvHandoverStartTime.getText().toString());
                 break;
-            case R.id.tv_turnover_turnover_shaixuan_endtime:
+            case R.id.tv_handover_end_time:
                 // 日期格式为yyyy-MM-dd HH:mm
-                customDatePickerEnd.show(mTvTurnoverTurnoverShaixuanEndtime.getText().toString());
+                customDatePickerEnd.show(mTvHandoverEndTime.getText().toString());
                 break;
-            case R.id.bt_turnover_turnover_shaixuan_shaixuan:
+            case R.id.btn_handover_condition:
                 //判断起始时间不得大于结束时间
-                if (mTvTurnoverTurnoverShaixuanStarttime.getText().toString().compareTo(mTvTurnoverTurnoverShaixuanEndtime.getText().toString()) > 0) {
+                if (mTvHandoverStartTime.getText().toString().compareTo(mTvHandoverEndTime.getText().toString()) > 0) {
                     ToastUtil.showToast("起始时间不得大于结束时间");
                 } else {
                     //上个界面应该 startActivityForResult  这里返回数据给上个fragment  重新加载筛选后的数据
@@ -248,9 +289,9 @@ public class OrderConditionActivity extends BaseActivity {
                     //支付方式
                     data.put("paymentType", payChannel);
                     //开始时间
-                    data.put("tradingTime", mTvTurnoverTurnoverShaixuanStarttime.getText().toString());
+                    data.put("tradingTime", mTvHandoverStartTime.getText().toString());
                     //结束时间
-                    data.put("endTime", mTvTurnoverTurnoverShaixuanEndtime.getText().toString());
+                    data.put("endTime", mTvHandoverEndTime.getText().toString());
                     Intent reIntent = new Intent();
                     reIntent.putExtra("data", ((Serializable) data));
                     setResult(mType, reIntent);
