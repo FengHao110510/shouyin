@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.QRCode;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.QRCodeActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.CollectMoneyAdapter;
@@ -160,9 +160,11 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        createOrderInfo();
         switch (v.getId()) {
             case R.id.ll_payfor_pop_sao:
                 mPopupWindow.dismiss();
+                Global.getSpGlobalUtil().setReceivableMoney(mTotalMoney);
                 new IntentIntegrator(CollectMoneyActivity.this).
                         setCaptureActivity(ScanQRCodeActivity.class)
                         // 设置提示语
@@ -175,17 +177,14 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                         .setBarcodeImageEnabled(true)
                         // 初始化扫码
                         .initiateScan();
-                ToastUtil.showToast("扫一扫");
                 break;
             case R.id.ll_payfor_pop_erwei:
                 mPopupWindow.dismiss();
-                Intent intent = new Intent(CollectMoneyActivity.this, QRCode.class);
+                Intent intent = new Intent(CollectMoneyActivity.this, QRCodeActivity.class);
                 startActivity(intent);
-                ToastUtil.showToast("二维码");
                 break;
             case R.id.ll_payfor_pop_xianjin:
                 mPopupWindow.dismiss();
-                createOrderInfo();
                 startActivity(new Intent(this, CollectMoneyForCashActivity.class)
                         .putExtra("bean", new Gson().toJson(createOrderInfo())));
                 break;
