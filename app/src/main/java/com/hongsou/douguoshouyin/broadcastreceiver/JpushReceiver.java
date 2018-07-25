@@ -58,7 +58,7 @@ public class JpushReceiver extends BroadcastReceiver {
             //}
 
             //处理支付推送的消息
-//            successAct(context, extras);
+            successAct(context, extras);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Log.d(TAG, "接受到推送下来的通知");

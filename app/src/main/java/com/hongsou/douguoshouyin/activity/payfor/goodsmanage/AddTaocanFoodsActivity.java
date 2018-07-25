@@ -242,8 +242,8 @@ public class AddTaocanFoodsActivity extends BaseActivity {
                         //减
                         //获取点击的商品编号 去找singleFoodsBeanList中的对应商品-1
                         for (int i = 0; i < singleFoodsBeanList.size(); i++) {
-                            if (singleFoodsBeanList.get(i).getSingleProductNumber().
-                                    equals(singleFoodsBeanList2.get(position).getSingleProductNumber())) {
+                            if (singleFoodsBeanList.get(i).getStandardNumber().
+                                    equals(singleFoodsBeanList2.get(position).getStandardNumber())) {
                                 if (singleFoodsBeanList.get(i).getSingleQuantity() < 1) {
                                     ToastUtil.showToast("商品数量不得小于0");
                                 } else {
@@ -258,8 +258,8 @@ public class AddTaocanFoodsActivity extends BaseActivity {
                         //加
                         //获取点击的商品编号 去找singleFoodsBeanList中的对应商品+1
                         for (int i = 0; i < singleFoodsBeanList.size(); i++) {
-                            if (singleFoodsBeanList.get(i).getSingleProductNumber().
-                                    equals(singleFoodsBeanList2.get(position).getSingleProductNumber())) {
+                            if (singleFoodsBeanList.get(i).getStandardNumber().
+                                    equals(singleFoodsBeanList2.get(position).getStandardNumber())) {
                                 tvFoodCount.setText((singleFoodsBeanList.get(i).getSingleQuantity() + 1) + "");
                                 singleFoodsBeanList.get(i).setSingleQuantity(singleFoodsBeanList.get(i).getSingleQuantity() + 1);
                                 Log.e(TAG, "onItemChildClick: " + tvFoodCount.getText().toString());

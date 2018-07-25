@@ -39,24 +39,7 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     public void initView() {
         initTimer();
-        RxPermissions rxPermission = new RxPermissions(this);
-        rxPermission
-                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.CALL_PHONE)
-                .subscribe(new Consumer<Permission>() {
-                    @Override
-                    public void accept(Permission permission) throws Exception {
-                        if (permission.granted) {
 
-                        } else {
-                            // 用户拒绝了该权限，并且选中『不再询问』
-                            ToastUtil.showToast("请打开相关权限，否则将影响使用");
-                        }
-                    }
-                });
     }
 
     /**
