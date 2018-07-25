@@ -634,7 +634,7 @@ public class AddGoodsActivity extends BaseActivity {
                     endTime = tvDialogTimeShaixuanEnd.getText().toString();
                     selling = 0;
                     tvPayforAddgoodsTime.setText(startTime + "---" + endTime);
-
+                    sellingFlag = false;
                     dialog.dismiss();
                 }
 
@@ -660,9 +660,9 @@ public class AddGoodsActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         //初始化起始时间
-        initDateStartPicker(now, tvDialogTimeShaixuanStart);
+        initDateStartPicker("2100-01-01 00:00",now, tvDialogTimeShaixuanStart);
         //初始化结束时间
-        initDateEndPicker("2010-01-01 00:00", now, tvDialogTimeShaixuanEnd);
+        initDateEndPicker("2010-01-01 00:00",now, "2100-01-01 00:00", tvDialogTimeShaixuanEnd);
 
         Display display = this.getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
@@ -671,15 +671,13 @@ public class AddGoodsActivity extends BaseActivity {
 
         dialog = new Dialog(this, R.style.TRCommonDialog);
         dialog.setContentView(view, params);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 
     //endtime 最后期限  初始化开始时间
-    private void initDateStartPicker(String endtime, final TextView tv_dialog_time_shaixuan_start) {
+    private void initDateStartPicker(String endtime,String now, final TextView tv_dialog_time_shaixuan_start) {
 
-        tv_dialog_time_shaixuan_start.setText(endtime);
+        tv_dialog_time_shaixuan_start.setText(now);
         customDatePickerStart = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
@@ -691,9 +689,9 @@ public class AddGoodsActivity extends BaseActivity {
     }
 
     //starttime 开始期限  初始化开始时间  endtime 最后期限 现在
-    private void initDateEndPicker(String starttime, String endtime, final TextView tv_dialog_time_shaixuan_end) {
+    private void initDateEndPicker(String starttime,String now, String endtime, final TextView tv_dialog_time_shaixuan_end) {
         customDatePickerEnd = null;
-        tv_dialog_time_shaixuan_end.setText(endtime);
+        tv_dialog_time_shaixuan_end.setText(now);
         customDatePickerEnd = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) { // 回调接口，获得选中的时间
@@ -749,7 +747,6 @@ public class AddGoodsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 showTimeDialog();
-                sellingFlag = false;
                 timePopupWindow.dismiss();
 
             }
