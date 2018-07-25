@@ -126,9 +126,6 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         mRvCreateOrderFood.setLayoutManager(new LinearLayoutManager(this));
         mPresenter = new CreateOrderPresenter(this, new CreateOrderModel(), this);
         mInflater = LayoutInflater.from(CreateOrderActivity.this);
-        // TODO 测试用
-//        Global.getSpGlobalUtil().setShopNumber("111");
-
         mBadgeList = new ArrayList<>();
         // 获取接口数据
         mPresenter.getFoodList();

@@ -148,6 +148,7 @@ public class CreateOrderPresenter {
             entity.setFoodProductsCount(1);
             entity.setFoodProductsType(bean.getFoodType());
             entity.setIncreasePrice("0");
+            entity.setFoodProductPicture(bean.getFoodProductsPicture());
             if (standardPosition >= 0) {
                 FoodBean.DataBean.ShopStandarListBean shopStandarListBean = bean.getShopStandarList().get(standardPosition);
                 entity.setStandardName(shopStandarListBean.getStandardName());
@@ -172,6 +173,7 @@ public class CreateOrderPresenter {
                 entityList.add(packageFoodEntity);
             }
             entity.setPackageFood(entityList);
+            entity.setFoodProductPicture(bean.getPackagePicture());
         } else if ("2".equals(bean.getFoodType())) {
             // 组合套餐
             entity.setFoodName(bean.getGroupPackageName());
@@ -188,6 +190,7 @@ public class CreateOrderPresenter {
                 entityList.add(packageFoodEntity);
             }
             entity.setPackageFood(entityList);
+            entity.setFoodProductPicture(bean.getPackagePicture());
         }
         return entity;
     }

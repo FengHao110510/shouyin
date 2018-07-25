@@ -11,21 +11,26 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.QRCodeActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.CollectMoneyAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.BaseApplication;
+import com.hongsou.douguoshouyin.base.Constant;
+import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.db.SelectMealEntity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
+import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.javabean.SubmitOrderBean;
 import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
@@ -34,12 +39,18 @@ import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.hongsou.douguoshouyin.views.CustomPopupWindow;
 import com.hongsou.greendao.gen.SelectMealEntityDao;
+import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
 
 /**
  * @author lpc
@@ -90,6 +101,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void init() {
+        EventBus.getDefault().register(this);
         mSelectMealEntityDao = BaseApplication.getApplication().getDaoSession().getSelectMealEntityDao();
         mRvCollectMoney.setLayoutManager(new LinearLayoutManager(this));
         mSelectMealEntities = mSelectMealEntityDao.loadAll();
@@ -180,6 +192,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.ll_payfor_pop_erwei:
                 mPopupWindow.dismiss();
+                Global.getSpGlobalUtil().setReceivableMoney(mTotalMoney);
                 Intent intent = new Intent(CollectMoneyActivity.this, QRCodeActivity.class);
                 startActivity(intent);
                 break;
@@ -266,6 +279,96 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case IntentIntegrator.REQUEST_CODE:
+                //扫码成功的 回调
+                IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+                if (result != null) {
+                    if (result.getContents() == null) {
+                        Toast.makeText(this, "支付失败", Toast.LENGTH_LONG).show();
+                    } else {
+                        //TODO 成功之后走接口
+                        toPay(result.getContents());
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * @desc 扫一扫支付
+     * @anthor lpc
+     * @date: 2018/7/25
+     * @param contents 扫描结果
+     */
+    private void toPay(String contents) {
+        HttpFactory.post().url(ApiConfig.TABBY_PAY)
+                .addParams("equipmentNumber", Global.getSpGlobalUtil().getCode())
+                .addParams("equipmentType", "3")
+                .addParams("uniquelyCode", Global.getSpGlobalUtil().getAliCode())
+                .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
+                .addParams("totalFee",mTotalMoney)
+                .addParams("authCode", contents)
+                .addParams("batch", "s"+ DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("storeId", getShopNumber())
+                .addParams("operatorId", getClerkNumber())
+                .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
+                .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
+                .addParams("masterSecret", Constant.MASTER_SECRET)
+                .addParams("appKey", Constant.APP_KEY)
+                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback").build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.showError();
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.e(TAG, "onResponse: "+response.toString() );
+            }
+
+        });
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Global.getSpGlobalUtil().setReceivableMoney("");
+    }
+
+    /**
+     * @desc 扫一扫传递过来的扫描结果
+     * @anthor lpc
+     * @date: 2018/7/25
+     * @param event 扫描结果
+     */
+    @Subscribe
+    public void onEventMainThread(SaomahaoBean event) {
+        toPay(event.getSaomahao());
+    }
+
+    /**
+     * @desc 在线支付成功后，极光推送回来的结果
+     * @anthor lpc
+     * @date: 2018/7/25
+     * @param
+     * @return
+     */
+    @Subscribe
+    public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean){
+        Log.e(TAG, "onEventMainThread: 在线支付成功后");
+        Intent successIntent = new Intent(this,PaymentDetailActivity.class);
+        successIntent.putExtra("payOnLineSuccessBean",(Serializable) payOnLineSuccessBean);
+        startActivity(successIntent);
+    }
+
     //=============================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,4 +377,9 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         ButterKnife.bind(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
