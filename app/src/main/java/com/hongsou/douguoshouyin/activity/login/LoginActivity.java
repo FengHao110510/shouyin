@@ -170,8 +170,8 @@ public class LoginActivity extends BaseActivity {
                 }.getType());
                 if (loginBean.isSuccess()) {
                     LoginBean dataBean = loginBean.getData();
-//                    payCode(dataBean);
-                    isLogined(dataBean,"","");
+                    payCode(dataBean);
+//                    isLogined(dataBean,"","");
 
                 } else {
                     ToastUtil.showToast(loginBean.getMsg());

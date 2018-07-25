@@ -16,6 +16,7 @@ public class ApiConfig {
      * 邓辽航ip
      */
     public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+    public static final String BASE_URL_PAY = "http://sycs.hongxiaosou.com";
     public static final String IMG_URL = "http://images.hongxiaosou.cn/";
 
     /**
@@ -58,19 +59,23 @@ public class ApiConfig {
     /**
      * TODO 扫码支付接口
      */
-    public static final String TABBY_PAY = BASE_URL + "/eatpay/tabbyPay";
+    public static final String TABBY_PAY = BASE_URL_PAY + "/eatpay/tabbyPay";
     /**
      * TODO 获取一码付二维码接口
      */
-    public static final String PAY_FOR_CODE = BASE_URL + "/oneCode/openPay.html";
+    public static final String PAY_FOR_CODE = BASE_URL_PAY + "/oneCode/openPay.html";
+    /**
+     * TODO qrpay一码付支付
+     */
+    public static final String QR_PAY = BASE_URL_PAY + "/oneCode/qrPay.html";
     /**
      * TODO 退款接口
      */
-    public static final String TUIKUAN = BASE_URL + "";
+    public static final String TUIKUAN = BASE_URL_PAY + "";
     /**
      * TODO 同步接口
      */
-    public static final String TONGBU = BASE_URL + "";
+    public static final String TONGBU = BASE_URL_PAY + "";
     /**
      * TODO 统计接口
      */

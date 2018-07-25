@@ -1,6 +1,7 @@
 package com.hongsou.douguoshouyin.activity;
 
 
+import android.Manifest;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
+import io.reactivex.functions.Consumer;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
@@ -31,6 +33,8 @@ import com.hongsou.douguoshouyin.fragment.PayForFragment;
 import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 /**
  * 主页面
@@ -102,7 +106,34 @@ public class MainActivity extends BaseActivity {
         initData();
         initBack();
         getSkuNum();
+        initPermission();
     }
+
+    /**
+     *  @author  fenghao
+     *  @date    2018/7/24 0024 下午 21:00
+     *  @desc   初始化权限
+     */
+    private void initPermission() {
+        RxPermissions rxPermission = new RxPermissions(this);
+        rxPermission
+                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                        ,Manifest.permission.CAMERA
+                        )
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+
+                        } else {
+                            // 用户拒绝了该权限，并且选中『不再询问』
+                            ToastUtil.showToast("请打开相关权限，否则将影响使用");
+                        }
+                    }
+                });
+    }
+
     //获取设备唯一标识
     private void getSkuNum() {
         String code = Global.getSpGlobalUtil().getCode();
