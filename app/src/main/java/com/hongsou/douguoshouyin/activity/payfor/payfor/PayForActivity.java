@@ -390,13 +390,13 @@ public class PayForActivity extends BaseActivity {
     //判断是否输入金额
     private void payfor() {
         if (Float.valueOf(tvPayforPayforYingshoujine.getText().toString()) > 0) {
-            Global.getSpGlobalUtil().setYingshouJE(tvPayforPayforYingshoujine.getText().toString());
+            Global.getSpGlobalUtil().setReceivableMoney(tvPayforPayforYingshoujine.getText().toString());
             if (flag!=null){
-                    Global.getSpGlobalUtil().setZhekou(flag);
+                    Global.getSpGlobalUtil().setDiscountType(flag);
                 if ("0".equals(flag)){
-                    Global.getSpGlobalUtil().setZheKouJE(content*10+"");
+                    Global.getSpGlobalUtil().setDiscountMoney(content*10+"");
                 }else {
-                    Global.getSpGlobalUtil().setZheKouJE(content+"");
+                    Global.getSpGlobalUtil().setDiscountMoney(content+"");
                 }
             }
             showPopWindow();
@@ -447,7 +447,7 @@ public class PayForActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mPopupWindow.dismiss();
-                Intent erweimaIntent = new Intent(PayForActivity.this, QRCode.class);
+                Intent erweimaIntent = new Intent(PayForActivity.this, QRCodeActivity.class);
                 startActivity(erweimaIntent);
                 ToastUtil.showToast("二维码");
             }
@@ -540,13 +540,13 @@ public class PayForActivity extends BaseActivity {
                 .addParams("equipmentType", "3")
                 .addParams("uniquelyCode", Global.getSpGlobalUtil().getAliCode())
                 .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
-                .addParams("totalFee", Global.getSpGlobalUtil().getYingshouJE())
+                .addParams("totalFee", Global.getSpGlobalUtil().getReceivableMoney())
                 .addParams("authCode", contents)
                 .addParams("batch", "s"+ DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
                 .addParams("storeId", getShopNumber())
                 .addParams("operatorId", getClerkNumber())
-                .addParams("discountType", Global.getSpGlobalUtil().getZhekou())
-                .addParams("discountMoney", Global.getSpGlobalUtil().getZheKouJE())
+                .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
+                .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
                 .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback").build().execute(new StringCallback() {
@@ -567,9 +567,9 @@ public class PayForActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Global.getSpGlobalUtil().setZheKouJE("");
-        Global.getSpGlobalUtil().setZhekou("");
-        Global.getSpGlobalUtil().setYingshouJE("");
+        Global.getSpGlobalUtil().setDiscountMoney("");
+        Global.getSpGlobalUtil().setDiscountType("");
+        Global.getSpGlobalUtil().setReceivableMoney("");
     }
 
     //获取event发过来的额二维码号

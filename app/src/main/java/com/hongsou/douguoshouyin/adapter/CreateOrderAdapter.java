@@ -3,7 +3,6 @@ package com.hongsou.douguoshouyin.adapter;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -121,7 +120,6 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
                 }
             }
         }
-        Log.e(TAG, "convert: " + ApiConfig.IMG_URL + img_url);
         Glide.with(mContext).load(ApiConfig.IMG_URL + img_url)
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.drawable.dg_logo)

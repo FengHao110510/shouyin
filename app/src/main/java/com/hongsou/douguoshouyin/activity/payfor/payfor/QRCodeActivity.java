@@ -10,10 +10,16 @@ import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
+import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.DateUtils;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ScreenUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -22,25 +28,17 @@ import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
-import com.hongsou.douguoshouyin.tool.BitmapUtil;
-import com.hongsou.douguoshouyin.tool.Global;
-
-import java.io.Serializable;
-
 import okhttp3.Call;
 
 /**
  * 二维码收款页面
  */
-public class QRCode extends BaseActivity {
+public class QRCodeActivity extends BaseActivity {
 
 
     @BindView(R.id.tv_payfor_erweima_shoukuanjine)
@@ -67,7 +65,7 @@ public class QRCode extends BaseActivity {
     public void initView() {
         setIconFont(new TextView[]{tvPayforErweimaSaoyisaoIcon});
 
-        tvPayforErweimaShoukuanjine.setText(Global.getSpGlobalUtil().getYingshouJE());
+        tvPayforErweimaShoukuanjine.setText(Global.getSpGlobalUtil().getReceivableMoney());
 
         showErweima();
 
@@ -89,8 +87,8 @@ public class QRCode extends BaseActivity {
                 .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("totalFee", tvPayforErweimaShoukuanjine.getText().toString())
                 .addParams("batch", "s" + DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
-                .addParams("discountType", Global.getSpGlobalUtil().getZhekou())
-                .addParams("discountMoney", Global.getSpGlobalUtil().getZheKouJE())
+                .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
+                .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
                 .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback")
@@ -113,8 +111,8 @@ public class QRCode extends BaseActivity {
                     int w = display.getWidth();
                     int h = display.getHeight();
 
-                    Bitmap bitmap = BitmapUtil.create2DCoderBitmap(payUrl, ScreenUtil.dip2px(QRCode.this,220),
-                            ScreenUtil.dip2px(QRCode.this,220));
+                    Bitmap bitmap = BitmapUtil.create2DCoderBitmap(payUrl, ScreenUtil.dip2px(QRCodeActivity.this,220),
+                            ScreenUtil.dip2px(QRCodeActivity.this,220));
                     ivPayforErweimaErweima.setImageBitmap(bitmap);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -158,7 +156,7 @@ public class QRCode extends BaseActivity {
     @OnClick(R.id.tv_payfor_erweima_saoyisao_icon)
     public void onViewClicked() {
         //转到扫一扫界面
-        new IntentIntegrator(QRCode.this).
+        new IntentIntegrator(QRCodeActivity.this).
                 setCaptureActivity(ScanQRCodeActivity.class)
                 .setPrompt("")// 设置提示语
                 .setCameraId(0)// 选择摄像头,可使用前置或者后置

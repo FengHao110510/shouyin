@@ -193,57 +193,57 @@ public class SharePreferenceGlobalUtil {
     /**
      * 扫码点餐开关
      *
-     * @param saomadiancan
+     * @param scanCreateMeal
      */
-    public void setSaomaDiancan(boolean saomadiancan) {
-        editor.putBoolean("saomadiancan", saomadiancan);
+    public void setScanCreateMeal(boolean scanCreateMeal) {
+        editor.putBoolean("scanCreateMeal", scanCreateMeal);
         editor.commit();
     }
 
-    public boolean getSaomaDiancan() {
-        return sp.getBoolean("saomadiancan", true);
+    public boolean getScanCreateMeal() {
+        return sp.getBoolean("scanCreateMeal", true);
     }
 
     /**
      * 应收金额
      *
-     * @param yingshouJE
+     * @param receivableMoney
      */
-    public void setYingshouJE(String yingshouJE) {
-        editor.putString("yingshouJE", yingshouJE);
+    public void setReceivableMoney(String receivableMoney) {
+        editor.putString("receivableMoney", receivableMoney);
         editor.commit();
     }
 
-    public String getYingshouJE() {
-        return sp.getString("yingshouJE", "");
+    public String getReceivableMoney() {
+        return sp.getString("receivableMoney", "");
     }
 
     /**
      * 折扣还是减钱
      *
-     * @param zheKou
+     * @param discountType
      */
-    public void setZhekou(String zheKou) {
-        editor.putString("zheKou", zheKou);
+    public void setDiscountType(String discountType) {
+        editor.putString("discountType", discountType);
         editor.commit();
     }
 
-    public String getZhekou() {
-        return sp.getString("zheKou", "");
+    public String getDiscountType() {
+        return sp.getString("discountType", "");
     }
 
     /**
      * 折扣金额
      *
-     * @param zheKouJE
+     * @param discountMoney
      */
-    public void setZheKouJE(String zheKouJE) {
-        editor.putString("zheKouJE", zheKouJE);
+    public void setDiscountMoney(String discountMoney) {
+        editor.putString("discountMoney", discountMoney);
         editor.commit();
     }
 
-    public String getZheKouJE() {
-        return sp.getString("zheKouJE", "");
+    public String getDiscountMoney() {
+        return sp.getString("discountMoney", "");
     }
 
     /**

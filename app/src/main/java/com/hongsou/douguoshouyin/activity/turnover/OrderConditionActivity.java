@@ -252,7 +252,7 @@ public class OrderConditionActivity extends BaseActivity {
                         orderSource = data.get(position).getOrderSourcePayment();
                         orderSourcePosition = position;
                     } else if ("payStatus".equals(type)) {
-                        payStatus = data.get(position).getOrderSourcePayment();
+                        payStatus = data.get(position).getOrderSourceFlag();
                         payStatusPosition = position;
                     } else if ("payChannel".equals(type)) {
                         payChannel = data.get(position).getOrderSourcePayment();

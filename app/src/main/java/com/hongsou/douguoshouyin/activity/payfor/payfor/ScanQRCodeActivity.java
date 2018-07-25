@@ -11,14 +11,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.tool.Global;
 
 /**
  * 扫一扫页面
@@ -55,7 +55,7 @@ public class ScanQRCodeActivity extends AppCompatActivity {
         qrTvTitlebarFinishBack.setTypeface(typeface);
         tvPayforSaoyisaoSaoyisaoIcon.setTypeface(typeface);
         qrTvTitlebarTitle.setText("扫码收款");
-        tvPayforSaoyisaoShoukuanjine.setText(Global.getSpGlobalUtil().getYingshouJE());
+        tvPayforSaoyisaoShoukuanjine.setText(Global.getSpGlobalUtil().getReceivableMoney());
         capture = new CaptureManager(this, bv_barcode);
         capture.initializeFromIntent(getIntent(), savedInstanceState);
         capture.decode();
@@ -104,7 +104,7 @@ public class ScanQRCodeActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.tv_payfor_saoyisao_saoyisao_icon:
-                Intent erweimaIntent = new Intent(ScanQRCodeActivity.this, QRCode.class);
+                Intent erweimaIntent = new Intent(ScanQRCodeActivity.this, QRCodeActivity.class);
                 startActivity(erweimaIntent);
 
                 finish();
