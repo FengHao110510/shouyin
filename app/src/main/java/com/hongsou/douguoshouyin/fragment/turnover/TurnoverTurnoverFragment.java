@@ -119,6 +119,8 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      */
     public void showTurnoverList(HashMap<String, String> param) {
         param.put("shopNumber", getShopNumber());
+        param.put("beginTime", mTradingTime);
+        param.put("shopNumber", getShopNumber());
         param.put("pageString", page + "");
         // todo 参数需要和订单列表的统一一下
         HttpFactory.get().url(ApiConfig.GET_PAY_ORDER_LIST)
