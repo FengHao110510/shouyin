@@ -558,6 +558,7 @@ public class PayForActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 Log.e(TAG, "onResponse: "+response.toString() );
+
             }
         
         });
@@ -575,11 +576,8 @@ public class PayForActivity extends BaseActivity {
     //获取event发过来的额二维码号
     @Subscribe
     public void onEventMainThread(SaomahaoBean event) {
-
-        String msg = "onEventMainThread收到了消息：" + event.getSaomahao();
-        Log.d("harvic", msg);
         //TODO 走成功接口
-        toPay(msg);
+        toPay(event.getSaomahao());
     }
     @Subscribe
     public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean){

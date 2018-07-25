@@ -169,9 +169,6 @@ public class QRCodeActivity extends BaseActivity {
 
     @Subscribe
     public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean){
-        Intent successIntent = new Intent(this,PaymentDetailActivity.class);
-        successIntent.putExtra("payOnLineSuccessBean",(Serializable) payOnLineSuccessBean);
-        startActivity(successIntent);
         finish();
     }
 

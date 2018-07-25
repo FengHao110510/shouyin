@@ -76,6 +76,9 @@ public class PaymentDetailActivity extends BaseActivity {
     protected void init() {
         if (getIntent().hasExtra("batch")){
             mBatch = getIntent().getStringExtra("batch");
+            initData();
+        }else if (getIntent().hasExtra("payOnLineSuccessBean")){
+            getIntent().getSerializableExtra("payOnLineSuccessBean");
         }
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
@@ -92,7 +95,6 @@ public class PaymentDetailActivity extends BaseActivity {
 //                finish();
 //            }
 //        });
-        initData();
     }
 
     @Override
