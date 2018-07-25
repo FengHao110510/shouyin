@@ -131,7 +131,7 @@ public class CommonTopBar extends FrameLayout implements View.OnClickListener {
      * 设置左侧文字颜色
      */
     public void setLeftTextColor(int color) {
-        tv_left.setTextColor(color);
+        tv_left.setTextColor(getResources().getColor(color));
     }
 
     /**
@@ -174,8 +174,8 @@ public class CommonTopBar extends FrameLayout implements View.OnClickListener {
      * 设置右侧文字颜色
      */
     public void setRightTextColor(int color) {
-        tv_right.setTextColor(color);
-        tv_right_icon.setTextColor(color);
+        tv_right.setTextColor(getResources().getColor(color));
+        tv_right_icon.setTextColor(getResources().getColor(color));
     }
 
     /**
