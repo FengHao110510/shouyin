@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
@@ -78,7 +79,13 @@ public class PaymentDetailActivity extends BaseActivity {
             mBatch = getIntent().getStringExtra("batch");
             initData();
         }else if (getIntent().hasExtra("payOnLineSuccessBean")){
-            getIntent().getSerializableExtra("payOnLineSuccessBean");
+            PayOnLineSuccessBean payOnLineSuccessBean= (PayOnLineSuccessBean) getIntent().getSerializableExtra("payOnLineSuccessBean");
+            mTvOrderMoney.setText(payOnLineSuccessBean.getMoney());
+            mTvOrderPayTime.setText(payOnLineSuccessBean.getDate());
+            mTvOrderBatch.setText(payOnLineSuccessBean.getOutTradeNo());
+            mTvOrderPayType.setText(payOnLineSuccessBean.getTradeType());
+            mTvOrderPayMoney.setText(payOnLineSuccessBean.getMoney());
+            mTvOrderPayStatus.setText("支付成功");
         }
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
