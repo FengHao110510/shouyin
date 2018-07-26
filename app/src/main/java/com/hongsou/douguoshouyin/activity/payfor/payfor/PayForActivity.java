@@ -448,6 +448,7 @@ public class PayForActivity extends BaseActivity {
             public void onClick(View view) {
                 mPopupWindow.dismiss();
                 Intent erweimaIntent = new Intent(PayForActivity.this, QRCodeActivity.class);
+                erweimaIntent.putExtra("batch","00000000000000000000");
                 startActivity(erweimaIntent);
                 ToastUtil.showToast("二维码");
             }
@@ -542,14 +543,16 @@ public class PayForActivity extends BaseActivity {
                 .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("totalFee", Global.getSpGlobalUtil().getReceivableMoney())
                 .addParams("authCode", contents)
-                .addParams("batch", "s"+ DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+//                .addParams("batch", "s"+ DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("batch", "00000000000000000000")
                 .addParams("storeId", getShopNumber())
                 .addParams("operatorId", getClerkNumber())
                 .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
-                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback").build().execute(new StringCallback() {
+                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback")
+                .addParams("content","").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtil.showError();

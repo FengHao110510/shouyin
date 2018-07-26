@@ -142,6 +142,7 @@ public class TableActivity extends BaseActivity {
             List<TableBean.DataBean.TableListBean> tableList = dataBean.getTableList();
 
                 for (int k = 0; k < tableList.size(); k++) {
+                    //添加子级
                     TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber()
                             , tableList.get(k).getLogGid()
                             , tableList.get(k).getTabletableNumber()
@@ -151,7 +152,6 @@ public class TableActivity extends BaseActivity {
                             , false);
                     Log.e(TAG, "showTableList: "+tableList.get(k).getNumber() );
                     tableRegionTitleBean.addSubItem( tableListContentBean);
-
                 }
 //            }
 
