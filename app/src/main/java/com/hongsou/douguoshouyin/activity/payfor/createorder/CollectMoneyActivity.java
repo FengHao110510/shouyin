@@ -174,21 +174,24 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        createOrderInfo();
+
         switch (v.getId()) {
             case R.id.ll_payfor_pop_sao:
                 mPopupWindow.dismiss();
+                createOrderInfo("在线支付");
                 Global.getSpGlobalUtil().setReceivableMoney(mTotalMoney);
                 submitOrder(mSubmitOrderBean, "scan");
                 break;
             case R.id.ll_payfor_pop_erwei:
                 mPopupWindow.dismiss();
                 // 提交订单
+                createOrderInfo("在线支付");
                 submitOrder(mSubmitOrderBean, "qrcode");
                 Global.getSpGlobalUtil().setReceivableMoney(mTotalMoney);
                 break;
             case R.id.ll_payfor_pop_xianjin:
                 mPopupWindow.dismiss();
+                createOrderInfo("现金");
                 startActivity(new Intent(this, CollectMoneyForCashActivity.class)
                         .putExtra("bean", new Gson().toJson(mSubmitOrderBean)));
                 break;
@@ -203,7 +206,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
      * @anthor lpc
      * @date: 2018/7/19
      */
-    private void createOrderInfo() {
+    private void createOrderInfo(String paymentType) {
         mSubmitOrderBean = new SubmitOrderBean();
 
         if (!TextUtils.isEmpty(mEtMoney.getText().toString())) {
@@ -230,7 +233,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         mSubmitOrderBean.setTradingTime(DateUtils.getStringToday());
         mSubmitOrderBean.setOrderSource("开单");
         mSubmitOrderBean.setOrderType("0");
-        mSubmitOrderBean.setPaymentType("现金");
+        mSubmitOrderBean.setPaymentType(paymentType);
         mSubmitOrderBean.setClerkName(Global.getSpGlobalUtil().getClerkName());
         mSubmitOrderBean.setClerkNumber(Global.getSpGlobalUtil().getClerkNumber());
         mSubmitOrderBean.setShopNumber(getShopNumber());
@@ -261,6 +264,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                     mBatch = response.getMsg();
                     if ("qrcode".equals(type)){
                         Intent intent = new Intent(CollectMoneyActivity.this, QRCodeActivity.class);
+                        intent.putExtra("batch", mBatch);
                         startActivity(intent);
                     }else {
                         new IntentIntegrator(CollectMoneyActivity.this).
