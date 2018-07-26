@@ -48,6 +48,7 @@ public class QRCodeActivity extends BaseActivity {
     @BindView(R.id.iv_payfor_erweima_erweima)
     ImageView ivPayforErweimaErweima;
 
+    String batch;
     @Override
     public int initLayout() {
         return R.layout.module_activity_payfor_erweima;
@@ -66,7 +67,7 @@ public class QRCodeActivity extends BaseActivity {
         setIconFont(new TextView[]{tvPayforErweimaSaoyisaoIcon});
 
         tvPayforErweimaShoukuanjine.setText(Global.getSpGlobalUtil().getReceivableMoney());
-
+        batch = getIntent().getStringExtra("batch");
         showErweima();
 
     }
@@ -86,7 +87,8 @@ public class QRCodeActivity extends BaseActivity {
                 .addParams("uniquelyCode", Global.getSpGlobalUtil().getAliCode())
                 .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("totalFee", tvPayforErweimaShoukuanjine.getText().toString())
-                .addParams("batch", "s" + DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+//                .addParams("batch", "s" + DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("batch", batch)
                 .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
