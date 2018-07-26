@@ -1,10 +1,12 @@
 package com.hongsou.douguoshouyin.activity.payfor.goodsmanage;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -12,18 +14,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.AddTaocanCategoryAdapter;
 import com.hongsou.douguoshouyin.adapter.AddTaocanFoodsAdapter;
+import com.hongsou.douguoshouyin.adapter.StanderSinpleAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.FoodBean;
 import com.hongsou.douguoshouyin.javabean.FoodCategoryBean;
+import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
@@ -89,6 +94,7 @@ public class CommodityActivity extends BaseActivity {
 
     //强制刷新状态 0强制刷新 1不强制刷新
     private String state;
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_payfor_commodity;
@@ -111,7 +117,7 @@ public class CommodityActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        state="1";
+        state = "1";
         getCategoryList();
         getFoodsList();
     }
@@ -197,12 +203,12 @@ public class CommodityActivity extends BaseActivity {
     private void getFoodsList() {
         HttpFactory.get().url(ApiConfig.GET_FOOD)
                 .addParams("shopNumber", getShopNumber())
-                .addParams("state",state)
+                .addParams("state", state)
                 .build().execute(new ResponseCallback<FoodBean>(this) {
             @Override
             public void onResponse(FoodBean response, int id) {
                 if (response.isSuccess()) {
-                    state="1";
+                    state = "1";
                     List<FoodBean.DataBean> data = response.getData();
                     setSingleFoodsBean(data);
                 } else {
@@ -226,16 +232,32 @@ public class CommodityActivity extends BaseActivity {
             foodDataBean = data.get(i);
             if ("1".equals(data.get(i).getFoodType())) {
                 for (int k = 0; k < data.get(i).getShopStandarList().size(); k++) {
-                    SingleFoodsBean singleFoodsBean = new SingleFoodsBean(foodDataBean.getSingleProductNumber()
-                            , foodDataBean.getShopStandarList().get(k).getStandardNumber()
-                            , foodDataBean.getSingleProductName()
-                            , foodDataBean.getShopStandarList().get(k).getStandardName()
-                            , foodDataBean.getShopStandarList().get(k).getSell()
-                            , foodDataBean.getFoodProductsPicture()
-                            , foodDataBean.getSingleProductType()
-                            , 0
-                    );
-                    singleFoodsBeanList.add(singleFoodsBean);
+                    SingleFoodsBean singleFoodsBean = null;
+                    if (data.get(i).getShopStandarList().size() > 1) {
+                        if (k == 0) {
+                            singleFoodsBean = new SingleFoodsBean(foodDataBean.getSingleProductNumber()
+                                    , foodDataBean.getShopStandarList().get(k).getStandardNumber()
+                                    , foodDataBean.getSingleProductName()
+                                    , "repeat"
+                                    , foodDataBean.getShopStandarList().get(k).getSell()
+                                    , foodDataBean.getFoodProductsPicture()
+                                    , foodDataBean.getSingleProductType()
+                                    , 0
+                            );
+                            singleFoodsBeanList.add(singleFoodsBean);
+                        }
+                    } else {
+                        singleFoodsBean = new SingleFoodsBean(foodDataBean.getSingleProductNumber()
+                                , foodDataBean.getShopStandarList().get(k).getStandardNumber()
+                                , foodDataBean.getSingleProductName()
+                                , foodDataBean.getShopStandarList().get(k).getStandardName()
+                                , foodDataBean.getShopStandarList().get(k).getSell()
+                                , foodDataBean.getFoodProductsPicture()
+                                , foodDataBean.getSingleProductType()
+                                , 0
+                        );
+                        singleFoodsBeanList.add(singleFoodsBean);
+                    }
                 }
             } else if ("0".equals(data.get(i).getFoodType())) {
                 //固定套餐
@@ -256,24 +278,77 @@ public class CommodityActivity extends BaseActivity {
             }
 
         }
+
+        showFoodsList(data);
+    }
+
+    /**
+     * @param data
+     * @author fenghao
+     * @date 2018/7/20 0020 下午 16:55
+     * @desc 展示商品列表
+     */
+    private void showFoodsList(final List<FoodBean.DataBean> data) {
         //取出同类型的商品放入集合2 显示  默认显示第一个分类的数据
         for (int n = 0; n < singleFoodsBeanList.size(); n++) {
             if (singleFoodsBeanList.get(n).getCategoryNumber().equals(dataBeanList.get(0).getCategoryNumber())) {
                 singleFoodsBeanList2.add(singleFoodsBeanList.get(n));
             }
         }
-        showFoodsList();
+        addTaocanFoodsAdapter = new AddTaocanFoodsAdapter(R.layout.module_recycle_item_create_order_food, singleFoodsBeanList2, 1);
+        rvPayforCommodityFoods.setAdapter(addTaocanFoodsAdapter);
+        rvPayforCommodityFoods.setLayoutManager(new LinearLayoutManager(this));
+        addTaocanFoodsAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.tv_show_standard) {
+                    showStanderDialog(position, data);
+                }
+            }
+        });
+
     }
 
     /**
      * @author fenghao
-     * @date 2018/7/20 0020 下午 16:55
-     * @desc 展示商品列表
+     * @date 2018/7/26 0026 下午 12:05
+     * @desc 展示规格弹框
      */
-    private void showFoodsList() {
-        addTaocanFoodsAdapter = new AddTaocanFoodsAdapter(R.layout.module_recycle_item_create_order_food, singleFoodsBeanList2,1);
-        rvPayforCommodityFoods.setAdapter(addTaocanFoodsAdapter);
-        rvPayforCommodityFoods.setLayoutManager(new LinearLayoutManager(this));
+    Dialog showStanderDialog;
+
+    private void showStanderDialog(int position, List<FoodBean.DataBean> data) {
+        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_recyclrview, null);
+        Display display = getWindowManager().getDefaultDisplay();
+        int w = display.getWidth();
+        int h = display.getHeight();
+
+        List<SaomahaoBean> string = new ArrayList<>();
+        for (int u = 0; u < data.size(); u++) {
+            if ("1".equals(data.get(u).getFoodType())) {
+                if (singleFoodsBeanList2.get(position).getSingleProductNumber().equals(data.get(u).getSingleProductNumber())) {
+                        for (int i =0;i<data.get(u).getShopStandarList().size();i++){
+                            SaomahaoBean saomahaoBean = new SaomahaoBean(data.get(u).getShopStandarList().get(i).getStandardName());
+                            string.add(saomahaoBean);
+                            Log.e(TAG, "showStanderDialog: fenghao1");
+                        }
+                    Log.e(TAG, "showStanderDialog: fenghao2");
+
+                }
+                Log.e(TAG, "showStanderDialog: fenghao3");
+
+            }
+        }
+        StanderSinpleAdapter standerSinpleAdapter = new StanderSinpleAdapter(R.layout.module_item_stander,string);
+
+        RecyclerView rvDialogStanderList = view.findViewById(R.id.rv_dialog_stander_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true);
+        rvDialogStanderList.setLayoutManager(linearLayoutManager);
+        rvDialogStanderList.setAdapter(standerSinpleAdapter);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 5);
+
+        showStanderDialog = new Dialog(this, R.style.CommonDialog);
+        showStanderDialog.addContentView(view, params);
+        showStanderDialog.show();
 
     }
 
@@ -362,15 +437,15 @@ public class CommodityActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if ("0".equals(Global.getSpGlobalUtil().getForceState())){
-            state="0";
-            if (dataBeanList!=null){
+        if ("0".equals(Global.getSpGlobalUtil().getForceState())) {
+            state = "0";
+            if (dataBeanList != null) {
                 dataBeanList.clear();
             }
-            if (singleFoodsBeanList!=null){
+            if (singleFoodsBeanList != null) {
                 singleFoodsBeanList.clear();
             }
-            if (singleFoodsBeanList2!=null){
+            if (singleFoodsBeanList2 != null) {
                 singleFoodsBeanList2.clear();
             }
             getCategoryList();

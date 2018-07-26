@@ -66,7 +66,14 @@ public class AddTaocanFoodsAdapter extends BaseQuickAdapter<SingleFoodsBean, Bas
         ((TextView) helper.getView(R.id.tv_add)).setTypeface(mTypeface);
 
         if (!TextUtils.isEmpty(item.getStandardName())) {
-            helper.setText(R.id.tv_food_name, item.getSingleProductName() + "(" + item.getStandardName() + ")");
+            if (item.getStandardName().contains("repeat")){
+                helper.setText(R.id.tv_food_name, item.getSingleProductName())
+                .setVisible(R.id.tv_show_standard,true)
+                .addOnClickListener(R.id.tv_show_standard);
+
+            }else {
+                helper.setText(R.id.tv_food_name, item.getSingleProductName() + "(" + item.getStandardName() + ")");
+            }
         } else {
             helper.setText(R.id.tv_food_name, item.getSingleProductName());
 
