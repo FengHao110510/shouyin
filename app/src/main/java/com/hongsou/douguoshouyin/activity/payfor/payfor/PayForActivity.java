@@ -552,7 +552,7 @@ public class PayForActivity extends BaseActivity {
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
                 .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback")
-                .addParams("content","").build().execute(new StringCallback() {
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtil.showError();
