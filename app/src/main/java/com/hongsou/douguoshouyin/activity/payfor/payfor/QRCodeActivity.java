@@ -93,7 +93,7 @@ public class QRCodeActivity extends BaseActivity {
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
-                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback")
+                .addParams("address",Constant.HTTP_URL+"/pay/payCallback")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

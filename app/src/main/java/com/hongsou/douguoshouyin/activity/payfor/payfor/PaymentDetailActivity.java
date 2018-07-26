@@ -22,6 +22,7 @@ import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.Global;
@@ -98,6 +99,8 @@ public class PaymentDetailActivity extends BaseActivity {
             mTvOrderPayType.setText(payOnLineSuccessBean.getTradeType());
             mTvOrderPayMoney.setText(payOnLineSuccessBean.getMoney());
             mTvOrderPayStatus.setText("支付成功");
+            mBatch=payOnLineSuccessBean.getBatch();
+            paymentBatch = payOnLineSuccessBean.getOutTradeNo();
             MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType() + "收款到账"
                     + payOnLineSuccessBean.getMoney() + "元", this);
         }
@@ -297,6 +300,10 @@ public class PaymentDetailActivity extends BaseActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     int  code = (int) jsonObject.get("code");
                     if (code==0){
+                        if (!"00000000000000000000".equals(mBatch)){
+                            //不是纯收款走个退单接口
+                            tuidan();
+                        }
                         Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
                         backIntent.putExtra("refundAmount",mTvOrderMoney.getText().toString());
                         backIntent.putExtra("outTradeNo",mTvOrderBatch.getText().toString());
@@ -312,6 +319,38 @@ public class PaymentDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    /**
+     *  @author  fenghao
+     *  @date    2018/7/26 0026 下午 16:20
+     *  @desc   退单接口
+     */
+    private void tuidan() {
+        String type = "";
+        if (mTvOrderPayType.getText().toString().contains("微信")){
+            type="微信";
+        }else  if (mTvOrderPayType.getText().toString().contains("支付宝")){
+            type="支付宝";
+        }
+       HttpFactory.post()
+               .addParams("shopNumber",getShopNumber())
+               .addParams("batch",mBatch)
+               .addParams("orderAmount",mTvOrderMoney.getText().toString())
+               .addParams("reason","")
+               .addParams("amount",mTvOrderMoney.getText().toString())
+               .addParams("paymentType",type)
+               .url(ApiConfig.REFOUND_ORDER).build().execute(new ResponseCallback<BaseBean>(this) {
+
+           @Override
+           public void onResponse(BaseBean response, int id) {
+               if (response.isSuccess()) {
+                   ToastUtil.showToast("退款成功");
+               } else {
+                   ToastUtil.showToast("退单失败");
+               }
+           }
+       });
     }
 
 

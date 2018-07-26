@@ -15,7 +15,7 @@ public class ApiConfig {
     /**
      * 邓辽航ip
      */
-//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
     public static final String BASE_URL_PAY = "http://sycs.hongxiaosou.com";
     public static final String IMG_URL = "http://images.hongxiaosou.cn/";
 
@@ -26,7 +26,7 @@ public class ApiConfig {
     /**
      * 正式ip
      */
-    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
+//    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
 
 
     /**
@@ -70,13 +70,21 @@ public class ApiConfig {
      */
     public static final String REFUND = BASE_URL_PAY + "/eat/refund/judge";
     /**
+     * TODO 现金收款
+     */
+    public static final String PAY_BY_CASH = BASE_URL+ "/pay/payByCash";
+    /**
+     * TODO 退单接口
+     */
+    public static final String REFOUND_ORDER = BASE_URL+ "/order/refoundOrder";
+    /**
      * TODO 同步接口
      */
     public static final String TONGBU = BASE_URL_PAY + "";
     /**
      * TODO 统计接口
      */
-    public static final String TONGJI = BASE_URL + "";
+    public static final String GET_STATISTICS = BASE_URL + "/shift/getStatistics";
 
     // TODO ======================================== 开单模块 ====================================================
     /**

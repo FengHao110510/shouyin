@@ -23,6 +23,15 @@ public class PayOnLineSuccessBean implements Serializable {
     private String money;
     private String outTradeNo;
     private String date;
+    private String batch;
+
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
+    }
 
     public String getDate() {
         return date;

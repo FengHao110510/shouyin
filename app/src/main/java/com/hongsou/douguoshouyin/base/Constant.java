@@ -34,4 +34,8 @@ public class Constant {
      * 餐品图片链接中多余的字符,第二种情况
      */
     public static final String IMG_REPLACE2 = "/www/wwwroot/images.hongxiaosou.cn/";
+    /**
+     * 支付成功后推送httpclient的url
+     */
+    public static final String HTTP_URL = "http://39.106.220.143:61616";
 }

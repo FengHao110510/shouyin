@@ -29,6 +29,7 @@ import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
+import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -439,7 +440,6 @@ public class PayForActivity extends BaseActivity {
                         .setBeepEnabled(false)// 是否开启声音,扫完码之后会"哔"的一声
                         .setBarcodeImageEnabled(true)// 扫完码之后生成二维码的图片
                         .initiateScan();// 初始化扫码
-                ToastUtil.showToast("扫一扫");
             }
         });
         llPayforPopErwei.setOnClickListener(new View.OnClickListener() {
@@ -449,7 +449,6 @@ public class PayForActivity extends BaseActivity {
                 Intent erweimaIntent = new Intent(PayForActivity.this, QRCodeActivity.class);
                 erweimaIntent.putExtra("batch","00000000000000000000");
                 startActivity(erweimaIntent);
-                ToastUtil.showToast("二维码");
             }
         });
         ll_payfor_pop_xianjin.setOnClickListener(new View.OnClickListener() {
@@ -457,8 +456,6 @@ public class PayForActivity extends BaseActivity {
             public void onClick(View view) {
                 mPopupWindow.dismiss();
                 payXJ();
-
-                ToastUtil.showToast("现金");
             }
         });
         //h popwindow的高度
@@ -492,21 +489,25 @@ public class PayForActivity extends BaseActivity {
      */
     private void payXJ() {
         showLoadingDialog();
-        //走提交订单接口
-        HttpFactory.post().url(ApiConfig.INSERT_ORDER).addParams("", "").build().execute(new StringCallback() {
+        //走现金支付接口
+        HttpFactory.post().url(ApiConfig.PAY_BY_CASH)
+                .addParams("paymentBatch", DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("batch", "00000000000000000000")
+                .addParams("shopNumber", getShopNumber())
+                .addParams("money", tvPayforPayforXiaofeijine.getText().toString())
+                .addParams("amountCollected", Global.getSpGlobalUtil().getReceivableMoney())
+                .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
+                .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-                ToastUtil.showToast("提交订单失败");
-                //成功后跳转支付成功页面 TODO
-                Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
-                startActivity(successIntent);
-
             }
 
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
+                Log.e(TAG, "onResponse: 000000"+response );
                 //成功后跳转支付成功页面 TODO
                 Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
                 startActivity(successIntent);
@@ -544,7 +545,7 @@ public class PayForActivity extends BaseActivity {
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
-                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback")
+                .addParams("address",Constant.HTTP_URL+"/pay/payCallback")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
