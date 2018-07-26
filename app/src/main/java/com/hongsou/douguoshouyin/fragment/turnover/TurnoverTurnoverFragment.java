@@ -1,10 +1,15 @@
 package com.hongsou.douguoshouyin.fragment.turnover;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.TurnoverAdapter;
 import com.hongsou.douguoshouyin.adapter.TurnoverMultipleItem;
 import com.hongsou.douguoshouyin.base.BaseFragment;
@@ -149,11 +154,23 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @date 2018/7/16 0016 上午 11:26
      * @desc 设置适配器
      */
-    private void setTurnoverAdapter(List<TurnoverBean> result) {
+    private void setTurnoverAdapter(final List<TurnoverBean> result) {
         if (turnoverMultipleItemList == null){
             turnoverMultipleItemList = new ArrayList<>();
             mTurnoverAdapter = new TurnoverAdapter(turnoverMultipleItemList);
             rvTurnoverTurnoverList.setAdapter(mTurnoverAdapter);
+            // 条目点击事件
+            mTurnoverAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Intent itemIntent = new Intent(getActivity(), PaymentDetailActivity.class);
+                    String batch = result.get(position).getBatch();
+                    String paymentBatch = result.get(position).getPaymentBatch();
+                    itemIntent.putExtra("batch", TextUtils.isEmpty(batch) ? "" : batch);
+                    itemIntent.putExtra("paymentBatch", TextUtils.isEmpty(paymentBatch) ? "" : paymentBatch);
+                    startActivity(itemIntent);
+                }
+            });
         }
         turnoverMultipleItemList.clear();
         for (int i = 0; i < result.size(); i++) {
