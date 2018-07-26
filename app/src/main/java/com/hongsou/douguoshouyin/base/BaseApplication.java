@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.tool.CrashHandler;
 import com.hongsou.greendao.gen.DaoMaster;
 import com.hongsou.greendao.gen.DaoSession;
 import com.iflytek.cloud.SpeechConstant;
@@ -61,7 +62,7 @@ public class BaseApplication extends Application {
         initGreenDao();
         initKedaxunfei();
 //        //初始化全局异常捕获
-//        CrashHandler.getInstance().init(this);
+        CrashHandler.getInstance().init(this);
     }
     /**
      * 科大讯飞
