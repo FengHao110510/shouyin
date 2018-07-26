@@ -15,7 +15,7 @@ public class ApiConfig {
     /**
      * 邓辽航ip
      */
-    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
     public static final String BASE_URL_PAY = "http://sycs.hongxiaosou.com";
     public static final String IMG_URL = "http://images.hongxiaosou.cn/";
 
@@ -26,10 +26,7 @@ public class ApiConfig {
     /**
      * 正式ip
      */
-//    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
-
-
-
+    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
 
 
     /**
@@ -71,7 +68,7 @@ public class ApiConfig {
     /**
      * TODO 退款接口
      */
-    public static final String TUIKUAN = BASE_URL_PAY + "";
+    public static final String REFUND = BASE_URL_PAY + "/eat/refund/judge";
     /**
      * TODO 同步接口
      */

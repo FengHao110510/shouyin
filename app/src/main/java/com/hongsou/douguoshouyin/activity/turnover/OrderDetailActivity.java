@@ -252,7 +252,7 @@ public class OrderDetailActivity extends BaseActivity {
             orderFoodBeanList.add(orderFoodBeanA);
 
             //将 菜品加进去
-            for (int j = 0 ;j<groupBeanList.get(i).getGroupFood().size();j++){
+            for (int j = 0; j < groupBeanList.get(i).getGroupFood().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
                 orderFoodBeanB.setFoodName("");
                 orderFoodBeanB.setFoodCount("--" + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
@@ -335,7 +335,7 @@ public class OrderDetailActivity extends BaseActivity {
     //退款接口
     private void tuikuan() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.TUIKUAN).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.REFUND).addParams("", "").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -358,6 +358,8 @@ public class OrderDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_turnover_orderdetail_dayinxiaopiao:
                 //打印小票
+                break;
+            default:
                 break;
         }
     }
