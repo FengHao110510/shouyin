@@ -29,7 +29,6 @@ import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
-import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -511,12 +510,6 @@ public class PayForActivity extends BaseActivity {
                 //成功后跳转支付成功页面 TODO
                 Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
                 startActivity(successIntent);
-                //失败后跳转支付失败页面 TODO
-                Intent failIntent = new Intent(PayForActivity.this, FailActivity.class);
-                startActivity(failIntent);
-                //失败后跳转支付失败页面 TODO
-                Intent skzIntent = new Intent(PayForActivity.this, ShoukuanzhongActivity.class);
-                startActivity(skzIntent);
             }
         });
     }
