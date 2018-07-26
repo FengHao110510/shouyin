@@ -23,6 +23,8 @@ import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.hongsou.douguoshouyin.views.keyboard.KeyboardUtil;
 import com.hongsou.douguoshouyin.views.keyboard.VirtualKeyboardView;
 
+import java.math.BigDecimal;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -92,11 +94,12 @@ public class CollectMoneyForCashActivity extends BaseActivity {
                     mTvGiveMoney.setText("0.0");
                 } else {
                     // 输入的收款金额
-                    double co_m = Double.valueOf(s.toString());
+                    String co_m = s.toString();
                     // 订单应收金额
-                    double re_m = Double.valueOf(mTvReceivableMoney.getText().toString());
+                    String re_m = mTvReceivableMoney.getText().toString();
                     // 差值
-                    mGiveMoney = co_m - re_m;
+                    BigDecimal bigDecimal = new BigDecimal(co_m).subtract(new BigDecimal(re_m));
+                    mGiveMoney = Double.valueOf(bigDecimal.setScale(2).toString());
                     if (mGiveMoney <= 0) {
                         mTvGiveMoney.setText("0.0");
                     } else {

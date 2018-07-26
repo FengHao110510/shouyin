@@ -99,18 +99,17 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
     @Override
     protected void init() {
         mInflater = LayoutInflater.from(CreateOrderSelectGroupActivity.this);
-
         if (getIntent().hasExtra("data")) {
             mDataBean = new Gson().fromJson(getIntent().getStringExtra("data"), FoodBean.DataBean.class);
         }else {
             finish();
         }
 
-        mListThree1 = mDataBean .getListTwo().get(0).getListThree();
-        mListThree2 = mDataBean.getListTwo().get(1).getListThree();
+        mListThreeBeans1 = new ArrayList<>();
+        mListThreeBeans2 = new ArrayList<>();
+
         mTvGroupFoodName.setText(mDataBean.getGroupPackageName());
         mTvGroupPrice.setText(mDataBean.getGroupPackagePrice());
-
         mRecyclerGroup1.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerGroup2.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerGroup1.setHasFixedSize(true);
@@ -129,6 +128,7 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
     private void setGroupLists() {
         // 分组A
         if (mDataBean.getListTwo().size() > 0) {
+            mListThree1 = mDataBean .getListTwo().get(0).getListThree();
             mTvGroupName1.setText(mListThree1.get(0).get(0).getGroupName());
             mTvMandatoryCount1.setText(mListThree1.get(0).get(0).getGroupCount());
             final CreateOrderSelectGroupAdapter adapter1 = new CreateOrderSelectGroupAdapter(mListThree1);
@@ -146,6 +146,7 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
         }
         // 分组B
         if (mDataBean.getListTwo().size() > 1) {
+            mListThree2 = mDataBean.getListTwo().get(1).getListThree();
             mLlGroup2.setVisibility(View.VISIBLE);
             mTvGroupName2.setText(mListThree2.get(0).get(0).getGroupName());
             mTvMandatoryCount2.setText(mListThree2.get(0).get(0).getGroupCount());

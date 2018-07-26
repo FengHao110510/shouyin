@@ -3,6 +3,7 @@ package com.hongsou.douguoshouyin.activity.payfor.payfor;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -148,17 +149,17 @@ public class PaymentDetailActivity extends BaseActivity {
      * @param data 数据源
      */
     private void renderView(PaymentDetailBean data) {
-        // OrderState 0 '支付中'  1'收款成功'  -2 '支付中' -3'已退款'
-        if ("0".equals(data.getOrderState())){
+        // OrderType 0 '支付中'  1'收款成功'  -2 '支付中' -3'已退款'
+        if ("0".equals(data.getOrderType())){
             setViewInfo("收款中", R.drawable.icon_paying, View.VISIBLE);
-        }else if ("-2".equals(data.getOrderState())){
+        }else if ("-2".equals(data.getOrderType())){
             setViewInfo("收款中", R.drawable.icon_paying, View.GONE);
-        }else if ("1".equals(data.getOrderState())){
+        }else if ("1".equals(data.getOrderType())){
             setViewInfo("收款成功", R.drawable.icon_pay_success, View.GONE);
-        }else if ("-3".equals(data.getOrderState())){
+        }else if ("-3".equals(data.getOrderType())){
             setViewInfo("退款成功", R.drawable.icon_pay_back_money, View.GONE);
         }
-        mTvOrderBatch.setText(data.getBatch());
+        mTvOrderBatch.setText(TextUtils.isEmpty(data.getPaymentBatch()) ? data.getBatch() : data.getPaymentBatch());
         mTvOrderPayTime.setText(data.getTradingTime());
         mTvOrderPayMoney.setText(data.getPayAmount() + "元");
         mTvOrderMoney.setText(data.getPayAmount());
@@ -181,10 +182,10 @@ public class PaymentDetailActivity extends BaseActivity {
      */
     private void setViewInfo(String title, int imgRes, int visible) {
         mTopBar.setCenterText(title);
-        mIvOrderStatus.setImageResource(imgRes);
         mTvOrderTitle.setText(title);
-        mTopBar.setRightVisibility(visible);
         mTvOrderPayStatus.setText(title);
+        mIvOrderStatus.setImageResource(imgRes);
+        mTopBar.setRightVisibility(visible);
     }
 
 

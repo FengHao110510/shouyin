@@ -20,10 +20,11 @@ public class PaymentDetailBean {
      * paymentBatch : 201807061059114027926
      * tradingTime : 2018-07-06 10:59:22.0
      * paymentType : 支付宝支付
-     * orderState : 成功
      * payAmount : 0.01
      * shopNumber : 1000180614300325544
      * recharge : 0
+     * amountCollected : 0.00
+     * orderType : 1
      */
 
     private int page;
@@ -36,6 +37,8 @@ public class PaymentDetailBean {
     private String payAmount;
     private String shopNumber;
     private String recharge;
+    private String amountCollected;
+    private String orderType;
 
     public int getPage() {
         return page;
@@ -115,5 +118,21 @@ public class PaymentDetailBean {
 
     public void setRecharge(String recharge) {
         this.recharge = recharge;
+    }
+
+    public String getAmountCollected() {
+        return amountCollected;
+    }
+
+    public void setAmountCollected(String amountCollected) {
+        this.amountCollected = amountCollected;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 }

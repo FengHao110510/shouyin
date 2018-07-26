@@ -121,7 +121,9 @@ public class CreateOrderAdapter extends BaseQuickAdapter<FoodBean.DataBean, Base
             }
         }
         Glide.with(mContext).load(ApiConfig.IMG_URL + img_url)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.dg_logo)
+                .skipMemoryCache(false)
+                .dontAnimate()
                 .error(R.drawable.dg_logo)
                 .into((ImageView) helper.getView(R.id.iv_food_img));
     }
