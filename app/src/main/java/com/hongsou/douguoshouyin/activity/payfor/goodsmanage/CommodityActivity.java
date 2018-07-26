@@ -203,7 +203,6 @@ public class CommodityActivity extends BaseActivity {
             public void onResponse(FoodBean response, int id) {
                 if (response.isSuccess()) {
                     state="1";
-                    Global.getSpGlobalUtil().setForceState("1");
                     List<FoodBean.DataBean> data = response.getData();
                     setSingleFoodsBean(data);
                 } else {
@@ -317,13 +316,13 @@ public class CommodityActivity extends BaseActivity {
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.module_pop_payfor_commodity, null);
 
-        TextView tv_payfor_commodity_pop_qishou = view.findViewById(R.id.tv_payfor_commodity_pop_qishou);
-        TextView tv_payfor_commodity_pop_tingshou = view.findViewById(R.id.tv_payfor_commodity_pop_tingshou);
-        TextView tv_payfor_commodity_pop_shanchu = view.findViewById(R.id.tv_payfor_commodity_pop_shanchu);
+        TextView tvPayforCommodityPopQishou = view.findViewById(R.id.tv_payfor_commodity_pop_qishou);
+        TextView tvPayforCommodityPopTingshou = view.findViewById(R.id.tv_payfor_commodity_pop_tingshou);
+        TextView tvPayforCommodityPopShanchu = view.findViewById(R.id.tv_payfor_commodity_pop_shanchu);
 
         //批量起售
 
-        tv_payfor_commodity_pop_qishou.setOnClickListener(new View.OnClickListener() {
+        tvPayforCommodityPopQishou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -331,7 +330,7 @@ public class CommodityActivity extends BaseActivity {
         });
         //批量停售
 
-        tv_payfor_commodity_pop_tingshou.setOnClickListener(new View.OnClickListener() {
+        tvPayforCommodityPopTingshou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -339,7 +338,7 @@ public class CommodityActivity extends BaseActivity {
         });
         //批量删除
 
-        tv_payfor_commodity_pop_shanchu.setOnClickListener(new View.OnClickListener() {
+        tvPayforCommodityPopShanchu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -376,7 +375,7 @@ public class CommodityActivity extends BaseActivity {
             }
             getCategoryList();
             getFoodsList();
-
+            Global.getSpGlobalUtil().setForceState("1");
 
         }
     }

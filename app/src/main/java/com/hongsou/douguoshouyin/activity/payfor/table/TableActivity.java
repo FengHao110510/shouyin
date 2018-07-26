@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,7 +141,7 @@ public class TableActivity extends BaseActivity {
                     , dataBean.getPedestal(), dataBean.getRegionNumber());
             List<TableBean.DataBean.TableListBean> tableList = dataBean.getTableList();
             //添加二级菜单  莫名其妙的错误  第一组数据总是反的
-            if (i == 0) {
+//            if (i == 0) {
                 for (int k = tableList.size() - 1; k >= 0; k--) {
                     TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber(),
                             tableList.get(k).getLogGid()
@@ -150,19 +151,20 @@ public class TableActivity extends BaseActivity {
                             , tableList.get(k).getRegionNumber()
                             , false);
                     tableRegionTitleBean.addSubItem(i, tableListContentBean);
+                    Log.e(TAG, "showTableList: "+tableList.get(k).getNumber() );
                 }
-            } else {
-                for (int k = 0; k < tableList.size(); k++) {
-                    TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber(),
-                            tableList.get(k).getLogGid()
-                            , tableList.get(k).getTabletableNumber()
-                            , tableList.get(k).getPedestal()
-                            , tableList.get(k).getNumber()
-                            , tableList.get(k).getRegionNumber()
-                            , false);
-                    tableRegionTitleBean.addSubItem(i, tableListContentBean);
-                }
-            }
+//            } else {
+//                for (int k = 0; k < tableList.size(); k++) {
+//                    TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber(),
+//                            tableList.get(k).getLogGid()
+//                            , tableList.get(k).getTabletableNumber()
+//                            , tableList.get(k).getPedestal()
+//                            , tableList.get(k).getNumber()
+//                            , tableList.get(k).getRegionNumber()
+//                            , false);
+//                    tableRegionTitleBean.addSubItem(i, tableListContentBean);
+//                }
+//            }
 
             //添加一个空白的 + 按钮  110510瞎写的用作区分  dataBean.getPedestal() 规格 dataBean.getRegionNumber()区域编号  添加单个桌台有用
             TableListContentBean tableListContentBean2 = new TableListContentBean("",
