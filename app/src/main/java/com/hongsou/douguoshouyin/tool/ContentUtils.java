@@ -38,7 +38,6 @@ public class ContentUtils {
                 }
             }
         }catch (Exception e){
-            e.printStackTrace();
             System.out.println("content转换异常 ：" + e.toString());
         }
         return map;
