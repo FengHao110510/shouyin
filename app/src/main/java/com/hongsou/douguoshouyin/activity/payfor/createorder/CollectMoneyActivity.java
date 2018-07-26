@@ -92,6 +92,8 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
     private List<SelectMealEntity> mSelectMealEntities;
     private String mTotalMoney;
     private CustomPopupWindow mPopupWindow;
+    private SubmitOrderBean mSubmitOrderBean;
+    private String mBatch;
 
 
     @Override
@@ -177,29 +179,18 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
             case R.id.ll_payfor_pop_sao:
                 mPopupWindow.dismiss();
                 Global.getSpGlobalUtil().setReceivableMoney(mTotalMoney);
-                new IntentIntegrator(CollectMoneyActivity.this).
-                        setCaptureActivity(ScanQRCodeActivity.class)
-                        // 设置提示语
-                        .setPrompt("")
-                        // 选择摄像头,可使用前置或者后置
-                        .setCameraId(0)
-                        // 是否开启声音,扫完码之后会"哔"的一声
-                        .setBeepEnabled(false)
-                        // 扫完码之后生成二维码的图片
-                        .setBarcodeImageEnabled(true)
-                        // 初始化扫码
-                        .initiateScan();
+                submitOrder(mSubmitOrderBean, "scan");
                 break;
             case R.id.ll_payfor_pop_erwei:
                 mPopupWindow.dismiss();
+                // 提交订单
+                submitOrder(mSubmitOrderBean, "qrcode");
                 Global.getSpGlobalUtil().setReceivableMoney(mTotalMoney);
-                Intent intent = new Intent(CollectMoneyActivity.this, QRCodeActivity.class);
-                startActivity(intent);
                 break;
             case R.id.ll_payfor_pop_xianjin:
                 mPopupWindow.dismiss();
                 startActivity(new Intent(this, CollectMoneyForCashActivity.class)
-                        .putExtra("bean", new Gson().toJson(createOrderInfo())));
+                        .putExtra("bean", new Gson().toJson(mSubmitOrderBean)));
                 break;
             default:
                 break;
@@ -212,8 +203,8 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
      * @anthor lpc
      * @date: 2018/7/19
      */
-    private SubmitOrderBean createOrderInfo() {
-        SubmitOrderBean bean = new SubmitOrderBean();
+    private void createOrderInfo() {
+        mSubmitOrderBean = new SubmitOrderBean();
 
         if (!TextUtils.isEmpty(mEtMoney.getText().toString())) {
             mTotalMoney = mEtMoney.getText().toString();
@@ -233,45 +224,58 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         // 订单提交成功，保存当前时间
         Global.getSpGlobalUtil().setDateOrderNumber(DateUtils.getStringDateShort(), dateOrderNumber);
 //        bean.setBatch(batch);
-        bean.setDateOrderNumber(dateOrderNumber);
-        bean.setEquipmentSource("");
-        bean.setEquipmentNumber("");
-        bean.setTradingTime(DateUtils.getStringToday());
-        bean.setOrderSource("开单");
-        bean.setOrderType("0");
-        bean.setPaymentType("现金");
-        bean.setClerkName(Global.getSpGlobalUtil().getClerkName());
-        bean.setClerkNumber(Global.getSpGlobalUtil().getClerkNumber());
-        bean.setShopNumber(getShopNumber());
-        bean.setOrderRemarks("无");
-        bean.setOrderAmount(mTotalMoney);
-        bean.setAmountReceivable(mTotalMoney);
-        bean.setAmountCollected(mTotalMoney);
-        bean.setCashAmount("0");
-        bean.setMemberNumber("");
-        bean.setOrderSourcePayment("开单");
-        bean.setFoodProductsResult(mSelectMealEntities);
-
-        return bean;
+        mSubmitOrderBean.setDateOrderNumber(dateOrderNumber);
+        mSubmitOrderBean.setEquipmentSource("");
+        mSubmitOrderBean.setEquipmentNumber("");
+        mSubmitOrderBean.setTradingTime(DateUtils.getStringToday());
+        mSubmitOrderBean.setOrderSource("开单");
+        mSubmitOrderBean.setOrderType("0");
+        mSubmitOrderBean.setPaymentType("现金");
+        mSubmitOrderBean.setClerkName(Global.getSpGlobalUtil().getClerkName());
+        mSubmitOrderBean.setClerkNumber(Global.getSpGlobalUtil().getClerkNumber());
+        mSubmitOrderBean.setShopNumber(getShopNumber());
+        mSubmitOrderBean.setOrderRemarks("无");
+        mSubmitOrderBean.setOrderAmount(mTotalMoney);
+        mSubmitOrderBean.setAmountReceivable(mTotalMoney);
+        mSubmitOrderBean.setAmountCollected(mTotalMoney);
+        mSubmitOrderBean.setCashAmount("0");
+        mSubmitOrderBean.setMemberNumber("");
+        mSubmitOrderBean.setOrderSourcePayment("开单");
+        mSubmitOrderBean.setFoodProductsResult(mSelectMealEntities);
     }
 
     /**
-     * @param
      * @param bean
+     * @param type 支付方式，扫一扫、二维码
      * @desc 提交订单
      * @anthor lpc
      * @date: 2018/7/19
      */
-    private void submitOrder(SubmitOrderBean bean) {
+    private void submitOrder(SubmitOrderBean bean, final String type) {
         String s = new Gson().toJson(bean);
 
         HttpFactory.postString(ApiConfig.INSERT_ORDER, s, new ResponseCallback<BaseBean>(this) {
             @Override
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
-                    String batch = response.getMsg();
-                    Intent intent = new Intent(CollectMoneyActivity.this, PaymentDetailActivity.class);
-                    startActivity(intent);
+                    mBatch = response.getMsg();
+                    if ("qrcode".equals(type)){
+                        Intent intent = new Intent(CollectMoneyActivity.this, QRCodeActivity.class);
+                        startActivity(intent);
+                    }else {
+                        new IntentIntegrator(CollectMoneyActivity.this).
+                                setCaptureActivity(ScanQRCodeActivity.class)
+                                // 设置提示语
+                                .setPrompt("")
+                                // 选择摄像头,可使用前置或者后置
+                                .setCameraId(0)
+                                // 是否开启声音,扫完码之后会"哔"的一声
+                                .setBeepEnabled(false)
+                                // 扫完码之后生成二维码的图片
+                                .setBarcodeImageEnabled(true)
+                                // 初始化扫码
+                                .initiateScan();
+                    }
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }
@@ -291,8 +295,8 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                     if (result.getContents() == null) {
                         Toast.makeText(this, "支付失败", Toast.LENGTH_LONG).show();
                     } else {
-                        //TODO 成功之后走接口
-                        toPay(result.getContents());
+                        // 扫码成功后支付
+                        payForScan(result.getContents(), mBatch);
                     }
                 }
                 break;
@@ -306,8 +310,9 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
      * @anthor lpc
      * @date: 2018/7/25
      * @param contents 扫描结果
+     * @param batch 订单号
      */
-    private void toPay(String contents) {
+    private void payForScan(String contents, String batch) {
         HttpFactory.post().url(ApiConfig.TABBY_PAY)
                 .addParams("equipmentNumber", Global.getSpGlobalUtil().getCode())
                 .addParams("equipmentType", "3")
@@ -315,7 +320,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("totalFee",mTotalMoney)
                 .addParams("authCode", contents)
-                .addParams("batch", "s"+ DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("batch", batch)
                 .addParams("storeId", getShopNumber())
                 .addParams("operatorId", getClerkNumber())
                 .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
@@ -351,7 +356,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
      */
     @Subscribe
     public void onEventMainThread(SaomahaoBean event) {
-        toPay(event.getSaomahao());
+        payForScan(event.getSaomahao(), mBatch);
     }
 
     /**
