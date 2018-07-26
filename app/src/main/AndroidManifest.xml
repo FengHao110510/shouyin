@@ -185,7 +185,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.payfor.TongjiActivity"
+            android:name=".activity.payfor.StatisticsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity

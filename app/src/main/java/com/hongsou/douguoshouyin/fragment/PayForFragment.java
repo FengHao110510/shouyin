@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.payfor.TongjiActivity;
+import com.hongsou.douguoshouyin.activity.payfor.StatisticsActivity;
 import com.hongsou.douguoshouyin.activity.payfor.createorder.CreateOrderActivity;
 import com.hongsou.douguoshouyin.activity.payfor.goodsmanage.CommodityActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PayForActivity;
@@ -230,7 +230,7 @@ public class PayForFragment extends BaseFragment {
                 break;
             case R.id.rv_payfor_turnover:
                 //统计页面
-                Intent tongjiIntent = new Intent(getActivity(), TongjiActivity.class);
+                Intent tongjiIntent = new Intent(getActivity(), StatisticsActivity.class);
                 startActivity(tongjiIntent);
                 break;
             default:

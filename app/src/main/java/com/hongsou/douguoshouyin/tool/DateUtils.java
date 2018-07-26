@@ -391,4 +391,51 @@ public class DateUtils {
         }
         return nextDate;
     }
+
+    /**
+     * 获取当天零点的时间
+     */
+    public static String getCurrent00Time(){
+        //获取当前时间，作为图标的名字
+        Calendar calendar=Calendar.getInstance();
+        int year=calendar.get(Calendar.YEAR);
+        int month=calendar.get(Calendar.MONTH)+1;
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        String monthStr="";
+        String dayStr="";
+        if (month<=9 ){
+            monthStr="0"+month;
+        }else{
+            monthStr=month+"";
+        }
+        if (day<=9 ){
+            dayStr="0"+day;
+        }else{
+            dayStr=day+"";
+        }
+        return year+"-"+monthStr+"-"+dayStr+" 00:00";
+    }
+    /**
+     * 获取当天23:59的时间
+     */
+    public static String getCurrent24Time(){
+        //获取当前时间，作为图标的名字
+        Calendar calendar=Calendar.getInstance();
+        int year=calendar.get(Calendar.YEAR);
+        int month=calendar.get(Calendar.MONTH)+1;
+        int day=calendar.get(Calendar.DAY_OF_MONTH);
+        String monthStr="";
+        String dayStr="";
+        if (month<=9 ){
+            monthStr="0"+month;
+        }else{
+            monthStr=month+"";
+        }
+        if (day<=9 ){
+            dayStr="0"+day;
+        }else{
+            dayStr=day+"";
+        }
+        return year+"-"+monthStr+"-"+dayStr+" 23:59";
+    }
 }
