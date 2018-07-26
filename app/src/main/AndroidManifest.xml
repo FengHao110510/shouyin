@@ -129,20 +129,7 @@
             android:name=".activity.payfor.payfor.BackPayActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.payfor.payfor.FailActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.payfor.payfor.ShoukuanzhongActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.turnover.OrderShaixuanActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.turnover.OrderConditionActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
