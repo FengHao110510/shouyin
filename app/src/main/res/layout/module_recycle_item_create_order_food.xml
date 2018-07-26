@@ -59,6 +59,20 @@
                     android:textColor="@color/tip_text_black"
                     android:textSize="@dimen/txt_14" />
 
+                <TextView
+                    android:id="@+id/tv_show_standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="规格"
+                    android:visibility="gone"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:background="@drawable/btn_color"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    />
                 <LinearLayout
                     android:id="@+id/ll_count"
                     android:layout_width="wrap_content"

@@ -9,6 +9,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * 退款成功页面
  */
@@ -43,9 +48,23 @@ public class BackPayActivity extends BaseActivity {
         initTitle("退款成功");
     }
 
+
     @Override
     public void initView() {
     //TODO 初始化数据之前退款接口传的？
+        //获取当前时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        String now = sdf.format(new Date());
+
+        String amount = getIntent().getStringExtra("refundAmount");
+        String batch = getIntent().getStringExtra("outTradeNo");
+        String type = getIntent().getStringExtra("type");
+        tvPayforBackpayDingdanhao.setText(batch);
+        tvPayforBackpayJiaoyijine.setText(amount);
+        tvPayforBackpayJiaoyishijian.setText(now);
+        tvPayforBackpayTuikuanjine.setText(amount);
+        tvPayforBackpayZhifufangshi.setText(type);
+        tvPayforBackpayZhifuzhuangtai.setText("退款成功");
     }
 
     @Override

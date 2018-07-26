@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -23,10 +24,16 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import javax.microedition.khronos.opengles.GL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +78,7 @@ public class PaymentDetailActivity extends BaseActivity {
     Button mBtnOrderAgain;
     private Dialog dialog;
     private String mBatch;
-
+    private String paymentBatch;
     @Override
     public int initLayout() {
         return R.layout.module_activity_order_detail;
@@ -79,19 +86,20 @@ public class PaymentDetailActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        if (getIntent().hasExtra("batch")){
+        if (getIntent().hasExtra("batch")) {
             mBatch = getIntent().getStringExtra("batch");
+            paymentBatch = getIntent().getStringExtra("paymentBatch");
             initData();
-        }else if (getIntent().hasExtra("payOnLineSuccessBean")){
-            PayOnLineSuccessBean payOnLineSuccessBean= (PayOnLineSuccessBean) getIntent().getSerializableExtra("payOnLineSuccessBean");
+        } else if (getIntent().hasExtra("payOnLineSuccessBean")) {
+            PayOnLineSuccessBean payOnLineSuccessBean = (PayOnLineSuccessBean) getIntent().getSerializableExtra("payOnLineSuccessBean");
             mTvOrderMoney.setText(payOnLineSuccessBean.getMoney());
             mTvOrderPayTime.setText(payOnLineSuccessBean.getDate());
             mTvOrderBatch.setText(payOnLineSuccessBean.getOutTradeNo());
             mTvOrderPayType.setText(payOnLineSuccessBean.getTradeType());
             mTvOrderPayMoney.setText(payOnLineSuccessBean.getMoney());
             mTvOrderPayStatus.setText("支付成功");
-            MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType()+"收款到账"
-                    +payOnLineSuccessBean.getMoney()+"元",this);
+            MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType() + "收款到账"
+                    + payOnLineSuccessBean.getMoney() + "元", this);
         }
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
@@ -116,7 +124,7 @@ public class PaymentDetailActivity extends BaseActivity {
             startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
             finish();
             return false;
-        }else {
+        } else {
             return super.onKeyDown(keyCode, event);
         }
 
@@ -128,6 +136,7 @@ public class PaymentDetailActivity extends BaseActivity {
         HttpFactory.get().url(ApiConfig.GET_PAYMENT_ORDER_BY_BATCH)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("batch", mBatch)
+                .addParams("paymentBatch", paymentBatch)
                 .build()
                 .execute(new ResponseCallback<RootBean<PaymentDetailBean>>(this) {
                     @Override
@@ -135,7 +144,7 @@ public class PaymentDetailActivity extends BaseActivity {
                         if (response.isSuccess()) {
                             PaymentDetailBean data = response.getData();
                             renderView(data);
-                        }else {
+                        } else {
                             ToastUtil.showToast(response.getMsg());
                         }
                     }
@@ -143,42 +152,42 @@ public class PaymentDetailActivity extends BaseActivity {
     }
 
     /**
+     * @param data 数据源
      * @desc 数据显示
      * @anthor lpc
      * @date: 2018/7/24
-     * @param data 数据源
      */
     private void renderView(PaymentDetailBean data) {
         // OrderType 0 '支付中'  1'收款成功'  -2 '支付中' -3'已退款'
-        if ("0".equals(data.getOrderType())){
+        if ("0".equals(data.getOrderType())) {
             setViewInfo("收款中", R.drawable.icon_paying, View.VISIBLE);
-        }else if ("-2".equals(data.getOrderType())){
+        } else if ("-2".equals(data.getOrderType())) {
             setViewInfo("收款中", R.drawable.icon_paying, View.GONE);
-        }else if ("1".equals(data.getOrderType())){
+        } else if ("1".equals(data.getOrderType())) {
             setViewInfo("收款成功", R.drawable.icon_pay_success, View.GONE);
-        }else if ("-3".equals(data.getOrderType())){
+        } else if ("-3".equals(data.getOrderType())) {
             setViewInfo("退款成功", R.drawable.icon_pay_back_money, View.GONE);
         }
         mTvOrderBatch.setText(TextUtils.isEmpty(data.getPaymentBatch()) ? data.getBatch() : data.getPaymentBatch());
         mTvOrderPayTime.setText(data.getTradingTime());
         mTvOrderPayMoney.setText(data.getPayAmount() + "元");
         mTvOrderMoney.setText(data.getPayAmount());
-        if (data.getPaymentType().contains("支付宝")){
+        if (data.getPaymentType().contains("支付宝")) {
             mTvOrderPayType.setText("支付宝");
-        }else if (data.getPaymentType().contains("微信")){
+        } else if (data.getPaymentType().contains("微信")) {
             mTvOrderPayType.setText("微信");
-        }else if (data.getPaymentType().contains("现金")){
+        } else if (data.getPaymentType().contains("现金")) {
             mTvOrderPayType.setText("现金");
         }
     }
 
     /**
+     * @param title   标题
+     * @param imgRes  图标的图片id
+     * @param visible 右上角同步按钮是否显示
      * @desc 设置标题图片等内容
      * @anthor lpc
      * @date: 2018/7/24
-     * @param title 标题
-     * @param imgRes 图标的图片id
-     * @param visible 右上角同步按钮是否显示
      */
     private void setViewInfo(String title, int imgRes, int visible) {
         mTopBar.setCenterText(title);
@@ -228,12 +237,22 @@ public class PaymentDetailActivity extends BaseActivity {
         tv_dialog_tuikuan_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!et_dialog_tuikuan_content.getText().toString().equals("")) {
+                if (et_dialog_tuikuan_content.getText().toString().equals(Global.getSpGlobalUtil().getPassword())) {
                     //TODO 判断密码是否正确
-                    tuikuan();
+                    String type = "";
+                    if (mTvOrderPayType.getText().toString().contains("微信")) {
+                        type = "wechar";
+                        tuikuan(type);
+
+                    } else if (mTvOrderPayType.getText().toString().contains("支付宝")) {
+                        type = "ali";
+                        tuikuan(type);
+                    } else {
+                        //现金退款
+                    }
                     dialog.dismiss();
                 } else {
-                    ToastUtil.showToast("请输入密码");
+                    ToastUtil.showToast("请输入正确密码");
                 }
 
             }
@@ -249,10 +268,20 @@ public class PaymentDetailActivity extends BaseActivity {
 
     /**
      * 退款接口`
+     *
+     * @param type
      */
-    private void tuikuan() {
+    private void tuikuan(String type) {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.TUIKUAN).addParams("", "").build().execute(new StringCallback() {
+
+        HttpFactory.post().url(ApiConfig.REFUND)
+                .addParams("outTradeNo", mTvOrderBatch.getText().toString())
+                .addParams("type", type)
+                .addParams("appAuthToken", Global.getSpGlobalUtil().getAliCode())
+                .addParams("subMchId", Global.getSpGlobalUtil().getWecharCode())
+                .addParams("refundAmount", mTvOrderMoney.getText().toString())
+
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -262,10 +291,25 @@ public class PaymentDetailActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
+                Log.e(TAG, "onResponse: "+response );
                 //TODO 成功之后跳转到退款成功页面 此页面关闭
-                Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
-                startActivity(backIntent);
-                finishActivity();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int  code = (int) jsonObject.get("code");
+                    if (code==0){
+                        Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
+                        backIntent.putExtra("refundAmount",mTvOrderMoney.getText().toString());
+                        backIntent.putExtra("outTradeNo",mTvOrderBatch.getText().toString());
+                        backIntent.putExtra("type",mTvOrderPayType.getText().toString());
+                        startActivity(backIntent);
+                        finishActivity();
+                    }else {
+                        ToastUtil.showToast("退款失败");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
