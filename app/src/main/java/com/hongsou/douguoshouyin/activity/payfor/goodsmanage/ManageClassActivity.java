@@ -151,17 +151,15 @@ public class ManageClassActivity extends BaseActivity {
 
     /**
      * @param categoryNumber logGid 唯一标识
-     * @param categoryType   分类类型 0 单品 1固定套餐  2分组套餐
      * @author fenghao
      * @date 2018/7/18 0018 下午 16:59
-     * @desc 编辑分类接口
+     * @desc 编辑分类接口分类类型 0 单品 1固定套餐  2分组套餐
      */
-    private void updateCategory(String categoryNumber, String categoryName, int categoryType) {
+    private void updateCategory(String categoryNumber, String categoryName) {
         Map<String, Object> updateCategoryMap = new HashMap<>();
         updateCategoryMap.put("categoryNumber", categoryNumber);
         updateCategoryMap.put("categoryName", categoryName);
         updateCategoryMap.put("shopNumber", getShopNumber());
-        updateCategoryMap.put("categoryType", categoryType);
         Gson gson = new Gson();
 
         HttpFactory.postString(ApiConfig.UPDATE_CATEGORY, gson.toJson(updateCategoryMap)
@@ -230,7 +228,17 @@ public class ManageClassActivity extends BaseActivity {
         final EditText etDialogFenleiContent = view.findViewById(R.id.et_dialog_fenlei_content);
         TextView tvDialogFenleiContentIcon = view.findViewById(R.id.tv_dialog_fenlei_content_icon);
         Spinner spDialogFenleiDantao = view.findViewById(R.id.sp_dialog_fenlei_dantao);
-
+        Display display = this.getWindowManager().getDefaultDisplay();
+        int w = display.getWidth();
+        int h = display.getHeight();
+        LinearLayout.LayoutParams params;
+        //编辑的时候 隐藏选择分类
+        if (addFlag==1){
+            spDialogFenleiDantao.setVisibility(View.GONE);
+            params = new LinearLayout.LayoutParams(w * 4 / 5, h * 1 / 5);
+        }else {
+            params = new LinearLayout.LayoutParams(w * 4 / 5, h * 2 / 7);
+        }
         final int[] type = new int[1];
         //看用户选择的是单品还是套餐
         spDialogFenleiDantao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -260,7 +268,7 @@ public class ManageClassActivity extends BaseActivity {
                         //走添加接口
                         addCategory(etDialogFenleiContent.getText().toString(), type[0]);
                     } else {
-                        updateCategory(categoryNumber, etDialogFenleiContent.getText().toString(), type[0]);
+                        updateCategory(categoryNumber, etDialogFenleiContent.getText().toString());
                     }
 
                 } else {
@@ -269,11 +277,7 @@ public class ManageClassActivity extends BaseActivity {
 
             }
         });
-        Display display = this.getWindowManager().getDefaultDisplay();
-        int w = display.getWidth();
-        int h = display.getHeight();
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 2 / 7);
         dialog.addContentView(view, params);
 
         dialog.setCanceledOnTouchOutside(false);
