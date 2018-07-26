@@ -38,21 +38,13 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.ShopStandarList;
-import com.hongsou.douguoshouyin.javabean.SingleFoodsBean;
 import com.hongsou.douguoshouyin.javabean.UpImgBean;
 import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CustomDatePicker;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.FileCallBack;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -71,7 +63,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
-import okhttp3.MediaType;
 
 /**
  * 添加商品
@@ -616,11 +607,11 @@ public class AddGoodsActivity extends BaseActivity {
      * 展示时间筛选dialog
      */
     private void showTimeDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_time_shaixuan, null);
-        final TextView tvDialogTimeShaixuanStart = view.findViewById(R.id.tv_dialog_time_shaixuan_start);
-        final TextView tvDialogTimeShaixuanEnd = view.findViewById(R.id.tv_dialog_time_shaixuan_end);
-        TextView tvDialogTimeShaixuanBt = view.findViewById(R.id.tv_dialog_time_shaixuan_bt);
-        TextView tvDialogTimeShaixuanTitle = view.findViewById(R.id.tv_dialog_time_shaixuan_title);
+        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_time_statistics, null);
+        final TextView tvDialogTimeShaixuanStart = view.findViewById(R.id.tv_dialog_time_start);
+        final TextView tvDialogTimeShaixuanEnd = view.findViewById(R.id.tv_dialog_time_end);
+        TextView tvDialogTimeShaixuanBt = view.findViewById(R.id.tv_dialog_time_bt);
+        TextView tvDialogTimeShaixuanTitle = view.findViewById(R.id.tv_dialog_time_title);
         tvDialogTimeShaixuanTitle.setText("售卖时间");
         tvDialogTimeShaixuanBt.setText("选择");
         tvDialogTimeShaixuanBt.setOnClickListener(new View.OnClickListener() {
