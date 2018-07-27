@@ -87,11 +87,11 @@ public class OrderConditionActivity extends BaseActivity {
     /**
      * 选择的筛选条件
      */
-    private String orderSource;
+    private String orderSource = "";
     private int orderSourcePosition;
-    private String payStatus;
+    private String payStatus = "";
     private int payStatusPosition;
-    private String payChannel;
+    private String payChannel = "";
     private int payChannelPosition;
     private int mType;
 
@@ -118,7 +118,7 @@ public class OrderConditionActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         //初始化起始时间
-        initDateStartPicker(now);
+        initDateStartPicker(DateUtils.getCurrent00Time());
         //初始化结束时间
         initDateEndPicker("2010-01-01 00:00", now);
 
