@@ -38,8 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import javax.microedition.khronos.opengles.GL;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -83,7 +81,7 @@ public class PaymentDetailActivity extends BaseActivity {
     Button mBtnOrderAgain;
     private Dialog dialog;
     private String mBatch;
-    private String paymentBatch;
+    private String paymentBatch = "";
     String now ;//现在时间
 
     @Override
@@ -96,9 +94,11 @@ public class PaymentDetailActivity extends BaseActivity {
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
+        if (getIntent().hasExtra("paymentBatch")){
+            paymentBatch = getIntent().getStringExtra("paymentBatch");
+        }
         if (getIntent().hasExtra("batch")) {
             mBatch = getIntent().getStringExtra("batch");
-            paymentBatch = getIntent().getStringExtra("paymentBatch");
             initData();
         } else if (getIntent().hasExtra("payOnLineSuccessBean")) {
             PayOnLineSuccessBean payOnLineSuccessBean = (PayOnLineSuccessBean) getIntent().getSerializableExtra("payOnLineSuccessBean");
