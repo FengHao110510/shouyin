@@ -10,7 +10,7 @@ import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
-import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
+import com.hongsou.douguoshouyin.javabean.HandoverDetailBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
@@ -86,14 +86,20 @@ public class HandoverActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         //初始化起始时间
-        initDateStartPicker(now);
+//        initDateStartPicker(now);
         //初始化结束时间
         initDateEndPicker("2010-01-01 00:00", now);
     }
 
     /**
-     * endTime 最后期限  初始化开始时间
+     * @desc 初始化开始时间
+     * @anthor lpc
+     * @date: 2018/7/27
+     * @param
+     * @return
      */
+
+    /* 交班开始时间不能选择
     private void initDateStartPicker(String endTime) {
         mTvHandoverStartTime.setText(endTime);
         customDatePickerStart = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
@@ -104,10 +110,15 @@ public class HandoverActivity extends BaseActivity {
         }, "2010-01-01 00:00", endTime);
         customDatePickerStart.showSpecificTime(true);
         customDatePickerStart.setIsLoop(true);
-    }
+    }*/
 
     /**
-     * starTime 开始期限  初始化开始时间  endTime 最后期限 现在
+     * @desc 初始化结束时间选择器
+     * @anthor lpc
+     * @date: 2018/7/27
+     * @param starTime 开始期限
+     * @param endTime 最后期限 现在
+     * @return 
      */
     private void initDateEndPicker(String starTime, String endTime) {
         customDatePickerEnd = null;
@@ -124,16 +135,16 @@ public class HandoverActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        HttpFactory.get().url(ApiConfig.GET_PAYMENT_ORDER_BY_BATCH)
+        HttpFactory.get().url(ApiConfig.GET_SHIFT_DETAILS)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("clerkNumber", Global.getSpGlobalUtil().getClerkNumber())
                 .addParams("endTime", DateUtils.getStringDateNotSS())
                 .build()
-                .execute(new ResponseCallback<RootBean<PaymentDetailBean>>(this) {
+                .execute(new ResponseCallback<RootBean<HandoverDetailBean>>(this) {
                     @Override
-                    public void onResponse(RootBean<PaymentDetailBean> response, int id) {
+                    public void onResponse(RootBean<HandoverDetailBean> response, int id) {
                         if (response.isSuccess()) {
-                            PaymentDetailBean data = response.getData();
+                            HandoverDetailBean data = response.getData();
                             renderView(data);
                         }else {
                             ToastUtil.showToast(response.getMsg());
@@ -148,8 +159,25 @@ public class HandoverActivity extends BaseActivity {
      * @date: 2018/7/24
      * @param data 数据源
      */
-    private void renderView(PaymentDetailBean data) {
-
+    private void renderView(HandoverDetailBean data) {
+        // 实收金额
+        mTvHandoverCollectMoney.setText(data.getAmountCollected());
+        // 订单笔数
+        mTvHanoverOrderCount.setText(data.getCollectedCount());
+        // 退款金额
+        mTvHandoverBackMoney.setText(data.getRefoundAmount());
+        // 退款笔数
+        mTvHandoverBackCount.setText(data.getRefoundCount());
+        // 支付宝支付金额
+        mTvHandoverAlipay.setText(data.getAliAmount());
+        // 微信支付金额
+        mTvHandoverWechat.setText(data.getWeChatAmount());
+        // 现金支付金额
+        mTvHandoverMoney.setText(data.getCashAmount());
+        // 银行卡支付金额
+        mTvHandoverBankCard.setText(data.getBankAmount());
+        // 交班开始时间
+        mTvHandoverStartTime.setText(data.getTradingTime());
     }
 
 
@@ -157,8 +185,8 @@ public class HandoverActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_handover_start_time:
-                // 日期格式为yyyy-MM-dd HH:mm
-                customDatePickerStart.show(mTvHandoverStartTime.getText().toString());
+//                // 日期格式为yyyy-MM-dd HH:mm
+//                customDatePickerStart.show(mTvHandoverStartTime.getText().toString());
                 break;
             case R.id.tv_handover_end_time:
                 // 日期格式为yyyy-MM-dd HH:mm
@@ -181,12 +209,26 @@ public class HandoverActivity extends BaseActivity {
     /**
      * @param
      * @return
-     * @desc 交班查询接口
+     * @desc 交班提交接口
      * @anthor lpc
      * @date: 2018/7/24
      */
     private void handoverSubmit() {
-
+        HttpFactory.post().url(ApiConfig.INSERT_SHIFT)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("clerkNumber", Global.getSpGlobalUtil().getClerkNumber())
+                .addParams("endTime", mTvHandoverEndTime.getText().toString())
+                .build()
+                .execute(new ResponseCallback<RootBean>(this) {
+                    @Override
+                    public void onResponse(RootBean response, int id) {
+                        if (response.isSuccess()) {
+                            ToastUtil.showToast("交班成功");
+                        }else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
     }
 
 
