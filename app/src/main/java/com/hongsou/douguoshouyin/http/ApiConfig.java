@@ -13,9 +13,13 @@ package com.hongsou.douguoshouyin.http;
 public class ApiConfig {
 
     /**
+     * 正式ip
+     */
+//    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
+    /**
      * 邓辽航ip
      */
-//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
     public static final String BASE_URL_PAY = "http://sycs.hongxiaosou.com";
     public static final String IMG_URL = "http://images.hongxiaosou.cn/";
 
@@ -23,10 +27,7 @@ public class ApiConfig {
      * 测试IP
      */
     //    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20";
-    /**
-     * 正式ip
-     */
-    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
+
 
 
     /**
@@ -197,6 +198,15 @@ public class ApiConfig {
      * TODO 查询筛选条件
      */
     public static final String GET_ORDER_CONDITION = BASE_URL + "/orderDetails/getOrderCondition";
+    // TODO ======================================== 交班模块 ====================================================
+    /**
+     * TODO 交班查询
+     */
+    public static final String GET_SHIFT_DETAILS = BASE_URL + "/shift/getShiftDetails";
+    /**
+     * TODO 交班提交
+     */
+    public static final String INSERT_SHIFT = BASE_URL + "/shift/insertShift";
     // TODO ======================================== 更多模块 ====================================================
     // TODO ======================================== 我的模块 ====================================================
     /**
