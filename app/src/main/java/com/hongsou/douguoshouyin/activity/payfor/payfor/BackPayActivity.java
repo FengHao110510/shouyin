@@ -2,12 +2,10 @@ package com.hongsou.douguoshouyin.activity.payfor.payfor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
@@ -15,6 +13,10 @@ import com.hongsou.douguoshouyin.base.BaseActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 退款成功页面
@@ -36,6 +38,8 @@ public class BackPayActivity extends BaseActivity {
     TextView tvPayforBackpayZhifuzhuangtai;
     @BindView(R.id.bt_payfor_backpay_tuikuan)
     Button btPayforBackpayTuikuan;
+    @BindView(R.id.tv_titlebar_finish_back)
+    TextView tvTitlebarFinishBack;
 
     @Override
     public int initLayout() {
@@ -46,14 +50,13 @@ public class BackPayActivity extends BaseActivity {
     protected void init() {
         initView();
         initData();
-        initBack();
         initTitle("退款成功");
     }
 
 
     @Override
     public void initView() {
-    //TODO 初始化数据之前退款接口传的？
+        //TODO 初始化数据之前退款接口传的？
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         String now = sdf.format(new Date());
@@ -67,6 +70,15 @@ public class BackPayActivity extends BaseActivity {
         tvPayforBackpayTuikuanjine.setText(amount);
         tvPayforBackpayZhifufangshi.setText(type);
         tvPayforBackpayZhifuzhuangtai.setText("退款成功");
+        setIconFont(new TextView[]{tvTitlebarFinishBack});
+        tvTitlebarFinishBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toMain();
+            }
+        });
+
+
     }
 
     @Override
@@ -87,7 +99,7 @@ public class BackPayActivity extends BaseActivity {
 
     @Override
     public void initBack() {
-       toMain();
+        toMain();
     }
 
     @Override
