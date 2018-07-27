@@ -73,8 +73,6 @@ public class AboutWeActivity extends BaseActivity {
     }
 
 
-
-
     @OnClick(R.id.tv_mine_aboutwe_check)
     public void onViewClicked() {
         //检查更新  走接口 TODO
@@ -83,13 +81,13 @@ public class AboutWeActivity extends BaseActivity {
                 .build().execute(new ResponseCallback<SystemSetupBean>(this) {
             @Override
             public void onResponse(SystemSetupBean response, int id) {
-                if (response.isSuccess()){
-                    if (!"123".equals(response.getData().getNewVersionNumber())){
+                if (response.isSuccess()) {
+                    if (!"123".equals(response.getData().getNewVersionNumber())) {
                         downLoadApk(response.getData().getDownloadAddress());
-                    }else {
+                    } else {
                         ToastUtil.showToast("最新版本无需更新");
                     }
-                }else {
+                } else {
                     ToastUtil.showToast(response.getMsg());
                 }
             }
@@ -101,22 +99,24 @@ public class AboutWeActivity extends BaseActivity {
     private void downLoadApk(String downloadAddress) {
         String path = Environment.getExternalStorageDirectory() + "/douguo/apk/";
         OkHttpUtils.get().url(downloadAddress).build().execute(
-                new FileCallBack(path,"qingshouyin"+ DateUtils.getNowDateLong()) {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                ToastUtil.showToast("网络连接失败");
+                new FileCallBack(path, "qingshouyin" + DateUtils.getNowDateLong()) {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.showToast("网络连接失败");
 
-            }
+                    }
 
-            @Override
-            public void onResponse(File response, int id) {
-            }
+                    @Override
+                    public void onResponse(File response, int id) {
+                        ToastUtil.showToast("下载完成");
+                    }
 
-            @Override
-            public void inProgress(float progress, long total, int id) {
-                super.inProgress(progress, total, id);
-            }
-        });
+                    @Override
+                    public void inProgress(float progress, long total, int id) {
+                        super.inProgress(progress, total, id);
+                        ToastUtil.showToast("下载完成2");
+                    }
+                });
     }
 
 

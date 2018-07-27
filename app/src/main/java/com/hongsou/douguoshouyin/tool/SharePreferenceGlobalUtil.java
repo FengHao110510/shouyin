@@ -217,6 +217,19 @@ public class SharePreferenceGlobalUtil {
     public String getReceivableMoney() {
         return sp.getString("receivableMoney", "");
     }
+    /**
+     * 订单号
+     *
+     * @param batch
+     */
+    public void setBatch(String batch) {
+        editor.putString("batch", batch);
+        editor.commit();
+    }
+
+    public String getBatch() {
+        return sp.getString("batch", "");
+    }
 
     /**
      * 折扣还是减钱
