@@ -26,7 +26,7 @@ public class OrderDetailBean {
      * code : 1000
      * msg : 服务成功
      * extInfo : null
-     * data : {"package":[{"shopNumber":"1000180427300326890","foodProductsCount":"2","packageNumber":"TC810317","packageName":"豪华总统套餐","packagePrice":"98.00","packageList":[{"singleProductName":"芬达","standardName":"大杯"},{"singleProductName":"鸡翅","standardName":"一对"},{"singleProductName":"沙拉酱","standardName":"大包"},{"singleProductName":"特大份汉堡","standardName":"个"},{"singleProductName":"特大份薯条","standardName":"份"}]}],"food":[{"foodProductsCount":"2","shopNumber":"1000180427300326890","singleProductName":"可乐","standardNumber":"180427111118129","standardName":"小杯","sell":"5.00"}],"group":[{"foodProductsNumber":"ZH180608111114582","groupFood":[{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"江小白","standardName":"瓶（中）","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"热牛奶","standardName":"中杯","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"4.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"薯条","standardName":"小份","groupNumber":"FZ180608111113341","minGroup":"11"}],"foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","groupPackageName":"6.8高考组合","groupNumber":"FZ180608111112751","minGroup":"2","groupPackagePrice":"22.00"}],"order":{"deleteFlag":0,"page":0,"rows":0,"orderType":"已结帐","orderAmount":"24.00","amountReceivable":"24.00","amountCollected":"24.00","cashAmount":"0.00","orderDiscount":"0.00","insertTime":"2018-07-10 19:38:52.923","clerkName":"李晓鑫","batch":"20180710193853992497"}}
+     * data : {"package":[{"shopNumber":"1000180614300325544","foodProductsCount":"1","packageNumber":"40e8115a-896e-40bc-bb6b-dfc4d606231a","packageName":"这是个固定套餐","packagePrice":"0.01","packageList":[{"foodProductsCount":"1","singleProductName":"这是个单品","standardName":"大大"},{"foodProductsCount":"1","singleProductName":"这是个单品","standardName":"小小"}]}],"food":[{"foodProductsCount":"1","shopNumber":"1000180614300325544","singleProductName":"饮料 01","standardNumber":"6b5a00b0-8a38-4609-85f2-55fa16af49fc","standardName":"大","sell":"0.01"}],"group":[{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","groupFood":[{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","singleProductName":"测试单品001","standardName":"大","groupNumber":"4322ef14-cade-4012-8599-f2d2cad6f491","minGroup":"1"},{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","singleProductName":"测试单品001","standardName":"中","groupNumber":"a2ae9435-8bb1-4a34-a1d1-b9613572fe03","minGroup":"1"}],"foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","groupPackageName":"组合套餐","groupNumber":"4322ef14-cade-4012-8599-f2d2cad6f491","minGroup":"1","groupPackagePrice":"0.01"}],"order":{"page":0,"rows":0,"orderType":"已结帐","orderState":1,"orderDetailsType":"2","paymentType":"微信支付","orderAmount":"0.01","amountReceivable":"0.01","amountCollected":"0.01","cashAmount":"0.00","orderDiscount":"0.00","insertTime":"2018-07-27","orderSourcePayment":"开单","orderSourceFlag":"FLASTE1","batch":"201807273711758371"}}
      * success : true
      */
 
@@ -78,10 +78,10 @@ public class OrderDetailBean {
 
     public static class DataBean {
         /**
-         * package : [{"shopNumber":"1000180427300326890","foodProductsCount":"2","packageNumber":"TC810317","packageName":"豪华总统套餐","packagePrice":"98.00","packageList":[{"singleProductName":"芬达","standardName":"大杯"},{"singleProductName":"鸡翅","standardName":"一对"},{"singleProductName":"沙拉酱","standardName":"大包"},{"singleProductName":"特大份汉堡","standardName":"个"},{"singleProductName":"特大份薯条","standardName":"份"}]}]
-         * food : [{"foodProductsCount":"2","shopNumber":"1000180427300326890","singleProductName":"可乐","standardNumber":"180427111118129","standardName":"小杯","sell":"5.00"}]
-         * group : [{"foodProductsNumber":"ZH180608111114582","groupFood":[{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"江小白","standardName":"瓶（中）","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"热牛奶","standardName":"中杯","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"4.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"薯条","standardName":"小份","groupNumber":"FZ180608111113341","minGroup":"11"}],"foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","groupPackageName":"6.8高考组合","groupNumber":"FZ180608111112751","minGroup":"2","groupPackagePrice":"22.00"}]
-         * order : {"deleteFlag":0,"page":0,"rows":0,"orderType":"已结帐","orderAmount":"24.00","amountReceivable":"24.00","amountCollected":"24.00","cashAmount":"0.00","orderDiscount":"0.00","insertTime":"2018-07-10 19:38:52.923","clerkName":"李晓鑫","batch":"20180710193853992497"}
+         * package : [{"shopNumber":"1000180614300325544","foodProductsCount":"1","packageNumber":"40e8115a-896e-40bc-bb6b-dfc4d606231a","packageName":"这是个固定套餐","packagePrice":"0.01","packageList":[{"foodProductsCount":"1","singleProductName":"这是个单品","standardName":"大大"},{"foodProductsCount":"1","singleProductName":"这是个单品","standardName":"小小"}]}]
+         * food : [{"foodProductsCount":"1","shopNumber":"1000180614300325544","singleProductName":"饮料 01","standardNumber":"6b5a00b0-8a38-4609-85f2-55fa16af49fc","standardName":"大","sell":"0.01"}]
+         * group : [{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","groupFood":[{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","singleProductName":"测试单品001","standardName":"大","groupNumber":"4322ef14-cade-4012-8599-f2d2cad6f491","minGroup":"1"},{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","singleProductName":"测试单品001","standardName":"中","groupNumber":"a2ae9435-8bb1-4a34-a1d1-b9613572fe03","minGroup":"1"}],"foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","groupPackageName":"组合套餐","groupNumber":"4322ef14-cade-4012-8599-f2d2cad6f491","minGroup":"1","groupPackagePrice":"0.01"}]
+         * order : {"page":0,"rows":0,"orderType":"已结帐","orderState":1,"orderDetailsType":"2","paymentType":"微信支付","orderAmount":"0.01","amountReceivable":"0.01","amountCollected":"0.01","cashAmount":"0.00","orderDiscount":"0.00","insertTime":"2018-07-27","orderSourcePayment":"开单","orderSourceFlag":"FLASTE1","batch":"201807273711758371"}
          */
 
         private OrderBean order;
@@ -124,50 +124,48 @@ public class OrderDetailBean {
 
         public static class OrderBean {
             /**
-             * deleteFlag : 0
              * page : 0
              * rows : 0
              * orderType : 已结帐
-             * orderAmount : 24.00
-             * amountReceivable : 24.00
-             * amountCollected : 24.00
+             * orderState : 1
+             * orderDetailsType : 2
+             * paymentType : 微信支付
+             * orderAmount : 0.01
+             * amountReceivable : 0.01
+             * amountCollected : 0.01
              * cashAmount : 0.00
              * orderDiscount : 0.00
-             * insertTime : 2018-07-10 19:38:52.923
-             * clerkName : 李晓鑫
-             * batch : 20180710193853992497
+             * insertTime : 2018-07-27
+             * orderSourcePayment : 开单
+             * orderSourceFlag : FLASTE1
+             * batch : 201807273711758371
              */
 
-            private int deleteFlag;
             private int page;
             private int rows;
             private String orderType;
+            private int orderState;
+            private String orderDetailsType;
+            private String paymentType;
             private String orderAmount;
             private String amountReceivable;
             private String amountCollected;
             private String cashAmount;
             private String orderDiscount;
             private String insertTime;
-            private String clerkName;
-            private String batch;
             private String orderSourcePayment;
+            private String orderSourceFlag;
+            private String batch;
 
-            public String getOrderSourcePayment() {
-                return orderSourcePayment;
+            public String getClerkName() {
+                return clerkName;
             }
 
-            public void setOrderSourcePayment(String orderSourcePayment) {
-                this.orderSourcePayment = orderSourcePayment;
+            public void setClerkName(String clerkName) {
+                this.clerkName = clerkName;
             }
 
-
-            public int getDeleteFlag() {
-                return deleteFlag;
-            }
-
-            public void setDeleteFlag(int deleteFlag) {
-                this.deleteFlag = deleteFlag;
-            }
+            private String clerkName;
 
             public int getPage() {
                 return page;
@@ -191,6 +189,30 @@ public class OrderDetailBean {
 
             public void setOrderType(String orderType) {
                 this.orderType = orderType;
+            }
+
+            public int getOrderState() {
+                return orderState;
+            }
+
+            public void setOrderState(int orderState) {
+                this.orderState = orderState;
+            }
+
+            public String getOrderDetailsType() {
+                return orderDetailsType;
+            }
+
+            public void setOrderDetailsType(String orderDetailsType) {
+                this.orderDetailsType = orderDetailsType;
+            }
+
+            public String getPaymentType() {
+                return paymentType;
+            }
+
+            public void setPaymentType(String paymentType) {
+                this.paymentType = paymentType;
             }
 
             public String getOrderAmount() {
@@ -241,12 +263,20 @@ public class OrderDetailBean {
                 this.insertTime = insertTime;
             }
 
-            public String getClerkName() {
-                return clerkName;
+            public String getOrderSourcePayment() {
+                return orderSourcePayment;
             }
 
-            public void setClerkName(String clerkName) {
-                this.clerkName = clerkName;
+            public void setOrderSourcePayment(String orderSourcePayment) {
+                this.orderSourcePayment = orderSourcePayment;
+            }
+
+            public String getOrderSourceFlag() {
+                return orderSourceFlag;
+            }
+
+            public void setOrderSourceFlag(String orderSourceFlag) {
+                this.orderSourceFlag = orderSourceFlag;
             }
 
             public String getBatch() {
@@ -260,12 +290,12 @@ public class OrderDetailBean {
 
         public static class PackageBean {
             /**
-             * shopNumber : 1000180427300326890
-             * foodProductsCount : 2
-             * packageNumber : TC810317
-             * packageName : 豪华总统套餐
-             * packagePrice : 98.00
-             * packageList : [{"singleProductName":"芬达","standardName":"大杯"},{"singleProductName":"鸡翅","standardName":"一对"},{"singleProductName":"沙拉酱","standardName":"大包"},{"singleProductName":"特大份汉堡","standardName":"个"},{"singleProductName":"特大份薯条","standardName":"份"}]
+             * shopNumber : 1000180614300325544
+             * foodProductsCount : 1
+             * packageNumber : 40e8115a-896e-40bc-bb6b-dfc4d606231a
+             * packageName : 这是个固定套餐
+             * packagePrice : 0.01
+             * packageList : [{"foodProductsCount":"1","singleProductName":"这是个单品","standardName":"大大"},{"foodProductsCount":"1","singleProductName":"这是个单品","standardName":"小小"}]
              */
 
             private String shopNumber;
@@ -325,13 +355,14 @@ public class OrderDetailBean {
 
             public static class PackageListBean {
                 /**
-                 * singleProductName : 芬达
-                 * standardName : 大杯
+                 * foodProductsCount : 1
+                 * singleProductName : 这是个单品
+                 * standardName : 大大
                  */
 
+                private String foodProductsCount;
                 private String singleProductName;
                 private String standardName;
-                private String foodProductsCount;
 
                 public String getFoodProductsCount() {
                     return foodProductsCount;
@@ -340,7 +371,6 @@ public class OrderDetailBean {
                 public void setFoodProductsCount(String foodProductsCount) {
                     this.foodProductsCount = foodProductsCount;
                 }
-
 
                 public String getSingleProductName() {
                     return singleProductName;
@@ -362,12 +392,12 @@ public class OrderDetailBean {
 
         public static class FoodBean {
             /**
-             * foodProductsCount : 2
-             * shopNumber : 1000180427300326890
-             * singleProductName : 可乐
-             * standardNumber : 180427111118129
-             * standardName : 小杯
-             * sell : 5.00
+             * foodProductsCount : 1
+             * shopNumber : 1000180614300325544
+             * singleProductName : 饮料 01
+             * standardNumber : 6b5a00b0-8a38-4609-85f2-55fa16af49fc
+             * standardName : 大
+             * sell : 0.01
              */
 
             private String foodProductsCount;
@@ -428,21 +458,22 @@ public class OrderDetailBean {
 
         public static class GroupBean {
             /**
-             * foodProductsNumber : ZH180608111114582
-             * groupFood : [{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"江小白","standardName":"瓶（中）","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"0.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"热牛奶","standardName":"中杯","groupNumber":"FZ180608111112751","minGroup":"2"},{"foodProductsNumber":"ZH180608111114582","foodProductsType":"2","foodProductsCount":"2","increasePrice":"4.0000","memberPreferences":"0.0000","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"1","antiNodeCount":"0","antiNode":"0","singleProductName":"薯条","standardName":"小份","groupNumber":"FZ180608111113341","minGroup":"11"}]
+             * foodProductsNumber : de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2
+             * groupFood : [{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","singleProductName":"测试单品001","standardName":"大","groupNumber":"4322ef14-cade-4012-8599-f2d2cad6f491","minGroup":"1"},{"foodProductsNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","foodProductsType":"2","foodProductsCount":"1","increasePrice":"0.0000","memberPreferences":"0.0000","remarks":"","discountAmount":"0.0000","costPrice":"0.0000","serialNumber":"2","antiNodeCount":"0","antiNode":"0","singleProductName":"测试单品001","standardName":"中","groupNumber":"a2ae9435-8bb1-4a34-a1d1-b9613572fe03","minGroup":"1"}]
              * foodProductsType : 2
-             * foodProductsCount : 2
+             * foodProductsCount : 1
              * increasePrice : 0.0000
              * memberPreferences : 0.0000
+             * remarks :
              * discountAmount : 0.0000
              * costPrice : 0.0000
-             * serialNumber : 1
+             * serialNumber : 2
              * antiNodeCount : 0
              * antiNode : 0
-             * groupPackageName : 6.8高考组合
-             * groupNumber : FZ180608111112751
-             * minGroup : 2
-             * groupPackagePrice : 22.00
+             * groupPackageName : 组合套餐
+             * groupNumber : 4322ef14-cade-4012-8599-f2d2cad6f491
+             * minGroup : 1
+             * groupPackagePrice : 0.01
              */
 
             private String foodProductsNumber;
@@ -450,6 +481,7 @@ public class OrderDetailBean {
             private String foodProductsCount;
             private String increasePrice;
             private String memberPreferences;
+            private String remarks;
             private String discountAmount;
             private String costPrice;
             private String serialNumber;
@@ -499,6 +531,14 @@ public class OrderDetailBean {
 
             public void setMemberPreferences(String memberPreferences) {
                 this.memberPreferences = memberPreferences;
+            }
+
+            public String getRemarks() {
+                return remarks;
+            }
+
+            public void setRemarks(String remarks) {
+                this.remarks = remarks;
             }
 
             public String getDiscountAmount() {
@@ -583,20 +623,21 @@ public class OrderDetailBean {
 
             public static class GroupFoodBean {
                 /**
-                 * foodProductsNumber : ZH180608111114582
+                 * foodProductsNumber : de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2
                  * foodProductsType : 2
-                 * foodProductsCount : 2
+                 * foodProductsCount : 1
                  * increasePrice : 0.0000
                  * memberPreferences : 0.0000
+                 * remarks :
                  * discountAmount : 0.0000
                  * costPrice : 0.0000
-                 * serialNumber : 1
+                 * serialNumber : 2
                  * antiNodeCount : 0
                  * antiNode : 0
-                 * singleProductName : 江小白
-                 * standardName : 瓶（中）
-                 * groupNumber : FZ180608111112751
-                 * minGroup : 2
+                 * singleProductName : 测试单品001
+                 * standardName : 大
+                 * groupNumber : 4322ef14-cade-4012-8599-f2d2cad6f491
+                 * minGroup : 1
                  */
 
                 private String foodProductsNumber;
@@ -604,6 +645,7 @@ public class OrderDetailBean {
                 private String foodProductsCount;
                 private String increasePrice;
                 private String memberPreferences;
+                private String remarks;
                 private String discountAmount;
                 private String costPrice;
                 private String serialNumber;
@@ -652,6 +694,14 @@ public class OrderDetailBean {
 
                 public void setMemberPreferences(String memberPreferences) {
                     this.memberPreferences = memberPreferences;
+                }
+
+                public String getRemarks() {
+                    return remarks;
+                }
+
+                public void setRemarks(String remarks) {
+                    this.remarks = remarks;
                 }
 
                 public String getDiscountAmount() {

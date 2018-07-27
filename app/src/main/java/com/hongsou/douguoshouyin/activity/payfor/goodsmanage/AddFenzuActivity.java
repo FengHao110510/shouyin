@@ -134,6 +134,12 @@ public class AddFenzuActivity extends BaseActivity {
             }
         }
 
+
+        if (singleFoodsBeanList.size()<Integer.valueOf(tvPayforAddfenzuShuliang.getText().toString())){
+            //餐品数量不得小于必点数量
+            ToastUtil.showToast("餐品数量不得小于必点数量,请添加商品");
+            return;
+        }
         Map<String, Object> addFenzuMap = new HashMap<>();
         //店铺编号
         addFenzuMap.put("shopNumber", getShopNumber());

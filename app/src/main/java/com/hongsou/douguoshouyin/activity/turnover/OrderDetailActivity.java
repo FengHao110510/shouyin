@@ -18,6 +18,8 @@ import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.OrderDetailBean;
 import com.hongsou.douguoshouyin.javabean.OrderFoodBean;
 import com.hongsou.douguoshouyin.tool.Global;
@@ -94,6 +96,8 @@ public class OrderDetailActivity extends BaseActivity {
     List<OrderFoodBean> orderFoodBeanList = new ArrayList<>();
 
     OrderDetailsFoodAdapter orderDetailsFoodAdapter;
+    //支付方式
+    String type;
 
     @Override
     public int initLayout() {
@@ -143,7 +147,6 @@ public class OrderDetailActivity extends BaseActivity {
                     OrderDetailBean.DataBean.OrderBean order = orderDetailBean.getData().getOrder();
 
                     addOrderDetails(order);
-
                     packageBeanList = orderDetailBean.getData().getPackageX();
                     groupBeanList = orderDetailBean.getData().getGroup();
                     foodBeanList = orderDetailBean.getData().getFood();
@@ -201,7 +204,11 @@ public class OrderDetailActivity extends BaseActivity {
         tvTurnoverOrderdetailDingdanjine.setText(order.getOrderAmount());
         tvTurnoverOrderdetailYouhuijine.setText(order.getOrderDiscount());
         tvTurnoverOrderdetailShoukuanjine.setText(order.getAmountCollected());
-
+        if (order.getPaymentType().contains("微信")){
+            type = "wechar";
+        }else if (order.getPaymentType().contains("支付宝")){
+            type = "ali";
+        }
         //总价
         tvTurnoverOrderdetailShangpinzongjia.setText(order.getOrderAmount());
     }
@@ -310,6 +317,7 @@ public class OrderDetailActivity extends BaseActivity {
             public void onClick(View view) {
                 //判断密码是否正确 走退款接口   TODO
                 tuikuan();
+                dialog.dismiss();
             }
         });
         tv_dialog_tuikuan_cancle.setOnClickListener(new View.OnClickListener() {
@@ -335,7 +343,13 @@ public class OrderDetailActivity extends BaseActivity {
     //退款接口
     private void tuikuan() {
         showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.REFUND).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.REFUND)
+                .addParams("outTradeNo", tvTurnoverOrderdetailDingdanhao.getText().toString())
+                .addParams("type", type)
+                .addParams("appAuthToken", Global.getSpGlobalUtil().getAliCode())
+                .addParams("subMchId", Global.getSpGlobalUtil().getWecharCode())
+                .addParams("refundAmount", tvTurnoverOrderdetailShishoujine.getText().toString())
+                .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
@@ -344,12 +358,42 @@ public class OrderDetailActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
-
+                tuidan();
             }
         });
     }
 
+    /**
+     *  @author  fenghao
+     *  @date    2018/7/26 0026 下午 16:20
+     *  @desc   退单接口
+     */
+    private void tuidan() {
+        String paymentType ="";
+        if (type.contains("wechar")){
+            paymentType="微信";
+        }else  if (type.contains("ali")){
+            paymentType="支付宝";
+        }
+        HttpFactory.post()
+                .addParams("shopNumber",getShopNumber())
+                .addParams("batch",tvTurnoverOrderdetailDingdanhao.getText().toString())
+                .addParams("orderAmount",tvTurnoverOrderdetailShishoujine.getText().toString())
+                .addParams("reason","")
+                .addParams("amount",tvTurnoverOrderdetailShishoujine.getText().toString())
+                .addParams("paymentType",paymentType)
+                .url(ApiConfig.REFOUND_ORDER).build().execute(new ResponseCallback<BaseBean>(this) {
 
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("退款成功");
+                } else {
+                    ToastUtil.showToast("退单失败");
+                }
+            }
+        });
+    }
     @OnClick({R.id.tv_turnover_orderdetail_tuikuan, R.id.tv_turnover_orderdetail_dayinxiaopiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
