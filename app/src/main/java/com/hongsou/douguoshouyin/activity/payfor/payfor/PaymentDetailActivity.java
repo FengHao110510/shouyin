@@ -322,13 +322,15 @@ public class PaymentDetailActivity extends BaseActivity {
                         if (!"00000000000000000000".equals(mBatch)){
                             //不是纯收款走个退单接口
                             tuidan();
+                        }else {
+                            Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
+                            backIntent.putExtra("refundAmount",mTvOrderMoney.getText().toString());
+                            backIntent.putExtra("outTradeNo",mTvOrderBatch.getText().toString());
+                            backIntent.putExtra("type",mTvOrderPayType.getText().toString());
+                            startActivity(backIntent);
+                            finishActivity();
                         }
-                        Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
-                        backIntent.putExtra("refundAmount",mTvOrderMoney.getText().toString());
-                        backIntent.putExtra("outTradeNo",mTvOrderBatch.getText().toString());
-                        backIntent.putExtra("type",mTvOrderPayType.getText().toString());
-                        startActivity(backIntent);
-                        finishActivity();
+
                     }else {
                         ToastUtil.showToast("退款失败");
                     }
@@ -365,6 +367,12 @@ public class PaymentDetailActivity extends BaseActivity {
            public void onResponse(BaseBean response, int id) {
                if (response.isSuccess()) {
                    ToastUtil.showToast("退款成功");
+                   Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
+                   backIntent.putExtra("refundAmount",mTvOrderMoney.getText().toString());
+                   backIntent.putExtra("outTradeNo",mTvOrderBatch.getText().toString());
+                   backIntent.putExtra("type",mTvOrderPayType.getText().toString());
+                   startActivity(backIntent);
+                   finishActivity();
                } else {
                    ToastUtil.showToast("退单失败");
                }

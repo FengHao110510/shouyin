@@ -1,5 +1,6 @@
 package com.hongsou.douguoshouyin.activity.payfor.payfor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 
 import java.text.SimpleDateFormat;
@@ -74,7 +76,24 @@ public class BackPayActivity extends BaseActivity {
 
     @OnClick(R.id.bt_payfor_backpay_tuikuan)
     public void onViewClicked() {
+        toMain();
+
+    }
+
+    private void toMain() {
+        startActivity(new Intent(BackPayActivity.this, MainActivity.class));
         finishActivity();
+    }
+
+    @Override
+    public void initBack() {
+       toMain();
+    }
+
+    @Override
+    public void onBackPressed() {
+        toMain();
+
     }
 
     //---=================================================================================================
