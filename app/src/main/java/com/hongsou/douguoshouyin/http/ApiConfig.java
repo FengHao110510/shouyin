@@ -71,6 +71,10 @@ public class ApiConfig {
      */
     public static final String REFUND = BASE_URL_PAY + "/eat/refund/judge";
     /**
+     * TODO 现金退款接口
+     */
+    public static final String REFOUND_BY_CASH = BASE_URL + "/pay/refoundByCash";
+    /**
      * TODO 现金收款
      */
     public static final String PAY_BY_CASH = BASE_URL+ "/pay/payByCash";

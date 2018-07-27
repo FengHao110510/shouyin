@@ -271,6 +271,7 @@ public class PaymentDetailActivity extends BaseActivity {
                         tuikuan(type);
                     } else {
                         //现金退款
+                        cashTuikuan();
                     }
                     dialog.dismiss();
                 } else {
@@ -286,6 +287,27 @@ public class PaymentDetailActivity extends BaseActivity {
             }
         });
 
+    }
+
+    /**
+     *  @author  fenghao
+     *  @date    2018/7/27 0027 下午 17:42
+     *  @desc
+     */
+    private void cashTuikuan() {
+        HttpFactory.post().url(ApiConfig.REFOUND_BY_CASH)
+                .addParams("paymentBatch",paymentBatch)
+                .addParams("batch",mBatch)
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()){
+                   tuidan();
+                }else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
     }
 
     /**

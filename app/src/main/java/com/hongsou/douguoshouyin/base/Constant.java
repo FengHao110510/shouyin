@@ -37,5 +37,6 @@ public class Constant {
     /**
      * 支付成功后推送httpclient的url
      */
-    public static final String HTTP_URL = "http://39.106.220.143:61616/hs-app-server";
+//    public static final String HTTP_URL = "http://39.106.220.143:61616/hs-app-server";
+    public static final String HTTP_URL = "http://47.93.0.117:5003/hs-app-server";
 }
