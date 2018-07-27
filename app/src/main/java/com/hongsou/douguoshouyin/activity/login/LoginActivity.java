@@ -11,25 +11,23 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.MainActivity;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.LoginBean;
 import com.hongsou.douguoshouyin.javabean.PayCodeBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
+import com.hongsou.douguoshouyin.tool.DeviceUtils;
+import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.ApiConfig;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.tool.DeviceUtils;
-import com.hongsou.douguoshouyin.tool.Global;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
-
 import okhttp3.Call;
 
 /**
@@ -170,8 +168,11 @@ public class LoginActivity extends BaseActivity {
                 }.getType());
                 if (loginBean.isSuccess()) {
                     LoginBean dataBean = loginBean.getData();
-                    payCode(dataBean);
-//                    isLogined(dataBean,"","");
+                    if (TextUtils.isEmpty(dataBean.getPaymentUser())){
+                        isLogined(dataBean,"","");
+                    }else {
+                        payCode(dataBean);
+                    }
 
                 } else {
                     ToastUtil.showToast(loginBean.getMsg());
@@ -198,6 +199,7 @@ public class LoginActivity extends BaseActivity {
                 if (response.isSuccess()) {
                     isLogined(dataBean, response.getData().getAliCode(), response.getData().getWecharCode());
                 } else {
+                    isLogined(dataBean, "", "");
                     ToastUtil.showToast(response.getMsg());
                 }
 

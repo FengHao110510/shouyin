@@ -21,6 +21,9 @@ public class HandoverDetailBean {
      * cashAmount : 0.00
      * bankAmount : 0.00
      * refoundCount : 0
+     * refoundAmount : 0.00
+     * amountCollected : 0.00
+     * collectedCount : 0
      */
 
     private int page;
@@ -30,6 +33,18 @@ public class HandoverDetailBean {
     private String cashAmount;
     private String bankAmount;
     private String refoundCount;
+    private String refoundAmount;
+    private String amountCollected;
+    private String collectedCount;
+    private String tradingTime;
+
+    public String getTradingTime() {
+        return tradingTime;
+    }
+
+    public void setTradingTime(String tradingTime) {
+        this.tradingTime = tradingTime;
+    }
 
     public int getPage() {
         return page;
@@ -85,5 +100,29 @@ public class HandoverDetailBean {
 
     public void setRefoundCount(String refoundCount) {
         this.refoundCount = refoundCount;
+    }
+
+    public String getRefoundAmount() {
+        return refoundAmount;
+    }
+
+    public void setRefoundAmount(String refoundAmount) {
+        this.refoundAmount = refoundAmount;
+    }
+
+    public String getAmountCollected() {
+        return amountCollected;
+    }
+
+    public void setAmountCollected(String amountCollected) {
+        this.amountCollected = amountCollected;
+    }
+
+    public String getCollectedCount() {
+        return collectedCount;
+    }
+
+    public void setCollectedCount(String collectedCount) {
+        this.collectedCount = collectedCount;
     }
 }
