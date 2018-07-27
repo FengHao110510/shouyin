@@ -16,6 +16,7 @@ import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.HandoverDetailBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.javabean.StatisticsRankingsBean;
 import com.hongsou.douguoshouyin.tool.DateUtils;
@@ -107,6 +108,47 @@ public class StatisticsActivity extends BaseActivity {
      * @date: 2018/7/26
      */
     public void initData(String startTime, String endTime) {
+        mTvStatisticsStartTime.setText(startTime);
+        mTvStatisticsEndTime.setText(endTime);
+        getSalesInfo(startTime, endTime);
+        getRankings(startTime, endTime);
+    }
+
+    /**
+     * @desc 获取销售数据
+     * @anthor lpc
+     * @date: 2018/7/27
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     */
+    private void getSalesInfo(String startTime, String endTime) {
+        HttpFactory.get().url(ApiConfig.GET_SHIFT_DETAILS)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("clerkNumber", "")
+                .addParams("tradingTime", startTime)
+                .addParams("endTime", endTime)
+                .build()
+                .execute(new ResponseCallback<RootBean<HandoverDetailBean>>(this) {
+                    @Override
+                    public void onResponse(RootBean<HandoverDetailBean> response, int id) {
+                        if (response.isSuccess()) {
+                            HandoverDetailBean data = response.getData();
+                            renderView(data);
+                        }else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
+    }
+
+    /**
+     * @desc 获取销售排行
+     * @anthor lpc
+     * @date: 2018/7/27
+     * @param startTime 开始时间
+     * @param endTime   结束时间
+     */
+    private void getRankings(String startTime, String endTime) {
         HttpFactory.get().url(ApiConfig.GET_STATISTICS)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("clerkNumber", "")
@@ -123,6 +165,31 @@ public class StatisticsActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    /**
+     * @desc 初始化页面数据
+     * @anthor lpc
+     * @date: 2018/7/24
+     * @param data 数据源
+     */
+    private void renderView(HandoverDetailBean data) {
+        // 实收金额
+        mTvStatisticsOrderMoney.setText(data.getAmountCollected());
+        // 订单笔数
+        mTvStatisticsOrderCount.setText(data.getCollectedCount());
+        // 退款金额
+        mTvStatisticsBackMoney.setText(data.getRefoundAmount());
+        // 退款笔数
+        mTvStatisticsBackCount.setText(data.getRefoundCount());
+        // 支付宝支付金额
+        mTvStatisticsAlipay.setText(data.getAliAmount());
+        // 微信支付金额
+        mTvStatisticsWechat.setText(data.getWeChatAmount());
+        // 现金支付金额
+        mTvStatisticsCash.setText(data.getCashAmount());
+        // 银行卡支付金额
+        mTvStatisticsBankCard.setText(data.getBankAmount());
     }
 
     //================================================dialog========================================
