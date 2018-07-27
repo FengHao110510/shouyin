@@ -107,7 +107,7 @@ public class StatisticsActivity extends BaseActivity {
      * @date: 2018/7/26
      */
     public void initData(String startTime, String endTime) {
-        HttpFactory.post().url(ApiConfig.GET_STATISTICS)
+        HttpFactory.get().url(ApiConfig.GET_STATISTICS)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("clerkNumber", "")
                 .addParams("startTime", startTime)
@@ -119,7 +119,7 @@ public class StatisticsActivity extends BaseActivity {
                     mStatisticsAdapter = new StatisticsAdapter(response.getData());
                     mRvStatisticsRankings.setAdapter(mStatisticsAdapter);
                 }else {
-
+                    ToastUtil.showToast(response.getMsg());
                 }
             }
         });

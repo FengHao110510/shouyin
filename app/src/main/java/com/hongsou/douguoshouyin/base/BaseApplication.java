@@ -1,13 +1,13 @@
 package com.hongsou.douguoshouyin.base;
 
 import android.app.Application;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.http.ApiConfig;
-import com.hongsou.douguoshouyin.tool.CrashHandler;
 import com.hongsou.greendao.gen.DaoMaster;
 import com.hongsou.greendao.gen.DaoSession;
 import com.iflytek.cloud.SpeechConstant;
@@ -42,7 +42,14 @@ import okhttp3.OkHttpClient;
 
 
 public class BaseApplication extends Application {
+
     public static BaseApplication app;
+
+    /**
+     * 蓝牙对象
+     */
+    public BluetoothSocket socket = null;
+
     /***寄存整个应用Activity**/
     private final Stack<AppCompatActivity> activitys = new Stack<AppCompatActivity>();
 
@@ -62,7 +69,7 @@ public class BaseApplication extends Application {
         initGreenDao();
         initKedaxunfei();
 //        //初始化全局异常捕获
-        CrashHandler.getInstance().init(this);
+//        CrashHandler.getInstance().init(this);
     }
 
     /**
@@ -90,7 +97,7 @@ public class BaseApplication extends Application {
         app = this;
     }
 
-    public static synchronized Application getInstance() {
+    public static synchronized BaseApplication getInstance() {
         return app;
     }
 
