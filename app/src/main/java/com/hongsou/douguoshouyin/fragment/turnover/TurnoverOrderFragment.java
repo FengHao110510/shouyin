@@ -66,9 +66,9 @@ public class TurnoverOrderFragment extends BaseFragment {
     SmartRefreshLayout smTurnoverOrder;
 
     OrderAdapter orderAdapter;
-    private int page;
+    public int page;
     ArrayList<OrderBean.DataBean.ResultBean> listBeans = new ArrayList<>();
-    private HashMap<String, String> mParam = new HashMap<>();
+    public HashMap<String, String> mParam = new HashMap<>();
 
     @Override
     public int getLayoutId() {
@@ -78,7 +78,7 @@ public class TurnoverOrderFragment extends BaseFragment {
 
     @Override
     public void init() {
-        initView();
+        setIconFont(new TextView[]{tvTurnoverOrderOrderIcon});
         initData();
         initPullRefresher();
     }
@@ -91,16 +91,13 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @desc 初始化下拉刷新  上拉加载
      */
     private void initPullRefresher() {
-
-
         //下拉刷新
         smTurnoverOrder.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
-                getOrderList(new HashMap<String, String>());
+                getOrderList(new HashMap<String, String>(), page);
                 smTurnoverOrder.finishRefresh();
-
             }
         });
         //上拉加载
@@ -108,28 +105,18 @@ public class TurnoverOrderFragment extends BaseFragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
-                getOrderList(mParam);
+                getOrderList(mParam, page);
                 smTurnoverOrder.finishLoadMore();//不传时间则立即停止刷新    传入false表示加载失败
-
             }
         });
-
-    }
-
-
-    /**
-     * 初始化视图
-     */
-    private void initView() {
-        setIconFont(new TextView[]{tvTurnoverOrderOrderIcon});
-        page = 1;
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
-        getOrderList(mParam);
+        page = 1;
+        getOrderList(mParam, page);
     }
 
     /**
@@ -139,7 +126,7 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @date 2018/7/11 0011 下午 12:23
      * @desc 获取数据
      */
-    public void getOrderList(HashMap<String, String> param) {
+    public void getOrderList(HashMap<String, String> param, final int page) {
         param.put("shopNumber", Global.getSpGlobalUtil().getShopNumber());
         param.put("pageString", page + "");
         HttpFactory.get().url(ApiConfig.GET_ORDER_LIST)
@@ -149,7 +136,7 @@ public class TurnoverOrderFragment extends BaseFragment {
             @Override
             public void onResponse(OrderBean orderBean, int id) {
                 if (orderBean.isSuccess()) {
-                    showOrderList(orderBean.getData().getResult());
+                    showOrderList(orderBean.getData().getResult(), page);
                 } else {
                     ToastUtil.showToast(orderBean.getMsg());
                 }
@@ -164,11 +151,10 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @date 2018/7/12 0012 下午 15:04
      * @desc //展示订单列表
      */
-    private void showOrderList(List<OrderBean.DataBean.ResultBean> data) {
+    private void showOrderList(List<OrderBean.DataBean.ResultBean> data, int page) {
         if (page > 1) {
             listBeans.addAll(data);
             orderAdapter.notifyItemInserted(data.size());
-
         } else {
             listBeans.clear();
             if (orderAdapter == null) {
@@ -188,14 +174,11 @@ public class TurnoverOrderFragment extends BaseFragment {
                         startActivity(itemIntent);
                     }
                 });
-
             }
             //获取数据
             listBeans.addAll(data);
             orderAdapter.notifyDataSetChanged();
         }
-
-
     }
 
     //==============================================================================================================

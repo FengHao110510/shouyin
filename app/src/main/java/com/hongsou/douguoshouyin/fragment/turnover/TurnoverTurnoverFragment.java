@@ -56,7 +56,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
     private List<TurnoverBean> result;
     private List<TurnoverMultipleItem> turnoverMultipleItemList;
     private TurnoverAdapter mTurnoverAdapter;
-    private HashMap<String, String> mParam = new HashMap<>();
+    public HashMap<String, String> mParam = new HashMap<>();
     private String mTradingTime = "";
 
     @Override
@@ -86,9 +86,8 @@ public class TurnoverTurnoverFragment extends BaseFragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
                 mTradingTime = "";
-                showTurnoverList(new HashMap<String, String>());
+                showTurnoverList(new HashMap<String, String>(), page);
                 mSrlTurnover.finishRefresh();
-
             }
         });
         //上拉加载
@@ -96,12 +95,10 @@ public class TurnoverTurnoverFragment extends BaseFragment {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
-                showTurnoverList(mParam);
+                showTurnoverList(mParam, page);
                 mSrlTurnover.finishLoadMore();//不传时间则立即停止刷新    传入false表示加载失败
-
             }
         });
-
     }
 
     /**
@@ -112,7 +109,8 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @desc 初始化列表数据
      */
     private void initData() {
-        showTurnoverList(mParam);
+        page = 1;
+        showTurnoverList(mParam, page);
     }
 
     /**
@@ -122,7 +120,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      * @date 2018/7/16 0016 上午 9:30
      * @desc 展示列表数据
      */
-    public void showTurnoverList(HashMap<String, String> param) {
+    public void showTurnoverList(HashMap<String, String> param, final int page) {
         param.put("shopNumber", getShopNumber());
         param.put("beginTime", mTradingTime);
         param.put("shopNumber", getShopNumber());

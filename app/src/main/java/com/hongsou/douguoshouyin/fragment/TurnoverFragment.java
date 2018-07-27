@@ -149,9 +149,11 @@ public class TurnoverFragment extends BaseFragment {
         if (requestCode == TurnoverFragment.REQUEST_CODE && data != null){
             mParam = (HashMap<String, String>) data.getSerializableExtra("data");
             if (resultCode == 0){
-                mTurnoverOrderFragment.getOrderList(mParam);
+                mTurnoverOrderFragment.mParam = mParam;
+                mTurnoverOrderFragment.getOrderList(mParam, 1);
             }else {
-                mTurnoverTurnoverFragment.showTurnoverList(mParam);
+                mTurnoverTurnoverFragment.mParam = mParam;
+                mTurnoverTurnoverFragment.showTurnoverList(mParam, 1);
             }
         }
     }
