@@ -74,7 +74,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始化布局
      */
-    public void initView(){}
+    public void initView() {
+    }
 
     /**
      * 设置数据
@@ -89,12 +90,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * @return 店铺编号
      * @desc 获取店铺编号
      * @anthor lpc
      * @date: 2018/7/16
-     * @return 店铺编号
      */
-    public String getShopNumber(){
+    public String getShopNumber() {
         return Global.getSpGlobalUtil().getShopNumber();
 //        return "111";
     }
@@ -104,7 +105,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @anthor lpc
      * @date: 2018/7/16
      */
-    public String getClerkNumber(){
+    public String getClerkNumber() {
         return Global.getSpGlobalUtil().getClerkNumber();
     }
 
