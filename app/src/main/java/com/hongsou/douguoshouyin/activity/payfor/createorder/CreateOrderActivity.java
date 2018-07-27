@@ -139,8 +139,9 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     @Override
     protected void onPause() {
         super.onPause();
-        mSelectMealEntityDao.deleteAll();
-        mHandler.sendEmptyMessage(1);
+        // 本地缓存  暂不使用
+//        mSelectMealEntityDao.deleteAll();
+//        mHandler.sendEmptyMessage(1);
     }
 
     @Override
@@ -241,6 +242,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 intent.putExtra("money", mTvOrderMoney.getText());
                 intent.putExtra("count", mTvSelectCount.getText());
                 intent.putExtra("foodCount", mTvFoodCount.getText());
+                intent.putExtra("data", new Gson().toJson(mSelectMealEntities));
                 startActivity(intent);
                 break;
             default:
@@ -300,7 +302,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     }
 
     /**
-     * @param dataBean 全部餐品结合
+     * @param dataBean        全部餐品结合
      * @param shopStandarList 规格集合
      * @desc 选择规格弹窗
      * @anthor lpc
@@ -324,13 +326,13 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     }
 
     /**
-     * @desc 初始化规则选择框
+     * @param dataBean        全部餐品结合
+     * @param shopStandarList 规格集合
+     * @param view            父布局对象
+     * @param dialog          dialog对象
+     * @desc 初始化规格选择框
      * @anthor lpc
      * @date: 2018/7/23
-     * @param dataBean 全部餐品结合
-     * @param shopStandarList 规格集合
-     * @param view 父布局对象
-     * @param dialog dialog对象
      */
     private void initStandardView(final FoodBean.DataBean dataBean, final List<FoodBean.DataBean.ShopStandarListBean> shopStandarList, View view, final Dialog dialog) {
         final TagFlowLayout tflStandard = view.findViewById(R.id.tfl_standard);

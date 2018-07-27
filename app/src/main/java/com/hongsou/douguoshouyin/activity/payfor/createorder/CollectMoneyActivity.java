@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.hongsou.douguoshouyin.R;
@@ -22,7 +23,6 @@ import com.hongsou.douguoshouyin.activity.payfor.payfor.QRCodeActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity;
 import com.hongsou.douguoshouyin.adapter.CollectMoneyAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.db.SelectMealEntity;
@@ -45,6 +45,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -104,19 +105,23 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void init() {
         EventBus.getDefault().register(this);
-        mSelectMealEntityDao = BaseApplication.getApplication().getDaoSession().getSelectMealEntityDao();
-        mRvCollectMoney.setLayoutManager(new LinearLayoutManager(this));
-        mSelectMealEntities = mSelectMealEntityDao.loadAll();
-        Log.e(TAG, "init: " + mSelectMealEntities.size());
-        mCollectMoneyAdapter = new CollectMoneyAdapter(mSelectMealEntities);
-        mRvCollectMoney.setAdapter(mCollectMoneyAdapter);
-
         if (getIntent().hasExtra("money")) {
             mTotalMoney = getIntent().getStringExtra("money");
             mTvTotalMoney.setText(mTotalMoney);
             mTvFoodCount.setText(getIntent().getStringExtra("foodCount"));
             mTvSelectCount.setText(getIntent().getStringExtra("count"));
+            String data = getIntent().getStringExtra("data");
+            mSelectMealEntities = (List<SelectMealEntity>) new Gson().fromJson(data, new TypeToken<List<SelectMealEntity>>(){}.getType());
         }
+//        mSelectMealEntityDao = BaseApplication.getApplication().getDaoSession().getSelectMealEntityDao();
+//        mSelectMealEntities = mSelectMealEntityDao.loadAll();
+        if (mSelectMealEntities == null){
+            mSelectMealEntities = new ArrayList<>();
+        }
+        mRvCollectMoney.setLayoutManager(new LinearLayoutManager(this));
+        Log.e(TAG, "init: " + mSelectMealEntities.size());
+        mCollectMoneyAdapter = new CollectMoneyAdapter(mSelectMealEntities);
+        mRvCollectMoney.setAdapter(mCollectMoneyAdapter);
     }
 
     @Override
@@ -263,11 +268,11 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 if (response.isSuccess()) {
                     mBatch = response.getMsg();
                     Global.getSpGlobalUtil().setBatch(mBatch);
-                    if ("qrcode".equals(type)){
+                    if ("qrcode".equals(type)) {
                         Intent intent = new Intent(CollectMoneyActivity.this, QRCodeActivity.class);
                         intent.putExtra("batch", mBatch);
                         startActivity(intent);
-                    }else {
+                    } else {
                         new IntentIntegrator(CollectMoneyActivity.this).
                                 setCaptureActivity(ScanQRCodeActivity.class)
                                 // 设置提示语
@@ -311,11 +316,11 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
     }
 
     /**
+     * @param contents 扫描结果
+     * @param batch    订单号
      * @desc 扫一扫支付
      * @anthor lpc
      * @date: 2018/7/25
-     * @param contents 扫描结果
-     * @param batch 订单号
      */
     private void payForScan(String contents, String batch) {
         HttpFactory.post().url(ApiConfig.TABBY_PAY)
@@ -323,7 +328,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 .addParams("equipmentType", "3")
                 .addParams("uniquelyCode", Global.getSpGlobalUtil().getAliCode())
                 .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
-                .addParams("totalFee",mTotalMoney)
+                .addParams("totalFee", mTotalMoney)
                 .addParams("authCode", contents)
                 .addParams("batch", batch)
                 .addParams("storeId", getShopNumber())
@@ -332,7 +337,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
-                .addParams("address",ApiConfig.BASE_URL+"/pay/payCallback").build().execute(new StringCallback() {
+                .addParams("address", ApiConfig.BASE_URL + "/pay/payCallback").build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 ToastUtil.showError();
@@ -340,7 +345,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
 
             @Override
             public void onResponse(String response, int id) {
-                Log.e(TAG, "onResponse: "+response.toString() );
+                Log.e(TAG, "onResponse: " + response.toString());
             }
 
         });
@@ -355,10 +360,10 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
     }
 
     /**
+     * @param event 扫描结果
      * @desc 扫一扫传递过来的扫描结果
      * @anthor lpc
      * @date: 2018/7/25
-     * @param event 扫描结果
      */
     @Subscribe
     public void onEventMainThread(SaomahaoBean event) {
@@ -366,17 +371,17 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
     }
 
     /**
+     * @param
+     * @return
      * @desc 在线支付成功后，极光推送回来的结果
      * @anthor lpc
      * @date: 2018/7/25
-     * @param
-     * @return
      */
     @Subscribe
-    public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean){
+    public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean) {
         Log.e(TAG, "onEventMainThread: 在线支付成功后");
-        Intent successIntent = new Intent(this,PaymentDetailActivity.class);
-        successIntent.putExtra("payOnLineSuccessBean",(Serializable) payOnLineSuccessBean);
+        Intent successIntent = new Intent(this, PaymentDetailActivity.class);
+        successIntent.putExtra("payOnLineSuccessBean", (Serializable) payOnLineSuccessBean);
         startActivity(successIntent);
     }
 
