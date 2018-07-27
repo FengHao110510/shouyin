@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
@@ -329,20 +330,14 @@ public class CommodityActivity extends BaseActivity {
                     for (int i = 0; i < data.get(u).getShopStandarList().size(); i++) {
                         SaomahaoBean saomahaoBean = new SaomahaoBean(data.get(u).getShopStandarList().get(i).getStandardName());
                         string.add(saomahaoBean);
-                        Log.e(TAG, "showStanderDialog: fenghao1");
                     }
-                    Log.e(TAG, "showStanderDialog: fenghao2");
-
                 }
-                Log.e(TAG, "showStanderDialog: fenghao3");
-
             }
         }
         StanderSinpleAdapter standerSinpleAdapter = new StanderSinpleAdapter(R.layout.module_item_stander, string);
 
         RecyclerView rvDialogStanderList = view.findViewById(R.id.rv_dialog_stander_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
-        rvDialogStanderList.setLayoutManager(linearLayoutManager);
+        rvDialogStanderList.setLayoutManager(new GridLayoutManager(this,3));
         rvDialogStanderList.setAdapter(standerSinpleAdapter);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 5);
 
