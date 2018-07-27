@@ -28,6 +28,8 @@ import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.SaomahaoBean;
 import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
@@ -416,7 +418,7 @@ public class PayForActivity extends BaseActivity {
     //弹框扫码或一码付支付
     private void showPopWindow() {
 
-
+        Global.getSpGlobalUtil().setBatch("00000000000000000000");
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = layoutInflater.inflate(R.layout.module_pop_pay, null);
 
@@ -488,29 +490,32 @@ public class PayForActivity extends BaseActivity {
      * 现金支付
      */
     private void payXJ() {
-        showLoadingDialog();
+       final String paymentBatch =  DateUtils.getNowDateLong() + (int) (Math.random() * 1000);
         //走现金支付接口
         HttpFactory.post().url(ApiConfig.PAY_BY_CASH)
-                .addParams("paymentBatch", DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
+                .addParams("paymentBatch", paymentBatch)
                 .addParams("batch", "00000000000000000000")
                 .addParams("shopNumber", getShopNumber())
                 .addParams("money", tvPayforPayforXiaofeijine.getText().toString())
                 .addParams("amountCollected", Global.getSpGlobalUtil().getReceivableMoney())
                 .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
-            }
+                .build().execute(new ResponseCallback<BaseBean>(this) {
 
             @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
+            public void onResponse(BaseBean response, int id) {
                 Log.e(TAG, "onResponse: 000000"+response );
                 //成功后跳转支付成功页面 TODO
-                Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
-                startActivity(successIntent);
+                if (response.isSuccess()){
+                    Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
+                    successIntent.putExtra("xianjin","xianjin");
+                    successIntent.putExtra("paymentBatch",paymentBatch);
+                    successIntent.putExtra("money",tvPayforPayforXiaofeijine.getText().toString());
+                    startActivity(successIntent);
+                }else {
+                    ToastUtil.showToast("现金收款失败");
+                }
+
             }
         });
     }
@@ -568,6 +573,7 @@ public class PayForActivity extends BaseActivity {
         Global.getSpGlobalUtil().setDiscountMoney("");
         Global.getSpGlobalUtil().setDiscountType("");
         Global.getSpGlobalUtil().setReceivableMoney("");
+        Global.getSpGlobalUtil().setBatch("");
     }
 
     //获取event发过来的额二维码号

@@ -34,7 +34,7 @@ import java.io.Serializable;
  */
 
 
-public class SingleFoodsBean implements Serializable{
+public class SingleFoodsBean implements Serializable {
 
     private String singleProductNumber;
     private int singleQuantity;
@@ -125,7 +125,7 @@ public class SingleFoodsBean implements Serializable{
                            String singleProductPrice,
                            String foodProductsPicture,
                            String categoryNumber
-    ,int singleQuantity) {
+            , int singleQuantity) {
         this.singleProductNumber = singleProductNumber;
         this.standardNumber = standardNumber;
         this.singleProductName = singleProductName;

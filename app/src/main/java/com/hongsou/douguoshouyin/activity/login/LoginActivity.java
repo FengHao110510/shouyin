@@ -183,21 +183,21 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     *  @author  fenghao
-     *  @date    2018/7/24 0024 下午 16:14
-     *  @param   dataBean
-     *  @desc   获取支付标识
+     * @param dataBean
+     * @author fenghao
+     * @date 2018/7/24 0024 下午 16:14
+     * @desc 获取支付标识
      */
     private void payCode(final LoginBean dataBean) {
 
-        HttpFactory.get().url(ApiConfig.PAYCODE).addParams("paymentUser",dataBean.getPaymentUser())
+        HttpFactory.get().url(ApiConfig.PAYCODE).addParams("paymentUser", dataBean.getPaymentUser())
                 .build().execute(new ResponseCallback<PayCodeBean>(this) {
             @Override
             public void onResponse(PayCodeBean response, int id) {
-                Log.e(TAG, "onResponse: "+response.toString());
-                if (response.isSuccess()){
-                    isLogined(dataBean,response.getData().getAliCode(),response.getData().getWecharCode());
-                }else {
+                Log.e(TAG, "onResponse: " + response.toString());
+                if (response.isSuccess()) {
+                    isLogined(dataBean, response.getData().getAliCode(), response.getData().getWecharCode());
+                } else {
                     ToastUtil.showToast(response.getMsg());
                 }
 
@@ -208,7 +208,7 @@ public class LoginActivity extends BaseActivity {
     /**
      * @param dataBean
      * @param aliCode
-     *@param wecharCode @return
+     * @param wecharCode @return
      * @author fenghao
      * @date 2018/7/9 0009 下午 17:43
      * @desc 将登录数据存储

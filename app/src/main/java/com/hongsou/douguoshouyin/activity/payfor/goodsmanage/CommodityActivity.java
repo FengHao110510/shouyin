@@ -326,11 +326,11 @@ public class CommodityActivity extends BaseActivity {
         for (int u = 0; u < data.size(); u++) {
             if ("1".equals(data.get(u).getFoodType())) {
                 if (singleFoodsBeanList2.get(position).getSingleProductNumber().equals(data.get(u).getSingleProductNumber())) {
-                        for (int i =0;i<data.get(u).getShopStandarList().size();i++){
-                            SaomahaoBean saomahaoBean = new SaomahaoBean(data.get(u).getShopStandarList().get(i).getStandardName());
-                            string.add(saomahaoBean);
-                            Log.e(TAG, "showStanderDialog: fenghao1");
-                        }
+                    for (int i = 0; i < data.get(u).getShopStandarList().size(); i++) {
+                        SaomahaoBean saomahaoBean = new SaomahaoBean(data.get(u).getShopStandarList().get(i).getStandardName());
+                        string.add(saomahaoBean);
+                        Log.e(TAG, "showStanderDialog: fenghao1");
+                    }
                     Log.e(TAG, "showStanderDialog: fenghao2");
 
                 }
@@ -338,10 +338,10 @@ public class CommodityActivity extends BaseActivity {
 
             }
         }
-        StanderSinpleAdapter standerSinpleAdapter = new StanderSinpleAdapter(R.layout.module_item_stander,string);
+        StanderSinpleAdapter standerSinpleAdapter = new StanderSinpleAdapter(R.layout.module_item_stander, string);
 
         RecyclerView rvDialogStanderList = view.findViewById(R.id.rv_dialog_stander_list);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
         rvDialogStanderList.setLayoutManager(linearLayoutManager);
         rvDialogStanderList.setAdapter(standerSinpleAdapter);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 5);

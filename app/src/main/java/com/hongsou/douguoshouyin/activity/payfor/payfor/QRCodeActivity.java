@@ -88,7 +88,7 @@ public class QRCodeActivity extends BaseActivity {
                 .addParams("uniCodeStandby", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("totalFee", tvPayforErweimaShoukuanjine.getText().toString())
 //                .addParams("batch", "s" + DateUtils.getNowDateLong() + (int) (Math.random() * 1000))
-                .addParams("batch", batch)
+                .addParams("batch", Global.getSpGlobalUtil().getBatch())
                 .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)

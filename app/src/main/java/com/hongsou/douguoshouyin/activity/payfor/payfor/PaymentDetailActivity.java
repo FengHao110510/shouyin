@@ -34,6 +34,10 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import javax.microedition.khronos.opengles.GL;
 
 import butterknife.BindView;
@@ -80,6 +84,8 @@ public class PaymentDetailActivity extends BaseActivity {
     private Dialog dialog;
     private String mBatch;
     private String paymentBatch;
+    String now ;//现在时间
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_order_detail;
@@ -87,6 +93,9 @@ public class PaymentDetailActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        //获取当前时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        now = sdf.format(new Date());
         if (getIntent().hasExtra("batch")) {
             mBatch = getIntent().getStringExtra("batch");
             paymentBatch = getIntent().getStringExtra("paymentBatch");
@@ -103,6 +112,16 @@ public class PaymentDetailActivity extends BaseActivity {
             paymentBatch = payOnLineSuccessBean.getOutTradeNo();
             MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType() + "收款到账"
                     + payOnLineSuccessBean.getMoney() + "元", this);
+        }else if (getIntent().hasExtra("xianjin")){
+            paymentBatch = getIntent().getStringExtra("paymentBatch");
+            mTvOrderMoney.setText(getIntent().getStringExtra("money"));
+            mTvOrderPayTime.setText(now);
+            mTvOrderBatch.setText(paymentBatch);
+            mTvOrderPayType.setText("现金");
+            mTvOrderPayMoney.setText(getIntent().getStringExtra("money"));
+            mTvOrderPayStatus.setText("支付成功");
+            mBatch = "00000000000000000000";
+
         }
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override

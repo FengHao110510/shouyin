@@ -262,6 +262,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     mBatch = response.getMsg();
+                    Global.getSpGlobalUtil().setBatch(mBatch);
                     if ("qrcode".equals(type)){
                         Intent intent = new Intent(CollectMoneyActivity.this, QRCodeActivity.class);
                         intent.putExtra("batch", mBatch);
@@ -347,9 +348,10 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onResume() {
+        super.onResume();
         Global.getSpGlobalUtil().setReceivableMoney("");
+        Global.getSpGlobalUtil().setBatch("");
     }
 
     /**
