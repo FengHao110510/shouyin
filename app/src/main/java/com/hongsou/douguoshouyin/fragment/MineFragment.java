@@ -14,8 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.mine.AboutWeActivity;
+import com.hongsou.douguoshouyin.activity.mine.CashierActivity;
 import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
+import com.hongsou.douguoshouyin.activity.mine.MenDianActivity;
+import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
+import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
+import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
+import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
@@ -25,16 +34,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.mine.AboutWeActivity;
-import com.hongsou.douguoshouyin.activity.mine.CashierActivity;
-import com.hongsou.douguoshouyin.activity.mine.MenDianActivity;
-import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
-import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
-import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
-import com.hongsou.douguoshouyin.base.BaseFragment;
-
 import okhttp3.Call;
 
 /**
@@ -194,7 +193,8 @@ public class MineFragment extends BaseFragment {
         tv_logout_dialog_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goLogout();
+                Global.logout();
+//                goLogout();
                 dialog.dismiss();
             }
         });

@@ -12,13 +12,13 @@ import android.net.wifi.WifiManager;
 import android.util.Log;
 import android.view.View;
 
+import com.hongsou.douguoshouyin.base.BaseApplication;
+
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
-
-import com.hongsou.douguoshouyin.base.BaseApplication;
 
 /**
  * 全局
@@ -54,7 +54,11 @@ public class Global {
      * 清除登录信息
      */
     public static void logout() {
-
+        Global.getSpGlobalUtil().setAliCode("");
+        Global.getSpGlobalUtil().setWecharCode("");
+        Global.getSpGlobalUtil().setClerkName("");
+        Global.getSpGlobalUtil().setClerkNumber("");
+        Global.getSpGlobalUtil().setPaymentUser("");
     }
 
     /**
