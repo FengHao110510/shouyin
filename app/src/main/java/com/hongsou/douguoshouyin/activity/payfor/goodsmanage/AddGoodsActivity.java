@@ -275,7 +275,8 @@ public class AddGoodsActivity extends BaseActivity {
             Log.e(TAG, "postImg: " + file1.getName());
 
             OkHttpUtils.post().addFile("foodImg", file1.getName(), file1)
-                    .url(ApiConfig.UPLOAD_IMG).addHeader("Content-Type", "multipart/form-data").build().execute(new StringCallback() {
+                    .url(ApiConfig.UPLOAD_IMG).addHeader("Content-Type", "multipart/form-data")
+                    .build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     dismissLoadingDialog();
@@ -583,24 +584,6 @@ public class AddGoodsActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-    }
-
-    /**
-     * 保存
-     */
-    private void baocun() {
-        showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.ADD_SINGLE_FOOD).addParams("", "").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-            }
-        });
     }
 
     /**

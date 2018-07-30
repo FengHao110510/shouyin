@@ -15,11 +15,11 @@ public class ApiConfig {
     /**
      * 正式ip
      */
-//    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
+    public static final String BASE_URL = "http://47.93.0.117:5003/hs-app-server";
     /**
      * 邓辽航ip
      */
-    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
+//    public static final String BASE_URL = "http://192.168.1.111:5003/hs-app-server";
     public static final String BASE_URL_PAY = "http://sycs.hongxiaosou.com";
     public static final String IMG_URL = "http://images.hongxiaosou.cn/";
 
@@ -210,7 +210,10 @@ public class ApiConfig {
     /**
      * TODO 交班提交
      */
-    public static final String INSERT_SHIFT = BASE_URL + "/shift/insertShift";
+    public static final String INSERT_SHIFT = BASE_URL + "/shift/insertShift"; /**
+     * TODO 查询当日交易量 交易额
+     */
+    public static final String GET_TODAY_MONEY = BASE_URL + "/shift/getTodayMoney";
     // TODO ======================================== 更多模块 ====================================================
     // TODO ======================================== 我的模块 ====================================================
     /**
@@ -223,9 +226,13 @@ public class ApiConfig {
     public static final String ADRSANDPHOTO = BASE_URL + "";
 
     /**
-     * TODO 门店信息 保存接口
+     * TODO 门店信息
      */
-    public static final String mendianSave = BASE_URL + "";
+    public static final String GET_SHOP_INFO = BASE_URL + "/setting/getShopInfo";
+    /**
+     * TODO 编辑门店信息
+     */
+    public static final String UPDATE_SHOP_INFO = BASE_URL + "/setting/updateShopInfo";
     /**
      * TODO 修改密码 接口
      */

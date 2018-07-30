@@ -22,6 +22,10 @@ import com.hongsou.douguoshouyin.activity.payfor.goodsmanage.CommodityActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PayForActivity;
 import com.hongsou.douguoshouyin.activity.payfor.table.TableActivity;
 import com.hongsou.douguoshouyin.base.BaseFragment;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.TodayMoneyBean;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -108,12 +112,30 @@ public class PayForFragment extends BaseFragment {
     }
 
     /**
-     *    初始化订单金额和单数 TODO 每回点击底部收款按钮需要走接口？  eventbus
+     * 初始化订单金额和单数
      */
     private void initDingdan() {
+        HttpFactory.post().url(ApiConfig.GET_TODAY_MONEY).addParams("shopNumber", getShopNumber())
+                .build().execute(new ResponseCallback<TodayMoneyBean>(getActivity()) {
 
+            @Override
+            public void onResponse(TodayMoneyBean response, int id) {
+                if (response.isSuccess()) {
+                    rvPayforShishoujine.setText(response.getData().getAmountCollected());
+                    rvPayforDingdanshu.setText(response.getData().getOrderCount());
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //刷新 订单数和金额
+        initDingdan();
+    }
 
     /**
      * 初始化 gridview

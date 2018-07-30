@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:id="@+id/ll_mine_mendian"
-    tools:context="com.hongsou.douguoshouyin.activity.mine.MenDianActivity">
+    tools:context="com.hongsou.douguoshouyin.activity.mine.ShopInformationActivity">
 
     <include layout="@layout/module_include_titlebar"></include>
 
@@ -27,7 +27,7 @@
                 android:background="@color/white"
                 android:orientation="vertical">
                 <com.hongsou.douguoshouyin.views.CircleImageView
-                    android:id="@+id/iv_mine_mendian_camera"
+                    android:id="@+id/iv_mine_shopinfor_camera"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_centerInParent="true"
@@ -68,8 +68,8 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <EditText
-                        android:id="@+id/et_mine_mendian_shanghubianhao"
+                    <TextView
+                        android:id="@+id/et_mine_shopinfor_shanghubianhao"
                         style="@style/et_style" />
                 </LinearLayout>
 
@@ -91,7 +91,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/et_mine_mendian_mendianmingcheng"
+                        android:id="@+id/et_mine_shopinfor_mendianmingcheng"
                         style="@style/et_style" />
                 </LinearLayout>
 
@@ -113,7 +113,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/et_mine_mendian_mendiandizhi"
+                        android:id="@+id/et_mine_shopinfor_mendiandizhi"
 
                         style="@style/et_style" />
                 </LinearLayout>
@@ -136,7 +136,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/et_mine_mendian_xiangxidizhi"
+                        android:id="@+id/et_mine_shopinfor_xiangxidizhi"
                         style="@style/et_style" />
                 </LinearLayout>
 
@@ -160,7 +160,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/et_mine_mendian_phone"
+                        android:id="@+id/et_mine_shopinfor_phone"
 
                         style="@style/et_style" />
                 </LinearLayout>
@@ -182,7 +182,7 @@
                 android:layout_marginTop="10dp">
 
                 <RelativeLayout
-                    android:id="@+id/rl_mine_mendian_yimafu"
+                    android:id="@+id/rl_mine_shopinfor_yimafu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -204,11 +204,11 @@
                 </RelativeLayout>
 
                 <Button
-                    android:id="@+id/bt_mine_mendian_save"
+                    android:id="@+id/bt_mine_shopinfor_save"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_mine_mendian_yimafu"
+                    android:layout_below="@id/rl_mine_shopinfor_yimafu"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/btn_black"

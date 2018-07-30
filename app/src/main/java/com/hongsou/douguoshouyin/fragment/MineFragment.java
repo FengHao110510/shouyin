@@ -29,7 +29,7 @@ import butterknife.Unbinder;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.mine.AboutWeActivity;
 import com.hongsou.douguoshouyin.activity.mine.CashierActivity;
-import com.hongsou.douguoshouyin.activity.mine.MenDianActivity;
+import com.hongsou.douguoshouyin.activity.mine.ShopInformationActivity;
 import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
 import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
 import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
@@ -115,7 +115,7 @@ public class MineFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.rl_mine_mendianxinxi:
                 //门店信息
-                Intent mendianIntent = new Intent(getActivity(), MenDianActivity.class);
+                Intent mendianIntent = new Intent(getActivity(), ShopInformationActivity.class);
                 startActivity(mendianIntent);
                 break;
             case R.id.rl_mine_xiugaimima:

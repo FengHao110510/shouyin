@@ -111,11 +111,12 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
             mTvFoodCount.setText(getIntent().getStringExtra("foodCount"));
             mTvSelectCount.setText(getIntent().getStringExtra("count"));
             String data = getIntent().getStringExtra("data");
-            mSelectMealEntities = (List<SelectMealEntity>) new Gson().fromJson(data, new TypeToken<List<SelectMealEntity>>(){}.getType());
+            mSelectMealEntities = (List<SelectMealEntity>) new Gson().fromJson(data, new TypeToken<List<SelectMealEntity>>() {
+            }.getType());
         }
 //        mSelectMealEntityDao = BaseApplication.getApplication().getDaoSession().getSelectMealEntityDao();
 //        mSelectMealEntities = mSelectMealEntityDao.loadAll();
-        if (mSelectMealEntities == null){
+        if (mSelectMealEntities == null) {
             mSelectMealEntities = new ArrayList<>();
         }
         mRvCollectMoney.setLayoutManager(new LinearLayoutManager(this));

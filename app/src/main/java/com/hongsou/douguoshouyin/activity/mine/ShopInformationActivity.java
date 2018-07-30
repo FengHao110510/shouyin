@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,57 +23,68 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
+import com.hongsou.douguoshouyin.javabean.ShopinforBean;
+import com.hongsou.douguoshouyin.javabean.UpImgBean;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.hongsou.douguoshouyin.views.CircleImageView;
+import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.http.ApiConfig;
-import com.hongsou.douguoshouyin.http.HttpFactory;
-import com.hongsou.douguoshouyin.views.CircleImageView;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
-
 import okhttp3.Call;
 
 /**
  * 门店信息页面
  */
 //TODO 添加头像 保存接口  权限没加呢
-public class MenDianActivity extends BaseActivity {
+public class ShopInformationActivity extends BaseActivity {
 
 
-    @BindView(R.id.et_mine_mendian_shanghubianhao)
-    EditText etMineMendianShanghubianhao;
-    @BindView(R.id.et_mine_mendian_mendianmingcheng)
-    EditText etMineMendianMendianmingcheng;
-    @BindView(R.id.et_mine_mendian_mendiandizhi)
-    EditText etMineMendianMendiandizhi;
-    @BindView(R.id.et_mine_mendian_xiangxidizhi)
-    EditText etMineMendianXiangxidizhi;
-    @BindView(R.id.et_mine_mendian_phone)
-    EditText etMineMendianPhone;
-    @BindView(R.id.rl_mine_mendian_yimafu)
-    RelativeLayout rlMineMendianYimafu;
-    @BindView(R.id.bt_mine_mendian_save)
-    Button btMineMendianSave;
-    @BindView(R.id.iv_mine_mendian_camera)
-    CircleImageView ivMineMendianCamera;
+    @BindView(R.id.iv_mine_shopinfor_camera)
+    CircleImageView ivMineShopinforCamera;
+    @BindView(R.id.et_mine_shopinfor_shanghubianhao)
+    EditText etMineShopinforShanghubianhao;
+    @BindView(R.id.et_mine_shopinfor_mendianmingcheng)
+    EditText etMineShopinforMendianmingcheng;
+    @BindView(R.id.et_mine_shopinfor_mendiandizhi)
+    EditText etMineShopinforMendiandizhi;
+    @BindView(R.id.et_mine_shopinfor_xiangxidizhi)
+    EditText etMineShopinforXiangxidizhi;
+    @BindView(R.id.et_mine_shopinfor_phone)
+    EditText etMineShopinforPhone;
+    @BindView(R.id.rl_mine_shopinfor_yimafu)
+    RelativeLayout rlMineShopinforYimafu;
+    @BindView(R.id.bt_mine_shopinfor_save)
+    Button btMineShopinforSave;
     @BindView(R.id.ll_mine_mendian)
-    LinearLayout llMineMendian;
-    private Object ZPerweima;
+    LinearLayout llMineShopinfor;
+
     PopupWindow mPopupWindow;
+
+    //头像图片url
+    private String pictureUrl;
+    //img 文件
+    private File file;
 
     @Override
     public int initLayout() {
-        return R.layout.module_activity_mine_mendian;
+        return R.layout.module_activity_mine_shopinfor;
     }
 
     @Override
@@ -85,7 +97,36 @@ public class MenDianActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        getShopinfor();
+    }
 
+    /**
+     * @author fenghao
+     * @date 2018/7/30 0030 上午 11:21
+     * @desc 获取商店信息
+     */
+    private void getShopinfor() {
+        HttpFactory.get().url(ApiConfig.GET_SHOP_INFO).addParams("shopNumber", getShopNumber())
+                .build().execute(new ResponseCallback<ShopinforBean>(this) {
+
+            @Override
+            public void onResponse(ShopinforBean response, int id) {
+                if (response.isSuccess()) {
+                    etMineShopinforMendianmingcheng.setText(response.getData().getShopName());
+                    etMineShopinforShanghubianhao.setText(response.getData().getShopNumber());
+                    etMineShopinforMendiandizhi.setText(response.getData().getAddress());
+                    etMineShopinforXiangxidizhi.setText(response.getData().getAddressInfo());
+                    etMineShopinforPhone.setText(response.getData().getPhone());
+                    Glide.with(ShopInformationActivity.this).load(response.getData().getAddressLink())
+                            .placeholder(R.drawable.btn_mine_camera).error(R.drawable.btn_mine_camera)
+                            .into(ivMineShopinforCamera);
+                    pictureUrl = response.getData().getAddressLink();
+
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
     }
 
     @Override
@@ -164,12 +205,12 @@ public class MenDianActivity extends BaseActivity {
         backgroundAlpha(this, 0.5f);//0.0-1.0
         mPopupWindow.update();
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-        mPopupWindow.showAtLocation(llMineMendian, Gravity.BOTTOM, 0, 0);
+        mPopupWindow.showAtLocation(llMineShopinfor, Gravity.BOTTOM, 0, 0);
 
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                backgroundAlpha(MenDianActivity.this, 1f);//0.0-1.0
+                backgroundAlpha(ShopInformationActivity.this, 1f);//0.0-1.0
             }
         });
     }
@@ -206,7 +247,7 @@ public class MenDianActivity extends BaseActivity {
         //在这里跳转到手机系统相册里面
         Intent intent = new Intent(
                 Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 2);
     }
 
@@ -214,7 +255,6 @@ public class MenDianActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode) {
             case 1:
                 if (resultCode == Activity.RESULT_OK) {
@@ -224,7 +264,6 @@ public class MenDianActivity extends BaseActivity {
                         System.out.println(" ------------- sd card is not avaiable ---------------");
                         return;
                     }
-
                     String name = "photo.jpg";
 
                     Bundle bundle = data.getExtras();
@@ -240,6 +279,8 @@ public class MenDianActivity extends BaseActivity {
                     try {
                         b = new FileOutputStream(fileName);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
+                        file = new File(fileName);
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } finally {
@@ -249,9 +290,7 @@ public class MenDianActivity extends BaseActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                     showImage(bitmap);
                 }
                 break;
@@ -268,25 +307,52 @@ public class MenDianActivity extends BaseActivity {
                         String path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
+                        file = new File(path);
                         showImage(bitmap);
                     } catch (Exception e) {
                         // TODO Auto-generatedcatch block
                         e.printStackTrace();
                     }
-
-
                 }
                 break;
             default:
                 break;
         }
-
-
     }
 
     private void showImage(Bitmap bitmap) {
-        ivMineMendianCamera.setImageBitmap(bitmap);
+        ivMineShopinforCamera.setImageBitmap(bitmap);
+    }
 
+    /**
+     * @author fenghao
+     * @date 2018/7/19 0019 下午 18:31
+     * @desc 上传图片
+     */
+    private void postImg() {
+        showLoadingDialog();
+        OkHttpUtils.post().addFile("foodImg", file.getName(), file)
+                .url(ApiConfig.UPLOAD_IMG).addHeader("Content-Type", "multipart/form-data")
+                .build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                dismissLoadingDialog();
+                ToastUtil.showToast("网络连接出错");
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                dismissLoadingDialog();
+                UpImgBean upImgBean = new Gson().fromJson(response, UpImgBean.class);
+                if (upImgBean.isSuccess()) {
+                    pictureUrl = upImgBean.getData().getFoodProductsPicture();
+                    //图片编号
+                } else {
+                    ToastUtil.showToast("上传图片失败");
+
+                }
+            }
+        });
     }
 
 
@@ -294,37 +360,51 @@ public class MenDianActivity extends BaseActivity {
      * 判断用户是否填写信息
      */
     private void save() {
-        if (etMineMendianShanghubianhao.getText().toString().equals("")) {
+        if (etMineShopinforShanghubianhao.getText().toString().equals("")) {
             ToastUtil.showToast("请输入商户编号");
-        } else if (etMineMendianMendianmingcheng.getText().toString().equals("")) {
-            ToastUtil.showToast("请输入门店名称");
-        } else if (etMineMendianMendiandizhi.getText().toString().equals("")) {
-            ToastUtil.showToast("请输入门店地址");
-        } else if (etMineMendianXiangxidizhi.getText().toString().equals("")) {
-            ToastUtil.showToast("请输入详细地址");
-        } else if (etMineMendianPhone.getText().toString().equals("")) {
-            ToastUtil.showToast("请输入门店电话");
-        } else {
-            toSave();
+            return;
         }
+        if (etMineShopinforMendianmingcheng.getText().toString().equals("")) {
+            ToastUtil.showToast("请输入门店名称");
+            return;
+        }
+        if (etMineShopinforMendiandizhi.getText().toString().equals("")) {
+            ToastUtil.showToast("请输入门店地址");
+            return;
+        }
+        if (etMineShopinforXiangxidizhi.getText().toString().equals("")) {
+            ToastUtil.showToast("请输入详细地址");
+            return;
+        }
+        if (etMineShopinforPhone.getText().toString().equals("")) {
+            ToastUtil.showToast("请输入门店电话");
+            return;
+        }
+        if (file != null) {
+            postImg();
+        }
+        toSave();
     }
 
     /**
      * 保存接口
      */
     private void toSave() {
-        showLoadingDialog();
-        HttpFactory.post().url(ApiConfig.mendianSave).addParams("", "").build().execute(new StringCallback() {
+        HttpFactory.post().url(ApiConfig.UPDATE_SHOP_INFO)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("shopName", etMineShopinforMendianmingcheng.getText().toString())
+                .addParams("address", etMineShopinforXiangxidizhi.getText().toString())
+                .addParams("phone", etMineShopinforPhone.getText().toString())
+                .addParams("addressLink", pictureUrl)
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+
             @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
-
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("保存成功");
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
             }
         });
     }
