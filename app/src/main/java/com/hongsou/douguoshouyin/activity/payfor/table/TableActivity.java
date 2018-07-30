@@ -350,6 +350,7 @@ public class TableActivity extends BaseActivity {
         TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);
         final EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
 
+        etDialogEditContent.setHint("请输入邮箱");
         tvDialogEditTitle.setVisibility(View.GONE);
         tvDialogEditYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -373,6 +374,9 @@ public class TableActivity extends BaseActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 2 / 5, h / 5);
 
         downLoadDialog.addContentView(view, params);
+        downLoadDialog.setCanceledOnTouchOutside(false);
+        downLoadDialog.setCancelable(false);
+        downLoadDialog.show();
 
 
     }
