@@ -132,13 +132,20 @@ public class PayForFragment extends BaseFragment {
         });
     }
 
-
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //刷新 订单数和金额
-        initDingdan();
-        Log.e("", "onActivityCreated: "+0);
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+
+            //隐藏时所作的事情
+
+
+        } else {
+            //显示时所作的事情
+            initDingdan();
+            Log.e("", "onActivityCreated: "+0);
+        }
+
     }
 
     /**

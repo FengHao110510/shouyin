@@ -141,18 +141,18 @@ public class TableActivity extends BaseActivity {
                     , dataBean.getPedestal(), dataBean.getRegionNumber());
             List<TableBean.DataBean.TableListBean> tableList = dataBean.getTableList();
 
-                for (int k = 0; k < tableList.size(); k++) {
-                    //添加子级
-                    TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber()
-                            , tableList.get(k).getLogGid()
-                            , tableList.get(k).getTabletableNumber()
-                            , tableList.get(k).getPedestal()
-                            , tableList.get(k).getNumber()
-                            , tableList.get(k).getRegionNumber()
-                            , false);
-                    Log.e(TAG, "showTableList: "+tableList.get(k).getNumber() );
-                    tableRegionTitleBean.addSubItem( tableListContentBean);
-                }
+            for (int k = 0; k < tableList.size(); k++) {
+                //添加子级
+                TableListContentBean tableListContentBean = new TableListContentBean(tableList.get(k).getShopNumber()
+                        , tableList.get(k).getLogGid()
+                        , tableList.get(k).getTabletableNumber()
+                        , tableList.get(k).getPedestal()
+                        , tableList.get(k).getNumber()
+                        , tableList.get(k).getRegionNumber()
+                        , false);
+                Log.e(TAG, "showTableList: " + tableList.get(k).getNumber());
+                tableRegionTitleBean.addSubItem(tableListContentBean);
+            }
 //            }
 
             //添加一个空白的 + 按钮  110510瞎写的用作区分  dataBean.getPedestal() 规格 dataBean.getRegionNumber()区域编号  添加单个桌台有用
@@ -326,10 +326,65 @@ public class TableActivity extends BaseActivity {
                 break;
             case R.id.tv_titlebar_right:
                 //打包下载
+                showDownLoadDialog();
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * @author fenghao
+     * @date 2018/7/30 0030 下午 16:36
+     * @desc 打包下载dialog
+     */
+    Dialog downLoadDialog;
+
+    private void showDownLoadDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_edit, null);
+        Display display = getWindowManager().getDefaultDisplay();
+        int w = display.getWidth();
+        int h = display.getHeight();
+        TextView tvDialogEditTitle = view.findViewById(R.id.tv_dialog_edit_title);
+        TextView tvDialogEditYes = view.findViewById(R.id.tv_dialog_edit_yes);
+        TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);
+        final EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
+
+        tvDialogEditTitle.setVisibility(View.GONE);
+        tvDialogEditYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(etDialogEditContent.getText().toString())) {
+                    ToastUtil.showToast("请输入邮箱");
+                } else {
+                    downLoad(etDialogEditContent.getText().toString());
+                    downLoadDialog.dismiss();
+                }
+
+            }
+        });
+
+        tvDialogEditCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                downLoadDialog.dismiss();
+            }
+        });
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 2 / 5, h / 5);
+
+        downLoadDialog.addContentView(view, params);
+
+
+    }
+
+    /**
+     * @param email
+     * @author fenghao
+     * @date 2018/7/30 0030 下午 16:55
+     * @desc 打包下载接口
+     */
+    private void downLoad(String email) {
+        //TODO 打包下载接口
     }
 
     /**

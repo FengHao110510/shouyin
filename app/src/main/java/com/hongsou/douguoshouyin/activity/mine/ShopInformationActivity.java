@@ -59,7 +59,7 @@ public class ShopInformationActivity extends BaseActivity {
     @BindView(R.id.iv_mine_shopinfor_camera)
     CircleImageView ivMineShopinforCamera;
     @BindView(R.id.et_mine_shopinfor_shanghubianhao)
-    EditText etMineShopinforShanghubianhao;
+    TextView etMineShopinforShanghubianhao;
     @BindView(R.id.et_mine_shopinfor_mendianmingcheng)
     EditText etMineShopinforMendianmingcheng;
     @BindView(R.id.et_mine_shopinfor_mendiandizhi)

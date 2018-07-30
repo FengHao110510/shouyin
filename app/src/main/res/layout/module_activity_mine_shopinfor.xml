@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_mine_mendian"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:id="@+id/ll_mine_mendian"
     tools:context="com.hongsou.douguoshouyin.activity.mine.ShopInformationActivity">
 
     <include layout="@layout/module_include_titlebar"></include>
@@ -26,6 +26,7 @@
                 android:layout_margin="15dp"
                 android:background="@color/white"
                 android:orientation="vertical">
+
                 <com.hongsou.douguoshouyin.views.CircleImageView
                     android:id="@+id/iv_mine_shopinfor_camera"
                     android:layout_width="80dp"
@@ -70,7 +71,8 @@
 
                     <TextView
                         android:id="@+id/et_mine_shopinfor_shanghubianhao"
-                        style="@style/et_style" />
+                        style="@style/et_style"
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <View
@@ -92,7 +94,8 @@
 
                     <EditText
                         android:id="@+id/et_mine_shopinfor_mendianmingcheng"
-                        style="@style/et_style" />
+                        style="@style/et_style"
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <View
@@ -114,8 +117,8 @@
 
                     <EditText
                         android:id="@+id/et_mine_shopinfor_mendiandizhi"
-
-                        style="@style/et_style" />
+                        style="@style/et_style"
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <View
@@ -137,7 +140,8 @@
 
                     <EditText
                         android:id="@+id/et_mine_shopinfor_xiangxidizhi"
-                        style="@style/et_style" />
+                        style="@style/et_style"
+                        android:gravity="right" />
                 </LinearLayout>
 
                 <View
@@ -161,8 +165,8 @@
 
                     <EditText
                         android:id="@+id/et_mine_shopinfor_phone"
-
-                        style="@style/et_style" />
+                        style="@style/et_style"
+                        android:gravity="right" />
                 </LinearLayout>
 
 
