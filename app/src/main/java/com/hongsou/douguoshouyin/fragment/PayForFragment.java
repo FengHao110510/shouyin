@@ -4,6 +4,8 @@ package com.hongsou.douguoshouyin.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,14 +117,14 @@ public class PayForFragment extends BaseFragment {
      * 初始化订单金额和单数
      */
     private void initDingdan() {
-        HttpFactory.post().url(ApiConfig.GET_TODAY_MONEY).addParams("shopNumber", getShopNumber())
+        HttpFactory.get().url(ApiConfig.GET_TODAY_MONEY).addParams("shopNumber", getShopNumber())
                 .build().execute(new ResponseCallback<TodayMoneyBean>(getActivity()) {
 
             @Override
             public void onResponse(TodayMoneyBean response, int id) {
                 if (response.isSuccess()) {
                     rvPayforShishoujine.setText(response.getData().getAmountCollected());
-                    rvPayforDingdanshu.setText(response.getData().getOrderCount());
+                    rvPayforDingdanshu.setText(response.getData().getOrderCount()+"");
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }
@@ -130,11 +132,13 @@ public class PayForFragment extends BaseFragment {
         });
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         //刷新 订单数和金额
         initDingdan();
+        Log.e("", "onActivityCreated: "+0);
     }
 
     /**

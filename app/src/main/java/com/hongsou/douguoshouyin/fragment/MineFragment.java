@@ -183,17 +183,17 @@ public class MineFragment extends BaseFragment {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
 
-        TextView tv_logout_dialog_cancle = view.findViewById(R.id.tv_logout_dialog_cancle);
-        TextView tv_logout_dialog_yes = view.findViewById(R.id.tv_logout_dialog_yes);
+        TextView tvLogoutDialogCancle = view.findViewById(R.id.tv_logout_dialog_cancle);
+        TextView tvLogoutDialogYes = view.findViewById(R.id.tv_logout_dialog_yes);
 
-        tv_logout_dialog_cancle.setOnClickListener(new View.OnClickListener() {
+        tvLogoutDialogCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
             }
         });
 
-        tv_logout_dialog_yes.setOnClickListener(new View.OnClickListener() {
+        tvLogoutDialogYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Global.logout();

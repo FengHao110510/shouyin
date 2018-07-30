@@ -134,18 +134,18 @@ public class ShopInformationActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.iv_mine_mendian_camera, R.id.rl_mine_mendian_yimafu, R.id.bt_mine_mendian_save})
+    @OnClick({R.id.iv_mine_shopinfor_camera, R.id.rl_mine_shopinfor_yimafu, R.id.bt_mine_shopinfor_save})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_mine_mendian_camera:
+            case R.id.iv_mine_shopinfor_camera:
                 Choice();
                 break;
-            case R.id.rl_mine_mendian_yimafu:
+            case R.id.rl_mine_shopinfor_yimafu:
                 //跳转到桌牌一码付页面
                 Intent zhuopaiIntent = new Intent(this, ZhuoPaiActivity.class);
                 startActivity(zhuopaiIntent);
                 break;
-            case R.id.bt_mine_mendian_save:
+            case R.id.bt_mine_shopinfor_save:
                 //保存
                 save();
                 break;
