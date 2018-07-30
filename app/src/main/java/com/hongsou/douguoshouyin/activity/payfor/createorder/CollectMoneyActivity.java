@@ -196,7 +196,6 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 break;
             case R.id.ll_payfor_pop_xianjin:
                 mPopupWindow.dismiss();
-
                 createOrderInfo("现金");
                 startActivity(new Intent(this, CollectMoneyForCashActivity.class)
                         .putExtra("bean", new Gson().toJson(mSubmitOrderBean)));
