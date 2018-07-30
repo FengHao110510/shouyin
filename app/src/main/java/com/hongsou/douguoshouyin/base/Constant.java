@@ -46,7 +46,7 @@ public class Constant {
     /**
      * FTP根目录
      */
-    public static final String FTP_FILE_PATH = "/hsAppServer/crash/";
+    public static final String FTP_FILE_PATH = "/hsAppServer/crash/douguoshouyin";
     /**
      * FTP 账号
      */
