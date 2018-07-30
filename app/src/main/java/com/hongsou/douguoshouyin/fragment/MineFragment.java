@@ -14,8 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
@@ -194,7 +196,9 @@ public class MineFragment extends BaseFragment {
         tv_logout_dialog_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goLogout();
+                Global.logout();
+//                goLogout();
+                startActivity(new Intent(getContext(), LoginActivity.class));
                 dialog.dismiss();
             }
         });
