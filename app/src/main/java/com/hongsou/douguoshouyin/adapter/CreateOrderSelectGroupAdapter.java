@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.db.FoodZuheTaocanXQ;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,9 +22,19 @@ public class CreateOrderSelectGroupAdapter extends BaseQuickAdapter<List<FoodZuh
     private Typeface mTypeface;
     private int pos = -1;
 
+    public HashMap<Integer, Boolean> isSelected;
+
     public CreateOrderSelectGroupAdapter(@Nullable List<List<FoodZuheTaocanXQ>> data) {
         super(R.layout.module_recycle_item_group_food_1, data);
+        init(data);
+    }
 
+    // 初始化 设置所有item都为未选择
+    public void init(List<List<FoodZuheTaocanXQ>> data) {
+        isSelected = new HashMap<Integer, Boolean>();
+        for (int i = 0; i < data.size(); i++) {
+            isSelected.put(i, false);
+        }
     }
 
     @SuppressLint("ResourceAsColor")
@@ -40,7 +51,14 @@ public class CreateOrderSelectGroupAdapter extends BaseQuickAdapter<List<FoodZuh
         }
         helper.setText(R.id.tv_food_name, name.toString());
 
-        if (pos == helper.getLayoutPosition()) {
+//        if (pos == helper.getLayoutPosition()) {
+//            ((TextView) helper.getView(R.id.tv_selected)).setTextColor(mContext.getResources().getColor(R.color.red));
+//            helper.setText(R.id.tv_selected, R.string.icon_check_selected);
+//        } else {
+//            ((TextView) helper.getView(R.id.tv_selected)).setTextColor(mContext.getResources().getColor(R.color.tip_text_black));
+//            helper.setText(R.id.tv_selected, R.string.icon_check_normal);
+//        }
+        if (isSelected.get(helper.getLayoutPosition())){
             ((TextView) helper.getView(R.id.tv_selected)).setTextColor(mContext.getResources().getColor(R.color.red));
             helper.setText(R.id.tv_selected, R.string.icon_check_selected);
         } else {
