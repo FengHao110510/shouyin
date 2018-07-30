@@ -39,4 +39,24 @@ public class Constant {
      */
 //    public static final String HTTP_URL = "http://39.106.220.143:61616/hs-app-server";
     public static final String HTTP_URL = "http://47.93.0.117:5003/hs-app-server";
+    /**
+     * FTP路径
+     */
+    public static final String FTP_PATH = "47.95.247.16";
+    /**
+     * FTP根目录
+     */
+    public static final String FTP_FILE_PATH = "/hsAppServer/crash/";
+    /**
+     * FTP 账号
+     */
+    public static final String FTP_NAME = "images_hongxiao";
+    /**
+     * FTP 密码
+     */
+    public static final String FTP_PAW = "N3P6xE5ZTsbthXEa";
+    /**
+     * FTP 端口号
+     */
+    public static final int FTP_PORT = 21;
 }

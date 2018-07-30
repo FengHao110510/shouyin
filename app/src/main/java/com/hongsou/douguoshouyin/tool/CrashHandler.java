@@ -1,7 +1,5 @@
 package com.hongsou.douguoshouyin.tool;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -10,8 +8,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.hongsou.douguoshouyin.activity.login.LoginActivity;
+import com.hongsou.douguoshouyin.activity.WelcomeActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -83,8 +82,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 Log.e(TAG, "error : ", e);
             }
             // 退出程序
+//            android.os.Process.killProcess(android.os.Process.myPid());
+//            System.exit(1);
+            // 重启程序
+            Intent intent = new Intent();
+            intent.setClass(mContext,WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intent);
             android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
         }
     }
 
@@ -103,13 +108,13 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             @Override
             public void run() {
                 Looper.prepare();
-//                Toast.makeText(mContext, "很抱歉,程序出现异常即将重启.", Toast.LENGTH_LONG).show();
-                AlarmManager mgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(mContext, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("crash", true);
-                PendingIntent restartIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent);
+                Toast.makeText(mContext, "很抱歉,程序出现异常即将重启.", Toast.LENGTH_LONG).show();
+//                AlarmManager mgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+//                Intent intent = new Intent(mContext, LoginActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("crash", true);
+//                PendingIntent restartIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+//                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, restartIntent);
                 Looper.loop();
             }
         }.start();

@@ -1,9 +1,9 @@
 package com.hongsou.douguoshouyin.base;
 
-import android.app.Application;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatActivity;
 
 import com.hongsou.douguoshouyin.R;
@@ -41,7 +41,7 @@ import okhttp3.OkHttpClient;
  */
 
 
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
     public static BaseApplication app;
 
