@@ -272,7 +272,7 @@ public class AddGoodsActivity extends BaseActivity {
             ToastUtil.showToast("请先选择商品图片");
         } else {
             showLoadingDialog();
-            Log.e(TAG, "postImg: " + file1.getName());
+            Log.e(TAG, "postImg: " + file1.length());
 
             OkHttpUtils.post().addFile("foodImg", file1.getName(), file1)
                     .url(ApiConfig.UPLOAD_IMG).addHeader("Content-Type", "multipart/form-data")
@@ -517,7 +517,8 @@ public class AddGoodsActivity extends BaseActivity {
                     try {
                         b = new FileOutputStream(fileName);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
-                        file1 = new File(fileName);
+                        Bitmap comp = BitmapUtil.comp(bitmap);
+                        file1 = BitmapUtil.saveBitmapFile(comp,fileName);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } finally {
@@ -544,8 +545,11 @@ public class AddGoodsActivity extends BaseActivity {
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                         String path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
+                        String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "www.jpg";
+
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
-                        file1 = new File(path);
+                        Bitmap comp = BitmapUtil.comp(bitmap);
+                        file1 = BitmapUtil.saveBitmapFile(comp, fileName);
                         showImage(bitmap);
                     } catch (Exception e) {
                         // TODO Auto-generatedcatch block
@@ -634,9 +638,9 @@ public class AddGoodsActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         //初始化起始时间
-        initDateStartPicker("2100-01-01 00:00",now, tvDialogTimeShaixuanStart);
+        initDateStartPicker("2100-01-01 00:00", now, tvDialogTimeShaixuanStart);
         //初始化结束时间
-        initDateEndPicker("2010-01-01 00:00",now, "2100-01-01 00:00", tvDialogTimeShaixuanEnd);
+        initDateEndPicker("2010-01-01 00:00", now, "2100-01-01 00:00", tvDialogTimeShaixuanEnd);
 
         Display display = this.getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
@@ -649,7 +653,7 @@ public class AddGoodsActivity extends BaseActivity {
     }
 
     //endtime 最后期限  初始化开始时间
-    private void initDateStartPicker(String endtime,String now, final TextView tv_dialog_time_shaixuan_start) {
+    private void initDateStartPicker(String endtime, String now, final TextView tv_dialog_time_shaixuan_start) {
 
         tv_dialog_time_shaixuan_start.setText(now);
         customDatePickerStart = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
@@ -663,7 +667,7 @@ public class AddGoodsActivity extends BaseActivity {
     }
 
     //starttime 开始期限  初始化开始时间  endtime 最后期限 现在
-    private void initDateEndPicker(String starttime,String now, String endtime, final TextView tv_dialog_time_shaixuan_end) {
+    private void initDateEndPicker(String starttime, String now, String endtime, final TextView tv_dialog_time_shaixuan_end) {
         customDatePickerEnd = null;
         tv_dialog_time_shaixuan_end.setText(now);
         customDatePickerEnd = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
@@ -763,8 +767,6 @@ public class AddGoodsActivity extends BaseActivity {
         context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         context.getWindow().setAttributes(lp);
     }
-
-
 
 
     //===================================================================================================

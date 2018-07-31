@@ -14,11 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.ShopinforBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -88,29 +93,33 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void init() {
-        initTouXiang();
+        getShopinfor();
         setIconFont(new TextView[]{tvMinePhoneIcon});
     }
 
-    //初始化头像  地址等
-    private void initTouXiang() {
-        //TODO 初始化头像和地址
-        showLoadingDialog();
-        OkHttpUtils.get().url("http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png").build().execute(new BitmapCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
 
-            }
+    /**
+     * @author fenghao
+     * @date 2018/7/30 0030 上午 11:21
+     * @desc 获取商店信息
+     */
+    private void getShopinfor() {
+        HttpFactory.get().url(ApiConfig.GET_SHOP_INFO).addParams("shopNumber", getShopNumber())
+                .build().execute(new ResponseCallback<ShopinforBean>(getActivity()) {
 
             @Override
-            public void onResponse(Bitmap response, int id) {
-                dismissLoadingDialog();
-                ivMineHead.setImageBitmap(response);
+            public void onResponse(ShopinforBean response, int id) {
+                if (response.isSuccess()) {
+                    ivMineAddress.setText(response.getData().getShopName());
+                    Glide.with(getActivity()).load(ApiConfig.IMG_URL + response.getData().getAddressLink())
+                            .into(ivMineHead);
+
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
             }
         });
     }
-
 
     @OnClick({R.id.rl_mine_jiaoban, R.id.rl_mine_mendianxinxi, R.id.rl_mine_xiugaimima, R.id.rl_mine_dayinguanli, R.id.rl_mine_shouyinshezhi, R.id.rl_mine_saomadiancanshezhi, R.id.rl_mine_douguo, R.id.rl_mine_guanyu, R.id.rl_mine_phone, R.id.btn_mine_logout})
     public void onViewClicked(View view) {
@@ -118,7 +127,7 @@ public class MineFragment extends BaseFragment {
             case R.id.rl_mine_mendianxinxi:
                 //门店信息
                 Intent mendianIntent = new Intent(getActivity(), ShopInformationActivity.class);
-                startActivity(mendianIntent);
+                startActivityForResult(mendianIntent, 1);
                 break;
             case R.id.rl_mine_xiugaimima:
                 //修改密码
@@ -160,6 +169,20 @@ public class MineFragment extends BaseFragment {
             case R.id.btn_mine_logout:
                 //注销
                 showLogoutDialog();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case 1:
+                if (data.getBooleanExtra("flag",false)){
+                    getShopinfor();
+                }
                 break;
             default:
                 break;
