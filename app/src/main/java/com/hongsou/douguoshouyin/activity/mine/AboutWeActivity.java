@@ -98,6 +98,9 @@ public class AboutWeActivity extends BaseActivity {
 
     private void downLoadApk(String downloadAddress) {
         String path = Environment.getExternalStorageDirectory() + "/douguo/apk/";
+        //测试
+//        String path = "https://fir.im/p56v";
+
         OkHttpUtils.get().url(downloadAddress).build().execute(
                 new FileCallBack(path, "qingshouyin" + DateUtils.getNowDateLong()) {
                     @Override
