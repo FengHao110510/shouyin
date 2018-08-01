@@ -96,12 +96,10 @@ public class NosaomaFoodsActivity extends BaseActivity {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 page++;
-                if (page>totalPage){
+                if (page > totalPage) {
                     ToastUtil.showToast("已经是最后一页");
                     smMineNosaomaFoods.finishLoadMore(false);
-
-                    return;
-                }else {
+                } else {
                     getData();
                     //不传时间则立即停止刷新    传入false表示加载失败
                     smMineNosaomaFoods.finishLoadMore();
@@ -117,14 +115,14 @@ public class NosaomaFoodsActivity extends BaseActivity {
      * @desc 获取数据
      */
     private void getData() {
-        if (page==1){
-            if (resultBeanList!=null){
+        if (page == 1) {
+            if (resultBeanList != null) {
                 resultBeanList.clear();
             }
         }
         HttpFactory.get().url(ApiConfig.GET_SCAN_FOOD)
                 .addParams("shopNumber", getShopNumber())
-                .addParams("pageString", page+"")
+                .addParams("pageString", page + "")
                 .addParams("rowsString", "10")
                 .build().execute(new ResponseCallback<NoScanBean>(this) {
             @Override

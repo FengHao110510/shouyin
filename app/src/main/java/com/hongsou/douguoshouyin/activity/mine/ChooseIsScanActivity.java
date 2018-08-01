@@ -305,8 +305,8 @@ public class ChooseIsScanActivity extends BaseActivity {
      * @desc 上传
      */
     private void upLoad() {
-        for (int i = 0 ;i<singleFoodsBeanList.size();i++){
-            if ("0".equals(singleFoodsBeanList.get(i).getIsScan())){
+        for (int i = 0; i < singleFoodsBeanList.size(); i++) {
+            if ("0".equals(singleFoodsBeanList.get(i).getIsScan())) {
                 singleFoodsBeanList.remove(i);
                 i--;
             }
