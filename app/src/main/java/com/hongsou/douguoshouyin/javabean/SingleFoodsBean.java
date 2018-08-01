@@ -1,5 +1,7 @@
 package com.hongsou.douguoshouyin.javabean;
 
+import com.hongsou.douguoshouyin.tool.Global;
+
 import java.io.Serializable;
 
 /**
@@ -45,6 +47,25 @@ public class SingleFoodsBean implements Serializable {
     private String foodProductsPicture;
     private String categoryNumber;
     private String minGroup;
+    private String foodType;
+    private String isScan;
+    private String shopNumber = Global.getSpGlobalUtil().getShopNumber();
+
+    public String getFoodType() {
+        return foodType;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
+    }
+
+    public String getIsScan() {
+        return isScan;
+    }
+
+    public void setIsScan(String isScan) {
+        this.isScan = isScan;
+    }
 
     public String getMinGroup() {
         return minGroup;
@@ -124,7 +145,9 @@ public class SingleFoodsBean implements Serializable {
                            String standardName,
                            String singleProductPrice,
                            String foodProductsPicture,
-                           String categoryNumber
+                           String categoryNumber,
+                           String foodType,
+                           String isScan
             , int singleQuantity) {
         this.singleProductNumber = singleProductNumber;
         this.standardNumber = standardNumber;
@@ -134,6 +157,7 @@ public class SingleFoodsBean implements Serializable {
         this.foodProductsPicture = foodProductsPicture;
         this.categoryNumber = categoryNumber;
         this.singleQuantity = singleQuantity;
-
+        this.foodType = foodType;
+        this.isScan = isScan;
     }
 }

@@ -10,19 +10,25 @@
 
     <include layout="@layout/module_include_titlebar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_mine_nosaoma_foods"
-
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/sm_mine_nosaoma_foods"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_mine_nosaoma_foods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <TextView
         android:id="@+id/tv_mine_nosaoma_addnosaoma"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
         android:background="@drawable/btn_black"
@@ -31,7 +37,6 @@
         android:paddingTop="10dp"
         android:text="添加不参与扫码的商品"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        android:layout_marginBottom="20dp"/>
+        android:textSize="18sp" />
 
 </LinearLayout>

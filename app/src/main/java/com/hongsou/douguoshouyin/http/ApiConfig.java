@@ -29,7 +29,6 @@ public class ApiConfig {
     //    public static final String BASE_URL_MOCK = "http://192.168.1.2:3000/mock/20";
 
 
-
     /**
      * TODO 科大讯飞的AppId
      */
@@ -77,11 +76,11 @@ public class ApiConfig {
     /**
      * TODO 现金收款
      */
-    public static final String PAY_BY_CASH = BASE_URL+ "/pay/payByCash";
+    public static final String PAY_BY_CASH = BASE_URL + "/pay/payByCash";
     /**
      * TODO 退单接口
      */
-    public static final String REFOUND_ORDER = BASE_URL+ "/order/refoundOrder";
+    public static final String REFOUND_ORDER = BASE_URL + "/order/refoundOrder";
     /**
      * TODO 同步接口
      */
@@ -210,7 +209,8 @@ public class ApiConfig {
     /**
      * TODO 交班提交
      */
-    public static final String INSERT_SHIFT = BASE_URL + "/shift/insertShift"; /**
+    public static final String INSERT_SHIFT = BASE_URL + "/shift/insertShift";
+    /**
      * TODO 查询当日交易量 交易额
      */
     public static final String GET_TODAY_MONEY = BASE_URL + "/shift/getTodayMoney";
@@ -241,4 +241,11 @@ public class ApiConfig {
      * TODO 检查更新
      */
     public static final String GET_SYSTEM_SETUP = BASE_URL + "/setting/getSystemSetup";
+    /**
+     * TODO 修改/添加 不参与扫码商品
+     */
+    public static final String UPDATE_SINGLE_FOOD_IS_SCAN = BASE_URL + "/food/updateSingleFoodIsScan";/**
+     * TODO 查询不参与扫码商品
+     */
+    public static final String GET_SCAN_FOOD = BASE_URL + "/food/getScanFood";
 }

@@ -243,6 +243,8 @@ public class CommodityActivity extends BaseActivity {
                                     , foodDataBean.getShopStandarList().get(k).getSell()
                                     , foodDataBean.getFoodProductsPicture()
                                     , foodDataBean.getSingleProductType()
+                                    , "1"
+                                    ,"0"
                                     , 0
                             );
                             singleFoodsBeanList.add(singleFoodsBean);
@@ -255,6 +257,8 @@ public class CommodityActivity extends BaseActivity {
                                 , foodDataBean.getShopStandarList().get(k).getSell()
                                 , foodDataBean.getFoodProductsPicture()
                                 , foodDataBean.getSingleProductType()
+                                , "1"
+                                ,"0"
                                 , 0
                         );
                         singleFoodsBeanList.add(singleFoodsBean);
@@ -267,6 +271,8 @@ public class CommodityActivity extends BaseActivity {
                         , "", foodDataBean.getPackagePrice()
                         , foodDataBean.getPackagePicture()
                         , foodDataBean.getPackageType()
+                        , "0"
+                        ,"0"
                         , 0));
             } else if ("2".equals(data.get(i).getFoodType())) {
                 //组合套餐
@@ -275,6 +281,8 @@ public class CommodityActivity extends BaseActivity {
                         , "", foodDataBean.getGroupPackagePrice()
                         , foodDataBean.getPackagePicture()
                         , foodDataBean.getCateGoryType()
+                        , "2"
+                        ,"0"
                         , 0));
             }
 
@@ -337,7 +345,7 @@ public class CommodityActivity extends BaseActivity {
         StanderSinpleAdapter standerSinpleAdapter = new StanderSinpleAdapter(R.layout.module_item_stander, string);
 
         RecyclerView rvDialogStanderList = view.findViewById(R.id.rv_dialog_stander_list);
-        rvDialogStanderList.setLayoutManager(new GridLayoutManager(this,3));
+        rvDialogStanderList.setLayoutManager(new GridLayoutManager(this, 3));
         rvDialogStanderList.setAdapter(standerSinpleAdapter);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 5);
 

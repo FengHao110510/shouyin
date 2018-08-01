@@ -128,6 +128,7 @@ public class CustomDatePicker {
     }
 
     private void initParameter() {
+        endCalendar = Calendar.getInstance();
         startYear = startCalendar.get(Calendar.YEAR);
         startMonth = startCalendar.get(Calendar.MONTH) + 1;
         startDay = startCalendar.get(Calendar.DAY_OF_MONTH);
