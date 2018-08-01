@@ -90,6 +90,7 @@ public class AboutWeActivity extends BaseActivity {
             public void onResponse(SystemSetupBean response, int id) {
                 if (response.isSuccess()) {
                     //123瞎写的
+                    //判断当前版本号与后台是否相同
                     if (!"123".equals(response.getData().getNewVersionNumber())) {
                         showAskDialog(response.getData().getDownloadAddress());
                     } else {
@@ -175,7 +176,7 @@ public class AboutWeActivity extends BaseActivity {
     }
 
     private void downLoadApk(String downloadAddress) {
-         String path = Environment.getExternalStorageDirectory() + "/douguo/apk/";
+        String path = Environment.getExternalStorageDirectory() + "/douguo/apk/";
         //测试
         String download = "https://pro-app-qn.fir.im/9d72c9b9c0be3b8e08a56c58aa0e5a757d8e83df.apk?attname=dgcy-release-1.0.4-hualaishi.apk_1.0.4.apk&e=1533121474&token=LOvmia8oXF4xnLh0IdH05XMYpH6ENHNpARlmPc-T:LwI-IGsriaLH5fJ-hkkYQOQo7-0=";
 
@@ -185,12 +186,11 @@ public class AboutWeActivity extends BaseActivity {
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.showToast("网络连接失败");
                         downLoadDialog.dismiss();
-
                     }
 
                     @Override
                     public void onResponse(File response, int id) {
-                        if (downLoadDialog != null){
+                        if (downLoadDialog != null) {
                             downLoadDialog.dismiss();
                         }
                         ToastUtil.showToast("下载完成");
@@ -207,10 +207,10 @@ public class AboutWeActivity extends BaseActivity {
                     @Override
                     public void inProgress(float progress, long total, int id) {
                         super.inProgress(progress, total, id);
-                        progressBar.setProgress((int) (progress*100));
+                        progressBar.setProgress((int) (progress * 100));
                         Message message = new Message();
                         message.what = 0;
-                        message.obj = (int) (progress*100);
+                        message.obj = (int) (progress * 100);
                         mHandler.sendMessage(message);
                     }
                 });
@@ -224,7 +224,7 @@ public class AboutWeActivity extends BaseActivity {
             switch (msg.what) {
                 case 0:
                     //正在下载
-                    tvDialogCheckContent.setText("已完成"+msg.obj+"%");
+                    tvDialogCheckContent.setText("已完成" + msg.obj + "%");
                     break;
                 case 1:
                     //下载完成
