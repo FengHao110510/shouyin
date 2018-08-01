@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        buildConfigField ("boolean", "LOG", "true")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         //科大讯飞需要
@@ -28,7 +29,13 @@ android {
 
     buildTypes {
         release {
+            minifyEnabled true
+            buildConfigField ("boolean", "LOG", "true")
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug{
             minifyEnabled false
+            buildConfigField ("boolean", "LOG", "false")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
