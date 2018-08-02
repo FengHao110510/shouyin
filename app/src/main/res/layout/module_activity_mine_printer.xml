@@ -6,9 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="com.hongsou.douguoshouyin.activity.mine.PrinterActivity">
+    >
 
-    <include layout="@layout/module_include_titlebar" />
+    <com.hongsou.douguoshouyin.views.CommonTopBar
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:left_text="@string/icon_back"
+        app:center_text="打印管理"
+        app:right_text="打印测试"
+        app:right_icon_visibility="GONE"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,14 +30,12 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_mine_printer_kaiguan"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/blue_tooth_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/imgbt_selector"
-            android:textColor="@color/color_base_yellow"
-            android:textSize="20sp" />
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -80,9 +86,15 @@
         style="@style/view_line_horizontal_1"
         android:layout_height="7dp" />
 
+    <ListView
+        android:id="@+id/bluetooth_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"/>
+    
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_mine_printer_xinxi"
-
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"/>
 </LinearLayout>

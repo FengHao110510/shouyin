@@ -40,6 +40,18 @@ android {
         }
     }
 
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name
+                    .endsWith('.apk')) {
+                def fileName = "dgsy" + "-${variant.buildType.name}-${defaultConfig.versionName}.apk"
+                outputFileName = fileName
+            }
+        }
+    }
+
     greendao {
         schemaVersion 1
         daoPackage 'com.hongsou.greendao.gen'

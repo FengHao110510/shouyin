@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -24,7 +25,11 @@ import com.hongsou.douguoshouyin.javabean.OrderDetailBean;
 import com.hongsou.douguoshouyin.javabean.OrderFoodBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.hongsou.douguoshouyin.tool.bluetooth.BluetoothPrinterUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +103,7 @@ public class OrderDetailActivity extends BaseActivity {
     OrderDetailsFoodAdapter orderDetailsFoodAdapter;
     //支付方式
     String type;
+    private OrderDetailBean mOrderDetailBean;
 
     @Override
     public int initLayout() {
@@ -141,15 +147,15 @@ public class OrderDetailActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
                 Log.e(TAG, "onResponse: " + response.toString());
-                OrderDetailBean orderDetailBean = new Gson().fromJson(response, OrderDetailBean.class);
+                mOrderDetailBean = new Gson().fromJson(response, OrderDetailBean.class);
 
-                if (orderDetailBean.getCode() == 1000) {
-                    OrderDetailBean.DataBean.OrderBean order = orderDetailBean.getData().getOrder();
+                if (mOrderDetailBean.getCode() == 1000) {
+                    OrderDetailBean.DataBean.OrderBean order = mOrderDetailBean.getData().getOrder();
 
                     addOrderDetails(order);
-                    packageBeanList = orderDetailBean.getData().getPackageX();
-                    groupBeanList = orderDetailBean.getData().getGroup();
-                    foodBeanList = orderDetailBean.getData().getFood();
+                    packageBeanList = mOrderDetailBean.getData().getPackageX();
+                    groupBeanList = mOrderDetailBean.getData().getGroup();
+                    foodBeanList = mOrderDetailBean.getData().getFood();
 
                     //总份数
                     tvTurnoverOrderdetailShangpinfenshu.setText((packageBeanList.size() + groupBeanList.size() + foodBeanList.size()) + "");
@@ -168,7 +174,7 @@ public class OrderDetailActivity extends BaseActivity {
                     showFoodList();
 
                 } else {
-                    ToastUtil.showToast(orderDetailBean.getMsg());
+                    ToastUtil.showToast(mOrderDetailBean.getMsg());
                 }
 
 
@@ -204,9 +210,9 @@ public class OrderDetailActivity extends BaseActivity {
         tvTurnoverOrderdetailDingdanjine.setText(order.getOrderAmount());
         tvTurnoverOrderdetailYouhuijine.setText(order.getOrderDiscount());
         tvTurnoverOrderdetailShoukuanjine.setText(order.getAmountCollected());
-        if (order.getPaymentType().contains("微信")){
+        if (order.getPaymentType().contains("微信")) {
             type = "wechar";
-        }else if (order.getPaymentType().contains("支付宝")){
+        } else if (order.getPaymentType().contains("支付宝")) {
             type = "ali";
         }
         //总价
@@ -309,14 +315,18 @@ public class OrderDetailActivity extends BaseActivity {
     private void showTuikuanDialog() {
         View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_tuikuan, null);
         TextView tv_dialog_tuikuan_title = view.findViewById(R.id.tv_dialog_tuikuan_title);
-        EditText et_dialog_tuikuan_content = view.findViewById(R.id.et_dialog_tuikuan_content);
+        final EditText et_dialog_tuikuan_content = view.findViewById(R.id.et_dialog_tuikuan_content);
         TextView tv_dialog_tuikuan_yes = view.findViewById(R.id.tv_dialog_tuikuan_yes);
         TextView tv_dialog_tuikuan_cancle = view.findViewById(R.id.tv_dialog_tuikuan_cancle);
         tv_dialog_tuikuan_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //判断密码是否正确 走退款接口   TODO
-                tuikuan();
+                //TODO 判断密码是否正确 走退款接口
+                if (TextUtils.isEmpty(et_dialog_tuikuan_content.getText())) {
+                    ToastUtil.showToast("请先输入退款密码");
+                } else {
+                    doRefund();
+                }
                 dialog.dismiss();
             }
         });
@@ -341,59 +351,70 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     //退款接口
-    private void tuikuan() {
-        showLoadingDialog();
+    private void doRefund() {
         HttpFactory.post().url(ApiConfig.REFUND)
                 .addParams("outTradeNo", tvTurnoverOrderdetailDingdanhao.getText().toString())
                 .addParams("type", type)
                 .addParams("appAuthToken", Global.getSpGlobalUtil().getAliCode())
                 .addParams("subMchId", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("refundAmount", tvTurnoverOrderdetailShishoujine.getText().toString())
-                .build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
-            }
+                .build().execute(new ResponseCallback<String>(this) {
 
             @Override
             public void onResponse(String response, int id) {
-                dismissLoadingDialog();
-                tuidan();
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if (object.getInt("code") == 0) {
+                        backOrder();
+                    } else {
+                        ToastUtil.showToast(object.getString("msg"));
+                    }
+                } catch (JSONException e) {
+                    ToastUtil.showToast("退款失败");
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     /**
-     *  @author  fenghao
-     *  @date    2018/7/26 0026 下午 16:20
-     *  @desc   退单接口
+     * @author fenghao
+     * @date 2018/7/26 0026 下午 16:20
+     * @desc 退单接口
      */
-    private void tuidan() {
-        String paymentType ="";
-        if (type.contains("wechar")){
-            paymentType="微信";
-        }else  if (type.contains("ali")){
-            paymentType="支付宝";
+    private void backOrder() {
+        String paymentType = "";
+        if (type.contains("wechar")) {
+            paymentType = "微信";
+        } else if (type.contains("ali")) {
+            paymentType = "支付宝";
         }
-        HttpFactory.post()
-                .addParams("shopNumber",getShopNumber())
-                .addParams("batch",tvTurnoverOrderdetailDingdanhao.getText().toString())
-                .addParams("orderAmount",tvTurnoverOrderdetailShishoujine.getText().toString())
-                .addParams("reason","")
-                .addParams("amount",tvTurnoverOrderdetailShishoujine.getText().toString())
-                .addParams("paymentType",paymentType)
-                .url(ApiConfig.REFOUND_ORDER).build().execute(new ResponseCallback<BaseBean>(this) {
+        HttpFactory.post().url(ApiConfig.REFOUND_ORDER)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("batch", tvTurnoverOrderdetailDingdanhao.getText().toString())
+                .addParams("orderAmount", tvTurnoverOrderdetailShishoujine.getText().toString())
+                .addParams("reason", "")
+                .addParams("amount", tvTurnoverOrderdetailShishoujine.getText().toString())
+                .addParams("paymentType", paymentType)
+                .build().execute(new ResponseCallback<BaseBean>(this) {
 
             @Override
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
-                    ToastUtil.showToast("退款成功");
+                    ToastUtil.showToast("退单成功");
+                    BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                            .setContent(mOrderDetailBean)
+                            .setCount(1)
+                            .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
+                            .build();
+                    printerUtil.startPrint();
                 } else {
                     ToastUtil.showToast("退单失败");
                 }
             }
         });
     }
+
     @OnClick({R.id.tv_turnover_orderdetail_tuikuan, R.id.tv_turnover_orderdetail_dayinxiaopiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -402,6 +423,12 @@ public class OrderDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_turnover_orderdetail_dayinxiaopiao:
                 //打印小票
+                BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                        .setContent(mOrderDetailBean)
+                        .setCount(1)
+                        .setType(BluetoothPrinterUtil.Print.ORDER)
+                        .build();
+                printerUtil.startPrint();
                 break;
             default:
                 break;
