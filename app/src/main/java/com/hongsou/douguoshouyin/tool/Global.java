@@ -44,7 +44,7 @@ public class Global {
     public static synchronized SharePreferenceGlobalUtil getSpGlobalUtil() {
         if (mSpGlobalUtil == null)
             mSpGlobalUtil = new SharePreferenceGlobalUtil(
-                    BaseApplication.getAppContext(), "hong_sou_global");
+                    BaseApplication.getAppContext(), "hong_sou_sy_global");
         return mSpGlobalUtil;
     }
 

@@ -156,6 +156,16 @@ public class OrderDetailBean {
             private String orderSourcePayment;
             private String orderSourceFlag;
             private String batch;
+            private String dateOrderNumber;
+            private String clerkName;
+
+            public String getDateOrderNumber() {
+                return dateOrderNumber;
+            }
+
+            public void setDateOrderNumber(String dateOrderNumber) {
+                this.dateOrderNumber = dateOrderNumber;
+            }
 
             public String getClerkName() {
                 return clerkName;
@@ -164,8 +174,6 @@ public class OrderDetailBean {
             public void setClerkName(String clerkName) {
                 this.clerkName = clerkName;
             }
-
-            private String clerkName;
 
             public int getPage() {
                 return page;

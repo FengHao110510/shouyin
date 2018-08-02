@@ -1,8 +1,9 @@
-package com.hongsou.douguoshouyin.tool;
+package com.hongsou.douguoshouyin.tool.bluetooth;
 
 import android.bluetooth.BluetoothSocket;
 
 import com.hongsou.douguoshouyin.base.BaseApplication;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 import java.io.IOException;
 
@@ -36,7 +37,9 @@ public class BluetoothPrinterUtil {
         // 退单打印
         BACK_MONEY,
         // 统计打印
-        STATISTICS
+        STATISTICS,
+        // 测试
+        TEST
     }
 
     private BluetoothPrinterUtil() {
@@ -83,16 +86,14 @@ public class BluetoothPrinterUtil {
      * @desc 开始打印
      * @anthor lpc
      * @date: 2018/7/27
-     * @param obj 数据源
-     * @param print 打印类型
      */
-    private void startPrint(Object obj, Print print) {
+    public void startPrint() {
         BluetoothSocket socket = BaseApplication.getInstance().socket;
         if (socket == null) {
             ToastUtil.showToast("蓝牙未连接");
             return;
         }
-        if (obj == null) {
+        if (mObject == null) {
             ToastUtil.showToast("数据异常");
             return;
         }
@@ -110,32 +111,35 @@ public class BluetoothPrinterUtil {
         }
         // 判断打印什么模板
         for (int i = 0; i < count; i++) {
-            switch (print) {
+            switch (mPrint) {
                 case ORDER:
-                    BluetoothPrinterTemplate.printOrder(obj);
+                    BluetoothPrinterTemplate.printOrder(mObject);
                     break;
                 case HANDOVER:
-                    BluetoothPrinterTemplate.printHandover(obj);
+                    BluetoothPrinterTemplate.printHandover(mObject);
                     break;
                 case BACK_MONEY:
-                    BluetoothPrinterTemplate.printBackOrder(obj);
+                    BluetoothPrinterTemplate.printBackOrder(mObject);
                     break;
                 case STATISTICS:
-                    BluetoothPrinterTemplate.printStatistics(obj);
+                    BluetoothPrinterTemplate.printStatistics(mObject);
+                    break;
+                case TEST:
+                    BluetoothPrinterTemplate.printTest();
                     break;
                 default:
                     break;
             }
         }
 
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            socket.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    public class Builder {
+    public static class Builder {
         private int count;
         private Object obj;
         private Print mPrint;
@@ -155,7 +159,7 @@ public class BluetoothPrinterUtil {
             return this;
         }
 
-        private BluetoothPrinterUtil build() {
+        public BluetoothPrinterUtil build() {
             BluetoothPrinterUtil util = BluetoothPrinterUtil.getInstance();
             util.setPrintCount(count);
             util.setPrintObject(obj);

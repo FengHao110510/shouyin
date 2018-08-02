@@ -1,4 +1,4 @@
-package com.hongsou.douguoshouyin.tool;
+package com.hongsou.douguoshouyin.tool.bluetooth;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
@@ -8,9 +8,9 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 /**
- * @copyright 鸿搜网络公司 版权所有
- * <p>
  * @author lpc
+ *         <p>
+ * @copyright 鸿搜网络公司 版权所有
  * <p>
  * @date 2018/7/27
  * <p>
@@ -22,20 +22,44 @@ public class BluetoothFormatUtils {
      * 打印纸一行最大的字节
      */
     private static final int LINE_BYTE_SIZE = 32;
-
+    /**
+     * 打印三列
+     * ======================================
+     * |            总长度32                 |
+     * | --------------------|------------   |
+     * |        左边长20         右边长12     |
+     * =======================================
+     *  中间竖线位置为终点文字的中心位置
+     */
     private static final int LEFT_LENGTH = 20;
-
     private static final int RIGHT_LENGTH = 12;
 
     /**
-     * 左侧汉字最多显示几个文字
+     * 打印四列
+     * ======================================
+     * |            总长度32                 |
+     * | ----------------|--------|-------- |
+     * |        16           8        8     |
+     * =======================================
+     *  中间竖线位置为终点文字的中心位置
      */
-    private static final int LEFT_TEXT_MAX_LENGTH = 8;
+    private static final int LEFT_LENGTH_FOUR = 16;
+    private static final int CENTER_LENGTH_FOUR = 8;
+    private static final int RIGHT_LENGTH_FOUR = 8;
 
     /**
-     * 小票打印菜品的名称，上限调到8个字
+     * 三列时，左侧汉字最多显示几个文字
      */
-    public static final int MEAL_NAME_MAX_LENGTH = 8;
+    private static final int TEXT_MAX_LENGTH_THREE = 8;
+    /**
+     * 四列时，左侧汉字最多显示几个文字
+     */
+    private static final int TEXT_MAX_LENGTH_FOUR = 8;
+
+    /**
+     * 分割线
+     */
+    public static final String CUT_LINE = "--------------------------------";
 
     private static OutputStream outputStream = null;
 
@@ -59,7 +83,37 @@ public class BluetoothFormatUtils {
             outputStream.write(data, 0, data.length);
             outputStream.flush();
         } catch (IOException e) {
-            //Toast.makeText(this.context, "发送失败！", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 打印换行符
+     *
+     * @param num 打印换行符的次数
+     */
+    public static void printNewLine(int num) {
+        try {
+            for (int i = 0; i < num; i++) {
+                String text = "\n";
+                byte[] data = text.getBytes("gbk");
+                outputStream.write(data, 0, data.length);
+                outputStream.flush();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 打印分割线
+     */
+    public static void printCutLine() {
+        try {
+            byte[] data = CUT_LINE.getBytes("gbk");
+            outputStream.write(data, 0, data.length);
+            outputStream.flush();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -194,18 +248,16 @@ public class BluetoothFormatUtils {
     @SuppressLint("NewApi")
     public static String printThreeData(String leftText, String middleText, String rightText) {
         StringBuilder sb = new StringBuilder();
-        // 左边最多显示 LEFT_TEXT_MAX_LENGTH 个汉字 + 两个点
-        if (leftText.length() > LEFT_TEXT_MAX_LENGTH) {
-            leftText = leftText.substring(0, LEFT_TEXT_MAX_LENGTH) + "..";
-        }
-        int leftTextLength = getBytesLength(leftText);
+        // 左边最多显示 TEXT_MAX_LENGTH_THREE 个汉字， 多出来的换行打印
+        String[] leftArray = resetStr(leftText, TEXT_MAX_LENGTH_THREE);
+
+        int leftTextLength = getBytesLength(leftArray[0]);
         int middleTextLength = getBytesLength(middleText);
         int rightTextLength = getBytesLength(rightText);
 
-        sb.append(leftText);
+        sb.append(leftArray[0]);
         // 计算左侧文字和中间文字的空格长度
-        int marginBetweenLeftAndMiddle = LEFT_LENGTH - leftTextLength - middleTextLength / 2;
-
+        int marginBetweenLeftAndMiddle = LEFT_LENGTH - middleTextLength / 2 - leftTextLength ;
         for (int i = 0; i < marginBetweenLeftAndMiddle; i++) {
             sb.append(" ");
         }
@@ -213,13 +265,67 @@ public class BluetoothFormatUtils {
 
         // 计算右侧文字和中间文字的空格长度
         int marginBetweenMiddleAndRight = RIGHT_LENGTH - middleTextLength / 2 - rightTextLength;
-
         for (int i = 0; i < marginBetweenMiddleAndRight; i++) {
             sb.append(" ");
         }
-
         // 打印的时候发现，最右边的文字总是偏右一个字符，所以需要删除一个空格
         sb.delete(sb.length() - 1, sb.length()).append(rightText);
+
+        // 当最左侧文字超出长度限制，需要换行打印
+        if (!TextUtils.isEmpty(leftArray[1])){
+            sb.append("\n");
+            sb.append(leftArray[1]);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 打印四列
+     *
+     * @param leftText    左侧文字
+     * @param middleText1 中间文字
+     * @param middleText2 中间文字
+     * @param rightText   右侧文字
+     * @return
+     */
+    @SuppressLint("NewApi")
+    public static String printFourData(String leftText, String middleText1, String middleText2, String rightText) {
+        StringBuilder sb = new StringBuilder();
+        // 左边最多显示 TEXT_MAX_LENGTH_THREE 个汉字， 多出来的换行打印
+        String[] leftArray = resetStr(leftText, TEXT_MAX_LENGTH_THREE);
+
+        int leftTextLength = getBytesLength(leftArray[0]);
+        int middleTextLength = getBytesLength(middleText1);
+        int middleTextLength2 = getBytesLength(middleText2);
+        int rightTextLength = getBytesLength(rightText);
+
+        sb.append(leftArray[0]);
+        // 计算左侧文字和中间文字的空格长度
+        int marginBetweenLeftAndMiddle = LEFT_LENGTH_FOUR - leftTextLength - middleTextLength / 2;
+        for (int i = 0; i < marginBetweenLeftAndMiddle; i++) {
+            sb.append(" ");
+        }
+        sb.append(middleText1);
+
+        // 计算中间文字1和中间文字2的空格长度
+        int marginBetweenMiddleAndRight = CENTER_LENGTH_FOUR - middleTextLength / 2 - middleTextLength2 / 2 ;
+        for (int i = 0; i < marginBetweenMiddleAndRight; i++) {
+            sb.append(" ");
+        }
+        sb.append(middleText2);
+
+        // 计算中间文字2和右侧文字的空格长度
+        int marginBetweenMiddleAndRight2 = RIGHT_LENGTH_FOUR - middleTextLength2 / 2 - rightTextLength;
+        for (int i = 0; i < marginBetweenMiddleAndRight2; i++) {
+            sb.append(" ");
+        }
+        // 打印的时候发现，最右边的文字总是偏右一个字符，所以需要删除一个空格
+        sb.delete(sb.length() - 1, sb.length()).append(rightText);
+        // 当最左侧文字超出长度限制，需要换行打印
+        if (!TextUtils.isEmpty(leftArray[1])){
+            sb.append("\n");
+            sb.append(leftArray[1]);
+        }
         return sb.toString();
     }
 
@@ -244,10 +350,26 @@ public class BluetoothFormatUtils {
         if (TextUtils.isEmpty(name)) {
             return name;
         }
-        if (name.length() > MEAL_NAME_MAX_LENGTH) {
+        if (name.length() > TEXT_MAX_LENGTH_THREE) {
             return name.substring(0, 8) + "..";
         }
         return name;
     }
 
+    public static String[] resetStr(String val, int maxSize) {
+        String[] result = new String[2];
+        int length;
+        if (TextUtils.isEmpty(val)) {
+            result[0] = "";
+            return result;
+        }
+        // 获取原字符串的字节长度
+        if (val.length() > maxSize) {
+            result[0] = val.substring(0, maxSize);
+            result[1] = val.substring(maxSize);
+        } else {
+            result[0] = val;
+        }
+        return result;
+    }
 }

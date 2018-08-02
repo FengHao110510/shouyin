@@ -217,6 +217,7 @@ public class SharePreferenceGlobalUtil {
     public String getReceivableMoney() {
         return sp.getString("receivableMoney", "");
     }
+
     /**
      * 订单号
      *
@@ -405,6 +406,42 @@ public class SharePreferenceGlobalUtil {
     }
 
     /**
+     * 保存店铺名称
+     *
+     * @param shopName
+     */
+    public void setShopName(String shopName) {
+        editor.putString("shopName", shopName);
+        editor.commit();
+    }
+
+    public String getShopName() {
+        return sp.getString("shopName", "");
+    }
+
+    /**
+     * 店铺电话
+     */
+    public void setShopPhone(String shopPhone) {
+        editor.putString("shopPhone", shopPhone);
+        editor.commit();
+    }
+    public String getShopPhone() {
+        return sp.getString("shopPhone", "");
+    }
+
+    /**
+     * 店铺地址
+     */
+    public void setShopAddress(String shopAddress) {
+        editor.putString("shopAddress", shopAddress);
+        editor.commit();
+    }
+    public String getShopAddress() {
+        return sp.getString("shopAddress", "");
+    }
+
+    /**
      * 保存商户编号
      *
      * @param paymentUser
@@ -440,6 +477,34 @@ public class SharePreferenceGlobalUtil {
 
     public String getForceState() {
         return sp.getString("forcestate", "1");
+    }
+
+    /**
+     * 蓝牙地址
+     *
+     * @param address
+     */
+    public void setBluetoothAddress(String address) {
+        editor.putString("BluetoothAddress", address);
+        editor.commit();
+    }
+
+    public String getBluetoothAddress() {
+        return sp.getString("BluetoothAddress", "");
+    }
+
+    /**
+     * 蓝牙名称
+     *
+     * @param name
+     */
+    public void setBluetoothName(String name) {
+        editor.putString("BluetoothName", name);
+        editor.commit();
+    }
+
+    public String getBluetoothName() {
+        return sp.getString("BluetoothName", "");
     }
 
 }
