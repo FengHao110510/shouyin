@@ -320,7 +320,32 @@ public class SharePreferenceGlobalUtil {
     public String getAliCode() {
         return sp.getString("aliCode", "");
     }
+    /**
+     * 蓝牙地址
+     *
+     * @param blueAddress
+     */
+    public void setHaveBlueAddress(String blueAddress) {
+        editor.putString("blueAddress", blueAddress);
+        editor.commit();
+    }
 
+    public String getHaveBlueAddress() {
+        return sp.getString("blueAddress", "");
+    }
+    /**
+     * 蓝牙名称
+     *
+     * @param blueName
+     */
+    public void setHaveBlueName(String blueName) {
+        editor.putString("blueName", blueName);
+        editor.commit();
+    }
+
+    public String getHaveBlueName() {
+        return sp.getString("blueName", "");
+    }
     /**
      * 账号
      *

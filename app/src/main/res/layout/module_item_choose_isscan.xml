@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_12">
+
+        <ImageView
+            android:id="@+id/iv_item_choose_isscan_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="@dimen/margin_12"
+            android:adjustViewBounds="true" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_item_choose_isscan_name"
+                style="@style/tv_subtitle"
+                android:lines="1"
+                android:text="香酥鸡腿堡" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/txt_14" />
+
+                <TextView
+                    android:id="@+id/tv_item_choose_isscan_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9.5"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/txt_14" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_4"
+                    android:layout_weight="1"
+                    android:text="/例"
+                    android:textColor="@color/tip_text_black"
+                    android:textSize="@dimen/txt_14" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_item_choose_isscan_choose"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+             />
+        <TextView
+            android:id="@+id/tv_item_choose_isscan_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:background="@color/bg_main_top_gray"
+            android:paddingRight="17dp"
+            android:paddingLeft="17dp"
+            android:paddingTop="3dp"
+            android:visibility="gone"
+            android:paddingBottom="3dp"
+            android:text="删除"/>
+    </LinearLayout>
+
+</LinearLayout>

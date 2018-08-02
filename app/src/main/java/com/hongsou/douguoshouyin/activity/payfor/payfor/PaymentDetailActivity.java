@@ -110,8 +110,11 @@ public class PaymentDetailActivity extends BaseActivity {
             mTvOrderPayStatus.setText("支付成功");
             mBatch=payOnLineSuccessBean.getBatch();
             paymentBatch = payOnLineSuccessBean.getOutTradeNo();
-            MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType() + "收款到账"
-                    + payOnLineSuccessBean.getMoney() + "元", this);
+            if (Global.getSpGlobalUtil().getSpeechVoice()){
+                MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType() + "收款到账"
+                        + payOnLineSuccessBean.getMoney() + "元", this);
+            }
+
         }else if (getIntent().hasExtra("xianjin")){
             paymentBatch = getIntent().getStringExtra("paymentBatch");
             mTvOrderMoney.setText(getIntent().getStringExtra("money"));

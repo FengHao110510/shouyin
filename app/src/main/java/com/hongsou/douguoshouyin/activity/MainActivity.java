@@ -2,6 +2,8 @@ package com.hongsou.douguoshouyin.activity;
 
 
 import android.Manifest;
+import android.bluetooth.BluetoothSocket;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -31,6 +33,7 @@ import com.hongsou.douguoshouyin.fragment.MineFragment;
 import com.hongsou.douguoshouyin.fragment.MoreFragment;
 import com.hongsou.douguoshouyin.fragment.PayForFragment;
 import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
+import com.hongsou.douguoshouyin.tool.BlueToothManeger;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -82,6 +85,7 @@ public class MainActivity extends BaseActivity {
     private int position = 0;
     private long exitTime = 0;//计算点击时间
     private static Handler mHandler = null;
+    private AsyncTask asyncTask;
 
 
     /*
@@ -107,6 +111,19 @@ public class MainActivity extends BaseActivity {
         initBack();
         getSkuNum();
         initPermission();
+        autoConnetBlueTooth();
+
+    }
+
+
+    /**
+     * 如果蓝牙是开启的自动连接
+     */
+    private void autoConnetBlueTooth() {
+        BluetoothSocket socket = BaseApplication.getInstance().socket;
+        if (socket == null) {
+            asyncTask = BlueToothManeger.instance().autoNonnectBlue(this);
+        }
     }
 
     /**

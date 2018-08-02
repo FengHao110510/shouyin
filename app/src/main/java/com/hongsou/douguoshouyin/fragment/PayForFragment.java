@@ -99,6 +99,9 @@ public class PayForFragment extends BaseFragment {
      */
     private void initView() {
         setIconFont(new TextView[]{tvPayforpayfor, tvPayforKaidan, tvPayforTurnover});
+
+        //先隐藏广告
+        bnPayforBanner.setVisibility(View.GONE);
     }
 
     /**

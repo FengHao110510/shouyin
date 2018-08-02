@@ -129,7 +129,6 @@
             android:name=".activity.payfor.payfor.BackPayActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.turnover.OrderConditionActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
@@ -170,7 +169,6 @@
             android:name=".activity.mine.AboutWeActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.payfor.createorder.CreateOrderActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
@@ -183,7 +181,6 @@
             android:name=".activity.payfor.createorder.CreateOrderSelectGroupActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.payfor.StatisticsActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
@@ -220,7 +217,7 @@
             android:name=".activity.mine.PrinterActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.payfor.table.RegionActivity"></activity>
+        <activity android:name=".activity.payfor.table.RegionActivity" />
 
         <receiver
             android:name=".broadcastreceiver.JpushReceiver"
@@ -236,6 +233,8 @@
                 <category android:name="com.hongsou.douguoshouyin" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activity.mine.ChooseIsScanActivity"></activity>
     </application>
 
 </manifest>

@@ -33,6 +33,7 @@ import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.ShopinforBean;
 import com.hongsou.douguoshouyin.javabean.UpImgBean;
+import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CircleImageView;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -82,6 +83,9 @@ public class ShopInformationActivity extends BaseActivity {
     //img 文件
     private File file;
 
+    //是否点击保存
+    private boolean flag= false;
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_mine_shopinfor;
@@ -114,11 +118,10 @@ public class ShopInformationActivity extends BaseActivity {
                 if (response.isSuccess()) {
                     etMineShopinforMendianmingcheng.setText(response.getData().getShopName());
                     etMineShopinforShanghubianhao.setText(response.getData().getShopNumber());
-                    etMineShopinforMendiandizhi.setText(response.getData().getAddress());
-                    etMineShopinforXiangxidizhi.setText(response.getData().getAddressInfo());
+                    etMineShopinforMendiandizhi.setText(response.getData().getAddressInfo());
+                    etMineShopinforXiangxidizhi.setText(response.getData().getAddress());
                     etMineShopinforPhone.setText(response.getData().getPhone());
-                    Glide.with(ShopInformationActivity.this).load(response.getData().getAddressLink())
-                            .placeholder(R.drawable.btn_mine_camera).error(R.drawable.btn_mine_camera)
+                    Glide.with(ShopInformationActivity.this).load(ApiConfig.IMG_URL+response.getData().getAddressLink())
                             .into(ivMineShopinforCamera);
                     pictureUrl = response.getData().getAddressLink();
 
@@ -269,8 +272,8 @@ public class ShopInformationActivity extends BaseActivity {
                     Bundle bundle = data.getExtras();
                     Bitmap bitmap = (Bitmap) bundle.get("data");
 
-                    File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/");
-                    file.mkdirs(); //创建文件夹
+                    File file1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/");
+                    file1.mkdirs(); //创建文件夹
 
                     String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + name;
 
@@ -279,7 +282,8 @@ public class ShopInformationActivity extends BaseActivity {
                     try {
                         b = new FileOutputStream(fileName);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
-                        file = new File(fileName);
+                        Bitmap comp = BitmapUtil.comp(bitmap);
+                        file = BitmapUtil.saveBitmapFile(comp,fileName);
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -307,7 +311,9 @@ public class ShopInformationActivity extends BaseActivity {
                         String path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
-                        file = new File(path);
+                        Bitmap comp = BitmapUtil.comp(bitmap);
+                        file = BitmapUtil.saveBitmapFile(comp,path);
+
                         showImage(bitmap);
                     } catch (Exception e) {
                         // TODO Auto-generatedcatch block
@@ -331,6 +337,7 @@ public class ShopInformationActivity extends BaseActivity {
      */
     private void postImg() {
         showLoadingDialog();
+        Log.e(TAG, "postImg: "+file.length() );
         OkHttpUtils.post().addFile("foodImg", file.getName(), file)
                 .url(ApiConfig.UPLOAD_IMG).addHeader("Content-Type", "multipart/form-data")
                 .build().execute(new StringCallback() {
@@ -346,6 +353,7 @@ public class ShopInformationActivity extends BaseActivity {
                 UpImgBean upImgBean = new Gson().fromJson(response, UpImgBean.class);
                 if (upImgBean.isSuccess()) {
                     pictureUrl = upImgBean.getData().getFoodProductsPicture();
+                    toSave();
                     //图片编号
                 } else {
                     ToastUtil.showToast("上传图片失败");
@@ -382,8 +390,10 @@ public class ShopInformationActivity extends BaseActivity {
         }
         if (file != null) {
             postImg();
+            Log.e(TAG, "save: asdad   postImg();" );
+        }else {
+            toSave();
         }
-        toSave();
     }
 
     /**
@@ -402,11 +412,37 @@ public class ShopInformationActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("保存成功");
+                    flag = true;
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }
             }
         });
+    }
+
+    @Override
+    public void initBack() {
+        TextView finish_back = findViewById(R.id.tv_titlebar_finish_back);
+        finish_back.setTypeface(typeface);
+        finish_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                settoResult();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        settoResult();
+    }
+
+    private void settoResult() {
+        Intent reIntent = new Intent();
+        reIntent.putExtra("flag",flag);
+        setResult(1,reIntent);
+        finishActivity();
+
     }
 
     //==================================================================================================================

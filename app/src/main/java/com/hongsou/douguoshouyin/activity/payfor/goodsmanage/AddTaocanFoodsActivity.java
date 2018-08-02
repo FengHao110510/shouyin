@@ -208,6 +208,8 @@ public class AddTaocanFoodsActivity extends BaseActivity {
                         , foodDataBean.getShopStandarList().get(k).getSell()
                         , foodDataBean.getFoodProductsPicture()
                         , foodDataBean.getSingleProductType()
+                        ,foodDataBean.getFoodType()
+                        ,"0"
                         , 0
                 );
                 singleFoodsBeanList.add(singleFoodsBean);

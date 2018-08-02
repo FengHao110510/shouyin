@@ -705,7 +705,8 @@ public class AddTaocanActivity extends BaseActivity {
                     try {
                         b = new FileOutputStream(fileName);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);
-                        file1 = new File(fileName);
+                        Bitmap comp = BitmapUtil.comp(bitmap);
+                        file1 = BitmapUtil.saveBitmapFile(comp,fileName);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } finally {
@@ -732,7 +733,8 @@ public class AddTaocanActivity extends BaseActivity {
                         String path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
-                        file1 = new File(path);
+                        Bitmap comp = BitmapUtil.comp(bitmap);
+                        file1 = BitmapUtil.saveBitmapFile(comp,path);
                         showImage(bitmap);
                     } catch (Exception e) {
                         // TODO Auto-generatedcatch block
