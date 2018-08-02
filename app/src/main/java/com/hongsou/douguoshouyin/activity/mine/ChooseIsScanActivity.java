@@ -156,7 +156,8 @@ public class ChooseIsScanActivity extends BaseActivity {
     private void getFoodsList() {
         HttpFactory.get().url(ApiConfig.GET_FOOD)
                 .addParams("shopNumber", getShopNumber())
-                .addParams("state", "1")
+                .addParams("state", "2")
+                .addParams("isScan", "0")
                 .build().execute(new ResponseCallback<FoodBean>(this) {
             @Override
             public void onResponse(FoodBean response, int id) {
@@ -182,39 +183,25 @@ public class ChooseIsScanActivity extends BaseActivity {
         for (int i = 0; i < data.size(); i++) {
             //循环商品规格
             foodDataBean = data.get(i);
+            //1是单品
             if ("1".equals(data.get(i).getFoodType())) {
                 for (int k = 0; k < data.get(i).getShopStandarList().size(); k++) {
                     SingleFoodsBean singleFoodsBean = null;
-                    if (data.get(i).getShopStandarList().size() > 1) {
-                        if (k == 0) {
-                            singleFoodsBean = new SingleFoodsBean(foodDataBean.getSingleProductNumber()
-                                    , foodDataBean.getShopStandarList().get(k).getStandardNumber()
-                                    , foodDataBean.getSingleProductName()
-                                    , "repeat"
-                                    , foodDataBean.getShopStandarList().get(k).getSell()
-                                    , foodDataBean.getFoodProductsPicture()
-                                    , foodDataBean.getSingleProductType()
-                                    , "1"
-                                    , "0"
-                                    , 0
-                            );
-                            singleFoodsBeanList.add(singleFoodsBean);
-                        }
-                    } else {
-                        singleFoodsBean = new SingleFoodsBean(foodDataBean.getSingleProductNumber()
-                                , foodDataBean.getShopStandarList().get(k).getStandardNumber()
-                                , foodDataBean.getSingleProductName()
-                                , foodDataBean.getShopStandarList().get(k).getStandardName()
-                                , foodDataBean.getShopStandarList().get(k).getSell()
-                                , foodDataBean.getFoodProductsPicture()
-                                , foodDataBean.getSingleProductType()
-                                , "1"
-                                , "0"
-                                , 0
-                        );
-                        singleFoodsBeanList.add(singleFoodsBean);
-                    }
+                    //单品需要传规格号
+                    singleFoodsBean = new SingleFoodsBean(foodDataBean.getSingleProductNumber()
+                            , foodDataBean.getShopStandarList().get(k).getStandardNumber()
+                            , foodDataBean.getSingleProductName() + "(" + foodDataBean.getShopStandarList().get(k).getStandardName() + ")"
+                            , foodDataBean.getShopStandarList().get(k).getStandardName()
+                            , foodDataBean.getShopStandarList().get(k).getSell()
+                            , foodDataBean.getFoodProductsPicture()
+                            , foodDataBean.getSingleProductType()
+                            , "1"
+                            , "0"
+                            , 0
+                    );
+                    singleFoodsBeanList.add(singleFoodsBean);
                 }
+
             } else if ("0".equals(data.get(i).getFoodType())) {
                 //固定套餐
                 singleFoodsBeanList.add(new SingleFoodsBean(foodDataBean.getPackageNumber()
@@ -266,8 +253,15 @@ public class ChooseIsScanActivity extends BaseActivity {
                 ImageView ivItemChooseIsscanChoose = view.findViewById(R.id.iv_item_choose_isscan_choose);
                 if ("0".equals(singleFoodsBeanList2.get(position).getIsScan())) {
                     for (int i = 0; i < singleFoodsBeanList.size(); i++) {
-                        if (singleFoodsBeanList2.get(position).getSingleProductNumber().equals(singleFoodsBeanList.get(i).getSingleProductNumber())) {
-                            singleFoodsBeanList.get(i).setIsScan("1");
+                        if ("1".equals(singleFoodsBeanList2.get(position).getFoodType())) {
+                            //单品判断规格编号
+                            if (singleFoodsBeanList2.get(position).getStandardNumber().equals(singleFoodsBeanList.get(i).getStandardNumber())) {
+                                singleFoodsBeanList.get(i).setIsScan("1");
+                            }
+                        } else {
+                            if (singleFoodsBeanList2.get(position).getSingleProductNumber().equals(singleFoodsBeanList.get(i).getSingleProductNumber())) {
+                                singleFoodsBeanList.get(i).setIsScan("1");
+                            }
                         }
                     }
                     ivItemChooseIsscanChoose.setImageResource(R.drawable.checkbox);
@@ -304,31 +298,29 @@ public class ChooseIsScanActivity extends BaseActivity {
      * @date 2018/8/1 0001 下午 14:42
      * @desc 上传
      */
+    List<SingleFoodsBean> singleFoodsBeanList3 = new ArrayList<>();
+
     private void upLoad() {
+        //最后提交的list
+        if (singleFoodsBeanList3.size() > 0) {
+            singleFoodsBeanList3.clear();
+        }
         for (int i = 0; i < singleFoodsBeanList.size(); i++) {
-            if ("0".equals(singleFoodsBeanList.get(i).getIsScan())) {
-                singleFoodsBeanList.remove(i);
-                i--;
+            if ("1".equals(singleFoodsBeanList.get(i).getIsScan())) {
+                singleFoodsBeanList3.add(singleFoodsBeanList.get(i));
             }
         }
+        if (singleFoodsBeanList3.size() < 1) {
+            ToastUtil.showToast("请先选择不参与扫码点餐的商品");
+            return;
+        }
         Gson gson = new Gson();
-//        OkHttpUtils.postString().content(gson.toJson(singleFoodsBeanList)).url(ApiConfig.UPDATE_SINGLE_FOOD_IS_SCAN)
-//                .build().execute(new ResponseCallback<BaseBean>(this) {
-//            @Override
-//            public void onResponse(BaseBean response, int id) {
-//                if (response.isSuccess()) {
-//                    ToastUtil.showToast("添加成功");
-//                    finishActivity();
-//                } else {
-//                    ToastUtil.showToast(response.getMsg());
-//                }
-//            }
-//        });
-        HttpFactory.postString(ApiConfig.UPDATE_SINGLE_FOOD_IS_SCAN, gson.toJson(singleFoodsBeanList), new ResponseCallback<BaseBean>(this) {
+        HttpFactory.postString(ApiConfig.UPDATE_SINGLE_FOOD_IS_SCAN, gson.toJson(singleFoodsBeanList3), new ResponseCallback<BaseBean>(this) {
             @Override
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("添加成功");
+                    setResult(1);
                     finishActivity();
                 } else {
                     ToastUtil.showToast(response.getMsg());
@@ -349,8 +341,7 @@ public class ChooseIsScanActivity extends BaseActivity {
                     singleFoodsBeanList.get(k).setIsScan("1");
                 }
             }
-            ImageView ivItemChooseIsscanImg = (ImageView) chooseIsScanAdapter.getViewByPosition(rvMineChooseIsscanFoods, i, R.id.iv_item_choose_isscan_choose);
-            ivItemChooseIsscanImg.setImageResource(R.drawable.checkbox);
+            chooseIsScanAdapter.notifyDataSetChanged();
         }
     }
 

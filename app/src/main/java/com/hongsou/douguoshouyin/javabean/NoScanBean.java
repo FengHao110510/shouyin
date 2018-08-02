@@ -40,7 +40,7 @@ public class NoScanBean {
      * code : 1000
      * msg : 服务成功
      * extInfo : null
-     * data : {"page":1,"limit":10,"result":[{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"ZH180626111116030","singleProductName":"经典A+B","foodType":"2","price":"18.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"feb769cc-7cd1-4a97-b97c-508c64e3bbe0","singleProductName":"充电器(条)","foodType":"1","price":"1.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"f4f192e1-a58f-420d-990a-0b89c9efa521","singleProductName":"痒痒鼠(小)","foodType":"1","price":"998.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"ea5ca914-7dca-4269-b425-dda513d9fbba","singleProductName":"8成新苹果7(小)","foodType":"1","price":"666.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","singleProductName":"组合套餐","foodType":"2","price":"0.01"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d42c5f04-e4eb-42d3-9a27-1531c280ed8d","singleProductName":"测试单亲(大)","foodType":"1","price":"3.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d2e6bcf6-8bf8-4e70-ac7f-0b1079d7d95a","singleProductName":"喵(喵一只)","foodType":"1","price":"666.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d0ccc711-3d41-47bb-9d4f-6782cb7ecc81","singleProductName":"测试单品002(大)","foodType":"1","price":"0.01"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CPFCAA61","singleProductName":"可乐(大杯)","foodType":"1","price":"5.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP85ED31","singleProductName":"鸡翅(大份)","foodType":"1","price":"15.00"}],"totalCount":48,"totalPage":5,"orderProperty":null,"orderDirection":null,"filters":[],"orders":[],"remark":null}
+     * data : {"page":1,"limit":10,"result":[{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"feb769cc-7cd1-4a97-b97c-508c64e3bbe0","standardNumber":"035af0a1-222a-4b87-8ed8-3132a3be0379","singleProductName":"充电器(条)","foodType":"1","price":"1.00","picture":"hsAppServer/20180727/6a91ef0a7b49456886f5bb61e1effdf4.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"f4f192e1-a58f-420d-990a-0b89c9efa521","standardNumber":"bb0f4a16-1f43-4866-b36c-62e68c0bbcd7","singleProductName":"痒痒鼠(小)","foodType":"1","price":"998.00","picture":"hsAppServer\\20180726\\2ad0066dd0f8490c94dd81492bcebc8b.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"ea5ca914-7dca-4269-b425-dda513d9fbba","standardNumber":"f8306237-ae6e-4410-90c2-f900b40427a1","singleProductName":"8成新苹果7(小)","foodType":"1","price":"666.00","picture":"hsAppServer/20180727/db65c2af657945179164b4bec90ca964.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d42c5f04-e4eb-42d3-9a27-1531c280ed8d","standardNumber":"6571a10e-da4f-4991-8f9e-f5782fc71221","singleProductName":"测试单亲(大)","foodType":"1","price":"3.00","picture":"hsAppServer\\20180726\\c0c9089107c04b16a9c4990bae1e9773.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d2e6bcf6-8bf8-4e70-ac7f-0b1079d7d95a","standardNumber":"0a56ede2-8630-4289-a441-043412f66443","singleProductName":"喵(喵一只)","foodType":"1","price":"666.00","picture":"hsAppServer/20180725/1ee2785b9a934e60800a3a055a583006.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d0ccc711-3d41-47bb-9d4f-6782cb7ecc81","standardNumber":"961493e9-17a4-46b9-be24-4d42477a8ee9","singleProductName":"测试单品002(大)","foodType":"1","price":"0.01","picture":"hsAppServer/20180725/ca45e857530b425f8d295e2e08093f7c.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CPFCAA61","standardNumber":"180625111111304","singleProductName":"可乐(大杯)","foodType":"1","price":"5.00","picture":""},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP85ED31","standardNumber":"180626111117901","singleProductName":"鸡翅(大份)","foodType":"1","price":"15.00","picture":""},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP824796","standardNumber":"180706111113019","singleProductName":"测试餐品(大个)","foodType":"1","price":"0.01","picture":""},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP5E8CE1","standardNumber":"180625111111790","singleProductName":"德国鸡腿堡(大个)","foodType":"1","price":"5.00","picture":""}],"totalCount":44,"totalPage":5,"orderProperty":null,"orderDirection":null,"filters":[],"orders":[],"remark":null}
      * success : true
      */
 
@@ -94,8 +94,8 @@ public class NoScanBean {
         /**
          * page : 1
          * limit : 10
-         * result : [{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"ZH180626111116030","singleProductName":"经典A+B","foodType":"2","price":"18.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"feb769cc-7cd1-4a97-b97c-508c64e3bbe0","singleProductName":"充电器(条)","foodType":"1","price":"1.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"f4f192e1-a58f-420d-990a-0b89c9efa521","singleProductName":"痒痒鼠(小)","foodType":"1","price":"998.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"ea5ca914-7dca-4269-b425-dda513d9fbba","singleProductName":"8成新苹果7(小)","foodType":"1","price":"666.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"de0ba0e3-bb9a-4dbf-875d-6b05bf0a65e2","singleProductName":"组合套餐","foodType":"2","price":"0.01"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d42c5f04-e4eb-42d3-9a27-1531c280ed8d","singleProductName":"测试单亲(大)","foodType":"1","price":"3.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d2e6bcf6-8bf8-4e70-ac7f-0b1079d7d95a","singleProductName":"喵(喵一只)","foodType":"1","price":"666.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d0ccc711-3d41-47bb-9d4f-6782cb7ecc81","singleProductName":"测试单品002(大)","foodType":"1","price":"0.01"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CPFCAA61","singleProductName":"可乐(大杯)","foodType":"1","price":"5.00"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP85ED31","singleProductName":"鸡翅(大份)","foodType":"1","price":"15.00"}]
-         * totalCount : 48
+         * result : [{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"feb769cc-7cd1-4a97-b97c-508c64e3bbe0","standardNumber":"035af0a1-222a-4b87-8ed8-3132a3be0379","singleProductName":"充电器(条)","foodType":"1","price":"1.00","picture":"hsAppServer/20180727/6a91ef0a7b49456886f5bb61e1effdf4.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"f4f192e1-a58f-420d-990a-0b89c9efa521","standardNumber":"bb0f4a16-1f43-4866-b36c-62e68c0bbcd7","singleProductName":"痒痒鼠(小)","foodType":"1","price":"998.00","picture":"hsAppServer\\20180726\\2ad0066dd0f8490c94dd81492bcebc8b.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"ea5ca914-7dca-4269-b425-dda513d9fbba","standardNumber":"f8306237-ae6e-4410-90c2-f900b40427a1","singleProductName":"8成新苹果7(小)","foodType":"1","price":"666.00","picture":"hsAppServer/20180727/db65c2af657945179164b4bec90ca964.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d42c5f04-e4eb-42d3-9a27-1531c280ed8d","standardNumber":"6571a10e-da4f-4991-8f9e-f5782fc71221","singleProductName":"测试单亲(大)","foodType":"1","price":"3.00","picture":"hsAppServer\\20180726\\c0c9089107c04b16a9c4990bae1e9773.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d2e6bcf6-8bf8-4e70-ac7f-0b1079d7d95a","standardNumber":"0a56ede2-8630-4289-a441-043412f66443","singleProductName":"喵(喵一只)","foodType":"1","price":"666.00","picture":"hsAppServer/20180725/1ee2785b9a934e60800a3a055a583006.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"d0ccc711-3d41-47bb-9d4f-6782cb7ecc81","standardNumber":"961493e9-17a4-46b9-be24-4d42477a8ee9","singleProductName":"测试单品002(大)","foodType":"1","price":"0.01","picture":"hsAppServer/20180725/ca45e857530b425f8d295e2e08093f7c.png"},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CPFCAA61","standardNumber":"180625111111304","singleProductName":"可乐(大杯)","foodType":"1","price":"5.00","picture":""},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP85ED31","standardNumber":"180626111117901","singleProductName":"鸡翅(大份)","foodType":"1","price":"15.00","picture":""},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP824796","standardNumber":"180706111113019","singleProductName":"测试餐品(大个)","foodType":"1","price":"0.01","picture":""},{"page":0,"rows":0,"shopNumber":"1000180614300325544","singleProductNumber":"CP5E8CE1","standardNumber":"180625111111790","singleProductName":"德国鸡腿堡(大个)","foodType":"1","price":"5.00","picture":""}]
+         * totalCount : 44
          * totalPage : 5
          * orderProperty : null
          * orderDirection : null
@@ -200,19 +200,32 @@ public class NoScanBean {
              * page : 0
              * rows : 0
              * shopNumber : 1000180614300325544
-             * singleProductNumber : ZH180626111116030
-             * singleProductName : 经典A+B
-             * foodType : 2
-             * price : 18.00
+             * singleProductNumber : feb769cc-7cd1-4a97-b97c-508c64e3bbe0
+             * standardNumber : 035af0a1-222a-4b87-8ed8-3132a3be0379
+             * singleProductName : 充电器(条)
+             * foodType : 1
+             * price : 1.00
+             * picture : hsAppServer/20180727/6a91ef0a7b49456886f5bb61e1effdf4.png
              */
 
             private int page;
             private int rows;
             private String shopNumber;
             private String singleProductNumber;
+            private String standardNumber;
             private String singleProductName;
             private String foodType;
             private String price;
+            private String picture;
+            private String isScan;
+
+            public String getIsScan() {
+                return isScan;
+            }
+
+            public void setIsScan(String isScan) {
+                this.isScan = isScan;
+            }
 
             public int getPage() {
                 return page;
@@ -246,6 +259,14 @@ public class NoScanBean {
                 this.singleProductNumber = singleProductNumber;
             }
 
+            public String getStandardNumber() {
+                return standardNumber;
+            }
+
+            public void setStandardNumber(String standardNumber) {
+                this.standardNumber = standardNumber;
+            }
+
             public String getSingleProductName() {
                 return singleProductName;
             }
@@ -268,6 +289,14 @@ public class NoScanBean {
 
             public void setPrice(String price) {
                 this.price = price;
+            }
+
+            public String getPicture() {
+                return picture;
+            }
+
+            public void setPicture(String picture) {
+                this.picture = picture;
             }
         }
     }

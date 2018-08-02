@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.IsScanAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.NoScanBean;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -151,17 +153,65 @@ public class NosaomaFoodsActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_item_choose_isscan_del) {
+                    resultBeanList.get(position).setIsScan("0");
+
                     //走删除接口
+                    delFood(resultBeanList.get(position), position);
                 }
             }
         });
+    }
+
+    /**
+     * @param resultBean 要删除的数据
+     * @param position   要删除的数据的位置
+     * @author fenghao
+     * @date 2018/8/2 0002 下午 15:39
+     * @desc 删除接口
+     */
+    //最后提交的
+    List<NoScanBean.DataBean.ResultBean> resultBeanList2 = new ArrayList<>();
+    private void delFood(NoScanBean.DataBean.ResultBean resultBean, final int position) {
+        Gson gson = new Gson();
+        if (resultBeanList2.size()>0){
+            resultBeanList2.clear();
+        }
+        resultBeanList2.add(resultBean);
+        HttpFactory.postString(ApiConfig.UPDATE_SINGLE_FOOD_IS_SCAN, gson.toJson(resultBeanList2)
+                , new ResponseCallback<BaseBean>(this) {
+                    @Override
+                    public void onResponse(BaseBean response, int id) {
+                        if (response.isSuccess()) {
+                            ToastUtil.showToast("删除成功");
+
+//                            resultBeanList.remove(position);
+//                            isScanAdapter.notifyDataSetChanged();//这种方法存在bug
+                            page=1;
+                            getData();
+                        } else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
     }
 
     @OnClick(R.id.tv_mine_nosaoma_addnosaoma)
     public void onViewClicked() {
         //跳转到添加不参与扫码商品的页面
         Intent addnoIntent = new Intent(this, ChooseIsScanActivity.class);
-        startActivity(addnoIntent);
+
+        startActivityForResult(addnoIntent, 1);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1) {
+            //添加了不参与扫码点餐的商品 刷新界面
+            page = 1;
+            getData();
+        }
 
     }
 
