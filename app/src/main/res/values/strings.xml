@@ -46,6 +46,7 @@
     <string name="icon_check_selected">&#xe6a0;</string>
     <string name="icon_check_normal">&#xe606;</string>
     <string name="icon_shopping">&#xe605;</string>
+    <string name="icon_printer_type">&#xe631;</string>
 
 
     <string name="title_activity_main">MainActivity</string>

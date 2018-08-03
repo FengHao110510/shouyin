@@ -5,23 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <com.hongsou.douguoshouyin.views.CommonTopBar
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:left_text="@string/icon_back"
         app:center_text="打印管理"
-        app:right_text="打印测试"
+        app:left_text="@string/icon_back"
         app:right_icon_visibility="GONE"
-        />
+        app:right_text="打印测试" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp">
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,14 +35,15 @@
             android:id="@+id/blue_tooth_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            />
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp">
+        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,29 +74,32 @@
             android:text="@string/icon_main_turnover_sousuo"
             android:textColor="@color/white"
             android:textSize="18sp" />
-
-        <ProgressBar
-            android:id="@+id/pro_mine_printer_sousuo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:indeterminateDrawable="@drawable/progressbar"
-            android:visibility="gone" />
     </RelativeLayout>
 
     <View
         style="@style/view_line_horizontal_1"
         android:layout_height="7dp" />
 
-    <ListView
-        android:id="@+id/bluetooth_listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"/>
-    
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_mine_printer_xinxi"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="visible" />
+
+
+    <Button
+        android:id="@+id/btn_add_printer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="@dimen/margin_20"
+        android:background="@drawable/btn_click_red_45"
+        android:gravity="center"
+        android:text="添加打印机"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 </LinearLayout>
