@@ -29,6 +29,7 @@ import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.tool.bluetooth.BlueToothManager;
+import com.hongsou.douguoshouyin.tool.bluetooth.BluetoothPrinterUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -92,14 +93,13 @@ public class PrinterActivity extends BaseActivity {
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
             public void onClick(View v) {
-//               BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
-//                       .setContent("\n")
-//                       .setCount(1)
-//                       .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
-//                       .build();
-//                printerUtil.startPrint();
-                Intent intent = new Intent(PrinterActivity.this, BluetoothActivity.class);
-                startActivityForResult(intent, 99);
+               BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                       .setContent("\n")
+                       .setCount(1)
+                       .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
+                       .build();
+                printerUtil.startPrint();
+
             }
         });
 
@@ -208,7 +208,7 @@ public class PrinterActivity extends BaseActivity {
         int width = (int) (display.getWidth() * 0.8);
         int height = (int) (display.getHeight() * 0.4);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
-        dialog.setContentView(view, params);
+        dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setCancelable(true);
         dialog.show();
@@ -217,31 +217,61 @@ public class PrinterActivity extends BaseActivity {
         initStandardView(view, dialog);
     }
 
-    private void initStandardView(View view, Dialog dialog) {
-        EditText et_dialog_edit_content = (EditText) view.findViewById(R.id.et_dialog_edit_content);
-        TextView tv_edit_icon = (TextView) view.findViewById(R.id.tv_edit_icon);
-        LinearLayout ll_printer_pay = (LinearLayout)  view.findViewById(R.id.ll_printer_pay);
-        LinearLayout ll_printer_kitchen = (LinearLayout)  view.findViewById(R.id.ll_printer_kitchen);
-        TextView tv_printer_pay_icon = (TextView)  view.findViewById(R.id.tv_printer_pay_icon);
-        TextView  tv_printer_kitchen_icon = (TextView)  view.findViewById(R.id.tv_printer_kitchen_icon);
-        TextView tv_dialog_cancel = (TextView)  view.findViewById(R.id.tv_dialog_cancel);
-        TextView tv_dialog_submit = (TextView)  view.findViewById(R.id.tv_dialog_submit);
-        setIconFont(new TextView[]{tv_printer_kitchen_icon, tv_printer_pay_icon, tv_edit_icon});
+    private void initStandardView(View view, final Dialog dialog) {
+        final String[] type = {""};
+        final EditText etDialogEditContent = (EditText) view.findViewById(R.id.et_dialog_edit_content);
+        TextView tvEditIcon = (TextView) view.findViewById(R.id.tv_edit_icon);
+        LinearLayout llPrinterPay = (LinearLayout) view.findViewById(R.id.ll_printer_pay);
+        LinearLayout llPrinterKitchen = (LinearLayout) view.findViewById(R.id.ll_printer_kitchen);
+        final TextView tvPrinterPay = (TextView) view.findViewById(R.id.tv_printer_pay);
+        final TextView tvPrinterKitchen = (TextView) view.findViewById(R.id.tv_printer_kitchen);
+        final TextView tvPrinterPayIcon = (TextView) view.findViewById(R.id.tv_printer_pay_icon);
+        final TextView tvPrinterKitchenIcon = (TextView) view.findViewById(R.id.tv_printer_kitchen_icon);
+        TextView tvDialogCancel = (TextView) view.findViewById(R.id.tv_dialog_cancel);
+        TextView tvDialogSubmit = (TextView) view.findViewById(R.id.tv_dialog_submit);
+        setIconFont(new TextView[]{tvPrinterKitchenIcon, tvPrinterPayIcon, tvEditIcon});
         // 收银打印
-        ll_printer_pay.setOnClickListener(new View.OnClickListener() {
+        llPrinterPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                type[0] = "收银打印";
+                tvPrinterKitchenIcon.setTextColor(getResources().getColor(R.color.color_subtitle));
+                tvPrinterKitchen.setTextColor(getResources().getColor(R.color.color_subtitle));
+                tvPrinterPayIcon.setTextColor(getResources().getColor(R.color.red));
+                tvPrinterPay.setTextColor(getResources().getColor(R.color.red));
             }
         });
         // 后厨打印
-        ll_printer_kitchen.setOnClickListener(new View.OnClickListener() {
+        llPrinterKitchen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                type[0] = "后厨打印";
+                tvPrinterPay.setTextColor(getResources().getColor(R.color.color_subtitle));
+                tvPrinterPayIcon.setTextColor(getResources().getColor(R.color.color_subtitle));
+                tvPrinterKitchenIcon.setTextColor(getResources().getColor(R.color.red));
+                tvPrinterKitchen.setTextColor(getResources().getColor(R.color.red));
             }
         });
-
+        tvDialogCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tvDialogSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(type[0])){
+                    ToastUtil.showToast("请先选择打印机类型");
+                    return;
+                }
+                Intent intent = new Intent(PrinterActivity.this, BluetoothActivity.class);
+                intent.putExtra("name", etDialogEditContent.getText().toString());
+                intent.putExtra("type", type[0]);
+                startActivityForResult(intent, 99);
+                dialog.dismiss();
+            }
+        });
     }
 
 
@@ -296,12 +326,14 @@ public class PrinterActivity extends BaseActivity {
             }
         } else if (requestCode == 99 && resultCode == 120) {
             BluetoothBean bean = (BluetoothBean) data.getSerializableExtra("bluetooth");
+            String name = data.getStringExtra("name");
+            String type = data.getStringExtra("type");
             if (bean != null) {
                 PrinterBean printerBean = new PrinterBean();
                 printerBean.setStatus("连接");
                 printerBean.setAddress(bean.getAddress());
-                printerBean.setPrintName(bean.getName());
-                printerBean.setPrintClassifyName(bean.getTypeStr());
+                printerBean.setPrintName(!TextUtils.isEmpty(name) ? name : bean.getName());
+                printerBean.setPrintClassifyName(type);
                 mPrinterBeans.add(printerBean);
                 mAdapter.notifyDataSetChanged();
             }
