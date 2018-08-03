@@ -156,7 +156,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
             // 展示餐品分类
             final List<FoodCategoryBean.DataBean> foodCategoryBeanData = foodCategoryBean.getData();
             for (int i = 0; i < foodCategoryBeanData.size(); i++) {
-                mTabCreateCategory.addTab(mTabCreateCategory.newTab().setText(foodCategoryBeanData.get(i).getCategoryName()));
+                String s = foodCategoryBeanData.get(i).getCategoryName().substring(0, 4);
+                mTabCreateCategory.addTab(mTabCreateCategory.newTab().setText(s));
 //                mBadgeList.add(new QBadgeView(CreateOrderActivity.this).bindTarget(mTabCreateCategory.getTabAt(i)));
             }
             // 默认选择第一条全部
@@ -237,13 +238,19 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 showFoodListWindow();
                 break;
             case R.id.tv_make_money:
-                //跳转到订单详情页面
-                Intent intent = new Intent(this, CollectMoneyActivity.class);
-                intent.putExtra("money", mTvOrderMoney.getText());
-                intent.putExtra("count", mTvSelectCount.getText());
-                intent.putExtra("foodCount", mTvFoodCount.getText());
-                intent.putExtra("data", new Gson().toJson(mSelectMealEntities));
-                startActivity(intent);
+                if (mSelectMealEntities != null && mSelectMealEntities.size() > 0 ){
+                    if (Double.valueOf(mTvOrderMoney.getText().toString()) <= 0){
+                        ToastUtil.showToast("金额不正常，请正确选择餐品");
+                        return;
+                    }
+                    //跳转到订单详情页面
+                    Intent intent = new Intent(this, CollectMoneyActivity.class);
+                    intent.putExtra("money", mTvOrderMoney.getText());
+                    intent.putExtra("count", mTvSelectCount.getText());
+                    intent.putExtra("foodCount", mTvFoodCount.getText());
+                    intent.putExtra("data", new Gson().toJson(mSelectMealEntities));
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;

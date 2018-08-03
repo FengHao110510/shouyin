@@ -217,6 +217,10 @@
             android:name=".activity.mine.PrinterActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.BluetoothActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.payfor.table.RegionActivity" />
 
         <receiver

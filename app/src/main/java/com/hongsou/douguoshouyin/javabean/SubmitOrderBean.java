@@ -38,6 +38,10 @@ public class SubmitOrderBean implements Serializable{
     private String tradingTime;
     private String paymentOrder;
     /**
+     * 订单优惠
+     */
+    private String orderDiscount;
+    /**
      * 订单来源
      */
     private String orderSourcePayment;
@@ -49,6 +53,14 @@ public class SubmitOrderBean implements Serializable{
      * 点餐列表数据
      */
     private List<SelectMealEntity> foodProductsResult;
+
+    public String getOrderDiscount() {
+        return orderDiscount;
+    }
+
+    public void setOrderDiscount(String orderDiscount) {
+        this.orderDiscount = orderDiscount;
+    }
 
     public Long getId() {
         return id;

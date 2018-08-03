@@ -5,11 +5,11 @@ import android.Manifest;
 import android.bluetooth.BluetoothSocket;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,7 +17,32 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.base.BaseApplication;
+import com.hongsou.douguoshouyin.base.BaseFragment;
+import com.hongsou.douguoshouyin.base.Constant;
+import com.hongsou.douguoshouyin.fragment.MineFragment;
+import com.hongsou.douguoshouyin.fragment.MoreFragment;
+import com.hongsou.douguoshouyin.fragment.PayForFragment;
+import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
+import com.hongsou.douguoshouyin.http.ftp.FtpNetCallBack;
+import com.hongsou.douguoshouyin.http.ftp.FtpUploadTask;
+import com.hongsou.douguoshouyin.tool.BlueToothManeger;
+import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.tool.LogUtil;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.apache.commons.net.ftp.FTPFile;
+
+import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,24 +50,10 @@ import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.functions.Consumer;
 
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.base.BaseApplication;
-import com.hongsou.douguoshouyin.base.BaseFragment;
-import com.hongsou.douguoshouyin.fragment.MineFragment;
-import com.hongsou.douguoshouyin.fragment.MoreFragment;
-import com.hongsou.douguoshouyin.fragment.PayForFragment;
-import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
-import com.hongsou.douguoshouyin.tool.BlueToothManeger;
-import com.hongsou.douguoshouyin.tool.Global;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
-
 /**
  * 主页面
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements FtpNetCallBack {
 
 
     @BindView(R.id.tv_titlebar_finish_back)
@@ -112,7 +123,7 @@ public class MainActivity extends BaseActivity {
         getSkuNum();
         initPermission();
         autoConnetBlueTooth();
-
+        sendCrashReportsToServer();
     }
 
 
@@ -319,6 +330,90 @@ public class MainActivity extends BaseActivity {
     }
 
     //====================================================================================================
+    /**
+     * 错误报告文件保存路径
+     */
+    private String mDirPath;
+    /**
+     * 错误报告文件的扩展名
+     */
+    private static final String CRASH_REPORTER_EXTENSION = ".cr";
+
+
+    private void initFile() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            mDirPath = Environment.getExternalStorageDirectory() + "/douguo/sy/log/";
+            File dir = new File(mDirPath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+        }
+    }
+
+    /**
+     * 把错误报告发送给服务器,包含新产生的和以前没发送的.
+     */
+    private void sendCrashReportsToServer() {
+        initFile();
+        String[] crFiles = getCrashReportFiles();
+        if (crFiles != null && crFiles.length > 0) {
+            TreeSet<String> sortedFiles = new TreeSet<String>();
+            sortedFiles.addAll(Arrays.asList(crFiles));
+            for (String fileName : sortedFiles) {
+                File cr = new File(mDirPath, fileName);
+                // 发送错误报告到服务器
+                upload(cr.getPath());
+                cr.delete();// 删除已发送的报告
+            }
+        }
+    }
+
+    /**
+     * @param localFilePath 本地文件路径
+     * @desc 上传到FTP服务器
+     * @anthor lpc
+     * @date: 2018/7/30
+     */
+    private void upload(String localFilePath) {
+        if (!TextUtils.isEmpty(localFilePath)) {
+            new FtpUploadTask(BaseApplication.ftp, this, localFilePath, Constant.FTP_FILE_PATH).execute();
+        }
+    }
+
+    @Override
+    public void getFtpFileList(List<FTPFile> ftpFileList) {
+    }
+
+    @Override
+    public void downLoadFinish(boolean result) {
+    }
+
+    @Override
+    public void uploadFinish(boolean result) {
+        if (result) {
+            LogUtil.e(TAG, "uploadFinish: 提交成功");
+        } else {
+            LogUtil.e(TAG, "uploadFinish: 提交失败");
+        }
+    }
+
+    /**
+     * 获取错误报告文件名
+     * @return
+     */
+    private String[] getCrashReportFiles() {
+        if (TextUtils.isEmpty(mDirPath)){
+            return null;
+        }
+        File filesDir = new File(mDirPath);
+        FilenameFilter filter = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(CRASH_REPORTER_EXTENSION);
+            }
+        };
+        return filesDir.list(filter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -326,6 +421,4 @@ public class MainActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-
-
 }

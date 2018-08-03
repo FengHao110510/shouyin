@@ -1,12 +1,12 @@
 package com.hongsou.douguoshouyin.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v7.widget.AppCompatTextView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.javabean.BluetoothBean;
@@ -43,47 +43,38 @@ public class BluetoothListAdapter extends BaseAdapter {
         return i;
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
-        if (view==null){
-            viewHolder=new ViewHolder();
-            view= LayoutInflater.from(context).inflate(R.layout.module_list_item_bluetooth,null);
-            viewHolder.name=view.findViewById(R.id.blue_tooth_name);
-            viewHolder.blue_tooth_status=view.findViewById(R.id.blue_tooth_status);
-            viewHolder.blue_tooth_type=view.findViewById(R.id.blue_tooth_type);
+        if (view == null) {
+            viewHolder = new ViewHolder();
+            view = LayoutInflater.from(context).inflate(R.layout.module_list_item_bluetooth, null);
+            viewHolder.name = view.findViewById(R.id.blue_tooth_name);
+            viewHolder.blue_tooth_status = view.findViewById(R.id.blue_tooth_status);
+            viewHolder.blue_tooth_type = view.findViewById(R.id.blue_tooth_type);
             view.setTag(viewHolder);
-
-        }else {
-            viewHolder= (ViewHolder) view.getTag();
-            viewHolder.name.setText(blueToothModels.get(i).getName());
-            viewHolder.blue_tooth_type.setText(blueToothModels.get(i).getTypeStr());
-
-            if (!TextUtils.isEmpty(addressName) && !TextUtils.isEmpty(statusStr)){
-                if (addressName.equals(blueToothModels.get(i).getName())){
-                    viewHolder.blue_tooth_status.setText(statusStr);
-                }else{
-                    viewHolder.blue_tooth_status.setText(blueToothModels.get(i).getStatus());
-                }
-
-            }else{
-                viewHolder.blue_tooth_status.setText(blueToothModels.get(i).getStatus());
-            }
-
+        } else {
+            viewHolder = (ViewHolder) view.getTag();
         }
+        viewHolder.name.setText(blueToothModels.get(i).getName());
+        viewHolder.blue_tooth_type.setText(blueToothModels.get(i).getTypeStr());
+
         return view;
     }
 
-    class ViewHolder{
-        AppCompatTextView name;
-        AppCompatTextView blue_tooth_status;
-        AppCompatTextView blue_tooth_type;
+    class ViewHolder {
+        TextView name;
+        TextView blue_tooth_status;
+        TextView blue_tooth_type;
     }
-    public void setDataName( List<BluetoothBean> blueToothModels){
-        this.blueToothModels=blueToothModels;
+
+    public void setDataName(List<BluetoothBean> blueToothModels) {
+        this.blueToothModels = blueToothModels;
     }
-    public void setStatus(String addressName,String statusStr){
-        this.addressName=addressName;
-        this.statusStr=statusStr;
+
+    public void setStatus(String addressName, String statusStr) {
+        this.addressName = addressName;
+        this.statusStr = statusStr;
     }
 }
