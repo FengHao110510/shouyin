@@ -40,6 +40,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -150,13 +151,25 @@ public class PayForActivity extends BaseActivity {
 
                 if (tvPayforPayforShezhi.getText().toString().contains("去设置")) {
                     //没有选择折扣
-                    tvPayforPayforYingshoujine.setText(xiaofeijine + "");
+                    if (!tvPayforPayforXiaofeijine.getText().toString().equals("")) {
+
+                        xiaofeijine = Float.valueOf(tvPayforPayforXiaofeijine.getText().toString());
+                        tvPayforPayforYingshoujine.setText(xiaofeijine + "");
+                    } else {
+                        xiaofeijine = 0;
+                    }
+
                 } else {
                     if ("0".equals(flag)) {
                         //获得折后的应收金额
-                        yingshoujine = xiaofeijine * content / 10;
+                        BigDecimal bigDecimal = new BigDecimal(xiaofeijine).multiply(new BigDecimal(content)).divide(new BigDecimal(10));
+                        yingshoujine = bigDecimal.floatValue();
+                        if (yingshoujine < 0.01) {
+                            yingshoujine = 0;
+                        }
+//                        yingshoujine = xiaofeijine * content / 10;
                         setyingshoujine(yingshoujine + "");
-
+                        Log.e(TAG, "afterTextChanged: " + yingshoujine);
                     } else {
                         //获得减现金后的应收金额
                         yingshoujine = xiaofeijine - content;
@@ -186,7 +199,7 @@ public class PayForActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (Float.valueOf(tvPayforPayforYingshoujine.getText().toString()) > 0) {
+                if (Double.valueOf(tvPayforPayforYingshoujine.getText().toString()) > 0) {
                     btPayforPayforBtnShang.setBackgroundColor(getResources().getColor(R.color.color_base_yellow));
                     btPayforPayforBtnXia.setBackgroundColor(getResources().getColor(R.color.color_base_yellow));
                 } else {
@@ -223,13 +236,29 @@ public class PayForActivity extends BaseActivity {
                 }
                 break;
             case 1:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == 500) {
+                    tvPayforPayforShezhi.setText("去设置");
+
+                    //不选择折扣
+                    //没有选择折扣
+                    if (!tvPayforPayforXiaofeijine.getText().toString().equals("")) {
+                        xiaofeijine = Float.valueOf(tvPayforPayforXiaofeijine.getText().toString());
+                        tvPayforPayforYingshoujine.setText(xiaofeijine + "");
+                    } else {
+                        xiaofeijine = 0;
+                    }
+                } else if (resultCode == RESULT_OK) {
                     if (data.getBooleanExtra("zkorxj", true)) {
                         tvPayforPayforShezhi.setText(data.getStringExtra("content") + "折");
                         flag = "0";
                         content = Float.valueOf(data.getStringExtra("content"));
                         //获得折后的应收金额
-                        yingshoujine = xiaofeijine * content / 10;
+                        BigDecimal bigDecimal = new BigDecimal(xiaofeijine).multiply(new BigDecimal(content)).divide(new BigDecimal(10));
+                        yingshoujine = bigDecimal.floatValue();
+                        if (yingshoujine < 0.01) {
+                            yingshoujine = 0;
+                        }
+//                        yingshoujine = xiaofeijine * content / 10;
                         setyingshoujine(yingshoujine + "");
 
                     } else {
@@ -250,6 +279,7 @@ public class PayForActivity extends BaseActivity {
                     }
                 }
                 break;
+
             default:
                 break;
         }
@@ -393,12 +423,12 @@ public class PayForActivity extends BaseActivity {
     private void payfor() {
         if (Float.valueOf(tvPayforPayforYingshoujine.getText().toString()) > 0) {
             Global.getSpGlobalUtil().setReceivableMoney(tvPayforPayforYingshoujine.getText().toString());
-            if (flag!=null){
-                    Global.getSpGlobalUtil().setDiscountType(flag);
-                if ("0".equals(flag)){
-                    Global.getSpGlobalUtil().setDiscountMoney(content*10+"");
-                }else {
-                    Global.getSpGlobalUtil().setDiscountMoney(content+"");
+            if (flag != null) {
+                Global.getSpGlobalUtil().setDiscountType(flag);
+                if ("0".equals(flag)) {
+                    Global.getSpGlobalUtil().setDiscountMoney(content * 10 + "");
+                } else {
+                    Global.getSpGlobalUtil().setDiscountMoney(content + "");
                 }
             }
             showPopWindow();
@@ -449,7 +479,7 @@ public class PayForActivity extends BaseActivity {
             public void onClick(View view) {
                 mPopupWindow.dismiss();
                 Intent erweimaIntent = new Intent(PayForActivity.this, QRCodeActivity.class);
-                erweimaIntent.putExtra("batch","00000000000000000000");
+                erweimaIntent.putExtra("batch", "00000000000000000000");
                 startActivity(erweimaIntent);
             }
         });
@@ -490,7 +520,7 @@ public class PayForActivity extends BaseActivity {
      * 现金支付
      */
     private void payXJ() {
-       final String paymentBatch =  DateUtils.getNowDateLong() + (int) (Math.random() * 1000);
+        final String paymentBatch = DateUtils.getNowDateLong() + (int) (Math.random() * 1000);
         //走现金支付接口
         HttpFactory.post().url(ApiConfig.PAY_BY_CASH)
                 .addParams("paymentBatch", paymentBatch)
@@ -504,15 +534,15 @@ public class PayForActivity extends BaseActivity {
 
             @Override
             public void onResponse(BaseBean response, int id) {
-                Log.e(TAG, "onResponse: 000000"+response );
+                Log.e(TAG, "onResponse: 000000" + response);
                 //成功后跳转支付成功页面 TODO
-                if (response.isSuccess()){
+                if (response.isSuccess()) {
                     Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
-                    successIntent.putExtra("xianjin","xianjin");
-                    successIntent.putExtra("paymentBatch",paymentBatch);
-                    successIntent.putExtra("money",tvPayforPayforXiaofeijine.getText().toString());
+                    successIntent.putExtra("xianjin", "xianjin");
+                    successIntent.putExtra("paymentBatch", paymentBatch);
+                    successIntent.putExtra("money", tvPayforPayforXiaofeijine.getText().toString());
                     startActivity(successIntent);
-                }else {
+                } else {
                     ToastUtil.showToast("现金收款失败");
                 }
 
@@ -550,7 +580,7 @@ public class PayForActivity extends BaseActivity {
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
-                .addParams("address",Constant.HTTP_URL+"/pay/payCallback")
+                .addParams("address", Constant.HTTP_URL + "/pay/payCallback")
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -559,10 +589,10 @@ public class PayForActivity extends BaseActivity {
 
             @Override
             public void onResponse(String response, int id) {
-                Log.e(TAG, "onResponse: "+response.toString() );
+                Log.e(TAG, "onResponse: " + response.toString());
 
             }
-        
+
         });
 
     }
@@ -582,10 +612,11 @@ public class PayForActivity extends BaseActivity {
         //TODO 走成功接口
         toPay(event.getSaomahao());
     }
+
     @Subscribe
-    public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean){
-        Intent successIntent = new Intent(this,PaymentDetailActivity.class);
-        successIntent.putExtra("payOnLineSuccessBean",(Serializable) payOnLineSuccessBean);
+    public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean) {
+        Intent successIntent = new Intent(this, PaymentDetailActivity.class);
+        successIntent.putExtra("payOnLineSuccessBean", (Serializable) payOnLineSuccessBean);
         startActivity(successIntent);
     }
 

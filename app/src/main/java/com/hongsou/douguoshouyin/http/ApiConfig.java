@@ -105,7 +105,10 @@ public class ApiConfig {
     public static final String INSERT_ORDER = BASE_URL + "/order/insertOrder";
 
     // TODO ======================================== 桌台管理 ====================================================
-
+    /**
+     * TODO 打包下载
+     */
+    public static final String DOWN_SHOP_TABLE = BASE_URL + "/table/downShopTable";
     /**
      * TODO 添加桌台
      */

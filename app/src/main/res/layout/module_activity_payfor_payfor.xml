@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/tv_payfor_payfor_jiantou"
-                android:text="去选择"
+                android:text="去设置"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
         </RelativeLayout>

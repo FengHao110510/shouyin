@@ -15,12 +15,33 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/et_dialog_edit_content"
-        style="@style/et_style"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
-        android:hint="90" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_dialog_edit_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="90"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_dialog_edit_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            android:text="@string/icon_payfor_commodity_class_tianjia"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
 
     <View style="@style/view_line_horizontal_05" />
 

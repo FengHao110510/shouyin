@@ -16,6 +16,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
@@ -67,7 +68,10 @@ public class DiscountActivity extends BaseActivity {
                 showDiscountDialog(false, "自定义减价", "请输入减价金额");
                 break;
             case R.id.tv_payfor_discount_bushiyongyouhui:
+                setResult(500);
                 finishActivity();
+                break;
+            default:
                 break;
         }
     }

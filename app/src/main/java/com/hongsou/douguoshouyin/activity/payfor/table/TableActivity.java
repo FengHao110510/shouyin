@@ -348,18 +348,39 @@ public class TableActivity extends BaseActivity {
         TextView tvDialogEditTitle = view.findViewById(R.id.tv_dialog_edit_title);
         TextView tvDialogEditYes = view.findViewById(R.id.tv_dialog_edit_yes);
         TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);
+        TextView tvDialogEditIcon = view.findViewById(R.id.tv_dialog_edit_icon);
         final EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
 
-        etDialogEditContent.setHint("请输入邮箱");
+        setIconFont(new TextView[]{tvDialogEditIcon});
+        etDialogEditContent.setHint("请输入要发送的邮箱地址！");
         tvDialogEditTitle.setVisibility(View.GONE);
         tvDialogEditYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(etDialogEditContent.getText().toString())) {
-                    ToastUtil.showToast("请输入邮箱");
+                    ToastUtil.showToast("请输入要发送的邮箱地址！");
                 } else {
-                    downLoad(etDialogEditContent.getText().toString());
-                    downLoadDialog.dismiss();
+                    final ArrayList<DeletTableBean> emailTableBeanArrayList = new ArrayList<>();
+                    for (int w = 0; w < res.size(); w++) {
+                        if (res.get(w).getItemType() == TableAdapter.TYPE_TABLE_CONTENT) {
+                            TableListContentBean tableListContentBean = (TableListContentBean) res.get(w);
+                            //根据条目数形判断有没有被选中
+                            if (tableListContentBean.isSelectFlag()) {
+                                DeletTableBean deletTableBean = new DeletTableBean(tableListContentBean.getLogGid());
+                                emailTableBeanArrayList.add(deletTableBean);
+                            }
+                        }
+
+                    }
+                    if (emailTableBeanArrayList.size() < 1) {
+                        ToastUtil.showToast("请先选择选中的桌台");
+                        downLoadDialog.dismiss();
+                    } else {
+
+
+                        downLoad(etDialogEditContent.getText().toString(), emailTableBeanArrayList);
+                        downLoadDialog.dismiss();
+                    }
                 }
 
             }
@@ -371,8 +392,9 @@ public class TableActivity extends BaseActivity {
                 downLoadDialog.dismiss();
             }
         });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 2 / 5, h / 5);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 5);
 
+        downLoadDialog = new Dialog(this, R.style.CommonDialog);
         downLoadDialog.addContentView(view, params);
         downLoadDialog.setCanceledOnTouchOutside(false);
         downLoadDialog.setCancelable(false);
@@ -382,13 +404,32 @@ public class TableActivity extends BaseActivity {
     }
 
     /**
-     * @param email
+     * @param email                   邮箱
+     * @param emailTableBeanArrayList 上传的桌台list
      * @author fenghao
      * @date 2018/7/30 0030 下午 16:55
      * @desc 打包下载接口
      */
-    private void downLoad(String email) {
+    private void downLoad(String email, ArrayList<DeletTableBean> emailTableBeanArrayList) {
+        Map<String, Object> emailMap = new HashMap<>();
+        emailMap.put("toUser", email);
+        emailMap.put("title", "桌台二维码打包下载");
+        emailMap.put("msg", "桌台二维码打包下载");
+        emailMap.put("shopTableJson", emailTableBeanArrayList);
+        Gson gson = new Gson();
+
         //TODO 打包下载接口
+        HttpFactory.postString(ApiConfig.DOWN_SHOP_TABLE, gson.toJson(emailMap)
+                , new ResponseCallback<BaseBean>(this) {
+                    @Override
+                    public void onResponse(BaseBean response, int id) {
+                        if (response.isSuccess()) {
+                            ToastUtil.showToast("发送成功");
+                        } else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
     }
 
     /**
