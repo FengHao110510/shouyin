@@ -34,6 +34,33 @@ package com.hongsou.douguoshouyin.javabean;
 
 public class DeletTableBean {
     String logGid;
+    String remarks;
+    String qrCodeLink;
+    String number;
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getQrCodeLink() {
+        return qrCodeLink;
+    }
+
+    public void setQrCodeLink(String qrCodeLink) {
+        this.qrCodeLink = qrCodeLink;
+    }
 
     public DeletTableBean(String logGid) {
         this.logGid = logGid;

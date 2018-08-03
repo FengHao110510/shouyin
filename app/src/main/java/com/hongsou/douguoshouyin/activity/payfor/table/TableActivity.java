@@ -149,7 +149,8 @@ public class TableActivity extends BaseActivity {
                         , tableList.get(k).getPedestal()
                         , tableList.get(k).getNumber()
                         , tableList.get(k).getRegionNumber()
-                        , false);
+                        , false
+                ,tableList.get(k).getQrCodeLink());
                 Log.e(TAG, "showTableList: " + tableList.get(k).getNumber());
                 tableRegionTitleBean.addSubItem(tableListContentBean);
             }
@@ -157,7 +158,9 @@ public class TableActivity extends BaseActivity {
 
             //添加一个空白的 + 按钮  110510瞎写的用作区分  dataBean.getPedestal() 规格 dataBean.getRegionNumber()区域编号  添加单个桌台有用
             TableListContentBean tableListContentBean2 = new TableListContentBean("",
-                    "", "", dataBean.getPedestal(), 110510, dataBean.getRegionNumber(), false);
+                    "", "", dataBean.getPedestal(), 110510,
+                    dataBean.getRegionNumber(), false
+            ,"");
             tableRegionTitleBean.addSubItem(tableListContentBean2);
             res.add(tableRegionTitleBean);
         }
@@ -350,7 +353,7 @@ public class TableActivity extends BaseActivity {
         TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);
         TextView tvDialogEditIcon = view.findViewById(R.id.tv_dialog_edit_icon);
         final EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
-
+        tvDialogEditIcon.setVisibility(View.VISIBLE);
         setIconFont(new TextView[]{tvDialogEditIcon});
         etDialogEditContent.setHint("请输入要发送的邮箱地址！");
         tvDialogEditTitle.setVisibility(View.GONE);
@@ -367,6 +370,13 @@ public class TableActivity extends BaseActivity {
                             //根据条目数形判断有没有被选中
                             if (tableListContentBean.isSelectFlag()) {
                                 DeletTableBean deletTableBean = new DeletTableBean(tableListContentBean.getLogGid());
+                                for (int n = 0;n<dataBeanList.size();n++){
+                                    if (dataBeanList.get(n).getRegionNumber().equals(tableListContentBean.getRegionNumber())){
+                                        deletTableBean.setRemarks(dataBeanList.get(n).getRegionName());
+                                    }
+                                }
+                                deletTableBean.setNumber(tableListContentBean.getNumber()+"");
+                                deletTableBean.setQrCodeLink(tableListContentBean.getQrCodeLink()+"");
                                 emailTableBeanArrayList.add(deletTableBean);
                             }
                         }

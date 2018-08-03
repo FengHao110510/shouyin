@@ -82,7 +82,7 @@ public class PaymentDetailActivity extends BaseActivity {
     private Dialog dialog;
     private String mBatch;
     private String paymentBatch = "";
-    String now ;//现在时间
+    String now;//现在时间
 
     @Override
     public int initLayout() {
@@ -94,7 +94,7 @@ public class PaymentDetailActivity extends BaseActivity {
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
-        if (getIntent().hasExtra("paymentBatch")){
+        if (getIntent().hasExtra("paymentBatch")) {
             paymentBatch = getIntent().getStringExtra("paymentBatch");
         }
         if (getIntent().hasExtra("batch")) {
@@ -108,14 +108,14 @@ public class PaymentDetailActivity extends BaseActivity {
             mTvOrderPayType.setText(payOnLineSuccessBean.getTradeType());
             mTvOrderPayMoney.setText(payOnLineSuccessBean.getMoney());
             mTvOrderPayStatus.setText("支付成功");
-            mBatch=payOnLineSuccessBean.getBatch();
+            mBatch = payOnLineSuccessBean.getBatch();
             paymentBatch = payOnLineSuccessBean.getOutTradeNo();
-            if (Global.getSpGlobalUtil().getSpeechVoice()){
+            if (Global.getSpGlobalUtil().getSpeechVoice()) {
                 MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType() + "收款到账"
                         + payOnLineSuccessBean.getMoney() + "元", this);
             }
 
-        }else if (getIntent().hasExtra("xianjin")){
+        } else if (getIntent().hasExtra("xianjin")) {
             paymentBatch = getIntent().getStringExtra("paymentBatch");
             mTvOrderMoney.setText(getIntent().getStringExtra("money"));
             mTvOrderPayTime.setText(now);
@@ -293,20 +293,31 @@ public class PaymentDetailActivity extends BaseActivity {
     }
 
     /**
-     *  @author  fenghao
-     *  @date    2018/7/27 0027 下午 17:42
-     *  @desc
+     * @author fenghao
+     * @date 2018/7/27 0027 下午 17:42
+     * @desc
      */
     private void cashTuikuan() {
         HttpFactory.post().url(ApiConfig.REFOUND_BY_CASH)
-                .addParams("paymentBatch",paymentBatch)
-                .addParams("batch",mBatch)
+                .addParams("paymentBatch", paymentBatch)
+                .addParams("batch", mBatch)
                 .build().execute(new ResponseCallback<BaseBean>(this) {
             @Override
             public void onResponse(BaseBean response, int id) {
-                if (response.isSuccess()){
-                   tuidan();
-                }else {
+                if (response.isSuccess()) {
+                    if (!"00000000000000000000".equals(mBatch)) {
+                        //不是纯收款走个退单接口
+                        tuidan();
+                    } else {
+                        Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
+                        backIntent.putExtra("refundAmount", mTvOrderMoney.getText().toString());
+                        backIntent.putExtra("outTradeNo", mTvOrderBatch.getText().toString());
+                        backIntent.putExtra("type", mTvOrderPayType.getText().toString());
+                        startActivity(backIntent);
+                        finishActivity();
+                        ToastUtil.showToast("退款成功");
+                    }
+                } else {
                     ToastUtil.showToast(response.getMsg());
                 }
             }
@@ -338,25 +349,25 @@ public class PaymentDetailActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
-                Log.e(TAG, "onResponse: "+response );
+                Log.e(TAG, "onResponse: " + response);
                 //TODO 成功之后跳转到退款成功页面 此页面关闭
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    int  code = (int) jsonObject.get("code");
-                    if (code==0){
-                        if (!"00000000000000000000".equals(mBatch)){
+                    int code = (int) jsonObject.get("code");
+                    if (code == 0) {
+                        if (!"00000000000000000000".equals(mBatch)) {
                             //不是纯收款走个退单接口
                             tuidan();
-                        }else {
+                        } else {
                             Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
-                            backIntent.putExtra("refundAmount",mTvOrderMoney.getText().toString());
-                            backIntent.putExtra("outTradeNo",mTvOrderBatch.getText().toString());
-                            backIntent.putExtra("type",mTvOrderPayType.getText().toString());
+                            backIntent.putExtra("refundAmount", mTvOrderMoney.getText().toString());
+                            backIntent.putExtra("outTradeNo", mTvOrderBatch.getText().toString());
+                            backIntent.putExtra("type", mTvOrderPayType.getText().toString());
                             startActivity(backIntent);
                             finishActivity();
                         }
 
-                    }else {
+                    } else {
                         ToastUtil.showToast("退款失败");
                     }
                 } catch (JSONException e) {
@@ -368,41 +379,41 @@ public class PaymentDetailActivity extends BaseActivity {
     }
 
     /**
-     *  @author  fenghao
-     *  @date    2018/7/26 0026 下午 16:20
-     *  @desc   退单接口
+     * @author fenghao
+     * @date 2018/7/26 0026 下午 16:20
+     * @desc 退单接口
      */
     private void tuidan() {
         String type = "";
-        if (mTvOrderPayType.getText().toString().contains("微信")){
-            type="微信";
-        }else  if (mTvOrderPayType.getText().toString().contains("支付宝")){
-            type="支付宝";
+        if (mTvOrderPayType.getText().toString().contains("微信")) {
+            type = "微信";
+        } else if (mTvOrderPayType.getText().toString().contains("支付宝")) {
+            type = "支付宝";
         }
-       HttpFactory.post()
-               .addParams("shopNumber",getShopNumber())
-               .addParams("batch",mBatch)
-               .addParams("orderAmount",mTvOrderMoney.getText().toString())
-               .addParams("reason","")
-               .addParams("amount",mTvOrderMoney.getText().toString())
-               .addParams("paymentType",type)
-               .url(ApiConfig.REFOUND_ORDER).build().execute(new ResponseCallback<BaseBean>(this) {
+        HttpFactory.post()
+                .addParams("shopNumber", getShopNumber())
+                .addParams("batch", mBatch)
+                .addParams("orderAmount", mTvOrderMoney.getText().toString())
+                .addParams("reason", "")
+                .addParams("amount", mTvOrderMoney.getText().toString())
+                .addParams("paymentType", type)
+                .url(ApiConfig.REFOUND_ORDER).build().execute(new ResponseCallback<BaseBean>(this) {
 
-           @Override
-           public void onResponse(BaseBean response, int id) {
-               if (response.isSuccess()) {
-                   ToastUtil.showToast("退款成功");
-                   Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
-                   backIntent.putExtra("refundAmount",mTvOrderMoney.getText().toString());
-                   backIntent.putExtra("outTradeNo",mTvOrderBatch.getText().toString());
-                   backIntent.putExtra("type",mTvOrderPayType.getText().toString());
-                   startActivity(backIntent);
-                   finishActivity();
-               } else {
-                   ToastUtil.showToast("退单失败");
-               }
-           }
-       });
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("退款成功");
+                    Intent backIntent = new Intent(PaymentDetailActivity.this, BackPayActivity.class);
+                    backIntent.putExtra("refundAmount", mTvOrderMoney.getText().toString());
+                    backIntent.putExtra("outTradeNo", mTvOrderBatch.getText().toString());
+                    backIntent.putExtra("type", mTvOrderPayType.getText().toString());
+                    startActivity(backIntent);
+                    finishActivity();
+                } else {
+                    ToastUtil.showToast("退单失败");
+                }
+            }
+        });
     }
 
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
+import com.hongsou.douguoshouyin.activity.mine.AuthorizeActivity;
 import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
 import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.http.ApiConfig;
@@ -157,7 +158,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_douguo:
                 //豆果收银授权
-                MscSpeechUtils.speech("豆果收银授权", getActivity());
+//                MscSpeechUtils.speech("豆果收银授权", getActivity());
+                Intent authorizeIntent = new Intent(getActivity(), AuthorizeActivity.class);
+                startActivity(authorizeIntent);
                 break;
             case R.id.rl_mine_guanyu:
                 //关于我们

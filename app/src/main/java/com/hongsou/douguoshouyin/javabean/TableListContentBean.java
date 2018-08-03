@@ -54,8 +54,12 @@ public class TableListContentBean implements MultiItemEntity {
     private int number;
     private String regionNumber;
     private boolean selectFlag;
+    private String qrCodeLink;
 
-    public TableListContentBean(String shopNumber, String logGid, String tabletableNumber, int pedestal, int number, String regionNumber, boolean selectFlag) {
+
+    public TableListContentBean(String shopNumber, String logGid, String tabletableNumber
+            , int pedestal, int number, String regionNumber, boolean selectFlag
+    ,String qrCodeLink) {
         this.shopNumber = shopNumber;
         this.logGid = logGid;
         this.tabletableNumber = tabletableNumber;
@@ -63,6 +67,16 @@ public class TableListContentBean implements MultiItemEntity {
         this.number = number;
         this.regionNumber = regionNumber;
         this.selectFlag = selectFlag;
+        this.qrCodeLink = qrCodeLink;
+    }
+
+
+    public String getQrCodeLink() {
+        return qrCodeLink;
+    }
+
+    public void setQrCodeLink(String qrCodeLink) {
+        this.qrCodeLink = qrCodeLink;
     }
 
     public String getShopNumber() {

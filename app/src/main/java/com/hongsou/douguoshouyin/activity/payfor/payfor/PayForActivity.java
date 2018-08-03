@@ -526,7 +526,7 @@ public class PayForActivity extends BaseActivity {
                 .addParams("paymentBatch", paymentBatch)
                 .addParams("batch", "00000000000000000000")
                 .addParams("shopNumber", getShopNumber())
-                .addParams("money", tvPayforPayforXiaofeijine.getText().toString())
+                .addParams("money", tvPayforPayforYingshoujine.getText().toString())
                 .addParams("amountCollected", Global.getSpGlobalUtil().getReceivableMoney())
                 .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
@@ -540,7 +540,7 @@ public class PayForActivity extends BaseActivity {
                     Intent successIntent = new Intent(PayForActivity.this, PaymentDetailActivity.class);
                     successIntent.putExtra("xianjin", "xianjin");
                     successIntent.putExtra("paymentBatch", paymentBatch);
-                    successIntent.putExtra("money", tvPayforPayforXiaofeijine.getText().toString());
+                    successIntent.putExtra("money", tvPayforPayforYingshoujine.getText().toString());
                     startActivity(successIntent);
                 } else {
                     ToastUtil.showToast("现金收款失败");
