@@ -156,7 +156,12 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
             // 展示餐品分类
             final List<FoodCategoryBean.DataBean> foodCategoryBeanData = foodCategoryBean.getData();
             for (int i = 0; i < foodCategoryBeanData.size(); i++) {
-                String s = foodCategoryBeanData.get(i).getCategoryName().substring(0, 4);
+                String s;
+                if ( foodCategoryBeanData.get(i).getCategoryName().length()>4){
+                    s = foodCategoryBeanData.get(i).getCategoryName().substring(0, 4);
+                }else {
+                    s = foodCategoryBeanData.get(i).getCategoryName();
+                }
                 mTabCreateCategory.addTab(mTabCreateCategory.newTab().setText(s));
 //                mBadgeList.add(new QBadgeView(CreateOrderActivity.this).bindTarget(mTabCreateCategory.getTabAt(i)));
             }

@@ -247,8 +247,17 @@ public class ApiConfig {
     /**
      * TODO 修改/添加 不参与扫码商品
      */
-    public static final String UPDATE_SINGLE_FOOD_IS_SCAN = BASE_URL + "/food/updateSingleFoodIsScan";/**
+    public static final String UPDATE_SINGLE_FOOD_IS_SCAN = BASE_URL + "/food/updateSingleFoodIsScan";
+    /**
      * TODO 查询不参与扫码商品
      */
     public static final String GET_SCAN_FOOD = BASE_URL + "/food/getScanFood";
+    /**
+     * TODO 查询店铺授权信息
+     */
+    public static final String GET_SHOP_PAYMENT_USER = BASE_URL + "/setting/getShopPaymentUser";
+    /**
+     * TODO 修改店铺授权信息
+     */
+    public static final String APP_SHOP_AUTHORIZATION = BASE_URL + "/setting/appShopAuthorization";
 }
