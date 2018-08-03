@@ -185,7 +185,7 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
                             if (mListThreeBeans22.size() < Integer.valueOf(groupCount)){
                                 adapter2.isSelected.put(position, true);
                                 adapter2.notifyItemChanged(position);
-                                mListThreeBeans22.add(mListThree1.get(position));
+                                mListThreeBeans22.add(mListThree2.get(position));
                             }else {
                                 ToastUtil.showToast("已超出可选数量");
                             }
@@ -193,7 +193,7 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
                             // 修改map的值保存状态
                             adapter2.isSelected.put(position, false);
                             adapter2.notifyItemChanged(position);
-                            mListThreeBeans22.remove(mListThree1.get(position));
+                            mListThreeBeans22.remove(mListThree2.get(position));
                         }
                         mTvSelectedCount2.setText(mListThreeBeans22.size() + "");
 

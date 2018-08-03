@@ -177,7 +177,7 @@ public class HandoverActivity extends BaseActivity {
         // 银行卡支付金额
         mTvHandoverBankCard.setText(data.getBankAmount());
         // 交班开始时间
-        mTvHandoverStartTime.setText(data.getTradingTime());
+        mTvHandoverStartTime.setText(DateUtils.formatToString(data.getTradingTime()));
     }
 
 

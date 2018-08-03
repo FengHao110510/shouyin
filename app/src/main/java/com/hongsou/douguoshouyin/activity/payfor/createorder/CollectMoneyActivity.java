@@ -45,6 +45,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -214,9 +215,15 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
      */
     private void createOrderInfo(String paymentType) {
         mSubmitOrderBean = new SubmitOrderBean();
-
+        // 订单优惠
+        String orderDiscount = "0";
         if (!TextUtils.isEmpty(mEtMoney.getText().toString())) {
             mTotalMoney = mEtMoney.getText().toString();
+            // 订单金额 - 用户输入的金额 = 优惠金额
+            String s = new BigDecimal(mTotalMoney).subtract(new BigDecimal(mEtMoney.getText().toString())).setScale(2).toString();
+            if (Double.valueOf(s) >= 0){
+                orderDiscount = s;
+            }
         }
         // 获取当日序号
         String dateOrderNumber = Global.getSpGlobalUtil().getDateOrderNumber();
@@ -247,6 +254,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         mSubmitOrderBean.setOrderAmount(mTotalMoney);
         mSubmitOrderBean.setAmountReceivable(mTotalMoney);
         mSubmitOrderBean.setAmountCollected(mTotalMoney);
+        mSubmitOrderBean.setOrderDiscount(orderDiscount);
         mSubmitOrderBean.setCashAmount("0");
         mSubmitOrderBean.setMemberNumber("");
         mSubmitOrderBean.setOrderSourcePayment("开单");
