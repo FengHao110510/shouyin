@@ -132,7 +132,12 @@ public class NosaomaFoodsActivity extends BaseActivity {
                 if (response.isSuccess()) {
                     totalPage = response.getData().getTotalPage();
                     resultBeanList.addAll(response.getData().getResult());
-                    showList();
+                    if (page == 1) {
+                        showList();
+                    } else {
+                        //直接showlist出现回退很多item的bug
+                        isScanAdapter.notifyDataSetChanged();
+                    }
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }
@@ -171,9 +176,10 @@ public class NosaomaFoodsActivity extends BaseActivity {
      */
     //最后提交的
     List<NoScanBean.DataBean.ResultBean> resultBeanList2 = new ArrayList<>();
+
     private void delFood(NoScanBean.DataBean.ResultBean resultBean, final int position) {
         Gson gson = new Gson();
-        if (resultBeanList2.size()>0){
+        if (resultBeanList2.size() > 0) {
             resultBeanList2.clear();
         }
         resultBeanList2.add(resultBean);
@@ -186,7 +192,7 @@ public class NosaomaFoodsActivity extends BaseActivity {
 
 //                            resultBeanList.remove(position);
 //                            isScanAdapter.notifyDataSetChanged();//这种方法存在bug
-                            page=1;
+                            page = 1;
                             getData();
                         } else {
                             ToastUtil.showToast(response.getMsg());

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
+import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
@@ -221,7 +222,9 @@ public class MineFragment extends BaseFragment {
             public void onClick(View view) {
                 Global.logout();
 //                goLogout();
+
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                BaseApplication.getInstance().removeToTop();
                 dialog.dismiss();
             }
         });

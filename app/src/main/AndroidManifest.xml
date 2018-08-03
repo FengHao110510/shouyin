@@ -234,7 +234,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.mine.ChooseIsScanActivity"></activity>
+        <activity android:name=".activity.mine.ChooseIsScanActivity" />
+        <activity android:name=".activity.mine.AuthorizeActivity"></activity>
     </application>
 
 </manifest>

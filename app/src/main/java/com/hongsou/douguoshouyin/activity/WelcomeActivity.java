@@ -3,11 +3,13 @@ package com.hongsou.douguoshouyin.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -60,8 +62,14 @@ public class WelcomeActivity extends BaseActivity {
     //跳转方向
     private void intentMainAct() {
         Intent mainIntent = null;
-        mainIntent = new Intent(this, LoginActivity.class);
-//        mainIntent = new Intent(this, MainActivity.class);
+
+        if (TextUtils.isEmpty(Global.getSpGlobalUtil().getClerkNumber())) {
+            mainIntent = new Intent(this, LoginActivity.class);
+
+        } else {
+            mainIntent = new Intent(this, MainActivity.class);
+
+        }
 
         startActivity(mainIntent);
         if (timer != null) {

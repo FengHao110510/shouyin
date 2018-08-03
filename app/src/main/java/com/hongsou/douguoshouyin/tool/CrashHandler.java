@@ -152,7 +152,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 Log.e(TAG, "error : ", e);
             }

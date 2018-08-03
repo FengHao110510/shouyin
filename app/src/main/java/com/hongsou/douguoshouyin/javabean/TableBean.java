@@ -38,16 +38,16 @@ public class TableBean {
 
 
     /**
-     * code : 11375818
-     * msg : ani
-     * extInfo : {}
-     * data : [{"regionName":"二楼","regionNumber":"350000199106241170","pedestal":8,"tableList":[{"shopNumber":"12000020090922537X","logGid":"cc21779e-Ee7e-F7f3-142b-1CCfEEd3fBb2","tabletableNumber":"9F5a1b5F-f4Fd-85de-f1eD-44fAc4C03Fd1","pedestal":7,"number":59,"regionNumber":"108838c2-7422-c"},{"shopNumber":"340000198009023896","logGid":"c6FDf7D8-e31B-Eba1-305A-76FBCdfCF449","tabletableNumber":"F6C5C3AE-2d1c-BA6e-69F5-BbdeEedcc4d4","pedestal":4,"number":5,"regionNumber":"f32ece98-fe8E-A"},{"shopNumber":"360000199012106498","logGid":"1fdFcf11-eD76-d828-cDbE-493FdbEdcDdf","tabletableNumber":"73869eDC-cad7-c44C-52Cf-BEb2f5610EDb","pedestal":2,"number":28,"regionNumber":"b55F2A4d-0Fcf-4"},{"shopNumber":"410000201303312114","logGid":"EBe0dC1D-0f52-1eD8-7A41-AAd64a2A4347","tabletableNumber":"CFBAD7ab-9e3a-3Ebe-7e7E-bb69DC109eDe","pedestal":8,"number":13,"regionNumber":"Edcd9A30-8e7C-B"},{"shopNumber":"410000197311152190","logGid":"B89DBFdC-E55E-4FF3-97B3-261be0fB421e","tabletableNumber":"D15AeE51-2c66-d172-3A6c-4Ec24CC77afE","pedestal":8,"number":39,"regionNumber":"edB7fe2A-B2c9-F"},{"shopNumber":"820000197107306718","logGid":"Eb2Ae6dB-B53F-C6A0-5f9E-928A7d6e6D1e","tabletableNumber":"dFCfFf02-9ccE-bd3B-9F2b-ED332e81BB18","pedestal":3,"number":18,"regionNumber":"9d9EfEAA-5feC-D"},{"shopNumber":"220000198605193843","logGid":"4EB73deD-AB45-bF79-a2eE-F5520EF5660A","tabletableNumber":"4B9AeCE9-1ABE-9736-218A-eF1b1fd3890D","pedestal":5,"number":77,"regionNumber":"D2b3EFC4-dEe5-e"},{"shopNumber":"360000201106193852","logGid":"b4a7bE84-ADDC-Ad4D-42CE-f1e695CFd47d","tabletableNumber":"7e6cCE1d-40f1-9Bf0-a655-AdfCd42fFE39","pedestal":7,"number":28,"regionNumber":"7F1b59cb-Da55-B"}]},{"regionName":"大厅","regionNumber":"640000197003238315","pedestal":5,"tableList":[{"shopNumber":"330000197210173857","logGid":"63C747dD-3533-DcF4-BBA0-de6eF0Ae0deE","tabletableNumber":"f5bBdd3D-bDcb-D154-DcF8-33DC0DFac70d","pedestal":8,"number":45,"regionNumber":"5Bd63C52-FceB-b"},{"shopNumber":"350000198009157888","logGid":"f48c2E93-B249-C562-2dCc-3Df9C7643fDc","tabletableNumber":"8a9Ed971-eB49-bc4E-bf9E-Cb5D1aCeB363","pedestal":2,"number":80,"regionNumber":"E5659e09-cfFb-3"},{"shopNumber":"320000197101232377","logGid":"0Bc99f48-1D68-1e1D-eC8c-E29b3Cc9EfBa","tabletableNumber":"C7BBAA69-7F39-c8E0-aC2c-ccfdF8Eecd3E","pedestal":10,"number":88,"regionNumber":"D5Eca23c-C6D6-F"},{"shopNumber":"510000198106191930","logGid":"e82E78b8-63d2-9Fb9-6EFD-fd2cf2d5b45b","tabletableNumber":"86FD3fbA-Ff17-ffc8-f343-EE81cDA3Eaef","pedestal":6,"number":43,"regionNumber":"1eb2E5eb-5EbE-b"},{"shopNumber":"710000201602294711","logGid":"d538497F-9FD9-dc19-0CBB-dC4CD9e7BDb8","tabletableNumber":"12AEC1db-CfBe-d1CE-5cCf-aB7Ec7CDF128","pedestal":7,"number":32,"regionNumber":"C54d82dC-E9bF-5"},{"shopNumber":"120000201711094540","logGid":"cAeF6F8f-16CD-Afba-B2C5-e2eEc50ef949","tabletableNumber":"Fe543DAE-7D2b-c391-3bD6-Eed69d4f5f1a","pedestal":3,"number":95,"regionNumber":"C426Ae7A-Dae5-D"},{"shopNumber":"620000199812226774","logGid":"d4E04B45-C91D-6AD8-07Ae-4C35FeEAA8C9","tabletableNumber":"A424C418-F51C-F117-a1AB-A402539b5799","pedestal":5,"number":94,"regionNumber":"5ecf6f3e-1a1D-b"},{"shopNumber":"350000200308102617","logGid":"d979CFBF-46Cb-e49c-1DAC-6f2Fdf0f5ec6","tabletableNumber":"532CfCC7-ADbA-Fb8f-bfd7-38A75D16E960","pedestal":5,"number":26,"regionNumber":"B6Ac4B97-1bDB-D"}]},{"regionName":"大厅","regionNumber":"650000197301086235","pedestal":9,"tableList":[{"shopNumber":"820000197508105204","logGid":"bdbEEbA2-2E6f-b0B9-143e-21e83135cA6a","tabletableNumber":"7da6f9dA-A785-eBf7-2fBA-45eDecEEB9cf","pedestal":10,"number":55,"regionNumber":"c4ABdf5F-FEA6-8"},{"shopNumber":"810000197307048459","logGid":"Af9999A5-C1DA-286d-3aA1-03BBBDdbeaEE","tabletableNumber":"Badd6bFe-B6C7-3BfB-4dBE-DbCcfd8Dc4Dc","pedestal":5,"number":11,"regionNumber":"4F9BEFC0-9fc5-3"},{"shopNumber":"430000199408108666","logGid":"0a2DD9C8-7ACA-59E9-D35B-bFdFe2A4d94C","tabletableNumber":"E8b24Cf2-b1cc-24A5-63F7-42eBD2DfB1cf","pedestal":2,"number":37,"regionNumber":"A8C5247f-7684-0"},{"shopNumber":"140000199606231383","logGid":"7667d5C4-A4f1-b925-5E03-3D98D7D9C85f","tabletableNumber":"F4cB544f-3be6-de79-Cfe2-E0BC89CABa5F","pedestal":8,"number":54,"regionNumber":"F21e5487-7BA9-E"},{"shopNumber":"810000201508237247","logGid":"E4348011-f7f1-CcCC-E920-C5D19BC660cA","tabletableNumber":"7abb9ebD-AC2C-232A-cCF6-27Fb9A62AAD6","pedestal":9,"number":71,"regionNumber":"450c7bec-4e44-5"},{"shopNumber":"630000199004150523","logGid":"9AAd2Bff-2dBc-FD55-14ee-7fe347db64fC","tabletableNumber":"C0B1f53C-B62D-122e-B487-10cb1E5FA27E","pedestal":9,"number":43,"regionNumber":"F8FEECEE-17F3-4"},{"shopNumber":"710000201406061259","logGid":"2Cbd2ecc-EcD8-23e9-F49C-dfDbBD8364Ab","tabletableNumber":"fA6Fbbf0-CEBA-41AA-fCC5-B77BF13DcfDF","pedestal":6,"number":92,"regionNumber":"Ed4c8715-b7c5-c"},{"shopNumber":"350000198903116263","logGid":"CeBde88E-fBD8-AdAA-cf8B-0efD4C9B4F23","tabletableNumber":"E75d88Dc-53De-4814-4e20-D8f0e9A0C14a","pedestal":4,"number":57,"regionNumber":"FAcEC934-cfb9-C"}]},{"regionName":"侧厅","regionNumber":"360000199305161415","pedestal":2,"tableList":[{"shopNumber":"440000200204177982","logGid":"deE6eF8d-Cda2-D3a5-FE83-Ade7e1bDA723","tabletableNumber":"e756F5D6-6D2b-e93b-beE1-dddebde62d7f","pedestal":8,"number":72,"regionNumber":"f137c1e7-8862-4"},{"shopNumber":"610000201301163685","logGid":"5F77bF7B-894c-3c5A-3ADC-ee9f1d84cED6","tabletableNumber":"28B95fff-2fBC-F11F-7cF4-Cf3fefb37DDf","pedestal":10,"number":67,"regionNumber":"1fFcf9E2-18A2-F"},{"shopNumber":"610000197310305666","logGid":"91FcCDaD-d3f3-1E4C-4a6E-edC46C3D2AD5","tabletableNumber":"dA37A7de-F15e-AbE8-7d6A-C5f3D79888Ae","pedestal":9,"number":82,"regionNumber":"1BEcA7e6-3f29-e"},{"shopNumber":"330000197110288761","logGid":"56a3ad8D-Dc6E-dA7f-BBCd-544FDBd29ecE","tabletableNumber":"9CfAfaa5-Cee4-8113-d706-dfa4CccC7518","pedestal":10,"number":18,"regionNumber":"2E7f7D4c-ea4b-b"},{"shopNumber":"630000197912289249","logGid":"BbA4fFb7-0DeB-7FDD-93b3-23Ad2dBd618b","tabletableNumber":"AeCEFd56-Dfa4-D90d-1D39-Ce916B9F9CD0","pedestal":7,"number":4,"regionNumber":"056Ee80b-ee4E-d"},{"shopNumber":"450000199201028136","logGid":"DEAe2ab8-dcE9-bd5f-A23d-dD7bC52cDfc8","tabletableNumber":"f119aB16-c8CC-69E8-E17E-Bd21c1cA2c22","pedestal":8,"number":73,"regionNumber":"8Daaf576-7c6A-f"},{"shopNumber":"420000198912248477","logGid":"Fb670d5C-3f48-dF8f-8d14-fc41fB77bDcB","tabletableNumber":"0DB83d7d-1860-2C1c-3E3f-Cbd72e4F5BB9","pedestal":8,"number":88,"regionNumber":"B469AFB2-3bd3-A"},{"shopNumber":"140000199512198877","logGid":"AeACFB9e-BBb3-1eB6-8Add-DdcACAC9C4A6","tabletableNumber":"Fc1AecD1-7D07-feb1-6167-fB0D1e293937","pedestal":3,"number":19,"regionNumber":"f29C1e8b-1E32-1"}]},{"regionName":"北边","regionNumber":"210000197108011301","pedestal":6,"tableList":[{"shopNumber":"130000197411248213","logGid":"97cdb7A5-BE2F-F34A-765E-0B2A436DbBC4","tabletableNumber":"EDEFACee-A9c3-8B9D-Cc3d-AEeC7615d6ce","pedestal":9,"number":62,"regionNumber":"c1eed27D-0F91-b"},{"shopNumber":"370000200604211854","logGid":"e3CDdaa6-f33D-eAA2-9d2A-6219d89c2BC9","tabletableNumber":"1A6E4dE1-d4cd-A422-6AcB-fEbf5701426b","pedestal":3,"number":32,"regionNumber":"f3FA7Ee1-0fA6-0"},{"shopNumber":"46000020050121267X","logGid":"1caB1DeE-2B0d-2b21-bD82-EFCbe928D732","tabletableNumber":"fb2bf8Da-4Abd-657c-8AdD-2ec15EF93DdD","pedestal":2,"number":2,"regionNumber":"b6B06a6f-8EA8-3"},{"shopNumber":"820000197806115072","logGid":"CFBAeCFE-3EBA-5Aee-AaAF-ffaB81d8Bddb","tabletableNumber":"dFFc6A25-5cC6-Df4c-Ee34-3CCcadCB6b0E","pedestal":3,"number":54,"regionNumber":"B043BD5e-dBfe-1"},{"shopNumber":"50000020140407177X","logGid":"A4B2d9d8-51c2-9CC2-fcdF-4AdC9F35dffC","tabletableNumber":"1DAcFEdF-BdB5-1E21-E547-6fea886eD1eD","pedestal":8,"number":95,"regionNumber":"410DD4cd-FA60-F"},{"shopNumber":"640000199402060066","logGid":"AB59ffAE-3c26-B5fE-58D1-AC4AF30cAb8D","tabletableNumber":"0b4ba1bd-B04C-8228-BE6d-Ad97cEffc57D","pedestal":7,"number":87,"regionNumber":"DF9BDBEe-fb20-4"},{"shopNumber":"220000198902017686","logGid":"A2Fd24BF-Fc3a-C163-A5c5-Dddd4d2AfF81","tabletableNumber":"feC9EE6a-6f2F-0e6E-fbB2-6818E8437C85","pedestal":3,"number":81,"regionNumber":"BF9BDf1C-5725-1"},{"shopNumber":"220000199712295399","logGid":"F341fC1C-a2bF-dD9f-53E9-c8DAc28C8a63","tabletableNumber":"b1B6b95C-4D6e-232B-7bfA-c8C9Aecd2F09","pedestal":9,"number":35,"regionNumber":"9dC5274f-6fBF-f"}]},{"regionName":"南边","regionNumber":"150000197608035143","pedestal":3,"tableList":[{"shopNumber":"350000201611218668","logGid":"fE729bE9-DA8D-D946-57DE-E91dd1cFAc0a","tabletableNumber":"1796A0FF-71BD-CDD7-D9F7-8FbF5cFE6fa6","pedestal":6,"number":46,"regionNumber":"157c0DFB-F8D5-1"},{"shopNumber":"440000201406123311","logGid":"E6877D1E-86bb-A5d5-B6d4-523656c8fd17","tabletableNumber":"dddC3486-fA5D-9Bf3-49Dc-73E52Cd9602D","pedestal":2,"number":72,"regionNumber":"EC7cbBaE-7A6e-3"},{"shopNumber":"150000199406125422","logGid":"CEBF2e4A-E20E-29Ae-5BD3-19cbEFac475f","tabletableNumber":"6eAFeFcc-8BcD-64dc-D324-e57e3e16D6eE","pedestal":4,"number":39,"regionNumber":"B48922A2-b1CE-e"},{"shopNumber":"230000198404032914","logGid":"F8c26e1A-84af-c864-8d81-fde483FD7Ce3","tabletableNumber":"56fB6b51-aAC1-f9dd-C4bE-AB7b4eEFfa2d","pedestal":9,"number":8,"regionNumber":"B513420b-Acd4-e"},{"shopNumber":"320000200904264617","logGid":"8dC4fc70-BD1d-bb72-fC15-9BbD1D4bE146","tabletableNumber":"32De785b-43cf-d895-3dc3-3Ee5d51cDE1e","pedestal":7,"number":94,"regionNumber":"C186dA81-9554-D"},{"shopNumber":"450000201308305076","logGid":"AFFe9166-efFA-662B-be48-ed5A138E29c8","tabletableNumber":"B797CAC2-CB03-54Bb-2eAa-EF67E689CebF","pedestal":5,"number":98,"regionNumber":"F557D5Ce-Cc59-b"},{"shopNumber":"35000020150811991X","logGid":"c8cd5f9F-7Cd7-c7ec-5f37-5ef7D5AE4990","tabletableNumber":"FDB3A731-86E9-8f7A-E75D-0EBd83eE455f","pedestal":7,"number":24,"regionNumber":"ce9abCD1-abFe-7"},{"shopNumber":"410000199412068421","logGid":"d9AE31BB-484b-AbEA-fB11-A7B0dFb8cD2F","tabletableNumber":"C8dCeE61-e15F-8D5A-dA75-BfAfB1097f2E","pedestal":8,"number":36,"regionNumber":"63b8bE9D-4F2f-C"}]}]
-     * success : false
+     * code : 1000
+     * msg : 服务成功
+     * extInfo : null
+     * data : [{"regionName":"东北","regionNumber":"d5151aad-53cd-43bd-a4a8-61fb2d62fbbb","pedestal":0,"tableList":[{"logGid":"CF28664C-A4DB-404B-A689-425234A80625","updateTime":"2018-07-25 11:59:55.77","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"29161855-b43f-4e49-8a96-1e6cc0928f8e","pedestal":0,"regionNumber":"d5151aad-53cd-43bd-a4a8-61fb2d62fbbb","qrCodeLink":"http://www.baidu.com","insertTime":1532491195770,"number":1},{"logGid":"65AB66C4-2442-474B-A117-0E648D293938","updateTime":"2018-07-25 12:09:31.7","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"9433e39c-bc6f-4325-bd11-1d41a0ea5038","pedestal":0,"regionNumber":"d5151aad-53cd-43bd-a4a8-61fb2d62fbbb","qrCodeLink":"http://www.baidu.com","insertTime":1532491771700,"number":5}]},{"regionName":"东南角","regionNumber":"QYBBFDFD","pedestal":6,"tableList":[{"logGid":"DD75C9FA-B0CC-4E6E-9843-5C4F108FE2F4","updateTime":"2018-06-12 10:59:45.503","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"ZT3CDDE4","tabletableName":"中式火锅餐桌2","pedestal":6,"regionNumber":"QYBBFDFD","remarks":"火锅餐桌","qrCodeLink":"http://www.baidu.com","insertTime":1528772385503,"number":1},{"logGid":"36398B56-CD0E-48EF-9DCC-FCC3120EA518","updateTime":"2018-07-18 15:10:27.82","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"5899b462-893d-4fe4-8a9d-40b1ee5b85f2","pedestal":6,"regionNumber":"QYBBFDFD","qrCodeLink":"http://www.baidu.com","insertTime":1531897827820,"number":6}]},{"regionName":"西北角","regionNumber":"QYC0F6C0","pedestal":66,"tableList":[{"logGid":"AB452395-C6E0-41E2-A301-8FC5766CD34F","updateTime":"2018-07-18 15:17:54.733","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"519cf907-8d08-4708-ac92-6efe03c95433","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531898274733,"number":2},{"logGid":"8D85A2F0-84F0-44B1-B097-C027E0EDF461","updateTime":"2018-07-18 15:11:04.69","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"2cb2cd17-56da-41c8-8458-51807e731468","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531897864690,"number":24},{"logGid":"222667AB-B909-48A4-B175-98B2B2014F9D","updateTime":"2018-07-18 15:11:04.69","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"800af9ba-759f-4d83-a708-71d02396f6ca","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531897864690,"number":25},{"logGid":"F2935231-FD33-4941-9A9A-BA0B212020DD","updateTime":"2018-07-18 15:11:04.69","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"27947d9e-f2b8-4767-ac42-37826e230010","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531897864690,"number":26},{"logGid":"031352E6-2AC5-41E7-A967-F45E8135B946","updateTime":"2018-07-18 15:11:04.69","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"bcde873e-e856-464d-9acb-0e7a04ffe498","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531897864690,"number":27},{"logGid":"A4B9D415-C5AD-4147-95F5-04C10D7498CE","updateTime":"2018-07-18 15:11:04.69","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"2ca36da0-f44b-478b-bfca-a8d2478525bc","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531897864690,"number":28},{"logGid":"77215B08-623B-42D6-BE39-CB4C28B0D133","updateTime":"2018-07-18 15:11:04.69","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"f6f2c195-b143-44c1-8cc6-8afdfeab8381","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531897864690,"number":29},{"logGid":"41B735B9-1F9E-49D4-8726-8883C48B1E57","updateTime":"2018-07-18 15:11:04.69","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"fda45409-3b5b-4bf0-bdd4-76bc540d8957","pedestal":66,"regionNumber":"QYC0F6C0","qrCodeLink":"http://www.baidu.com","insertTime":1531897864690,"number":30}]},{"regionName":"西南角","regionNumber":"QY668B7B","pedestal":5,"tableList":[{"logGid":"7B452D12-E29D-42B9-BDDA-9E5FF4AD5647","updateTime":"2018-06-12 10:34:10.753","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"ZT1A30D4","tabletableName":"西餐桌2","pedestal":5,"regionNumber":"QY668B7B","remarks":"这是意大利餐桌1","qrCodeLink":"http://www.baidu.com","insertTime":1528770850753,"number":1},{"logGid":"FC5E38D2-6A25-458E-A23B-022D1D88A987","updateTime":"2018-07-18 15:09:24.667","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"d3cbe046-63db-49f1-bf58-24058955f591","pedestal":5,"regionNumber":"QY668B7B","qrCodeLink":"http://www.baidu.com","insertTime":1531897764667,"number":2},{"logGid":"3F9CAE2A-49F6-4B01-BB76-19FD015C5468","updateTime":"2018-07-18 15:09:28.537","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"f4f1e911-30ff-4c61-9631-10849bff48b2","pedestal":5,"regionNumber":"QY668B7B","qrCodeLink":"http://www.baidu.com","insertTime":1531897768537,"number":3},{"logGid":"9DD2B0BA-1B3C-4EC5-8180-056C680F3412","updateTime":"2018-07-24 20:01:25.713","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"60be6229-09fc-42d5-a79e-1111d005dc50","pedestal":5,"regionNumber":"QY668B7B","qrCodeLink":"http://www.baidu.com","insertTime":1532433685713,"number":4}]},{"regionName":"这是xxx角","regionNumber":"QYB59BEA","pedestal":8,"tableList":[{"logGid":"EAD172CA-F683-41AC-AB8C-E3805C4AFCFD","updateTime":"2018-06-12 10:58:52.32","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"ZT2CEB83","tabletableName":"xxx桌2","pedestal":8,"regionNumber":"QYB59BEA","remarks":"八仙桌","qrCodeLink":"http://www.baidu.com","insertTime":1528772332320,"number":1},{"logGid":"234A225A-8C6A-4140-BE61-00CC282E2E08","updateTime":"2018-07-24 20:01:41.457","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"e538051f-164b-4e0e-b6b6-19b8213f1511","pedestal":8,"regionNumber":"QYB59BEA","qrCodeLink":"http://www.baidu.com","insertTime":1532433701457,"number":2},{"logGid":"92CCC542-FB21-4F1D-BA08-3AE66D60F85B","updateTime":"2018-07-24 20:01:31.95","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"5b495cf9-f8d5-4cc8-b150-35942177942d","pedestal":8,"regionNumber":"QYB59BEA","qrCodeLink":"http://www.baidu.com","insertTime":1532433691950,"number":12}]}]
+     * success : true
      */
 
     private int code;
     private String msg;
-    private ExtInfoBean extInfo;
+    private Object extInfo;
     private boolean success;
     private List<DataBean> data;
 
@@ -67,11 +67,11 @@ public class TableBean {
         this.msg = msg;
     }
 
-    public ExtInfoBean getExtInfo() {
+    public Object getExtInfo() {
         return extInfo;
     }
 
-    public void setExtInfo(ExtInfoBean extInfo) {
+    public void setExtInfo(Object extInfo) {
         this.extInfo = extInfo;
     }
 
@@ -91,15 +91,12 @@ public class TableBean {
         this.data = data;
     }
 
-    public static class ExtInfoBean {
-    }
-
     public static class DataBean {
         /**
-         * regionName : 二楼
-         * regionNumber : 350000199106241170
-         * pedestal : 8
-         * tableList : [{"shopNumber":"12000020090922537X","logGid":"cc21779e-Ee7e-F7f3-142b-1CCfEEd3fBb2","tabletableNumber":"9F5a1b5F-f4Fd-85de-f1eD-44fAc4C03Fd1","pedestal":7,"number":59,"regionNumber":"108838c2-7422-c"},{"shopNumber":"340000198009023896","logGid":"c6FDf7D8-e31B-Eba1-305A-76FBCdfCF449","tabletableNumber":"F6C5C3AE-2d1c-BA6e-69F5-BbdeEedcc4d4","pedestal":4,"number":5,"regionNumber":"f32ece98-fe8E-A"},{"shopNumber":"360000199012106498","logGid":"1fdFcf11-eD76-d828-cDbE-493FdbEdcDdf","tabletableNumber":"73869eDC-cad7-c44C-52Cf-BEb2f5610EDb","pedestal":2,"number":28,"regionNumber":"b55F2A4d-0Fcf-4"},{"shopNumber":"410000201303312114","logGid":"EBe0dC1D-0f52-1eD8-7A41-AAd64a2A4347","tabletableNumber":"CFBAD7ab-9e3a-3Ebe-7e7E-bb69DC109eDe","pedestal":8,"number":13,"regionNumber":"Edcd9A30-8e7C-B"},{"shopNumber":"410000197311152190","logGid":"B89DBFdC-E55E-4FF3-97B3-261be0fB421e","tabletableNumber":"D15AeE51-2c66-d172-3A6c-4Ec24CC77afE","pedestal":8,"number":39,"regionNumber":"edB7fe2A-B2c9-F"},{"shopNumber":"820000197107306718","logGid":"Eb2Ae6dB-B53F-C6A0-5f9E-928A7d6e6D1e","tabletableNumber":"dFCfFf02-9ccE-bd3B-9F2b-ED332e81BB18","pedestal":3,"number":18,"regionNumber":"9d9EfEAA-5feC-D"},{"shopNumber":"220000198605193843","logGid":"4EB73deD-AB45-bF79-a2eE-F5520EF5660A","tabletableNumber":"4B9AeCE9-1ABE-9736-218A-eF1b1fd3890D","pedestal":5,"number":77,"regionNumber":"D2b3EFC4-dEe5-e"},{"shopNumber":"360000201106193852","logGid":"b4a7bE84-ADDC-Ad4D-42CE-f1e695CFd47d","tabletableNumber":"7e6cCE1d-40f1-9Bf0-a655-AdfCd42fFE39","pedestal":7,"number":28,"regionNumber":"7F1b59cb-Da55-B"}]
+         * regionName : 东北
+         * regionNumber : d5151aad-53cd-43bd-a4a8-61fb2d62fbbb
+         * pedestal : 0
+         * tableList : [{"logGid":"CF28664C-A4DB-404B-A689-425234A80625","updateTime":"2018-07-25 11:59:55.77","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"29161855-b43f-4e49-8a96-1e6cc0928f8e","pedestal":0,"regionNumber":"d5151aad-53cd-43bd-a4a8-61fb2d62fbbb","qrCodeLink":"http://www.baidu.com","insertTime":1532491195770,"number":1},{"logGid":"65AB66C4-2442-474B-A117-0E648D293938","updateTime":"2018-07-25 12:09:31.7","page":0,"rows":0,"shopNumber":"1000180427300326890","tabletableNumber":"9433e39c-bc6f-4325-bd11-1d41a0ea5038","pedestal":0,"regionNumber":"d5151aad-53cd-43bd-a4a8-61fb2d62fbbb","qrCodeLink":"http://www.baidu.com","insertTime":1532491771700,"number":5}]
          */
 
         private String regionName;
@@ -141,28 +138,30 @@ public class TableBean {
 
         public static class TableListBean {
             /**
-             * shopNumber : 12000020090922537X
-             * logGid : cc21779e-Ee7e-F7f3-142b-1CCfEEd3fBb2
-             * tabletableNumber : 9F5a1b5F-f4Fd-85de-f1eD-44fAc4C03Fd1
-             * pedestal : 7
-             * number : 59
-             * regionNumber : 108838c2-7422-c
+             * logGid : CF28664C-A4DB-404B-A689-425234A80625
+             * updateTime : 2018-07-25 11:59:55.77
+             * page : 0
+             * rows : 0
+             * shopNumber : 1000180427300326890
+             * tabletableNumber : 29161855-b43f-4e49-8a96-1e6cc0928f8e
+             * pedestal : 0
+             * regionNumber : d5151aad-53cd-43bd-a4a8-61fb2d62fbbb
+             * qrCodeLink : http://www.baidu.com
+             * insertTime : 1532491195770
+             * number : 1
              */
 
-            private String shopNumber;
             private String logGid;
+            private String updateTime;
+            private int page;
+            private int rows;
+            private String shopNumber;
             private String tabletableNumber;
             private int pedestal;
-            private int number;
             private String regionNumber;
-
-            public String getShopNumber() {
-                return shopNumber;
-            }
-
-            public void setShopNumber(String shopNumber) {
-                this.shopNumber = shopNumber;
-            }
+            private String qrCodeLink;
+            private long insertTime;
+            private int number;
 
             public String getLogGid() {
                 return logGid;
@@ -170,6 +169,38 @@ public class TableBean {
 
             public void setLogGid(String logGid) {
                 this.logGid = logGid;
+            }
+
+            public String getUpdateTime() {
+                return updateTime;
+            }
+
+            public void setUpdateTime(String updateTime) {
+                this.updateTime = updateTime;
+            }
+
+            public int getPage() {
+                return page;
+            }
+
+            public void setPage(int page) {
+                this.page = page;
+            }
+
+            public int getRows() {
+                return rows;
+            }
+
+            public void setRows(int rows) {
+                this.rows = rows;
+            }
+
+            public String getShopNumber() {
+                return shopNumber;
+            }
+
+            public void setShopNumber(String shopNumber) {
+                this.shopNumber = shopNumber;
             }
 
             public String getTabletableNumber() {
@@ -188,20 +219,36 @@ public class TableBean {
                 this.pedestal = pedestal;
             }
 
-            public int getNumber() {
-                return number;
-            }
-
-            public void setNumber(int number) {
-                this.number = number;
-            }
-
             public String getRegionNumber() {
                 return regionNumber;
             }
 
             public void setRegionNumber(String regionNumber) {
                 this.regionNumber = regionNumber;
+            }
+
+            public String getQrCodeLink() {
+                return qrCodeLink;
+            }
+
+            public void setQrCodeLink(String qrCodeLink) {
+                this.qrCodeLink = qrCodeLink;
+            }
+
+            public long getInsertTime() {
+                return insertTime;
+            }
+
+            public void setInsertTime(long insertTime) {
+                this.insertTime = insertTime;
+            }
+
+            public int getNumber() {
+                return number;
+            }
+
+            public void setNumber(int number) {
+                this.number = number;
             }
         }
     }

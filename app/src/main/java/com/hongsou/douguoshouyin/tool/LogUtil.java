@@ -16,7 +16,7 @@ import com.hongsou.douguoshouyin.BuildConfig;
 public class LogUtil {
 
     //可以全局控制是否打印log日志
-    private static boolean isDebug = BuildConfig.LOG;
+    private static boolean isDebug = BuildConfig.DEBUG;
     private static int LOG_MAXLENGTH = 2000;
 
 
