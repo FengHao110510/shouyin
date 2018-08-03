@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/color_f5f5f5"
     android:orientation="vertical">
 
     <com.hongsou.douguoshouyin.views.CommonTopBar
@@ -19,10 +19,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp">
+        android:background="@color/white"
+        android:paddingBottom="12dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="30dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,9 +42,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_12"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
+        android:background="@color/white"
+        android:paddingBottom="@dimen/margin_12"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
 
         <TextView
             android:layout_width="wrap_content"

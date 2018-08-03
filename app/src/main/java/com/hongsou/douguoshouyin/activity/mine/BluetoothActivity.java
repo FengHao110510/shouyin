@@ -58,6 +58,8 @@ public class BluetoothActivity extends BaseActivity {
     private AsyncTask asyncTask;
 
     private boolean isRegistReceiver = false;
+    private String name;
+    private String type;
 
     @Override
     public int initLayout() {
@@ -66,6 +68,10 @@ public class BluetoothActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        if (getIntent().hasExtra("name")){
+            name = getIntent().getStringExtra("name");
+            type = getIntent().getStringExtra("type");
+        }
         //打开蓝牙、进行搜索
         initListView();
         startBluetooth();
@@ -94,6 +100,8 @@ public class BluetoothActivity extends BaseActivity {
                 }
                 Intent intent = new Intent();
                 intent.putExtra("bluetooth", (Serializable) blueToothModels.get(i));
+                intent.putExtra("name", name);
+                intent.putExtra("type", type);
                 setResult(120, intent);
                 finish();
             }
