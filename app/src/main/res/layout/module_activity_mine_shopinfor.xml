@@ -166,7 +166,8 @@
                     <EditText
                         android:id="@+id/et_mine_shopinfor_phone"
                         style="@style/et_style"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:inputType="phone" />
                 </LinearLayout>
 
 

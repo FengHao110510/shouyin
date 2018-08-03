@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature android:name="android.hardware.wifi" />
     <uses-feature android:name="android.hardware.bluetooth" />
@@ -55,7 +56,7 @@
             android:name=".activity.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_main"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
