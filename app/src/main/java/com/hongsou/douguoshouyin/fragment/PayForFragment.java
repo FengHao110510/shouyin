@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
 import com.hongsou.douguoshouyin.activity.payfor.StatisticsActivity;
 import com.hongsou.douguoshouyin.activity.payfor.createorder.CreateOrderActivity;
 import com.hongsou.douguoshouyin.activity.payfor.goodsmanage.CommodityActivity;
@@ -127,7 +128,7 @@ public class PayForFragment extends BaseFragment {
             public void onResponse(TodayMoneyBean response, int id) {
                 if (response.isSuccess()) {
                     rvPayforShishoujine.setText(response.getData().getAmountCollected());
-                    rvPayforDingdanshu.setText(response.getData().getOrderCount()+"");
+                    rvPayforDingdanshu.setText(response.getData().getOrderCount() + "");
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }
@@ -146,7 +147,7 @@ public class PayForFragment extends BaseFragment {
         } else {
             //显示时所作的事情
             initDingdan();
-            Log.e("", "onActivityCreated: "+0);
+            Log.e("", "onActivityCreated: " + 0);
         }
 
     }
@@ -196,7 +197,8 @@ public class PayForFragment extends BaseFragment {
                     startActivity(shangpinIntent);
                 }
                 if (name[i].contains("扫码")) {
-                    ToastUtil.showToast(name[i]);
+                    Intent saomadiancanIntent = new Intent(getActivity(), SaomaFoodsSetActivity.class);
+                    startActivity(saomadiancanIntent);
                 }
             }
         });

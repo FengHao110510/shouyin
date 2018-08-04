@@ -1,31 +1,23 @@
 package com.hongsou.douguoshouyin.activity;
 
 
-import android.Manifest;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.tool.Global;
-import com.hongsou.douguoshouyin.tool.ToastUtil;
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import io.reactivex.functions.Consumer;
 
 /**
  * 幻影页面
  */
 public class WelcomeActivity extends BaseActivity {
 
-
-    private Timer timer;
 
     @Override
     protected void init() {
@@ -44,19 +36,18 @@ public class WelcomeActivity extends BaseActivity {
 
     }
 
+    private ScheduledExecutorService mScheduledExecutorService = Executors.newScheduledThreadPool(4);
+
     /**
      * 设置延时时间
      */
     private void initTimer() {
-        timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
+        mScheduledExecutorService.schedule(new Runnable() {
             @Override
             public void run() {
                 intentMainAct();
-                Log.e("timer", "---->" + Thread.currentThread());
             }
-        };
-        timer.schedule(timerTask, 3000);
+        }, 3, TimeUnit.SECONDS);
     }
 
     //跳转方向
@@ -68,14 +59,8 @@ public class WelcomeActivity extends BaseActivity {
 
         } else {
             mainIntent = new Intent(this, MainActivity.class);
-
         }
-
         startActivity(mainIntent);
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
         finish();
     }
 
@@ -86,9 +71,5 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
     }
 }
