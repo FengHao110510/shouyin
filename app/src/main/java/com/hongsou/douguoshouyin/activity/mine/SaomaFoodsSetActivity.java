@@ -17,9 +17,15 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
+import com.hongsou.douguoshouyin.javabean.JoinSaomaBean;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 /**
  * 扫码点餐设置页面页面
@@ -39,6 +45,10 @@ public class SaomaFoodsSetActivity extends BaseActivity {
     TextView tvMineSaomafoodsetSaomamoshi;
 
     private PopupWindow mPopupWindow;
+    //是否开启扫码点餐
+    private String scanFood;
+    //0点餐  1点餐+结账
+    private String scanPay;
 
     @Override
     public int initLayout() {
@@ -55,15 +65,9 @@ public class SaomaFoodsSetActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        tvMineSaomafoodsetSaomamoshi.setText(Global.getSpGlobalUtil().getSaomamoshi());
-
         //初始化扫码点餐按钮
-        if (Global.getSpGlobalUtil().getScanCreateMeal()) {
-            tvMineSaomafoodsetSaomafoodBt.setBackground(this.getResources().getDrawable(R.drawable.imgbt_selector));
+        setIsCheck();
 
-        } else {
-            tvMineSaomafoodsetSaomafoodBt.setBackground(this.getResources().getDrawable(R.drawable.imgbt_nomal));
-        }
     }
 
     @Override
@@ -71,28 +75,64 @@ public class SaomaFoodsSetActivity extends BaseActivity {
 
     }
 
+    private void setIsCheck() {
+        HttpFactory.get().url(ApiConfig.GET_IS_SCAN_FOOD).addParams("shopNumber", getShopNumber()).build()
+                .execute(new ResponseCallback<JoinSaomaBean>(this) {
+                    @Override
+                    public void onResponse(JoinSaomaBean response, int id) {
+                        if (response.isSuccess()) {
+                            //初始化开关
+                            if ("0".equals(response.getData().getScanFood())) {
+                                tvMineSaomafoodsetSaomafoodBt.setBackground(SaomaFoodsSetActivity.this.getResources()
+                                        .getDrawable(R.drawable.imgbt_selector));
+                                scanFood = "0";
+                            } else {
+                                tvMineSaomafoodsetSaomafoodBt.setBackground(SaomaFoodsSetActivity.this.getResources()
+                                        .getDrawable(R.drawable.imgbt_nomal));
+                                scanFood = "1";
+                            }
+                            //初始化扫码模式
+                            if ("0".equals(response.getData().getScanPay())) {
+                                //0点餐  1点参加结账
+                                tvMineSaomafoodsetSaomamoshi.setText("点餐");
+                                scanPay = "0";
+                            } else {
+                                scanPay = "1";
+                                tvMineSaomafoodsetSaomamoshi.setText("点餐+结账");
+                            }
+                        } else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
+    }
+
+
     @OnClick({R.id.tv_mine_saomafoodset_saomafood_bt, R.id.rl_mine_saomafoodset_saomapay, R.id.rl_mine_saomafoodset_bucanyu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_mine_saomafoodset_saomafood_bt:
-                if (Global.getSpGlobalUtil().getScanCreateMeal()) {
-                    tvMineSaomafoodsetSaomafoodBt.setBackground(this.getResources().getDrawable(R.drawable.imgbt_nomal));
-                    Global.getSpGlobalUtil().setScanCreateMeal(false);
+                if ("0".equals(scanFood)) {
+                    tvMineSaomafoodsetSaomafoodBt.setBackground(SaomaFoodsSetActivity.this.getResources()
+                            .getDrawable(R.drawable.imgbt_nomal));
+                    scanFood = "1";
                 } else {
-                    tvMineSaomafoodsetSaomafoodBt.setBackground(this.getResources().getDrawable(R.drawable.imgbt_selector));
-                    Global.getSpGlobalUtil().setScanCreateMeal(true);
-
+                    scanFood = "0";
+                    tvMineSaomafoodsetSaomafoodBt.setBackground(SaomaFoodsSetActivity.this.getResources()
+                            .getDrawable(R.drawable.imgbt_selector));
                 }
+                updateScan();
                 break;
             case R.id.rl_mine_saomafoodset_saomapay:
                 //弹框选择点餐模式
                 showPopWindow();
-
                 break;
             case R.id.rl_mine_saomafoodset_bucanyu:
                 //跳转不参与扫码商品的页面
-                Intent noIntent = new Intent(this,NosaomaFoodsActivity.class);
+                Intent noIntent = new Intent(this, NosaomaFoodsActivity.class);
                 startActivity(noIntent);
+                break;
+            default:
                 break;
         }
     }
@@ -104,37 +144,39 @@ public class SaomaFoodsSetActivity extends BaseActivity {
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.module_pop_saomadiancan, null);
 
-        RelativeLayout rl_pop_saoma_diancan = view.findViewById(R.id.rl_pop_saoma_diancan);
-        RelativeLayout rl_pop_saoma_diancan_jiezhang = view.findViewById(R.id.rl_pop_saoma_diancan_jiezhang);
+        RelativeLayout rlPopSaomaDiancan = view.findViewById(R.id.rl_pop_saoma_diancan);
+        RelativeLayout rlPopSaomaDiancanJiezhang = view.findViewById(R.id.rl_pop_saoma_diancan_jiezhang);
 
-        TextView tv_pop_saoma_diancan_icon = view.findViewById(R.id.tv_pop_saoma_diancan_icon);
-        TextView tv_pop_saoma_diancan_jiezhang_icon = view.findViewById(R.id.tv_pop_saoma_diancan_jiezhang_icon);
+        TextView tvPopSaomaDiancanIcon = view.findViewById(R.id.tv_pop_saoma_diancan_icon);
+        TextView tvPopSaomaDiancanJiezhangIcon = view.findViewById(R.id.tv_pop_saoma_diancan_jiezhang_icon);
 
-        setIconFont(new TextView[]{tv_pop_saoma_diancan_icon, tv_pop_saoma_diancan_jiezhang_icon});
+        setIconFont(new TextView[]{tvPopSaomaDiancanIcon, tvPopSaomaDiancanJiezhangIcon});
 
-        //扫码模式回显
-        if (Global.getSpGlobalUtil().getSaomamoshi().contains("结账")) {
-            tv_pop_saoma_diancan_jiezhang_icon.setVisibility(View.VISIBLE);
-            tv_pop_saoma_diancan_icon.setVisibility(View.GONE);
+//        //扫码模式回显
+        if ("0".equals(scanPay)) {
+            tvPopSaomaDiancanJiezhangIcon.setVisibility(View.GONE);
+            tvPopSaomaDiancanIcon.setVisibility(View.VISIBLE);
         } else {
-            tv_pop_saoma_diancan_jiezhang_icon.setVisibility(View.GONE);
-            tv_pop_saoma_diancan_icon.setVisibility(View.VISIBLE);
+            tvPopSaomaDiancanJiezhangIcon.setVisibility(View.VISIBLE);
+            tvPopSaomaDiancanIcon.setVisibility(View.GONE);
         }
 
 
-        rl_pop_saoma_diancan.setOnClickListener(new View.OnClickListener() {
+        rlPopSaomaDiancan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Global.getSpGlobalUtil().setSaomamoshi("点餐");
                 tvMineSaomafoodsetSaomamoshi.setText("点餐");
+                scanPay = "0";
+                updateScan();
                 mPopupWindow.dismiss();
             }
         });
-        rl_pop_saoma_diancan_jiezhang.setOnClickListener(new View.OnClickListener() {
+        rlPopSaomaDiancanJiezhang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Global.getSpGlobalUtil().setSaomamoshi("点餐+结账");
                 tvMineSaomafoodsetSaomamoshi.setText("点餐+结账");
+                scanPay = "1";
+                updateScan();
                 mPopupWindow.dismiss();
 
             }
@@ -152,7 +194,8 @@ public class SaomaFoodsSetActivity extends BaseActivity {
         ColorDrawable dw = new ColorDrawable(getResources().getColor(R.color.black));
         // 设置pop弹出窗体的背景
         mPopupWindow.setBackgroundDrawable(dw);
-        backgroundAlpha(this, 0.5f);//0.0-1.0
+        //0.0-1.0
+        backgroundAlpha(this, 0.5f);
         mPopupWindow.update();
         mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.showAtLocation(llMineSaomafoodset, Gravity.BOTTOM, 0, 0);
@@ -160,10 +203,33 @@ public class SaomaFoodsSetActivity extends BaseActivity {
         mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                backgroundAlpha(SaomaFoodsSetActivity.this, 1f);//0.0-1.0
+                //0.0-1.0
+                backgroundAlpha(SaomaFoodsSetActivity.this, 1f);
             }
         });
 
+    }
+
+    /**
+     * @author fenghao
+     * @date 2018/8/6 0006 上午 10:52
+     * @desc 修改接口
+     */
+    private void updateScan() {
+        HttpFactory.post().url(ApiConfig.UPDATE_IS_SCAN_FOOD)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("scanFood", scanFood)
+                .addParams("scanPay", scanPay)
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("修改成功");
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
     }
 
     /**

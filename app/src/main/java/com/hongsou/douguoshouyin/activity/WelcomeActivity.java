@@ -8,13 +8,14 @@ import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.tool.Global;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 
 /**
- * 幻影页面
+ * 欢迎页面
  */
 public class WelcomeActivity extends BaseActivity {
 
