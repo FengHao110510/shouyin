@@ -49,145 +49,145 @@ public class SharePreferenceGlobalUtil {
     /**
      * 收款小票打印开关开关
      *
-     * @param shoukuanXPKG
+     * @param payPrintSwitch
      */
-    public void setShoukuanXPKG(boolean shoukuanXPKG) {
-        editor.putBoolean("shoukuanXPKG", shoukuanXPKG);
+    public void setPayPrintSwitch(boolean payPrintSwitch) {
+        editor.putBoolean("payPrintSwitch", payPrintSwitch);
         editor.commit();
     }
 
-    public boolean getShoukuanXPKG() {
-        return sp.getBoolean("shoukuanXPKG", true);
+    public boolean getPayPrintSwitch() {
+        return sp.getBoolean("payPrintSwitch", true);
     }
 
     /**
      * 收款小票打印份数
      *
-     * @param shoukuanXPFS
+     * @param payPrintCount
      */
-    public void setShoukuanXPFS(String shoukuanXPFS) {
-        editor.putString("shoukuanXPFS", shoukuanXPFS);
+    public void setPayPrintCount(int payPrintCount) {
+        editor.putInt("payPrintCount", payPrintCount);
         editor.commit();
     }
 
-    public String getShoukuanXPFS() {
-        return sp.getString("shoukuanXPFS", "1");
+    public int getPayPrintCount() {
+        return sp.getInt("payPrintCount", 1);
     }
 
     /**
      * 订单小票打印开关开关
      *
-     * @param dingdanXPKG
+     * @param orderPrintSwitch
      */
-    public void setDingdanXPKG(boolean dingdanXPKG) {
-        editor.putBoolean("dingdanXPKG", dingdanXPKG);
+    public void setOrderPrintSwitch(boolean orderPrintSwitch) {
+        editor.putBoolean("orderPrintSwitch", orderPrintSwitch);
         editor.commit();
     }
 
-    public boolean getDingdanXPKG() {
-        return sp.getBoolean("dingdanXPKG", true);
+    public boolean getOrderPrintSwitch() {
+        return sp.getBoolean("orderPrintSwitch", true);
     }
 
     /**
      * 订单小票打印份数
      *
-     * @param dingdanXPFS
+     * @param orderPrintCount
      */
-    public void setDingdanXPFS(String dingdanXPFS) {
-        editor.putString("dingdanXPFS", dingdanXPFS);
+    public void setOrderPrintCount(int orderPrintCount) {
+        editor.putInt("OrderPrintCount", orderPrintCount);
         editor.commit();
     }
 
-    public String getDingdanXPFS() {
-        return sp.getString("dingdanXPFS", "1");
+    public int getOrderPrintCount() {
+        return sp.getInt("OrderPrintCount", 1);
     }
 
     /**
      * 退款小票打印开关开关
      *
-     * @param tuikuanXPKG
+     * @param refundSwitch
      */
-    public void setTuikuanXPKG(boolean tuikuanXPKG) {
-        editor.putBoolean("tuikuanXPKG", tuikuanXPKG);
+    public void setRefundSwitch(boolean refundSwitch) {
+        editor.putBoolean("refundSwitch", refundSwitch);
         editor.commit();
     }
 
-    public boolean getTuikuanXPKG() {
-        return sp.getBoolean("tuikuanXPKG", true);
+    public boolean getRefundSwitch() {
+        return sp.getBoolean("refundSwitch", true);
     }
 
     /**
      * 退款小票打印份数
      *
-     * @param tuikuanXPFS
+     * @param refundPrintCount
      */
-    public void setTuikuanXPFS(String tuikuanXPFS) {
-        editor.putString("tuikuanXPFS", tuikuanXPFS);
+    public void setRefundPrintCount(int refundPrintCount) {
+        editor.putInt("refundPrintCount", refundPrintCount);
         editor.commit();
     }
 
-    public String getTuikuanXPFS() {
-        return sp.getString("tuikuanXPFS", "1");
+    public int getRefundPrintCount() {
+        return sp.getInt("refundPrintCount", 1);
     }
 
     /**
      * 交班小票打印开关开关
      *
-     * @param jiaobanXPKG
+     * @param handoverPrintSwitch
      */
-    public void setJiaobanXPKG(boolean jiaobanXPKG) {
-        editor.putBoolean("jiaobanXPKG", jiaobanXPKG);
+    public void setHandoverPrintSwitch(boolean handoverPrintSwitch) {
+        editor.putBoolean("handoverPrintSwitch", handoverPrintSwitch);
         editor.commit();
     }
 
-    public boolean getJiaobanXPKG() {
-        return sp.getBoolean("jiaobanXPKG", true);
+    public boolean getHandoverPrintSwitch() {
+        return sp.getBoolean("handoverPrintSwitch", true);
     }
 
     /**
      * 交班小票打印份数
      *
-     * @param jiaobanXPFS
+     * @param handoverPrintCount
      */
-    public void setJiaobanXPFS(String jiaobanXPFS) {
-        editor.putString("jiaobanXPFS", jiaobanXPFS);
+    public void setHandoverPrintCount(int handoverPrintCount) {
+        editor.putInt("handoverPrintCount", handoverPrintCount);
         editor.commit();
     }
 
-    public String getJiaobanXPFS() {
-        return sp.getString("jiaobanXPFS", "1");
+    public int getHandoverPrintCount() {
+        return sp.getInt("handoverPrintCount", 1);
     }
 
     /**
      * 后厨小票打印开关开关
      *
-     * @param houchuXPKG
+     * @param kitchenPrintSwitch
      */
-    public void setHouchuXPKG(boolean houchuXPKG) {
-        editor.putBoolean("houchuXPKG", houchuXPKG);
+    public void setKitchenPrintSwitch(boolean kitchenPrintSwitch) {
+        editor.putBoolean("kitchenPrintSwitch", kitchenPrintSwitch);
         editor.commit();
     }
 
-    public boolean getHouchuXPKG() {
-        return sp.getBoolean("houchuXPKG", true);
+    public boolean getKitchenPrintSwitch() {
+        return sp.getBoolean("kitchenPrintSwitch", true);
     }
 
     /**
      * 后厨小票打印份数
      *
-     * @param houchuXPFS
+     * @param kitchenPrintCount
      */
-    public void setHouchuXPFS(String houchuXPFS) {
-        editor.putString("houchuXPFS", houchuXPFS);
+    public void setKitchenPrintCount(int kitchenPrintCount) {
+        editor.putInt("kitchenPrintCount", kitchenPrintCount);
         editor.commit();
     }
 
-    public String getHouchuXPFS() {
-        return sp.getString("houchuXPFS", "1");
+    public int getKitchenPrintCount() {
+        return sp.getInt("kitchenPrintCount", 1);
     }
 
     /**
-     * TODO =================================小票打印========================================================
+     * TODO ================================= 小票打印 END ========================================================
      */
 
     /**
