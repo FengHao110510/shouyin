@@ -1,11 +1,13 @@
 package com.hongsou.douguoshouyin.activity.mine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
@@ -15,6 +17,7 @@ import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.hongsou.douguoshouyin.tool.bluetooth.BluetoothPrinterUtil;
 import com.hongsou.douguoshouyin.views.CustomDatePicker;
 
 import java.text.SimpleDateFormat;
@@ -224,6 +227,7 @@ public class HandoverActivity extends BaseActivity {
                     public void onResponse(RootBean response, int id) {
                         if (response.isSuccess()) {
                             ToastUtil.showToast("交班成功");
+                            getHandoverInfo();
                         }else {
                             ToastUtil.showToast(response.getMsg());
                         }
@@ -231,6 +235,39 @@ public class HandoverActivity extends BaseActivity {
                 });
     }
 
+    /**
+     * @desc 查询已交班数据
+     * @anthor lpc
+     * @date: 2018/8/4
+     */
+    public void getHandoverInfo() {
+        HttpFactory.get().url(ApiConfig.GET_SHIFT_DETAILS)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("clerkNumber", Global.getSpGlobalUtil().getClerkNumber())
+                .addParams("endTime", DateUtils.getStringDateNotSS())
+                .addParams("tradingTime", DateUtils.getStringDateNotSS())
+                .build()
+                .execute(new ResponseCallback<RootBean<HandoverDetailBean>>(this) {
+                    @Override
+                    public void onResponse(RootBean<HandoverDetailBean> response, int id) {
+                        if (response.isSuccess()) {
+                            HandoverDetailBean data = response.getData();
+                            if (Global.getSpGlobalUtil().getHandoverPrintSwitch()){
+                                BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
+                                        .setContent(data)
+                                        .setCount(Global.getSpGlobalUtil().getHandoverPrintCount())
+                                        .setType(BluetoothPrinterUtil.Print.HANDOVER)
+                                        .build();
+                                util.startPrint();
+                            }
+                            startActivity(new Intent(HandoverActivity.this, LoginActivity.class));
+                            Global.logout();
+                        }else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
+    }
 
     //===============================================================================================
     @Override

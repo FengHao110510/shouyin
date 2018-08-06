@@ -23,8 +23,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.PrinterAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.javabean.BluetoothBean;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.PrinterBean;
+import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
@@ -83,8 +86,14 @@ public class PrinterActivity extends BaseActivity {
         initView();
         initRecycleView();
         initBluetooth();
+        autoConnectBlue();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
 
     @Override
     public void initView() {
@@ -93,11 +102,11 @@ public class PrinterActivity extends BaseActivity {
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
             public void onClick(View v) {
-               BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
-                       .setContent("\n")
-                       .setCount(1)
-                       .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
-                       .build();
+                BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                        .setContent("\n")
+                        .setCount(1)
+                        .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
+                        .build();
                 printerUtil.startPrint();
 
             }
@@ -175,6 +184,36 @@ public class PrinterActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void initData() {
+        HttpFactory.post().url(ApiConfig.GET_PRINT_ADDRESS)
+                .addParams("shopNumber", getShopNumber())
+                .build()
+                .execute(new ResponseCallback<RootBean<List<PrinterBean>>>(this) {
+                    @Override
+                    public void onResponse(RootBean<List<PrinterBean>> response, int id) {
+                        if (response.isSuccess()) {
+                            mPrinterBeans.clear();
+                            List<PrinterBean> data = response.getData();
+                            for (PrinterBean datum : data) {
+                                datum.setStatus("连接");
+                                mPrinterBeans.add(datum);
+                            }
+                            String address = Global.getSpGlobalUtil().getBluetoothAddress();
+                            for (int i = 0; i < mPrinterBeans.size(); i++) {
+                                if (mPrinterBeans.get(i).getAddress().equals(address)) {
+                                    mPrinterBeans.get(i).setStatus("已连接");
+                                    break;
+                                }
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        } else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
+    }
+
     @OnClick({R.id.tv_mine_printer_sousuo, R.id.btn_add_printer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -214,10 +253,10 @@ public class PrinterActivity extends BaseActivity {
         dialog.show();
 
         // 初始化界面
-        initStandardView(view, dialog);
+        initPrinterView(view, dialog);
     }
 
-    private void initStandardView(View view, final Dialog dialog) {
+    private void initPrinterView(View view, final Dialog dialog) {
         final String[] type = {""};
         final EditText etDialogEditContent = (EditText) view.findViewById(R.id.et_dialog_edit_content);
         TextView tvEditIcon = (TextView) view.findViewById(R.id.tv_edit_icon);
@@ -261,14 +300,14 @@ public class PrinterActivity extends BaseActivity {
         tvDialogSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(type[0])){
+                if (TextUtils.isEmpty(type[0])) {
                     ToastUtil.showToast("请先选择打印机类型");
                     return;
                 }
                 Intent intent = new Intent(PrinterActivity.this, BluetoothActivity.class);
                 intent.putExtra("name", etDialogEditContent.getText().toString());
                 intent.putExtra("type", type[0]);
-                startActivityForResult(intent, 99);
+                startActivity(intent);
                 dialog.dismiss();
             }
         });
@@ -324,19 +363,19 @@ public class PrinterActivity extends BaseActivity {
             } else if (requestCode == 0) {
                 ToastUtil.showToast("蓝牙未打开");
             }
-        } else if (requestCode == 99 && resultCode == 120) {
-            BluetoothBean bean = (BluetoothBean) data.getSerializableExtra("bluetooth");
-            String name = data.getStringExtra("name");
-            String type = data.getStringExtra("type");
-            if (bean != null) {
-                PrinterBean printerBean = new PrinterBean();
-                printerBean.setStatus("连接");
-                printerBean.setAddress(bean.getAddress());
-                printerBean.setPrintName(!TextUtils.isEmpty(name) ? name : bean.getName());
-                printerBean.setPrintClassifyName(type);
-                mPrinterBeans.add(printerBean);
-                mAdapter.notifyDataSetChanged();
-            }
+//        } else if (requestCode == 99 && resultCode == 120) {
+//            BluetoothBean bean = (BluetoothBean) data.getSerializableExtra("bluetooth");
+//            String name = data.getStringExtra("name");
+//            String type = data.getStringExtra("type");
+//            if (bean != null) {
+//                PrinterBean printerBean = new PrinterBean();
+//                printerBean.setStatus("连接");
+//                printerBean.setAddress(bean.getAddress());
+//                printerBean.setPrintName(!TextUtils.isEmpty(name) ? name : bean.getName());
+//                printerBean.setPrintClassifyName(type);
+//                mPrinterBeans.add(printerBean);
+//                mAdapter.notifyDataSetChanged();
+//            }
         }
     }
 
@@ -367,7 +406,6 @@ public class PrinterActivity extends BaseActivity {
 
                         @Override
                         public void failureCallBack(String address) {
-
                         }
                     });
         }
@@ -393,7 +431,4 @@ public class PrinterActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @Override
-    public void initData() {
-    }
 }

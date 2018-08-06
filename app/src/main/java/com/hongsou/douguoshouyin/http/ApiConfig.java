@@ -272,4 +272,8 @@ public class ApiConfig {
      * TODO 添加打印机
      */
     public static final String INSERT_SHOP_PRINT = BASE_URL + "/setting/insertShopPrint";
+    /**
+     * TODO 查询打印机列表
+     */
+    public static final String GET_PRINT_ADDRESS = BASE_URL + "/setting/getPrintAddress";
 }
