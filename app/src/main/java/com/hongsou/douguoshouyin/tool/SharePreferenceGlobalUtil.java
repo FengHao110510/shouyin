@@ -190,19 +190,6 @@ public class SharePreferenceGlobalUtil {
      * TODO ================================= 小票打印 END ========================================================
      */
 
-    /**
-     * 扫码点餐开关
-     *
-     * @param scanCreateMeal
-     */
-    public void setScanCreateMeal(boolean scanCreateMeal) {
-        editor.putBoolean("scanCreateMeal", scanCreateMeal);
-        editor.commit();
-    }
-
-    public boolean getScanCreateMeal() {
-        return sp.getBoolean("scanCreateMeal", true);
-    }
 
     /**
      * 应收金额
@@ -260,20 +247,6 @@ public class SharePreferenceGlobalUtil {
         return sp.getString("discountMoney", "");
     }
 
-    /**
-     * 扫码模式  点餐 or 点餐+支付
-     *
-     * @param saomamoshi
-     */
-    public void setSaomamoshi(String saomamoshi) {
-        editor.putString("saomamoshi", saomamoshi);
-        editor.commit();
-    }
-
-    public String getSaomamoshi() {
-        return sp.getString("saomamoshi", "点餐");
-    }
-
 
 /**
  * TODO =================================LOGIN========================================================
@@ -320,6 +293,7 @@ public class SharePreferenceGlobalUtil {
     public String getAliCode() {
         return sp.getString("aliCode", "");
     }
+
     /**
      * 蓝牙地址
      *
@@ -333,6 +307,7 @@ public class SharePreferenceGlobalUtil {
     public String getHaveBlueAddress() {
         return sp.getString("blueAddress", "");
     }
+
     /**
      * 蓝牙名称
      *
@@ -346,6 +321,7 @@ public class SharePreferenceGlobalUtil {
     public String getHaveBlueName() {
         return sp.getString("blueName", "");
     }
+
     /**
      * 账号
      *
@@ -451,6 +427,7 @@ public class SharePreferenceGlobalUtil {
         editor.putString("shopPhone", shopPhone);
         editor.commit();
     }
+
     public String getShopPhone() {
         return sp.getString("shopPhone", "");
     }
@@ -462,6 +439,7 @@ public class SharePreferenceGlobalUtil {
         editor.putString("shopAddress", shopAddress);
         editor.commit();
     }
+
     public String getShopAddress() {
         return sp.getString("shopAddress", "");
     }

@@ -253,6 +253,14 @@ public class ApiConfig {
      */
     public static final String GET_SCAN_FOOD = BASE_URL + "/food/getScanFood";
     /**
+     * TODO 查询是否参与扫码
+     */
+    public static final String GET_IS_SCAN_FOOD = BASE_URL + "/setting/getIsScanFood";
+    /**
+     * TODO 修改参与扫码设置
+     */
+    public static final String UPDATE_IS_SCAN_FOOD = BASE_URL + "/setting/updateIsScanFood";
+    /**
      * TODO 查询店铺授权信息
      */
     public static final String GET_SHOP_PAYMENT_USER = BASE_URL + "/setting/getShopPaymentUser";

@@ -154,11 +154,10 @@ public class PayForActivity extends BaseActivity {
                     if (!tvPayforPayforXiaofeijine.getText().toString().equals("")) {
 
                         xiaofeijine = Float.valueOf(tvPayforPayforXiaofeijine.getText().toString());
-                        tvPayforPayforYingshoujine.setText(xiaofeijine + "");
                     } else {
                         xiaofeijine = 0;
                     }
-
+                    tvPayforPayforYingshoujine.setText(xiaofeijine + "");
                 } else {
                     if ("0".equals(flag)) {
                         //获得折后的应收金额
