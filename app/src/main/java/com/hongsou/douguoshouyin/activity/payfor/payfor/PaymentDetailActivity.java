@@ -232,7 +232,14 @@ public class PaymentDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_order_print:
                 // 打印小票
-
+//                if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+//                    BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
+//                            .setType(BluetoothPrinterUtil.Print.ORDER)
+//                            .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+//                            .setContent()
+//                            .build();
+//                    util.startPrint();
+//                }
                 break;
             case R.id.btn_order_again:
                 // 继续收款
