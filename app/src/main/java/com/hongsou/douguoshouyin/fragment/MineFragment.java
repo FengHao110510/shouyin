@@ -1,10 +1,16 @@
 package com.hongsou.douguoshouyin.fragment;
 
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -169,6 +175,7 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_phone:
                 //客服电话
+                showDialogCallPhone();
                 break;
             case R.id.btn_mine_logout:
                 //注销
@@ -178,7 +185,24 @@ public class MineFragment extends BaseFragment {
                 break;
         }
     }
-
+    private void showDialogCallPhone() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("提示");
+        builder.setMessage("是否拨打客服电话");
+        builder.setPositiveButton("拨打", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel:0311-89643782"));
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, 1);
+                } else {
+                    startActivity(intentCall);
+                }
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.create().show();
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
