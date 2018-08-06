@@ -28,6 +28,7 @@ import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.hongsou.douguoshouyin.tool.bluetooth.BluetoothPrinterUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -83,6 +84,7 @@ public class PaymentDetailActivity extends BaseActivity {
     private String mBatch;
     private String paymentBatch = "";
     String now;//现在时间
+    private PaymentDetailBean mPaymentDetailBean;
 
     @Override
     public int initLayout() {
@@ -167,8 +169,8 @@ public class PaymentDetailActivity extends BaseActivity {
                     @Override
                     public void onResponse(RootBean<PaymentDetailBean> response, int id) {
                         if (response.isSuccess()) {
-                            PaymentDetailBean data = response.getData();
-                            renderView(data);
+                            mPaymentDetailBean = response.getData();
+                            renderView(mPaymentDetailBean);
                         } else {
                             ToastUtil.showToast(response.getMsg());
                         }
@@ -232,14 +234,28 @@ public class PaymentDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_order_print:
                 // 打印小票
-//                if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
-//                    BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
-//                            .setType(BluetoothPrinterUtil.Print.ORDER)
-//                            .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
-//                            .setContent()
-//                            .build();
-//                    util.startPrint();
-//                }
+                if (!"00000000000000000000".equals(mBatch)) {
+                    // 不是纯收款，开单
+                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+                        BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
+                                .setType(BluetoothPrinterUtil.Print.ORDER)
+                                .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+                                .setContent(mPaymentDetailBean)
+                                .build();
+                        util.startPrint();
+                    }
+                } else {
+                    // 纯收款
+                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+                        BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
+                                .setType(BluetoothPrinterUtil.Print.ORDER)
+                                .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+                                .setContent(mPaymentDetailBean)
+                                .build();
+                        util.startPrint();
+                    }
+                }
+
                 break;
             case R.id.btn_order_again:
                 // 继续收款

@@ -25,6 +25,7 @@ public class PaymentDetailBean {
      * recharge : 0
      * amountCollected : 0.00
      * orderType : 1
+     * clerkUserName : 17732152792
      */
 
     private int page;
@@ -39,6 +40,7 @@ public class PaymentDetailBean {
     private String recharge;
     private String amountCollected;
     private String orderType;
+    private String clerkUserName;
 
     public int getPage() {
         return page;
@@ -134,5 +136,13 @@ public class PaymentDetailBean {
 
     public void setOrderType(String orderType) {
         this.orderType = orderType;
+    }
+
+    public String getClerkUserName() {
+        return clerkUserName;
+    }
+
+    public void setClerkUserName(String clerkUserName) {
+        this.clerkUserName = clerkUserName;
     }
 }

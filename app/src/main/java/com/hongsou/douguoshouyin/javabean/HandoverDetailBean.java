@@ -34,6 +34,9 @@ public class HandoverDetailBean {
      * orderDiscount : 0.00
      * cash : 0.00
      * cashAmountCount : 1
+     * aliCount : 0
+     * weChatCount : 0
+     * cashCount : 1
      */
 
 
@@ -58,8 +61,16 @@ public class HandoverDetailBean {
     private String foodProductsDiscount;
     private String discountAmount;
     private String orderDiscount;
+    // 找零
     private String cash;
+    // 现金支付数量
     private String cashAmountCount;
+    // 支付宝数量
+    private String aliCount;
+    // 微信数量
+    private String weChatCount;
+    // 找零数量
+    private String cashCount;
 
 
     public String getEndTime() {
@@ -236,5 +247,29 @@ public class HandoverDetailBean {
 
     public void setCashAmountCount(String cashAmountCount) {
         this.cashAmountCount = cashAmountCount;
+    }
+
+    public String getAliCount() {
+        return aliCount;
+    }
+
+    public void setAliCount(String aliCount) {
+        this.aliCount = aliCount;
+    }
+
+    public String getWeChatCount() {
+        return weChatCount;
+    }
+
+    public void setWeChatCount(String weChatCount) {
+        this.weChatCount = weChatCount;
+    }
+
+    public String getCashCount() {
+        return cashCount;
+    }
+
+    public void setCashCount(String cashCount) {
+        this.cashCount = cashCount;
     }
 }

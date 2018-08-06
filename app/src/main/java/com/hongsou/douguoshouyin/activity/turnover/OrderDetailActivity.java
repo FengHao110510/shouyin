@@ -104,6 +104,7 @@ public class OrderDetailActivity extends BaseActivity {
     //支付方式
     String type;
     private OrderDetailBean mOrderDetailBean;
+    private OrderDetailBean.DataBean.OrderBean mOrder;
 
     @Override
     public int initLayout() {
@@ -148,18 +149,14 @@ public class OrderDetailActivity extends BaseActivity {
                 dismissLoadingDialog();
                 Log.e(TAG, "onResponse: " + response.toString());
                 mOrderDetailBean = new Gson().fromJson(response, OrderDetailBean.class);
-
-                if (mOrderDetailBean.getCode() == 1000) {
-                    OrderDetailBean.DataBean.OrderBean order = mOrderDetailBean.getData().getOrder();
-
-                    addOrderDetails(order);
+                if (mOrderDetailBean.isSuccess()) {
+                    mOrder = mOrderDetailBean.getData().getOrder();
+                    addOrderDetails(mOrder);
                     packageBeanList = mOrderDetailBean.getData().getPackageX();
                     groupBeanList = mOrderDetailBean.getData().getGroup();
                     foodBeanList = mOrderDetailBean.getData().getFood();
-
                     //总份数
                     tvTurnoverOrderdetailShangpinfenshu.setText((packageBeanList.size() + groupBeanList.size() + foodBeanList.size()) + "");
-
                     if (packageBeanList.size() > 0) {
                         addPackage(packageBeanList);
                     }
@@ -169,10 +166,8 @@ public class OrderDetailActivity extends BaseActivity {
                     if (foodBeanList.size() > 0) {
                         addFood(foodBeanList);
                     }
-
                     //展示
                     showFoodList();
-
                 } else {
                     ToastUtil.showToast(mOrderDetailBean.getMsg());
                 }
@@ -192,10 +187,11 @@ public class OrderDetailActivity extends BaseActivity {
      * @desc 显示订单详情的数据
      */
     private void addOrderDetails(OrderDetailBean.DataBean.OrderBean order) {
-        //TODO 判断是不是已退款的 是的话隐藏退款按钮
+        // 判断是不是已退款的 是的话隐藏退款按钮
         if (order.getOrderType().contains("已退款")) {
             vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
             tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+            tvTurnoverOrderdetailDayinxiaopiao.setText("打印退款小票");
         }
         tvTurnoverOrderdetailDingdanzhuangtai.setText(order.getOrderType());
 
@@ -423,12 +419,27 @@ public class OrderDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_turnover_orderdetail_dayinxiaopiao:
                 //打印小票
-                BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
-                        .setContent(mOrderDetailBean)
-                        .setCount(1)
-                        .setType(BluetoothPrinterUtil.Print.ORDER)
-                        .build();
-                printerUtil.startPrint();
+                if (mOrder.getOrderType().contains("已退款")) {
+                    // 退单打印
+                    if (Global.getSpGlobalUtil().getRefundPrintSwitch()){
+                        BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                                .setContent(mOrderDetailBean)
+                                .setCount(Global.getSpGlobalUtil().getRefundPrintCount())
+                                .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
+                                .build();
+                        printerUtil.startPrint();
+                    }
+                }else {
+                    // 订单打印
+                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+                        BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                                .setContent(mOrderDetailBean)
+                                .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+                                .setType(BluetoothPrinterUtil.Print.ORDER)
+                                .build();
+                        printerUtil.startPrint();
+                    }
+                }
                 break;
             default:
                 break;
