@@ -19,14 +19,17 @@ import android.widget.ListView;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.BluetoothListAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BluetoothBean;
+import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,15 +101,40 @@ public class BluetoothActivity extends BaseActivity {
                 if (bluetoothAdapter != null){
                     bluetoothAdapter.cancelDiscovery();
                 }
-                Intent intent = new Intent();
-                intent.putExtra("bluetooth", (Serializable) blueToothModels.get(i));
-                intent.putExtra("name", name);
-                intent.putExtra("type", type);
-                setResult(120, intent);
-                finish();
+                submitPrinter(blueToothModels.get(i));
             }
         });
     }
+
+    /**
+     * @desc 添加打印机
+     * @anthor lpc
+     * @date: 2018/8/6
+     * @param bluetoothBean 打印机数据
+     */
+    private void submitPrinter(BluetoothBean bluetoothBean) {
+        HttpFactory.post().url(ApiConfig.INSERT_SHOP_PRINT)
+                .addParams("shopNumber", getShopNumber())
+                .addParams("printWidth", "58mm")
+                .addParams("printBrand", "")
+                .addParams("printClassifyName", type)
+                .addParams("printName", bluetoothBean.getName())
+                .addParams("printAddress", bluetoothBean.getAddress())
+                .build()
+                .execute(new ResponseCallback<RootBean>(this) {
+                    @Override
+                    public void onResponse(RootBean response, int id) {
+                        if (response.isSuccess()) {
+                            Intent intent = new Intent(BluetoothActivity.this, PrinterActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            ToastUtil.showToast(response.getMsg());
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 启动蓝牙
