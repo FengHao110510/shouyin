@@ -124,7 +124,7 @@ public class CashierXPActivity extends BaseActivity {
             flagDingdan = false;
             tvMineCashierXpDingdanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_nomal));
         }
-        if (Global.getSpGlobalUtil().getRefundSwitch()) {
+        if (Global.getSpGlobalUtil().getRefundPrintSwitch()) {
             flagTuikuan = true;
             tvMineCashierXpTuikuanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
         } else {
@@ -242,7 +242,7 @@ public class CashierXPActivity extends BaseActivity {
         //保存开关状态
         Global.getSpGlobalUtil().setPayPrintSwitch(flagShoukuan);
         Global.getSpGlobalUtil().setOrderPrintSwitch(flagDingdan);
-        Global.getSpGlobalUtil().setRefundSwitch(flagTuikuan);
+        Global.getSpGlobalUtil().setRefundPrintSwitch(flagTuikuan);
         Global.getSpGlobalUtil().setHandoverPrintSwitch(flagJiaoban);
         Global.getSpGlobalUtil().setKitchenPrintSwitch(flagHouchu);
         //保存份数 如果为空则默认是1

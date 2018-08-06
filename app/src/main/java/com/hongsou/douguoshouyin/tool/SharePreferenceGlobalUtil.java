@@ -107,12 +107,12 @@ public class SharePreferenceGlobalUtil {
      *
      * @param refundSwitch
      */
-    public void setRefundSwitch(boolean refundSwitch) {
+    public void setRefundPrintSwitch(boolean refundSwitch) {
         editor.putBoolean("refundSwitch", refundSwitch);
         editor.commit();
     }
 
-    public boolean getRefundSwitch() {
+    public boolean getRefundPrintSwitch() {
         return sp.getBoolean("refundSwitch", true);
     }
 
