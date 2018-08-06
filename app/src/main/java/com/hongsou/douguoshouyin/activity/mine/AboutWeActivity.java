@@ -26,6 +26,7 @@ import com.hongsou.douguoshouyin.activity.login.LoginActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.SystemSetupBean;
+import com.hongsou.douguoshouyin.tool.APKVersionCodeUtils;
 import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -91,7 +92,9 @@ public class AboutWeActivity extends BaseActivity {
                 if (response.isSuccess()) {
                     //123瞎写的
                     //判断当前版本号与后台是否相同
-                    if (!"123".equals(response.getData().getNewVersionNumber())) {
+                    String versionCode = APKVersionCodeUtils.getVersionCode(AboutWeActivity.this) + "";
+
+                    if (!versionCode.equals(response.getData().getNewVersionNumber())) {
                         showAskDialog(response.getData().getDownloadAddress());
                     } else {
                         ToastUtil.showToast("最新版本无需更新");
