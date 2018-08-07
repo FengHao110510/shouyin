@@ -150,7 +150,7 @@ public class TableActivity extends BaseActivity {
                         , tableList.get(k).getNumber()
                         , tableList.get(k).getRegionNumber()
                         , false
-                ,tableList.get(k).getQrCodeLink());
+                        , tableList.get(k).getQrCodeLink());
                 Log.e(TAG, "showTableList: " + tableList.get(k).getNumber());
                 tableRegionTitleBean.addSubItem(tableListContentBean);
             }
@@ -160,7 +160,7 @@ public class TableActivity extends BaseActivity {
             TableListContentBean tableListContentBean2 = new TableListContentBean("",
                     "", "", dataBean.getPedestal(), 110510,
                     dataBean.getRegionNumber(), false
-            ,"");
+                    , "");
             tableRegionTitleBean.addSubItem(tableListContentBean2);
             res.add(tableRegionTitleBean);
         }
@@ -230,12 +230,14 @@ public class TableActivity extends BaseActivity {
         int w = display.getWidth();
         int h = display.getHeight();
         TextView tvDialogEditTitle = view.findViewById(R.id.tv_dialog_edit_title);
+        TextView tvDialogEditIcon = view.findViewById(R.id.tv_dialog_edit_icon);
         TextView tvDialogEditYes = view.findViewById(R.id.tv_dialog_edit_yes);
         TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);
         final EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
-
+        tvDialogEditIcon.setVisibility(View.VISIBLE);
+        setIconFont(new TextView[]{tvDialogEditIcon});
         tvDialogEditTitle.setText("请输入桌台号码");
-        etDialogEditContent.setHint("桌台号");
+        etDialogEditContent.setHint("输入桌台号");
         etDialogEditContent.setInputType(InputType.TYPE_CLASS_NUMBER);
         tvDialogEditCancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,13 +370,13 @@ public class TableActivity extends BaseActivity {
                             //根据条目数形判断有没有被选中
                             if (tableListContentBean.isSelectFlag()) {
                                 DeletTableBean deletTableBean = new DeletTableBean(tableListContentBean.getLogGid());
-                                for (int n = 0;n<dataBeanList.size();n++){
-                                    if (dataBeanList.get(n).getRegionNumber().equals(tableListContentBean.getRegionNumber())){
+                                for (int n = 0; n < dataBeanList.size(); n++) {
+                                    if (dataBeanList.get(n).getRegionNumber().equals(tableListContentBean.getRegionNumber())) {
                                         deletTableBean.setRemarks(dataBeanList.get(n).getRegionName());
                                     }
                                 }
-                                deletTableBean.setNumber(tableListContentBean.getNumber()+"");
-                                deletTableBean.setQrCodeLink(tableListContentBean.getQrCodeLink()+"");
+                                deletTableBean.setNumber(tableListContentBean.getNumber() + "");
+                                deletTableBean.setQrCodeLink(tableListContentBean.getQrCodeLink() + "");
                                 emailTableBeanArrayList.add(deletTableBean);
                             }
                         }

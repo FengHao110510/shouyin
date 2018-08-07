@@ -527,6 +527,7 @@ public class PayForActivity extends BaseActivity {
                 .addParams("amountCollected", Global.getSpGlobalUtil().getReceivableMoney())
                 .addParams("discountType", Global.getSpGlobalUtil().getDiscountType())
                 .addParams("discountMoney", Global.getSpGlobalUtil().getDiscountMoney())
+                .addParams("clerkNumber", Global.getSpGlobalUtil().getClerkNumber())
                 .build().execute(new ResponseCallback<BaseBean>(this) {
 
             @Override
