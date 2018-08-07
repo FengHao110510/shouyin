@@ -26,6 +26,8 @@ import com.hongsou.douguoshouyin.fragment.MineFragment;
 import com.hongsou.douguoshouyin.fragment.MoreFragment;
 import com.hongsou.douguoshouyin.fragment.PayForFragment;
 import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
+import com.hongsou.douguoshouyin.http.ThreadPoolUtils;
+import com.hongsou.douguoshouyin.http.ftp.FtpHelper;
 import com.hongsou.douguoshouyin.http.ftp.FtpNetCallBack;
 import com.hongsou.douguoshouyin.http.ftp.FtpUploadTask;
 import com.hongsou.douguoshouyin.tool.BlueToothManeger;
@@ -39,6 +41,7 @@ import org.apache.commons.net.ftp.FTPFile;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -117,13 +120,14 @@ public class MainActivity extends BaseActivity implements FtpNetCallBack {
 
     @Override
     protected void init() {
+        initFtp();
         initView();
         initData();
         initBack();
         getSkuNum();
         initPermission();
         autoConnetBlueTooth();
-        sendCrashReportsToServer();
+//        sendCrashReportsToServer();
     }
 
 
@@ -339,6 +343,31 @@ public class MainActivity extends BaseActivity implements FtpNetCallBack {
      */
     private static final String CRASH_REPORTER_EXTENSION = ".cr";
 
+    /**
+     * ftp工具类
+     */
+    public static FtpHelper ftp;
+
+    /**
+     * @desc 初始化ftp
+     * @anthor lpc
+     * @date: 2018/7/30
+     */
+    private void initFtp() {
+        ThreadPoolUtils.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (ftp == null) {
+                    try {
+                        ftp = new FtpHelper();
+                        ftp.openConnect();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
 
     private void initFile() {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -376,7 +405,7 @@ public class MainActivity extends BaseActivity implements FtpNetCallBack {
      */
     private void upload(String localFilePath) {
         if (!TextUtils.isEmpty(localFilePath)) {
-            new FtpUploadTask(BaseApplication.ftp, this, localFilePath, Constant.FTP_FILE_PATH).execute();
+            new FtpUploadTask(ftp, this, localFilePath, Constant.FTP_FILE_PATH).execute();
         }
     }
 

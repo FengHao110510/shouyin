@@ -8,8 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.http.ApiConfig;
-import com.hongsou.douguoshouyin.http.ThreadPoolUtils;
-import com.hongsou.douguoshouyin.http.ftp.FtpHelper;
+import com.hongsou.douguoshouyin.tool.CrashHandler;
 import com.hongsou.greendao.gen.DaoMaster;
 import com.hongsou.greendao.gen.DaoSession;
 import com.iflytek.cloud.SpeechConstant;
@@ -28,7 +27,6 @@ import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
 
-import java.io.IOException;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
@@ -48,10 +46,6 @@ public class BaseApplication extends MultiDexApplication {
 
     public static BaseApplication app;
 
-    /**
-     * ftp工具类
-     */
-    public static FtpHelper ftp;
 
     /**
      * 蓝牙对象
@@ -76,31 +70,10 @@ public class BaseApplication extends MultiDexApplication {
         settingOrm();
         initGreenDao();
         initKedaxunfei();
-        initFtp();
         //初始化全局异常捕获
-//        CrashHandler.getInstance().init(this);
+        CrashHandler.getInstance().init(this);
     }
 
-    /**
-     * @desc 初始化ftp
-     * @anthor lpc
-     * @date: 2018/7/30
-     */
-    private void initFtp() {
-        ThreadPoolUtils.execute(new Runnable() {
-            @Override
-            public void run() {
-                if (ftp == null) {
-                    try {
-                        ftp = new FtpHelper();
-                        ftp.openConnect();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-    }
     /**
      * 科大讯飞
      */
