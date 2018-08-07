@@ -151,11 +151,11 @@ public class CashierXPActivity extends BaseActivity {
      * 初始化份数
      */
     private void initFS() {
-        etMineCashierXpShoukuanCount.setText(Global.getSpGlobalUtil().getPayPrintCount());
-        etMineCashierXpDingdanCount.setText(Global.getSpGlobalUtil().getOrderPrintCount());
-        etMineCashierXpTuikuanCount.setText(Global.getSpGlobalUtil().getRefundPrintCount());
-        etMineCashierXpJiaobanCount.setText(Global.getSpGlobalUtil().getHandoverPrintCount());
-        etMineCashierXpHouchuCount.setText(Global.getSpGlobalUtil().getKitchenPrintCount());
+        etMineCashierXpShoukuanCount.setText(Global.getSpGlobalUtil().getPayPrintCount()+"");
+        etMineCashierXpDingdanCount.setText(Global.getSpGlobalUtil().getOrderPrintCount()+"");
+        etMineCashierXpTuikuanCount.setText(Global.getSpGlobalUtil().getRefundPrintCount()+"");
+        etMineCashierXpJiaobanCount.setText(Global.getSpGlobalUtil().getHandoverPrintCount()+"");
+        etMineCashierXpHouchuCount.setText(Global.getSpGlobalUtil().getKitchenPrintCount()+"");
 
     }
 

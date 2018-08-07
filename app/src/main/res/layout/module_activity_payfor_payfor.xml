@@ -336,7 +336,7 @@
                 android:layout_marginRight="0.1dp"
                 android:layout_marginTop="0.1dp"
                 android:layout_weight="1"
-                android:background="@color/bg_main_top_gray"
+                android:background="@color/gray"
                 android:gravity="center|bottom"
 
                 android:text="收"
@@ -411,7 +411,7 @@
                 android:layout_marginLeft="0.1dp"
                 android:layout_marginRight="0.1dp"
                 android:layout_weight="1"
-                android:background="@color/bg_main_top_gray"
+                android:background="@color/gray"
                 android:gravity="center|top"
 
                 android:text="款"

@@ -104,6 +104,7 @@ public class OrderDetailActivity extends BaseActivity {
     //支付方式
     String type;
     private OrderDetailBean mOrderDetailBean;
+    private OrderDetailBean.DataBean.OrderBean order;
 
     @Override
     public int initLayout() {
@@ -150,7 +151,7 @@ public class OrderDetailActivity extends BaseActivity {
                 mOrderDetailBean = new Gson().fromJson(response, OrderDetailBean.class);
 
                 if (mOrderDetailBean.getCode() == 1000) {
-                    OrderDetailBean.DataBean.OrderBean order = mOrderDetailBean.getData().getOrder();
+                    order = mOrderDetailBean.getData().getOrder();
 
                     addOrderDetails(order);
                     packageBeanList = mOrderDetailBean.getData().getPackageX();
@@ -193,7 +194,7 @@ public class OrderDetailActivity extends BaseActivity {
      */
     private void addOrderDetails(OrderDetailBean.DataBean.OrderBean order) {
         //TODO 判断是不是已退款的 是的话隐藏退款按钮
-        if (order.getOrderType().contains("已退款")) {
+        if (order.getOrderType().contains("已退")) {
             vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
             tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
         }
@@ -239,7 +240,7 @@ public class OrderDetailActivity extends BaseActivity {
             for (int j = 0; j < packageBeanList.get(i).getPackageList().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
                 orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("--" + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodCount("--- " + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
                         + "(" + packageBeanList.get(i).getPackageList().get(j).getStandardName() + ")");
                 orderFoodBeanB.setFoodPrice("*" + packageBeanList.get(i).getPackageList().get(j).getFoodProductsCount());
                 orderFoodBeanList.add(orderFoodBeanB);
@@ -268,7 +269,7 @@ public class OrderDetailActivity extends BaseActivity {
             for (int j = 0; j < groupBeanList.get(i).getGroupFood().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
                 orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("--" + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodCount("--- " + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
                         + "(" + groupBeanList.get(i).getGroupFood().get(j).getStandardName() + ")");
                 orderFoodBeanB.setFoodPrice("*" + groupBeanList.get(i).getGroupFood().get(j).getFoodProductsCount());
                 orderFoodBeanList.add(orderFoodBeanB);
@@ -415,6 +416,7 @@ public class OrderDetailActivity extends BaseActivity {
         });
     }
 
+
     @OnClick({R.id.tv_turnover_orderdetail_tuikuan, R.id.tv_turnover_orderdetail_dayinxiaopiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -423,12 +425,27 @@ public class OrderDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_turnover_orderdetail_dayinxiaopiao:
                 //打印小票
-                BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
-                        .setContent(mOrderDetailBean)
-                        .setCount(1)
-                        .setType(BluetoothPrinterUtil.Print.ORDER)
-                        .build();
-                printerUtil.startPrint();
+                if (order.getOrderType().contains("已退")) {
+                    // 退单打印
+                    if (Global.getSpGlobalUtil().getRefundPrintSwitch()){
+                        BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                                .setContent(mOrderDetailBean)
+                                .setCount(Global.getSpGlobalUtil().getRefundPrintCount())
+                                .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
+                                .build();
+                        printerUtil.startPrint();
+                    }
+                }else {
+                    // 订单打印
+                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+                        BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                                .setContent(mOrderDetailBean)
+                                .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+                                .setType(BluetoothPrinterUtil.Print.ORDER)
+                                .build();
+                        printerUtil.startPrint();
+                    }
+                }
                 break;
             default:
                 break;
