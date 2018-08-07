@@ -31,10 +31,13 @@
         android:id="@+id/tv_item_addfenzu_singlefoods_num"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.4"
+        android:layout_weight="1"
         android:gravity="center"
-        android:hint="输入编号"
+        android:hint="编号"
         android:inputType="number"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textColor="@color/black"
         android:textSize="14sp" />
 
@@ -43,9 +46,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.6"
+        android:background="@drawable/btn_red"
         android:gravity="center"
         android:text="删除"
-        android:background="@drawable/btn_red"
         android:textColor="@color/white"
         android:textSize="14sp" />
 </LinearLayout>

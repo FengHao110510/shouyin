@@ -65,8 +65,6 @@ public class PayForActivity extends BaseActivity {
     TextView tvPayforPayforShezhi;
     @BindView(R.id.tv_payfor_payfor_xiaofeijine)
     TextView tvPayforPayforXiaofeijine;
-    @BindView(R.id.tv_payfor_payfor_jiantou)
-    TextView tvPayforPayforJiantou;
     @BindView(R.id.bt_payfor_payfor_btn1)
     Button btPayforPayforBtn1;
     @BindView(R.id.bt_payfor_payfor_btn2)
@@ -149,7 +147,7 @@ public class PayForActivity extends BaseActivity {
                     xiaofeijine = 0;
                 }
 
-                if (tvPayforPayforShezhi.getText().toString().contains("去设置")) {
+                if (tvPayforPayforShezhi.getText().toString().contains("去选择")) {
                     //没有选择折扣
                     if (!tvPayforPayforXiaofeijine.getText().toString().equals("")) {
 
@@ -236,7 +234,7 @@ public class PayForActivity extends BaseActivity {
                 break;
             case 1:
                 if (resultCode == 500) {
-                    tvPayforPayforShezhi.setText("去设置");
+                    tvPayforPayforShezhi.setText("去选择");
 
                     //不选择折扣
                     //没有选择折扣

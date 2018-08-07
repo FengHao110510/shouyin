@@ -222,11 +222,7 @@ public class ApiConfig {
     /**
      * TODO 注销接口
      */
-    public static final String LOGOUT = BASE_URL + "";
-    /**
-     * TODO mine初始化头像和地址接口
-     */
-    public static final String ADRSANDPHOTO = BASE_URL + "";
+    public static final String LOGOUT = BASE_URL + "/user/logOut";
 
     /**
      * TODO 门店信息

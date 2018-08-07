@@ -344,11 +344,10 @@ public class TableActivity extends BaseActivity {
     Dialog downLoadDialog;
 
     private void showDownLoadDialog() {
-        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_edit, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_edit2, null);
         Display display = getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
         int h = display.getHeight();
-        TextView tvDialogEditTitle = view.findViewById(R.id.tv_dialog_edit_title);
         TextView tvDialogEditYes = view.findViewById(R.id.tv_dialog_edit_yes);
         TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);
         TextView tvDialogEditIcon = view.findViewById(R.id.tv_dialog_edit_icon);
@@ -356,7 +355,6 @@ public class TableActivity extends BaseActivity {
         tvDialogEditIcon.setVisibility(View.VISIBLE);
         setIconFont(new TextView[]{tvDialogEditIcon});
         etDialogEditContent.setHint("请输入要发送的邮箱地址！");
-        tvDialogEditTitle.setVisibility(View.GONE);
         tvDialogEditYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
