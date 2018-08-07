@@ -30,8 +30,10 @@ public class BluetoothPrinterUtil {
      * 打印类型
      */
     public enum Print {
-        // 订单打印
+        // 开单打印
         ORDER,
+        // 收款打印
+        PAY,
         // 交班打印
         HANDOVER,
         // 退单打印
@@ -114,6 +116,9 @@ public class BluetoothPrinterUtil {
             switch (mPrint) {
                 case ORDER:
                     BluetoothPrinterTemplate.printOrder(mObject);
+                    break;
+                case PAY:
+                    BluetoothPrinterTemplate.printPay(mObject);
                     break;
                 case HANDOVER:
                     BluetoothPrinterTemplate.printHandover(mObject);

@@ -24,7 +24,22 @@ public class HandoverDetailBean {
      * refoundAmount : 0.00
      * amountCollected : 0.00
      * collectedCount : 0
+     * orderAmount : 23.00
+     * amountReceivable : 23.00
+     * memberPreferences : 0.00
+     * orderNoPayCount : 0
+     * orderPayCount : 1
+     * foodProductsDiscount : 0.00
+     * discountAmount : 0.00
+     * orderDiscount : 0.00
+     * cash : 0.00
+     * cashAmountCount : 1
+     * aliCount : 0
+     * weChatCount : 0
+     * cashCount : 1
      */
+
+
 
     private int page;
     private int rows;
@@ -37,6 +52,34 @@ public class HandoverDetailBean {
     private String amountCollected;
     private String collectedCount;
     private String tradingTime;
+    private String endTime;
+    private String orderAmount;
+    private String amountReceivable;
+    private String memberPreferences;
+    private String orderNoPayCount;
+    private String orderPayCount;
+    private String foodProductsDiscount;
+    private String discountAmount;
+    private String orderDiscount;
+    // 找零
+    private String cash;
+    // 现金支付数量
+    private String cashAmountCount;
+    // 支付宝数量
+    private String aliCount;
+    // 微信数量
+    private String weChatCount;
+    // 找零数量
+    private String cashCount;
+
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getTradingTime() {
         return tradingTime;
@@ -124,5 +167,109 @@ public class HandoverDetailBean {
 
     public void setCollectedCount(String collectedCount) {
         this.collectedCount = collectedCount;
+    }
+
+    public String getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(String orderAmount) {
+        this.orderAmount = orderAmount;
+    }
+
+    public String getAmountReceivable() {
+        return amountReceivable;
+    }
+
+    public void setAmountReceivable(String amountReceivable) {
+        this.amountReceivable = amountReceivable;
+    }
+
+    public String getMemberPreferences() {
+        return memberPreferences;
+    }
+
+    public void setMemberPreferences(String memberPreferences) {
+        this.memberPreferences = memberPreferences;
+    }
+
+    public String getOrderNoPayCount() {
+        return orderNoPayCount;
+    }
+
+    public void setOrderNoPayCount(String orderNoPayCount) {
+        this.orderNoPayCount = orderNoPayCount;
+    }
+
+    public String getOrderPayCount() {
+        return orderPayCount;
+    }
+
+    public void setOrderPayCount(String orderPayCount) {
+        this.orderPayCount = orderPayCount;
+    }
+
+    public String getFoodProductsDiscount() {
+        return foodProductsDiscount;
+    }
+
+    public void setFoodProductsDiscount(String foodProductsDiscount) {
+        this.foodProductsDiscount = foodProductsDiscount;
+    }
+
+    public String getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(String discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public String getOrderDiscount() {
+        return orderDiscount;
+    }
+
+    public void setOrderDiscount(String orderDiscount) {
+        this.orderDiscount = orderDiscount;
+    }
+
+    public String getCash() {
+        return cash;
+    }
+
+    public void setCash(String cash) {
+        this.cash = cash;
+    }
+
+    public String getCashAmountCount() {
+        return cashAmountCount;
+    }
+
+    public void setCashAmountCount(String cashAmountCount) {
+        this.cashAmountCount = cashAmountCount;
+    }
+
+    public String getAliCount() {
+        return aliCount;
+    }
+
+    public void setAliCount(String aliCount) {
+        this.aliCount = aliCount;
+    }
+
+    public String getWeChatCount() {
+        return weChatCount;
+    }
+
+    public void setWeChatCount(String weChatCount) {
+        this.weChatCount = weChatCount;
+    }
+
+    public String getCashCount() {
+        return cashCount;
+    }
+
+    public void setCashCount(String cashCount) {
+        this.cashCount = cashCount;
     }
 }

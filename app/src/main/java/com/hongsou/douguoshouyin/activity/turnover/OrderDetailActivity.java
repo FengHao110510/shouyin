@@ -184,14 +184,16 @@ public class OrderDetailActivity extends BaseActivity {
 
 
     /**
+     * @param
      * @param order
+     * @return
      * @author fenghao
      * @date 2018/7/14 0014 下午 15:25
      * @desc 显示订单详情的数据
      */
     private void addOrderDetails(OrderDetailBean.DataBean.OrderBean order) {
         //TODO 判断是不是已退款的 是的话隐藏退款按钮
-        if (order.getOrderType().contains("已退")) {
+        if (order.getOrderType().contains("已退款")) {
             vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
             tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
         }
@@ -237,7 +239,7 @@ public class OrderDetailActivity extends BaseActivity {
             for (int j = 0; j < packageBeanList.get(i).getPackageList().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
                 orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("---  " + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodCount("--" + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
                         + "(" + packageBeanList.get(i).getPackageList().get(j).getStandardName() + ")");
                 orderFoodBeanB.setFoodPrice("*" + packageBeanList.get(i).getPackageList().get(j).getFoodProductsCount());
                 orderFoodBeanList.add(orderFoodBeanB);
@@ -266,7 +268,7 @@ public class OrderDetailActivity extends BaseActivity {
             for (int j = 0; j < groupBeanList.get(i).getGroupFood().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
                 orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("---" + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodCount("--" + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
                         + "(" + groupBeanList.get(i).getGroupFood().get(j).getStandardName() + ")");
                 orderFoodBeanB.setFoodPrice("*" + groupBeanList.get(i).getGroupFood().get(j).getFoodProductsCount());
                 orderFoodBeanList.add(orderFoodBeanB);

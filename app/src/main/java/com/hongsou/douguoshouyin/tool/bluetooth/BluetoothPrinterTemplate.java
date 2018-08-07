@@ -1,6 +1,8 @@
 package com.hongsou.douguoshouyin.tool.bluetooth;
 
+import com.hongsou.douguoshouyin.javabean.HandoverDetailBean;
 import com.hongsou.douguoshouyin.javabean.OrderDetailBean;
+import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
 import com.hongsou.douguoshouyin.tool.Global;
 
 import java.math.BigDecimal;
@@ -17,6 +19,38 @@ import java.util.List;
  */
 
 public class BluetoothPrinterTemplate {
+
+
+    /**
+     * @param
+     * @desc 收款打印
+     * @anthor lpc
+     * @date: 2018/8/6
+     */
+    public static void printPay(Object obj) {
+        if (obj == null) {
+            return;
+        }
+        PaymentDetailBean bean = null;
+        if (obj instanceof PaymentDetailBean) {
+            bean = (PaymentDetailBean) obj;
+        }
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.DOUBLE_HEIGHT_WIDTH);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_CENTER);
+        BluetoothFormatUtils.printText("豆果智慧收银\n\n");
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.NORMAL);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_LEFT);
+        BluetoothFormatUtils.printText("--------------------------------\n");
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printTwoData("交易订单号", bean.getPaymentBatch() + "\n"));
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printTwoData("交易时间", bean.getTradingTime() + "\n"));
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printTwoData("交易方式", bean.getPaymentType() + "\n"));
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printTwoData("交易金额", bean.getPayAmount() + "\n"));
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printTwoData("收银员", bean.getClerkUserName() + "\n"));
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printTwoData("收银门店", Global.getSpGlobalUtil().getShopName() + "\n"));
+        BluetoothFormatUtils.printText("--------------------------------\n\n");
+        BluetoothFormatUtils.printText("签名：");
+        BluetoothFormatUtils.printText("\n\n\n\n\n");
+    }
 
     /**
      * @param
@@ -111,7 +145,7 @@ public class BluetoothPrinterTemplate {
             BluetoothFormatUtils.printNewLine(1);
             for (OrderDetailBean.DataBean.GroupBean.GroupFoodBean groupFoodBean : groupBean.getGroupFood()) {
                 int count = Integer.valueOf(groupFoodBean.getFoodProductsCount()) * Integer.valueOf(num);
-                BluetoothFormatUtils.printText("　--" +  groupFoodBean.getSingleProductName()
+                BluetoothFormatUtils.printText("　--" + groupFoodBean.getSingleProductName()
                         + "(" + groupFoodBean.getStandardName() + ")*" + String.valueOf(count));
                 BluetoothFormatUtils.printNewLine(1);
             }
@@ -163,7 +197,85 @@ public class BluetoothPrinterTemplate {
      * @date: 2018/7/27
      */
     public static void printHandover(Object obj) {
+        if (obj == null) {
+            return;
+        }
+        HandoverDetailBean bean = null;
+        if (obj instanceof HandoverDetailBean) {
+            bean = (HandoverDetailBean) obj;
+        }
+        //设置大号字体以及加粗
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.DOUBLE_HEIGHT_WIDTH);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_CENTER);
 
+        // 标题
+        BluetoothFormatUtils.printText("收银交班报表");
+        //换行，调用次数根据换行数来控制
+        BluetoothFormatUtils.printNewLine(1);
+        //设置普通字体大小、不加粗
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.NORMAL);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_LEFT);
+        BluetoothFormatUtils.printCutLine();
+        BluetoothFormatUtils.printNewLine(1);
+
+        // 打印文字
+        BluetoothFormatUtils.printText("开班时间：" + bean.getTradingTime() + "\n");
+        BluetoothFormatUtils.printText("交班时间：" + bean.getEndTime() + "\n");
+        BluetoothFormatUtils.printText("收银员：" + Global.getSpGlobalUtil().getClerkName() + "\n");
+        BluetoothFormatUtils.printCutLine();
+        BluetoothFormatUtils.printNewLine(1);
+        // 收银汇总
+        BluetoothFormatUtils.printText("[收银汇总]" + "\n");
+        BluetoothFormatUtils.printText("已结账订单数：" + bean.getOrderPayCount() + "\n");
+        BluetoothFormatUtils.printText("未结账订单数：" + bean.getOrderNoPayCount() + "\n");
+        BluetoothFormatUtils.printText("优惠金额合计：" + bean.getDiscountAmount() + "\n");
+        BluetoothFormatUtils.printText("订单合计：" + bean.getOrderAmount() + "\n");
+        BluetoothFormatUtils.printText("应收合计：" + bean.getAmountReceivable() + "\n");
+        BluetoothFormatUtils.printCutLine();
+        BluetoothFormatUtils.printNewLine(1);
+        // 优惠详情
+        BluetoothFormatUtils.printText("[优惠详情]" + "\n");
+        BluetoothFormatUtils.printText("订单优惠合计：" + bean.getOrderDiscount() + "\n");
+        BluetoothFormatUtils.printText("会员优惠合计：" + bean.getMemberPreferences() + "\n");
+        BluetoothFormatUtils.printText("菜品优惠合计：" + bean.getFoodProductsDiscount() + "\n");
+        BluetoothFormatUtils.printText("优惠合计：" + bean.getDiscountAmount() + "\n");
+        BluetoothFormatUtils.printCutLine();
+        BluetoothFormatUtils.printNewLine(1);
+
+        // 收款详情
+        BluetoothFormatUtils.printText("[收款详情]" + "\n");
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printThreeData("支付方式", "数量", "金额"));
+        BluetoothFormatUtils.printNewLine(1);
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printThreeData("现金实收", bean.getCashAmountCount() + "", bean.getCashAmount()));
+        BluetoothFormatUtils.printNewLine(1);
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printThreeData("现金找零", bean.getCashCount(), bean.getCash()));
+        BluetoothFormatUtils.printNewLine(1);
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printThreeData("微信支付", bean.getWeChatCount() + "", bean.getWeChatAmount()));
+        BluetoothFormatUtils.printNewLine(1);
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printThreeData("支付宝支付", bean.getAliCount() + "", bean.getAliAmount()));
+        BluetoothFormatUtils.printNewLine(1);
+
+        BigDecimal bigDecimal = new BigDecimal(bean.getCashAmount())
+                .add(new BigDecimal(bean.getWeChatAmount()))
+                .add(new BigDecimal(bean.getAliAmount()))
+                .subtract(new BigDecimal(bean.getCash()));
+        BluetoothFormatUtils.printText(BluetoothFormatUtils.printThreeData("合计",
+                bean.getWeChatCount() + bean.getCashAmountCount() + bean.getAliCount() + "",
+                bigDecimal.setScale(2).toString() + "\n"));
+        BluetoothFormatUtils.printCutLine();
+        BluetoothFormatUtils.printNewLine(1);
+
+        // 退款详情
+        BluetoothFormatUtils.printText("[退款详情]" + "\n");
+        BluetoothFormatUtils.printText("退单数：" + bean.getRefoundCount() + "\n");
+        BluetoothFormatUtils.printText("退单金额合计：" + bean.getRefoundAmount() + "\n");
+        BluetoothFormatUtils.printCutLine();
+        BluetoothFormatUtils.printNewLine(1);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.DOUBLE_HEIGHT_WIDTH);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_CENTER);
+        BluetoothFormatUtils.printText("收银员签字：\n");
+        BluetoothFormatUtils.printText("店长签字：");
+        BluetoothFormatUtils.printNewLine(4);
     }
 
     /**

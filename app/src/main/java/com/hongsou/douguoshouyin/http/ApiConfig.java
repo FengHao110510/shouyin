@@ -264,4 +264,12 @@ public class ApiConfig {
      * TODO 修改店铺授权信息
      */
     public static final String APP_SHOP_AUTHORIZATION = BASE_URL + "/setting/appShopAuthorization";
+    /**
+     * TODO 添加打印机
+     */
+    public static final String INSERT_SHOP_PRINT = BASE_URL + "/setting/insertShopPrint";
+    /**
+     * TODO 查询打印机列表
+     */
+    public static final String GET_PRINT_ADDRESS = BASE_URL + "/setting/getPrintAddress";
 }

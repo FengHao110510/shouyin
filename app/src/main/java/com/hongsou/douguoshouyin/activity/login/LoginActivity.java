@@ -221,6 +221,9 @@ public class LoginActivity extends BaseActivity {
         Global.getSpGlobalUtil().setClerkName(dataBean.getClerkName());
         Global.getSpGlobalUtil().setClerkNumber(dataBean.getClerkNumber());
         Global.getSpGlobalUtil().setShopNumber(dataBean.getShopNumber());
+        Global.getSpGlobalUtil().setShopName(dataBean.getShopName());
+        Global.getSpGlobalUtil().setShopAddress(dataBean.getShopAddress());
+        Global.getSpGlobalUtil().setShopPhone(dataBean.getShopPhone());
         Global.getSpGlobalUtil().setPaymentUser(dataBean.getPaymentUser());
         Global.getSpGlobalUtil().setUserName(userName);
         Global.getSpGlobalUtil().setPassword(passWord);

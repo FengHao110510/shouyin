@@ -33,6 +33,9 @@ public class LoginBean  extends RootBean{
      * clerkType : 0
      * enable : 0
      * clerkUserName : 13832352792
+     * shopName : 听说我是美团测试店？
+     * shopAddress : 河北省石家庄市桥西区河北省石家庄
+     * shopPhone : 17732152792
      */
 
     private String clerkNumber;
@@ -50,6 +53,9 @@ public class LoginBean  extends RootBean{
     private String clerkType;
     private String enable;
     private String clerkUserName;
+    private String shopName;
+    private String shopAddress;
+    private String shopPhone;
 
     public String getClerkNumber() {
         return clerkNumber;
@@ -169,5 +175,29 @@ public class LoginBean  extends RootBean{
 
     public void setClerkUserName(String clerkUserName) {
         this.clerkUserName = clerkUserName;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
+    }
+
+    public String getShopPhone() {
+        return shopPhone;
+    }
+
+    public void setShopPhone(String shopPhone) {
+        this.shopPhone = shopPhone;
     }
 }
