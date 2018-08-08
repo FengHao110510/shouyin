@@ -96,7 +96,7 @@ public class TurnoverOrderFragment extends BaseFragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
-                getOrderList(new HashMap<String, String>(), page);
+                getOrderList(mParam, page);
                 smTurnoverOrder.finishRefresh();
             }
         });

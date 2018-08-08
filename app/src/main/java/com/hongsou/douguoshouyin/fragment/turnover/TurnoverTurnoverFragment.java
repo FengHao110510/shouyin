@@ -86,7 +86,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
                 mTradingTime = "";
-                showTurnoverList(new HashMap<String, String>(), page);
+                showTurnoverList(mParam, page);
                 mSrlTurnover.finishRefresh();
             }
         });

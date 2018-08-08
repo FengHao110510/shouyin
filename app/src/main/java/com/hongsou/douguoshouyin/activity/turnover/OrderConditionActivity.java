@@ -285,7 +285,11 @@ public class OrderConditionActivity extends BaseActivity {
                     //订单来源
                     data.put("orderSourcePayment", orderSource);
                     //订单类型
-                    data.put("orderType", payStatus);
+                    if (mType == 0) {
+                        data.put("orderType", payStatus);
+                    }else {
+                        data.put("orderState", payStatus);
+                    }
                     //支付方式
                     data.put("paymentType", payChannel);
                     //开始时间
