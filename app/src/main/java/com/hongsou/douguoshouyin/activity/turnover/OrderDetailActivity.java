@@ -1,6 +1,7 @@
 package com.hongsou.douguoshouyin.activity.turnover;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.BackPayActivity;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
@@ -102,7 +105,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     OrderDetailsFoodAdapter orderDetailsFoodAdapter;
     //支付方式
-    String type;
+    String type="";
     private OrderDetailBean mOrderDetailBean;
     private OrderDetailBean.DataBean.OrderBean order;
 
@@ -326,7 +329,12 @@ public class OrderDetailActivity extends BaseActivity {
                 if (TextUtils.isEmpty(et_dialog_tuikuan_content.getText())) {
                     ToastUtil.showToast("请先输入退款密码");
                 } else {
-                    doRefund();
+                    if (TextUtils.isEmpty(type)){
+                        //现金退款
+                        cashTuikuan();
+                    }else {
+                        doRefund();
+                    }
                 }
                 dialog.dismiss();
             }
@@ -416,7 +424,26 @@ public class OrderDetailActivity extends BaseActivity {
         });
     }
 
-
+    /**
+     * @author fenghao
+     * @date 2018/7/27 0027 下午 17:42
+     * @desc
+     */
+    private void cashTuikuan() {
+        HttpFactory.post().url(ApiConfig.REFOUND_BY_CASH)
+                .addParams("paymentBatch", "")
+                .addParams("batch", tvTurnoverOrderdetailDingdanhao.getText().toString())
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    backOrder();
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
+    }
     @OnClick({R.id.tv_turnover_orderdetail_tuikuan, R.id.tv_turnover_orderdetail_dayinxiaopiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
