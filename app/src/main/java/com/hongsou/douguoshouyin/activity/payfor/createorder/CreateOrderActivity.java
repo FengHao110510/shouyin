@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,6 +36,9 @@ import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.hongsou.douguoshouyin.views.CustomPopupWindow;
 import com.hongsou.douguoshouyin.views.tablayout.VerticalTabLayout;
 import com.hongsou.greendao.gen.SelectMealEntityDao;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -76,6 +80,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     VerticalTabLayout mTabCreateCategory;
     @BindView(R.id.ll_bottom)
     LinearLayout mLlBottom;
+    @BindView(R.id.srl_create_order)
+    SmartRefreshLayout mSrlCreateOrder;
 
     private CreateOrderAdapter mCreateOrderAdapter;
     private CreateOrderFoodListAdapter mCreateOrderFoodListAdapter;
@@ -128,12 +134,27 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         mInflater = LayoutInflater.from(CreateOrderActivity.this);
         mBadgeList = new ArrayList<>();
         // 获取接口数据
-        mPresenter.getFoodList();
+        mPresenter.getFoodList("1");
         mPresenter.getCategory();
-
+        initRefresh();
         if (mSelectMealEntities == null) {
             mSelectMealEntities = new ArrayList<>();
         }
+    }
+
+    /**
+     * @desc 初始化下拉刷新
+     * @anthor lpc
+     * @date: 2018/8/8
+     */
+    private void initRefresh() {
+        mSrlCreateOrder.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mPresenter.getFoodList("0");
+                refreshLayout.finishRefresh();
+            }
+        });
     }
 
     @Override
@@ -157,9 +178,9 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
             final List<FoodCategoryBean.DataBean> foodCategoryBeanData = foodCategoryBean.getData();
             for (int i = 0; i < foodCategoryBeanData.size(); i++) {
                 String s;
-                if ( foodCategoryBeanData.get(i).getCategoryName().length()>4){
+                if (foodCategoryBeanData.get(i).getCategoryName().length() > 4) {
                     s = foodCategoryBeanData.get(i).getCategoryName().substring(0, 4);
-                }else {
+                } else {
                     s = foodCategoryBeanData.get(i).getCategoryName();
                 }
                 mTabCreateCategory.addTab(mTabCreateCategory.newTab().setText(s));
@@ -243,8 +264,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 showFoodListWindow();
                 break;
             case R.id.tv_make_money:
-                if (mSelectMealEntities != null && mSelectMealEntities.size() > 0 ){
-                    if (Double.valueOf(mTvOrderMoney.getText().toString()) <= 0){
+                if (mSelectMealEntities != null && mSelectMealEntities.size() > 0) {
+                    if (Double.valueOf(mTvOrderMoney.getText().toString()) <= 0) {
                         ToastUtil.showToast("金额不正常，请正确选择餐品");
                         return;
                     }

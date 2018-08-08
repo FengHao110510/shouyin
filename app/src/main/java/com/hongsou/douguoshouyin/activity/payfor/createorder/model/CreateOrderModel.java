@@ -25,10 +25,11 @@ public class CreateOrderModel implements ICreateOrderModel {
 
 
     @Override
-    public void getFood(Context context, final ICreateOrderView callback) {
+    public void getFood(Context context, String state, final ICreateOrderView callback) {
         HttpFactory.get()
                 .url(ApiConfig.GET_FOOD)
                 .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())
+                .addParams("state", state)
                 .build()
                 .execute(new ResponseCallback<FoodBean>(context) {
                     @Override

@@ -12,9 +12,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.hongsou.douguoshouyin.activity.WelcomeActivity;
-import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.http.ThreadPoolUtils;
+import com.hongsou.douguoshouyin.http.ftp.FtpHelper;
 import com.hongsou.douguoshouyin.http.ftp.FtpNetCallBack;
 import com.hongsou.douguoshouyin.http.ftp.FtpUploadTask;
 
@@ -23,6 +23,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -72,6 +73,12 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
      * 错误报告文件保存路径
      */
     private String mDirPath;
+    /**
+     * ftp工具类
+     */
+    public static FtpHelper ftp;
+
+
 
     private CrashHandler() {
     }
@@ -98,11 +105,35 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
      */
     public void init(Context context) {
         mContext = context;
+        initFtp();
         initFile();
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
         // 设置该CrashHandler为程序的默认处理器
         Thread.setDefaultUncaughtExceptionHandler(this);
+    }
+
+    /**
+     * @desc 初始化ftp
+     * @anthor lpc
+     * @date: 2018/7/30
+     */
+    private void initFtp() {
+        ThreadPoolUtils.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (ftp == null) {
+                    try {
+                        ftp = new FtpHelper();
+                        ftp.openConnect();
+                        LogUtil.e("FTP", "run: FTP连接成功");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        LogUtil.e("FTP", "run: FTP连接失败");
+                    }
+                }
+            }
+        });
     }
 
     private void initFile() {
@@ -163,8 +194,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
         // 收集设备参数信息
         collectDeviceInfo(mContext);
         // 保存日志文件
-        saveCrashInfo2File(ex);
+//        saveCrashInfo2File(ex);
         // 把错误报告发送给服务器
+        upload(mDirPath + saveCrashInfo2File(ex));
 //        sendCrashReportsToServer();
         return true;
     }
@@ -253,7 +285,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
      */
     private void upload(String localFilePath) {
         if (!TextUtils.isEmpty(localFilePath)) {
-            new FtpUploadTask(BaseApplication.ftp, this, localFilePath, Constant.FTP_FILE_PATH).execute();
+            new FtpUploadTask(ftp, this, localFilePath, Constant.FTP_FILE_PATH).execute();
         }
     }
 
@@ -270,9 +302,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
     @Override
     public void uploadFinish(boolean result) {
         if (result) {
-            LogUtil.e(TAG, "uploadFinish: 提交成功");
+            LogUtil.e("FTP", "run: FTP提交成功");
         } else {
-            LogUtil.e(TAG, "uploadFinish: 提交失败");
+            LogUtil.e("FTP", "run: FTP提交失败");
         }
 
     }
