@@ -153,6 +153,7 @@ public class TurnoverFragment extends BaseFragment {
                 mTurnoverOrderFragment.getOrderList(mParam, 1);
             }else {
                 mTurnoverTurnoverFragment.mParam = mParam;
+                mTurnoverTurnoverFragment.beginTime = "";
                 mTurnoverTurnoverFragment.showTurnoverList(mParam, 1);
             }
         }

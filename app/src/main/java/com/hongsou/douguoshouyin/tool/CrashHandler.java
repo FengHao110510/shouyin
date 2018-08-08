@@ -197,7 +197,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
 //        saveCrashInfo2File(ex);
         // 把错误报告发送给服务器
         upload(mDirPath + saveCrashInfo2File(ex));
-//        sendCrashReportsToServer();
         return true;
     }
 
@@ -261,7 +260,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
             String time = formatter.format(new Date());
             String fileName =  "crash-" + time + CRASH_REPORTER_EXTENSION;
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                mDirPath = Environment.getExternalStorageDirectory() + "/douguo/sy/log/";
+//                mDirPath = Environment.getExternalStorageDirectory() + "/douguo/sy/log/";
                 File dir = new File(mDirPath);
                 if (!dir.exists()) {
                     dir.mkdirs();
