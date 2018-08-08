@@ -57,7 +57,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
     private List<TurnoverMultipleItem> turnoverMultipleItemList;
     private TurnoverAdapter mTurnoverAdapter;
     public HashMap<String, String> mParam = new HashMap<>();
-    private String mTradingTime = "";
+    public String beginTime = "";
 
     @Override
     public int getLayoutId() {
@@ -85,7 +85,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 page = 1;
-                mTradingTime = "";
+                beginTime = "";
                 showTurnoverList(mParam, page);
                 mSrlTurnover.finishRefresh();
             }
@@ -122,7 +122,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
      */
     public void showTurnoverList(HashMap<String, String> param, final int page) {
         param.put("shopNumber", getShopNumber());
-        param.put("beginTime", mTradingTime);
+        param.put("beginTime", beginTime);
         param.put("shopNumber", getShopNumber());
         param.put("pageString", page + "");
         // todo 参数需要和订单列表的统一一下
@@ -136,7 +136,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
                         result.clear();
                     }
                     result.addAll(response.getData());
-                    mTradingTime = result.get(result.size() - 1).getTradingTime();
+                    beginTime = result.get(result.size() - 1).getTradingTime();
                     setTurnoverAdapter(result);
                 } else {
                     ToastUtil.showToast(response.getMsg());

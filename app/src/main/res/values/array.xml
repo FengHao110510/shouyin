@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="spinnerClass">
-        <item>单品</item>
-        <item>固定套餐</item>
-        <item>分组套餐</item>
+        <item>单类商品分类</item>
+        <item>固定套餐分类</item>
+        <item>分组套餐分类</item>
     </string-array>
 
 </resources>

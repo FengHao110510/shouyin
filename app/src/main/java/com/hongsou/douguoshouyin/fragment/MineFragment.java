@@ -28,6 +28,7 @@ import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.ShopinforBean;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
@@ -185,6 +186,7 @@ public class MineFragment extends BaseFragment {
                 break;
         }
     }
+
     private void showDialogCallPhone() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("提示");
@@ -203,12 +205,13 @@ public class MineFragment extends BaseFragment {
         builder.setNegativeButton("取消", null);
         builder.create().show();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case 1:
-                if (data.getBooleanExtra("flag",false)){
+                if (data.getBooleanExtra("flag", false)) {
                     getShopinfor();
                 }
                 break;
@@ -247,8 +250,7 @@ public class MineFragment extends BaseFragment {
         tvLogoutDialogYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Global.logout();
-//                goLogout();
+                goLogout();
 
                 startActivity(new Intent(getContext(), LoginActivity.class));
                 BaseApplication.getInstance().removeToTop();
@@ -262,16 +264,18 @@ public class MineFragment extends BaseFragment {
      * 注销接口  TODO 回到登录界面
      */
     private void goLogout() {
-        showLoadingDialog();
-        OkHttpUtils.post().url(ApiConfig.LOGOUT).addParams("", "").build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                dismissLoadingDialog();
-            }
+        HttpFactory.post().url(ApiConfig.LOGOUT)
+                .addParams("userName", Global.getSpGlobalUtil().getUserName())
+                .build().execute(new ResponseCallback<BaseBean>(getActivity()) {
 
             @Override
-            public void onResponse(String response, int id) {
-
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    ToastUtil.showToast("成功退出");
+                    Global.logout();
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
             }
         });
     }

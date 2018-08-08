@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -124,9 +125,9 @@ public class ChooseCategoryActivity extends BaseActivity {
      * @desc 展示列表
      */
     private void showCategoryList(final List<FoodCategoryBean.DataBean> dataBeanList) {
-        for (int k =0;k<dataBeanList.size();k++){
+        for (int k = 0; k < dataBeanList.size(); k++) {
             //为了展示单品
-            if (!dataBeanList.get(k).getCategoryType().equals("0")){
+            if (!dataBeanList.get(k).getCategoryType().equals("0")) {
                 dataBeanList.remove(k);
                 k--;
             }
@@ -156,16 +157,22 @@ public class ChooseCategoryActivity extends BaseActivity {
             }
         });
     }
+
     @OnClick(R.id.tv_payfor_choose_category_yes)
     public void onViewClicked() {
+        if (TextUtils.isEmpty(categoryName)) {
+            finishActivity();
+            return;
+        }
         //确定
         intent = new Intent();
-        intent.putExtra("categoryName",categoryName);
-        intent.putExtra("singleProductType",singleProductType);
-        Log.e(TAG, "onActivityResult: "+categoryName.toString() );
+        intent.putExtra("categoryName", categoryName);
+        intent.putExtra("singleProductType", singleProductType);
+        Log.e(TAG, "onActivityResult: " + categoryName.toString());
         setResult(1, intent);
         finishActivity();
     }
+
     //==============================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -59,7 +59,7 @@ public class TableListContentBean implements MultiItemEntity {
 
     public TableListContentBean(String shopNumber, String logGid, String tabletableNumber
             , int pedestal, int number, String regionNumber, boolean selectFlag
-    ,String qrCodeLink) {
+            , String qrCodeLink) {
         this.shopNumber = shopNumber;
         this.logGid = logGid;
         this.tabletableNumber = tabletableNumber;

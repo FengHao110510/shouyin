@@ -72,6 +72,13 @@ public class BaseApplication extends MultiDexApplication {
         initKedaxunfei();
         //初始化全局异常捕获
         CrashHandler.getInstance().init(this);
+
+
+
+
+
+
+
     }
 
     /**

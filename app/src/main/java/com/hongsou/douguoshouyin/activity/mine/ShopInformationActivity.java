@@ -336,6 +336,7 @@ public class ShopInformationActivity extends BaseActivity {
      * @desc 上传图片
      */
     private void postImg() {
+
         showLoadingDialog();
         Log.e(TAG, "postImg: "+file.length() );
         OkHttpUtils.post().addFile("foodImg", file.getName(), file)

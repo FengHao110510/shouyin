@@ -159,9 +159,9 @@ public class NosaomaFoodsActivity extends BaseActivity {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_item_choose_isscan_del) {
                     resultBeanList.get(position).setIsScan("0");
-
+                    view.setClickable(false);
                     //走删除接口
-                    delFood(resultBeanList.get(position), position);
+                    delFood(resultBeanList.get(position), position,view);
                 }
             }
         });
@@ -177,7 +177,7 @@ public class NosaomaFoodsActivity extends BaseActivity {
     //最后提交的
     List<NoScanBean.DataBean.ResultBean> resultBeanList2 = new ArrayList<>();
 
-    private void delFood(NoScanBean.DataBean.ResultBean resultBean, final int position) {
+    private void delFood(NoScanBean.DataBean.ResultBean resultBean, final int position, final View view) {
         Gson gson = new Gson();
         if (resultBeanList2.size() > 0) {
             resultBeanList2.clear();
@@ -195,6 +195,7 @@ public class NosaomaFoodsActivity extends BaseActivity {
                             page = 1;
                             getData();
                         } else {
+                            view.setClickable(true);
                             ToastUtil.showToast(response.getMsg());
                         }
                     }

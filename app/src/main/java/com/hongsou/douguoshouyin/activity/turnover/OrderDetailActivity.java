@@ -1,6 +1,7 @@
 package com.hongsou.douguoshouyin.activity.turnover;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.BackPayActivity;
+import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
@@ -102,9 +105,9 @@ public class OrderDetailActivity extends BaseActivity {
 
     OrderDetailsFoodAdapter orderDetailsFoodAdapter;
     //支付方式
-    String type;
+    String type="";
     private OrderDetailBean mOrderDetailBean;
-    private OrderDetailBean.DataBean.OrderBean mOrder;
+    private OrderDetailBean.DataBean.OrderBean order;
 
     @Override
     public int initLayout() {
@@ -149,14 +152,18 @@ public class OrderDetailActivity extends BaseActivity {
                 dismissLoadingDialog();
                 Log.e(TAG, "onResponse: " + response.toString());
                 mOrderDetailBean = new Gson().fromJson(response, OrderDetailBean.class);
-                if (mOrderDetailBean.isSuccess()) {
-                    mOrder = mOrderDetailBean.getData().getOrder();
-                    addOrderDetails(mOrder);
+
+                if (mOrderDetailBean.getCode() == 1000) {
+                    order = mOrderDetailBean.getData().getOrder();
+
+                    addOrderDetails(order);
                     packageBeanList = mOrderDetailBean.getData().getPackageX();
                     groupBeanList = mOrderDetailBean.getData().getGroup();
                     foodBeanList = mOrderDetailBean.getData().getFood();
+
                     //总份数
                     tvTurnoverOrderdetailShangpinfenshu.setText((packageBeanList.size() + groupBeanList.size() + foodBeanList.size()) + "");
+
                     if (packageBeanList.size() > 0) {
                         addPackage(packageBeanList);
                     }
@@ -166,8 +173,10 @@ public class OrderDetailActivity extends BaseActivity {
                     if (foodBeanList.size() > 0) {
                         addFood(foodBeanList);
                     }
+
                     //展示
                     showFoodList();
+
                 } else {
                     ToastUtil.showToast(mOrderDetailBean.getMsg());
                 }
@@ -187,11 +196,10 @@ public class OrderDetailActivity extends BaseActivity {
      * @desc 显示订单详情的数据
      */
     private void addOrderDetails(OrderDetailBean.DataBean.OrderBean order) {
-        // 判断是不是已退款的 是的话隐藏退款按钮
-        if (order.getOrderType().contains("已退款")) {
+        //TODO 判断是不是已退款的 是的话隐藏退款按钮
+        if (order.getOrderType().contains("已退")) {
             vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
             tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
-            tvTurnoverOrderdetailDayinxiaopiao.setText("打印退款小票");
         }
         tvTurnoverOrderdetailDingdanzhuangtai.setText(order.getOrderType());
 
@@ -235,7 +243,7 @@ public class OrderDetailActivity extends BaseActivity {
             for (int j = 0; j < packageBeanList.get(i).getPackageList().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
                 orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("--" + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodCount("--- " + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
                         + "(" + packageBeanList.get(i).getPackageList().get(j).getStandardName() + ")");
                 orderFoodBeanB.setFoodPrice("*" + packageBeanList.get(i).getPackageList().get(j).getFoodProductsCount());
                 orderFoodBeanList.add(orderFoodBeanB);
@@ -264,7 +272,7 @@ public class OrderDetailActivity extends BaseActivity {
             for (int j = 0; j < groupBeanList.get(i).getGroupFood().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
                 orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("--" + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodCount("--- " + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
                         + "(" + groupBeanList.get(i).getGroupFood().get(j).getStandardName() + ")");
                 orderFoodBeanB.setFoodPrice("*" + groupBeanList.get(i).getGroupFood().get(j).getFoodProductsCount());
                 orderFoodBeanList.add(orderFoodBeanB);
@@ -321,7 +329,12 @@ public class OrderDetailActivity extends BaseActivity {
                 if (TextUtils.isEmpty(et_dialog_tuikuan_content.getText())) {
                     ToastUtil.showToast("请先输入退款密码");
                 } else {
-                    doRefund();
+                    if (TextUtils.isEmpty(type)){
+                        //现金退款
+                        cashTuikuan();
+                    }else {
+                        doRefund();
+                    }
                 }
                 dialog.dismiss();
             }
@@ -411,6 +424,26 @@ public class OrderDetailActivity extends BaseActivity {
         });
     }
 
+    /**
+     * @author fenghao
+     * @date 2018/7/27 0027 下午 17:42
+     * @desc
+     */
+    private void cashTuikuan() {
+        HttpFactory.post().url(ApiConfig.REFOUND_BY_CASH)
+                .addParams("paymentBatch", "")
+                .addParams("batch", tvTurnoverOrderdetailDingdanhao.getText().toString())
+                .build().execute(new ResponseCallback<BaseBean>(this) {
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+                    backOrder();
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
+    }
     @OnClick({R.id.tv_turnover_orderdetail_tuikuan, R.id.tv_turnover_orderdetail_dayinxiaopiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -419,7 +452,7 @@ public class OrderDetailActivity extends BaseActivity {
                 break;
             case R.id.tv_turnover_orderdetail_dayinxiaopiao:
                 //打印小票
-                if (mOrder.getOrderType().contains("已退款")) {
+                if (order.getOrderType().contains("已退")) {
                     // 退单打印
                     if (Global.getSpGlobalUtil().getRefundPrintSwitch()){
                         BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()

@@ -186,7 +186,7 @@ public class PrinterActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        HttpFactory.post().url(ApiConfig.GET_PRINT_ADDRESS)
+        HttpFactory.get().url(ApiConfig.GET_PRINT_ADDRESS)
                 .addParams("shopNumber", getShopNumber())
                 .build()
                 .execute(new ResponseCallback<RootBean<List<PrinterBean>>>(this) {
