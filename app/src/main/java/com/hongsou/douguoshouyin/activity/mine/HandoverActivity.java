@@ -71,6 +71,8 @@ public class HandoverActivity extends BaseActivity {
      * 开始结束时间控制器
      */
     private CustomDatePicker customDatePickerStart, customDatePickerEnd;
+    private String tradingTime;
+    private String endTime;
 
     @Override
     public int initLayout() {
@@ -163,6 +165,8 @@ public class HandoverActivity extends BaseActivity {
      * @param data 数据源
      */
     private void renderView(HandoverDetailBean data) {
+        tradingTime = DateUtils.formatToString(data.getTradingTime());
+        endTime = DateUtils.formatToStringNotSS(data.getEndTime());
         // 实收金额
         mTvHandoverCollectMoney.setText(data.getAmountCollected());
         // 订单笔数
@@ -180,7 +184,7 @@ public class HandoverActivity extends BaseActivity {
         // 银行卡支付金额
         mTvHandoverBankCard.setText(data.getBankAmount());
         // 交班开始时间
-        mTvHandoverStartTime.setText(DateUtils.formatToString(data.getTradingTime()));
+        mTvHandoverStartTime.setText(tradingTime);
     }
 
 
@@ -244,8 +248,8 @@ public class HandoverActivity extends BaseActivity {
         HttpFactory.get().url(ApiConfig.GET_SHIFT_DETAILS)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("clerkNumber", Global.getSpGlobalUtil().getClerkNumber())
-                .addParams("endTime", DateUtils.getStringDateNotSS())
-                .addParams("tradingTime", DateUtils.getStringDateNotSS())
+                .addParams("tradingTime", tradingTime)
+                .addParams("endTime", endTime)
                 .build()
                 .execute(new ResponseCallback<RootBean<HandoverDetailBean>>(this) {
                     @Override
