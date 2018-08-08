@@ -199,6 +199,15 @@ public class TableActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TableListContentBean tableListContentBean = (TableListContentBean) res.get(position);
+                String regionName = "";
+                for (int i = 0; i < res.size(); i++) {
+                    if (res.get(i).getItemType() == TableAdapter.TYPE_TABLE_TITLE) {
+                        if (tableListContentBean.getRegionNumber().equals(((TableRegionTitleBean) res.get(i)).getRegionNumber())) {
+                            regionName = ((TableRegionTitleBean) res.get(i)).getRegionName()
+                                    + "(" + ((TableRegionTitleBean) res.get(i)).getPedestal() + "人桌)";
+                        }
+                    }
+                }
                 if (view.getId() == R.id.tv_item_table_content_pedestal) {
                     //点击选中状态改变
                     if (tableListContentBean.isSelectFlag()) {
@@ -211,7 +220,7 @@ public class TableActivity extends BaseActivity {
                 } else if (view.getId() == R.id.iv_item_table_content_add) {
                     //点击的最后一个添加图片时
                     //走单个添加接口
-                    showAddOneTableDialog(tableListContentBean);
+                    showAddOneTableDialog(tableListContentBean, regionName);
                 }
             }
         });
@@ -219,11 +228,12 @@ public class TableActivity extends BaseActivity {
 
     /**
      * @param tableListContentBean
+     * @param regionName
      * @author fenghao
      * @date 2018/7/17 0017 下午 18:41
      * @desc 弹框让用户输入 桌台编号
      */
-    private void showAddOneTableDialog(final TableListContentBean tableListContentBean) {
+    private void showAddOneTableDialog(final TableListContentBean tableListContentBean, String regionName) {
         addOneDialog = new Dialog(this, R.style.CommonDialog);
         View view = LayoutInflater.from(this).inflate(R.layout.module_dialog_edit, null);
         Display display = this.getWindowManager().getDefaultDisplay();
@@ -236,7 +246,7 @@ public class TableActivity extends BaseActivity {
         final EditText etDialogEditContent = view.findViewById(R.id.et_dialog_edit_content);
         tvDialogEditIcon.setVisibility(View.VISIBLE);
         setIconFont(new TextView[]{tvDialogEditIcon});
-        tvDialogEditTitle.setText("请输入桌台号码");
+        tvDialogEditTitle.setText(regionName);
         etDialogEditContent.setHint("输入桌台号");
         etDialogEditContent.setInputType(InputType.TYPE_CLASS_NUMBER);
         tvDialogEditCancle.setOnClickListener(new View.OnClickListener() {
@@ -257,7 +267,7 @@ public class TableActivity extends BaseActivity {
                 }
             }
         });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 2 / 7);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 1 / 4);
         addOneDialog.addContentView(view, params);
         addOneDialog.setCancelable(false);
         addOneDialog.setCanceledOnTouchOutside(false);
@@ -402,7 +412,7 @@ public class TableActivity extends BaseActivity {
                 downLoadDialog.dismiss();
             }
         });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h / 5);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(w * 4 / 5, h * 4 / 25);
 
         downLoadDialog = new Dialog(this, R.style.CommonDialog);
         downLoadDialog.addContentView(view, params);
