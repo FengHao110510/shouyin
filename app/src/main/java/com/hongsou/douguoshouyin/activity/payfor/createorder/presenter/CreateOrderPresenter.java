@@ -74,8 +74,8 @@ public class CreateOrderPresenter {
      * @anthor lpc
      * @date: 2018/7/17
      */
-    public void getFoodList() {
-        mICreateOrderModel.getFood(mContext, mICreateOrderView);
+    public void getFoodList(String state) {
+        mICreateOrderModel.getFood(mContext, state, mICreateOrderView);
     }
 
     /**

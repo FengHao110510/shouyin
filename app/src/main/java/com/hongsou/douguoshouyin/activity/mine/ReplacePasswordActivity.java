@@ -79,12 +79,14 @@ public class ReplacePasswordActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(oldPassWord)) {
             ToastUtil.showToast("请输入原密码");
-        } else if (!oldPassWord.equals(Global.getSpGlobalUtil().getPassword())){
+        } else if (!oldPassWord.equals(Global.getSpGlobalUtil().getPassword())) {
             ToastUtil.showToast("与原密码不一致，请重新输入");
-        }else if (TextUtils.isEmpty(newPassWord)) {
+        } else if (TextUtils.isEmpty(newPassWord)) {
             ToastUtil.showToast("请输入新密码");
         } else if (TextUtils.isEmpty(aginPassWord) || !aginPassWord.equals(newPassWord)) {
             ToastUtil.showToast("两次新密码不一致，请重新输入密码");
+        } else if (newPassWord.length() < 6 || newPassWord.length() > 18) {
+            ToastUtil.showToast("新密码应该在6-18位之间");
         } else {
             toOver();
         }

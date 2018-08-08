@@ -5,20 +5,11 @@
     android:background="@drawable/dialog_bg"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_dialog_edit_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="提示"
-        android:textColor="@color/black"
-        android:textSize="17sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -38,14 +29,14 @@
             android:id="@+id/tv_dialog_edit_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="17dp"
+            android:layout_marginRight="15dp"
             android:visibility="gone"
             android:text="@string/icon_payfor_commodity_class_tianjia"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
-    <View style="@style/view_line_horizontal_1" />
+    <View style="@style/view_line_horizontal_05" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,7 +55,7 @@
             android:text="取消"
             android:textColor="@color/gray" />
 
-        <View style="@style/view_line_vertical_1" />
+        <View style="@style/view_line_vertical_05" />
 
         <TextView
             android:id="@+id/tv_dialog_edit_yes"

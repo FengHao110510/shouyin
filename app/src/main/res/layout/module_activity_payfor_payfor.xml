@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/icon_main_payfor_kaidan"
                 android:textColor="@color/gray"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/icon_main_payfor_gift"
                 android:textColor="@color/gray"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,22 +87,20 @@
                 android:textSize="16sp" />
 
 
-            <TextView
+            <ImageView
                 android:id="@+id/tv_payfor_payfor_jiantou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
-                android:text=">"
-                android:textColor="@color/gray"
-                android:textSize="16sp" />
+                android:src="@drawable/right"/>
 
             <TextView
                 android:id="@+id/tv_payfor_payfor_shezhi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/tv_payfor_payfor_jiantou"
-                android:text="去设置"
+                android:text="去选择"
                 android:textColor="@color/gray"
                 android:textSize="16sp" />
         </RelativeLayout>
@@ -122,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="0.0"
+                android:text="0.00"
                 android:textColor="@color/red"
                 android:textSize="20sp" />
 
@@ -343,7 +341,7 @@
 
                 android:text="收"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -418,7 +416,7 @@
 
                 android:text="款"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 

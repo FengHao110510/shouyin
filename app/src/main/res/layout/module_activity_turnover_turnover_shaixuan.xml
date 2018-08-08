@@ -4,19 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <com.hongsou.douguoshouyin.views.CommonTopBar
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:left_text="@string/icon_back"
         app:center_text="订单筛选"
+        app:left_text="@string/icon_back"
         app:right_icon="@string/icon_main_turnover_chongzhi"
         app:right_text="重置"
-        app:right_view_visibility="VISIBLE"
-        />
+        app:right_view_visibility="VISIBLE" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,9 +38,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
                     android:text="订单来源"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <com.zhy.view.flowlayout.TagFlowLayout
                     android:id="@+id/tfl_order_source"
@@ -50,8 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     android:padding="4dp"
-                    app:max_select="1"
-                    />
+                    app:max_select="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -65,9 +64,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
                     android:text="支付状态"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <com.zhy.view.flowlayout.TagFlowLayout
                     android:id="@+id/tfl_pay_status"
@@ -75,8 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     android:padding="4dp"
-                    app:max_select="1"
-                    />
+                    app:max_select="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,9 +92,12 @@
                     android:id="@+id/tv_order_channel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
                     android:text="支付渠道"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <com.zhy.view.flowlayout.TagFlowLayout
                     android:id="@+id/tfl_pay_channel"
@@ -101,25 +105,27 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     android:padding="4dp"
-                    app:max_select="1"
-                    />
+                    app:max_select="1" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20"
                 android:layout_marginLeft="12dp"
                 android:layout_marginRight="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginBottom="@dimen/margin_20"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
                     android:text="交易时间"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,11 +137,13 @@
                         android:id="@+id/tv_handover_start_time"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
+                        android:layout_marginLeft="13dp"
                         android:background="@drawable/shaixuan_nomal"
                         android:gravity="center"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="00"
+
                         android:textColor="@color/gray"
                         android:textSize="13sp" />
 
@@ -166,13 +174,14 @@
 
     <Button
         android:id="@+id/btn_handover_condition"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
+        android:paddingLeft="100dp"
+        android:layout_gravity="center"
+        android:paddingRight="100dp"
         android:background="@drawable/btn_black"
         android:text="筛选"
         android:textColor="@color/white" />

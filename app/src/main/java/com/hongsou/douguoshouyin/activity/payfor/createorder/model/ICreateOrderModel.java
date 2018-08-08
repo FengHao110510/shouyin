@@ -21,8 +21,9 @@ public interface ICreateOrderModel<T> {
      * @anthor lpc
      * @date: 2018/7/17
      * @param callback 数据回调
+     * @param state 是否强制刷新， 0强制  1不强制
      */
-    void getFood(Context context, ICreateOrderView<T> callback);
+    void getFood(Context context, String state, ICreateOrderView<T> callback);
 
     /**
      * @desc 获取分类信息

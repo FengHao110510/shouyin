@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/tv_mine_saomafoodset_saomamoshi_jiantou"
+            android:layout_toLeftOf="@+id/tv_mine_saomafoodset_saomamoshi_jiantou"
             android:text="点餐+结账"
             android:textColor="@color/gray"
             android:textSize="12sp" />

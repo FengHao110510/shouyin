@@ -3,13 +3,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:paddingBottom="@dimen/dp_4"
-    android:paddingTop="@dimen/dp_4"
+    android:paddingBottom="@dimen/margin_6"
+    android:paddingTop="@dimen/margin_6"
     android:paddingRight="@dimen/margin_12"
     android:paddingLeft="@dimen/margin_12"
     android:background="@drawable/bg_tag_flow_layout"
     android:text=""
-    android:textSize="@dimen/txt_16"
+    android:textSize="@dimen/txt_14"
     android:textColor="@drawable/bg_tag_flow_layout_text_color">
 
 </TextView>
