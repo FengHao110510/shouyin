@@ -14,7 +14,7 @@ import com.hongsou.greendao.gen.DaoSession;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.litesuits.orm.LiteOrm;
-import com.scwang.smartrefresh.header.BezierCircleHeader;
+import com.scwang.smartrefresh.header.MaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -154,7 +154,7 @@ public class BaseApplication extends MultiDexApplication {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
                 layout.setPrimaryColorsId(R.color.color_base_yellow, android.R.color.white);//全局设置主题颜色
-                return new BezierCircleHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
+                return new MaterialHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
             }
         });
         //设置全局的Footer构建器
