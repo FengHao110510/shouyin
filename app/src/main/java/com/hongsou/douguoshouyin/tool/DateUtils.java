@@ -76,6 +76,23 @@ public class DateUtils {
     }
 
     /**
+     *
+     * @param time 字符串时间,注意:格式要与template定义的一样
+     * @return
+     */
+    public static String formatToStringNotSS(String time) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            Date d = sdf.parse(time);
+            String dateString = sdf.format(d);
+            return dateString;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
      * 获取现在时间
      *
      * @return 返回时间类型 yyyy-MM-dd HH:mm:ss

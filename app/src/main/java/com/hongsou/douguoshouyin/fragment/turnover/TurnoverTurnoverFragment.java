@@ -135,8 +135,12 @@ public class TurnoverTurnoverFragment extends BaseFragment {
                     if (page == 1){
                         result.clear();
                     }
-                    result.addAll(response.getData());
-                    beginTime = result.get(result.size() - 1).getTradingTime();
+                    if (response.getData().size() > 0){
+                        result.addAll(response.getData());
+                        beginTime = result.get(result.size() - 1).getTradingTime();
+                    }else {
+                        ToastUtil.showToast("暂无数据");
+                    }
                     setTurnoverAdapter(result);
                 } else {
                     ToastUtil.showToast(response.getMsg());
