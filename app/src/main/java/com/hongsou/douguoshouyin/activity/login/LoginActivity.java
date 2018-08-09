@@ -116,6 +116,8 @@ public class LoginActivity extends BaseActivity {
                     isChecked = true;
                 }
                 break;
+            default:
+                break;
         }
     }
 
@@ -168,9 +170,9 @@ public class LoginActivity extends BaseActivity {
                 }.getType());
                 if (loginBean.isSuccess()) {
                     LoginBean dataBean = loginBean.getData();
-                    if (TextUtils.isEmpty(dataBean.getPaymentUser())){
-                        isLogined(dataBean,"","");
-                    }else {
+                    if (TextUtils.isEmpty(dataBean.getPaymentUser())) {
+                        isLogined(dataBean, "", "");
+                    } else {
                         payCode(dataBean);
                     }
 
