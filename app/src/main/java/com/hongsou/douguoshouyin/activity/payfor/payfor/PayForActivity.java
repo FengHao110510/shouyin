@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -588,6 +591,25 @@ public class PayForActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 Log.e(TAG, "onResponse: " + response.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int code = (int) jsonObject.get("code");
+                    switch (code) {
+                        case 1:
+                            ToastUtil.showToast("支付失败");
+                            break;
+                        case 2:
+                            ToastUtil.showToast("系统异常");
+                            break;
+                        case 4:
+                            ToastUtil.showToast("支付中。。。");
+                            break;
+                        default:
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
 

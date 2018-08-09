@@ -40,7 +40,7 @@
                     android:id="@+id/et_login_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:background="@null"
                     android:hint="手机号/邮箱"
                     android:inputType="phone"
@@ -50,13 +50,13 @@
 
                 <View
                     style="@style/view_line_horizontal_1"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="12dp" />
 
                 <EditText
                     android:id="@+id/et_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="12dp"
                     android:background="@null"
                     android:hint="请输入密码"
                     android:inputType="textPassword"
@@ -66,7 +66,7 @@
 
                 <View
                     style="@style/view_line_horizontal_1"
-                    android:layout_marginTop="10dp" />
+                    android:layout_marginTop="12dp" />
 
                 <Button
                     android:id="@+id/bt_login_login"
@@ -81,8 +81,8 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:layout_marginTop="20dp">
 
                     <TextView
@@ -99,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="12dp"
                         android:layout_toRightOf="@id/tv_login_check"
                         android:text="记住密码"
                         android:textColor="@color/gray"
