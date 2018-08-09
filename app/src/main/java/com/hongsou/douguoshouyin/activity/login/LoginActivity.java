@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
@@ -258,6 +260,12 @@ public class LoginActivity extends BaseActivity {
     private void initCode() {
         code = DeviceUtils.instace().getUniqueId(this);//获取设备编号
         Global.getSpGlobalUtil().setCode(code);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        BaseApplication.getInstance().removeAll();
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

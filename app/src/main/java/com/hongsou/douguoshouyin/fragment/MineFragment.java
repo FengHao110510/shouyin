@@ -251,9 +251,6 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 goLogout();
-
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                BaseApplication.getInstance().removeToTop();
                 dialog.dismiss();
             }
         });
@@ -273,6 +270,7 @@ public class MineFragment extends BaseFragment {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("成功退出");
                     Global.logout();
+                    startActivity(new Intent(getContext(), LoginActivity.class));
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }
