@@ -81,6 +81,7 @@ public class LoginActivity extends BaseActivity {
 
         } else {
             isChecked = false;
+
             tvLoginCheck.setTextColor(getResources().getColor(R.color.gray));
         }
     }
