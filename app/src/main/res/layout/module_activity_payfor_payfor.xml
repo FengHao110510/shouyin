@@ -328,7 +328,7 @@
                 android:textColor="@color/black"
                 android:textSize="30sp" />
 
-            <Button
+            <TextView
                 android:id="@+id/bt_payfor_payfor_btn_shang"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -338,8 +338,8 @@
                 android:layout_weight="1"
                 android:background="@color/gray"
                 android:gravity="center|bottom"
-
-                android:text="收"
+                android:text="扫码"
+                android:ems="1"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -403,7 +403,7 @@
                 android:textColor="@color/black"
                 android:textSize="30sp" />
 
-            <Button
+            <TextView
                 android:id="@+id/bt_payfor_payfor_btn_xia"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -413,8 +413,8 @@
                 android:layout_weight="1"
                 android:background="@color/gray"
                 android:gravity="center|top"
-
-                android:text="款"
+                android:text="收款"
+                android:ems="1"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 

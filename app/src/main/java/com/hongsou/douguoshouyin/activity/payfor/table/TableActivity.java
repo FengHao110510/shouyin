@@ -204,7 +204,7 @@ public class TableActivity extends BaseActivity {
                     if (res.get(i).getItemType() == TableAdapter.TYPE_TABLE_TITLE) {
                         if (tableListContentBean.getRegionNumber().equals(((TableRegionTitleBean) res.get(i)).getRegionNumber())) {
                             regionName = ((TableRegionTitleBean) res.get(i)).getRegionName()
-                                    + "(" + ((TableRegionTitleBean) res.get(i)).getPedestal() + "人桌)";
+                                    + "(" + tableListContentBean.getPedestal() + "人桌)";
                         }
                     }
                 }
