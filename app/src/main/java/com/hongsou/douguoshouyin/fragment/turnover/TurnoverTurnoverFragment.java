@@ -165,6 +165,9 @@ public class TurnoverTurnoverFragment extends BaseFragment {
             mTurnoverAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    if (turnoverMultipleItemList.get(position).getItemType()==TurnoverMultipleItem.TYPE_DATE){
+                        return;
+                    }
                     Intent itemIntent = new Intent(getActivity(), PaymentDetailActivity.class);
                     String batch = result.get(position).getBatch();
                     String paymentBatch = result.get(position).getPaymentBatch();
