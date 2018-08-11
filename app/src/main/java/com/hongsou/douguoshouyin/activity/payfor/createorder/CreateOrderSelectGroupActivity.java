@@ -113,7 +113,7 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
         mListThreeBeans22 = new ArrayList<>();
 
         mTvGroupFoodName.setText(mDataBean.getGroupPackageName());
-        mTvGroupPrice.setText(mDataBean.getGroupPackagePrice());
+        mTvGroupPrice.setText("￥" + mDataBean.getGroupPackagePrice());
         mRecyclerGroup1.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerGroup2.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerGroup1.setHasFixedSize(true);
@@ -158,12 +158,6 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
                             mListThreeBeans11.remove(mListThree1.get(position));
                         }
                         mTvSelectedCount1.setText(mListThreeBeans11.size() + "");
-
-//                    adapter1.setSelect(position);
-//                    mTvSelectedCount1.setText("1");
-//                    mListThreeBeans1 = mListThree1.get(position);
-//                    adapter1.setSelect(position);
-//                    adapter1.notifyDataSetChanged();
                 }
             });
         }
@@ -196,11 +190,6 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
                             mListThreeBeans22.remove(mListThree2.get(position));
                         }
                         mTvSelectedCount2.setText(mListThreeBeans22.size() + "");
-
-//                    adapter2.setSelect(position);
-//                    adapter2.notifyDataSetChanged();
-//                    mTvSelectedCount2.setText("1");
-//                    mListThreeBeans2 = mListThree2.get(position);
                 }
             });
         } else {
@@ -214,9 +203,18 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
 
     @OnClick(R.id.tv_add_meal)
     public void onViewClicked() {
-        if (mListThreeBeans11.size() <= 0 && mListThreeBeans22.size() <= 0) {
-            ToastUtil.showToast("请正确选择组合餐品，再操作");
-            return;
+        int count1 = Integer.valueOf(mListThree1.get(0).get(0).getGroupCount());
+        if (mDataBean.getListTwo().size() > 1){
+            int count2 = Integer.valueOf(mListThree2.get(0).get(0).getGroupCount());
+            if (mListThreeBeans11.size() != count1 && mListThreeBeans22.size() != count2) {
+                ToastUtil.showToast("请正确选择组合餐品，再操作");
+                return;
+            }
+        }else {
+            if (mListThreeBeans11.size() != count1) {
+                ToastUtil.showToast("请正确选择组合餐品，再操作");
+                return;
+            }
         }
 
         SelectMealEntity mMealListEntity = new SelectMealEntity();
@@ -230,7 +228,6 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
         mMealListEntity.setId( ++CreateOrderPresenter.DAO_ID);
 
         mDataBean.getList();
-//        List<PackageFoodEntity> entityList = new ArrayList<>();
 
         List<FoodZuheTaocanXQ> groupFoodList = new ArrayList<>();
         List<FoodBean.DataBean.ListBean> source = new ArrayList<>(); // 选中的餐品组合
@@ -243,7 +240,6 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
                 source.add(bean1);
             }
         }
-
         if (mDataBean.getListTwo().size() > 1) {
             for (List<FoodZuheTaocanXQ> foodZuheTaocanXQS : mListThreeBeans22) {
                 groupFoodList.addAll(foodZuheTaocanXQS);
@@ -255,29 +251,6 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
                 }
             }
         }
-
-
-
-//        // 组合套餐选中的 <单品组合>
-//        List<FoodBean.DataBean.ListBean> source = new ArrayList<>(); // 选中的餐品组合
-//        List<FoodZuheTaocanXQ> groupFoodList = mListThreeBeans1; // 选中的餐品组合
-//        for (FoodZuheTaocanXQ listThreeBean : mListThreeBeans1) {
-//            FoodBean.DataBean.ListBean bean1 = JavaBeanUtils.copyData(listThreeBean, FoodBean.DataBean.ListBean.class);
-//            bean1.setSingleProductNumber(listThreeBean.getFoodProductsNumber());
-//            bean1.setSingleQuantity(listThreeBean.getFoodProductsCount());
-//            source.add(bean1);
-//        }
-
-//        source.addAll(groupFoodList);
-//        if (mDataBean.getListTwo().size() > 1) {
-//            groupFoodList.addAll(mListThreeBeans2); // 选中的餐品组合
-//            for (FoodZuheTaocanXQ listThreeBean : mListThreeBeans2) {
-//                FoodBean.DataBean.ListBean bean1 = JavaBeanUtils.copyData(listThreeBean, FoodBean.DataBean.ListBean.class);
-//                bean1.setSingleProductNumber(listThreeBean.getFoodProductsNumber());
-//                bean1.setSingleQuantity(listThreeBean.getFoodProductsCount());
-//                source.add(bean1);
-//            }
-//        }
         mMealListEntity.setGroupFood(groupFoodList);
         mDataBean.setList(source);
         Intent intent = new Intent();
