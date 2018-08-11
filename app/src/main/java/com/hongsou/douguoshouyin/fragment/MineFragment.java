@@ -92,8 +92,8 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rlMineJiaoban;
     @BindView(R.id.tv_mine_phone_icon)
     TextView tvMinePhoneIcon;
-
-    private Dialog dialog;//登出弹框
+    //登出弹框
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -258,7 +258,7 @@ public class MineFragment extends BaseFragment {
     }
 
     /**
-     * 注销接口  TODO 回到登录界面
+     * 注销接口
      */
     private void goLogout() {
         HttpFactory.post().url(ApiConfig.LOGOUT)
@@ -282,7 +282,6 @@ public class MineFragment extends BaseFragment {
     //=================================================================================================================
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;

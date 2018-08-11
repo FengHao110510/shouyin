@@ -51,11 +51,14 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_login_check)
     TextView tvLoginCheck;
 
-    private boolean isChecked;//是否记住密码
-    private String code;  //设备编号
-    private String userName;//用户名
-
-    private String passWord;//密码
+    //是否记住密码
+    private boolean isChecked;
+    //设备编号
+    private String code;
+    //用户名
+    private String userName;
+    //密码
+    private String passWord;
 
     @Override
     protected void init() {
@@ -125,7 +128,11 @@ public class LoginActivity extends BaseActivity {
     }
 
 
-    //登陆
+    /**
+     * @author fenghao
+     * @date 2018/8/11 0011 下午 12:11
+     * @desc 登录接口
+     */
     private void login() {
 
         userName = etLoginUser.getText().toString();
@@ -168,7 +175,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
-                Log.e(TAG, "onResponse: " + response.toString());
+                Log.e(TAG, "onResponse: " + response);
                 RootBean<LoginBean> loginBean = new Gson().fromJson(response, new TypeToken<RootBean<LoginBean>>() {
                 }.getType());
                 if (loginBean.isSuccess()) {
@@ -189,7 +196,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * @param dataBean
+     * @param dataBean 登录返回的数据
      * @author fenghao
      * @date 2018/7/24 0024 下午 16:14
      * @desc 获取支付标识
@@ -213,16 +220,16 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * @param dataBean
-     * @param aliCode
-     * @param wecharCode @return
+     * @param dataBean   登录返回的数据
+     * @param aliCode    阿里支付标识
+     * @param wecharCode 微信支付标识
      * @author fenghao
      * @date 2018/7/9 0009 下午 17:43
      * @desc 将登录数据存储
      */
 
     private void isLogined(LoginBean dataBean, String aliCode, String wecharCode) {
-        ToastUtil.showToast("登陆成功");
+        ToastUtil.showToast("登录成功");
         Global.getSpGlobalUtil().setClerkName(dataBean.getClerkName());
         Global.getSpGlobalUtil().setClerkNumber(dataBean.getClerkNumber());
         Global.getSpGlobalUtil().setShopNumber(dataBean.getShopNumber());
@@ -247,8 +254,8 @@ public class LoginActivity extends BaseActivity {
     /**
      * 检测密码位数
      *
-     * @param password
-     * @return
+     * @param password 密码
+     * @return 是否符合位数
      */
     private boolean isPasswordValid(String password) {
         return password.length() > 5 && password.length() < 17;
@@ -259,7 +266,8 @@ public class LoginActivity extends BaseActivity {
      * 推送别名设置能
      */
     private void initCode() {
-        code = DeviceUtils.instace().getUniqueId(this);//获取设备编号
+        //获取设备编号
+        code = DeviceUtils.instace().getUniqueId(this);
         Global.getSpGlobalUtil().setCode(code);
     }
 

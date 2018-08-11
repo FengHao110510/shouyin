@@ -187,13 +187,13 @@ public class PaymentDetailActivity extends BaseActivity {
     private void renderView(PaymentDetailBean data) {
         // OrderType 0 '支付中'  1'收款成功'  -2 '支付中' -3'已退款'
         if ("0".equals(data.getOrderType())) {
-            setViewInfo("收款中", R.drawable.icon_paying, View.VISIBLE);
+            setViewInfo("收款中", R.drawable.icon_paying, View.VISIBLE,View.VISIBLE);
         } else if ("-2".equals(data.getOrderType())) {
-            setViewInfo("收款中", R.drawable.icon_paying, View.GONE);
+            setViewInfo("收款中", R.drawable.icon_paying, View.GONE,View.VISIBLE);
         } else if ("1".equals(data.getOrderType())) {
-            setViewInfo("收款成功", R.drawable.icon_pay_success, View.GONE);
+            setViewInfo("收款成功", R.drawable.icon_pay_success, View.GONE,View.VISIBLE);
         } else if ("-3".equals(data.getOrderType())) {
-            setViewInfo("退款成功", R.drawable.icon_pay_back_money, View.GONE);
+            setViewInfo("退款成功", R.drawable.icon_pay_back_money, View.GONE,View.GONE);
         }
         mTvOrderBatch.setText(TextUtils.isEmpty(data.getPaymentBatch()) ? data.getBatch() : data.getPaymentBatch());
         mTvOrderPayTime.setText(data.getTradingTime());
@@ -216,12 +216,13 @@ public class PaymentDetailActivity extends BaseActivity {
      * @anthor lpc
      * @date: 2018/7/24
      */
-    private void setViewInfo(String title, int imgRes, int visible) {
+    private void setViewInfo(String title, int imgRes, int visible,int visible2) {
         mTopBar.setCenterText(title);
         mTvOrderTitle.setText(title);
         mTvOrderPayStatus.setText(title);
         mIvOrderStatus.setImageResource(imgRes);
         mTopBar.setRightVisibility(visible);
+        mBtnOrderBackMoney.setVisibility(visible2);
     }
 
 
