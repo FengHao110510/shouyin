@@ -72,7 +72,8 @@
                     <TextView
                         android:id="@+id/et_mine_shopinfor_shanghubianhao"
                         style="@style/et_style"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:textColor="@color/gray" />
                 </LinearLayout>
 
                 <View
@@ -115,9 +116,10 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/et_mine_shopinfor_mendiandizhi"
                         style="@style/et_style"
+                        android:textColor="@color/gray"
                         android:gravity="right" />
                 </LinearLayout>
 

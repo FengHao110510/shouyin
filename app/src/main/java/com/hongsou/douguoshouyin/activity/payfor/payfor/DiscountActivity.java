@@ -92,12 +92,12 @@ public class DiscountActivity extends BaseActivity {
         dialog.addContentView(view, params);
         dialog.show();
 
-        TextView tv_dialog_edit_title = view.findViewById(R.id.tv_dialog_edit_title);//头
+        TextView tvDialogEditTitle = view.findViewById(R.id.tv_dialog_edit_title);//头
         final TextView et_dialog_edit_content = view.findViewById(R.id.et_dialog_edit_content);//内容
-        TextView tv_dialog_edit_cancle = view.findViewById(R.id.tv_dialog_edit_cancle);//取消
-        TextView tv_dialog_edit_yes = view.findViewById(R.id.tv_dialog_edit_yes);//确定
+        TextView tvDialogEditCancle = view.findViewById(R.id.tv_dialog_edit_cancle);//取消
+        TextView tvDialogEditYes = view.findViewById(R.id.tv_dialog_edit_yes);//确定
 
-        tv_dialog_edit_title.setText(title);
+        tvDialogEditTitle.setText(title);
         et_dialog_edit_content.setHint(hint);
         if (b) {
             et_dialog_edit_content.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -135,14 +135,14 @@ public class DiscountActivity extends BaseActivity {
             }
         });
 
-        tv_dialog_edit_cancle.setOnClickListener(new View.OnClickListener() {
+        tvDialogEditCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
             }
         });
 
-        tv_dialog_edit_yes.setOnClickListener(new View.OnClickListener() {
+        tvDialogEditYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();

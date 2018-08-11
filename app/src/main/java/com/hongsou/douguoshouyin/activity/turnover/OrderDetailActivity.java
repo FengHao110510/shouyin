@@ -105,7 +105,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     OrderDetailsFoodAdapter orderDetailsFoodAdapter;
     //支付方式
-    String type="";
+    String type = "";
     private OrderDetailBean mOrderDetailBean;
     private OrderDetailBean.DataBean.OrderBean order;
 
@@ -326,13 +326,15 @@ public class OrderDetailActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //TODO 判断密码是否正确 走退款接口
-                if (TextUtils.isEmpty(et_dialog_tuikuan_content.getText())) {
+                if (TextUtils.isEmpty(et_dialog_tuikuan_content.getText().toString().trim())) {
                     ToastUtil.showToast("请先输入退款密码");
+                } else if (!et_dialog_tuikuan_content.getText().toString().equals(Global.getSpGlobalUtil().getPassword())) {
+                    ToastUtil.showToast("退款密码不正确");
                 } else {
-                    if (TextUtils.isEmpty(type)){
+                    if (TextUtils.isEmpty(type)) {
                         //现金退款
                         cashTuikuan();
-                    }else {
+                    } else {
                         doRefund();
                     }
                 }
@@ -444,6 +446,7 @@ public class OrderDetailActivity extends BaseActivity {
             }
         });
     }
+
     @OnClick({R.id.tv_turnover_orderdetail_tuikuan, R.id.tv_turnover_orderdetail_dayinxiaopiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -454,7 +457,7 @@ public class OrderDetailActivity extends BaseActivity {
                 //打印小票
                 if (order.getOrderType().contains("已退")) {
                     // 退单打印
-                    if (Global.getSpGlobalUtil().getRefundPrintSwitch()){
+                    if (Global.getSpGlobalUtil().getRefundPrintSwitch()) {
                         BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
                                 .setContent(mOrderDetailBean)
                                 .setCount(Global.getSpGlobalUtil().getRefundPrintCount())
@@ -462,9 +465,9 @@ public class OrderDetailActivity extends BaseActivity {
                                 .build();
                         printerUtil.startPrint();
                     }
-                }else {
+                } else {
                     // 订单打印
-                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()) {
                         BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
                                 .setContent(mOrderDetailBean)
                                 .setCount(Global.getSpGlobalUtil().getOrderPrintCount())

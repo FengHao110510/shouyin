@@ -241,15 +241,15 @@ public class AddTaocanActivity extends BaseActivity {
             ToastUtil.showToast("请上传照片");
             return;
         }
-        if (TextUtils.isEmpty(etPayforAddtaocanMingcheng.getText().toString())) {
+        if (TextUtils.isEmpty(etPayforAddtaocanMingcheng.getText().toString().trim())) {
             ToastUtil.showToast("请填写套餐名称");
             return;
         }
-        if (TextUtils.isEmpty(taocanleixingFlag)) {
+        if (TextUtils.isEmpty(taocanleixingFlag.trim())) {
             ToastUtil.showToast("请先选择套餐类型");
             return;
         }
-        if (TextUtils.isEmpty(etPayforAddtaocanJine.getText().toString())) {
+        if (TextUtils.isEmpty(etPayforAddtaocanJine.getText().toString().trim())) {
             ToastUtil.showToast("请先填写套餐金额");
             return;
         }
@@ -261,7 +261,7 @@ public class AddTaocanActivity extends BaseActivity {
             ToastUtil.showToast("请先选择套餐中的餐品");
             return;
         }
-        if (TextUtils.isEmpty(etPayforAddtaocanDanwei.getText().toString())) {
+        if (TextUtils.isEmpty(etPayforAddtaocanDanwei.getText().toString().trim())) {
             ToastUtil.showToast("请先选择套餐单位");
             return;
         }
@@ -310,7 +310,7 @@ public class AddTaocanActivity extends BaseActivity {
             ToastUtil.showToast("请上传照片");
             return;
         }
-        if (TextUtils.isEmpty(etPayforAddtaocanMingcheng.getText().toString())) {
+        if (TextUtils.isEmpty(etPayforAddtaocanMingcheng.getText().toString().trim())) {
             ToastUtil.showToast("请填写套餐名称");
             return;
         }
@@ -318,7 +318,7 @@ public class AddTaocanActivity extends BaseActivity {
             ToastUtil.showToast("请先选择套餐类型");
             return;
         }
-        if (TextUtils.isEmpty(etPayforAddtaocanJine.getText().toString())) {
+        if (TextUtils.isEmpty(etPayforAddtaocanJine.getText().toString().trim())) {
             ToastUtil.showToast("请先填写套餐金额");
             return;
         }
@@ -330,7 +330,7 @@ public class AddTaocanActivity extends BaseActivity {
             ToastUtil.showToast("请先选择套餐中的餐品");
             return;
         }
-        if (TextUtils.isEmpty(etPayforAddtaocanDanwei.getText().toString())) {
+        if (TextUtils.isEmpty(etPayforAddtaocanDanwei.getText().toString().trim())) {
             ToastUtil.showToast("请先选择套餐单位");
             return;
         }
@@ -600,7 +600,6 @@ public class AddTaocanActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 imgPopupWindow.dismiss();
-                ToastUtil.showToast("拍照");
                 openCamera();
             }
         });
@@ -610,7 +609,6 @@ public class AddTaocanActivity extends BaseActivity {
             public void onClick(View view) {
                 imgPopupWindow.dismiss();
                 openPhoto();
-                ToastUtil.showToast("相册");
             }
         });
 

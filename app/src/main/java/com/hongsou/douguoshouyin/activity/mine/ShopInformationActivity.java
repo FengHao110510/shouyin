@@ -64,7 +64,7 @@ public class ShopInformationActivity extends BaseActivity {
     @BindView(R.id.et_mine_shopinfor_mendianmingcheng)
     EditText etMineShopinforMendianmingcheng;
     @BindView(R.id.et_mine_shopinfor_mendiandizhi)
-    EditText etMineShopinforMendiandizhi;
+    TextView etMineShopinforMendiandizhi;
     @BindView(R.id.et_mine_shopinfor_xiangxidizhi)
     EditText etMineShopinforXiangxidizhi;
     @BindView(R.id.et_mine_shopinfor_phone)
@@ -180,7 +180,6 @@ public class ShopInformationActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 mPopupWindow.dismiss();
-                ToastUtil.showToast("拍照");
                 openCamera();
             }
         });
@@ -190,7 +189,6 @@ public class ShopInformationActivity extends BaseActivity {
             public void onClick(View view) {
                 mPopupWindow.dismiss();
                 openPhoto();
-                ToastUtil.showToast("相册");
             }
         });
 
@@ -385,10 +383,10 @@ public class ShopInformationActivity extends BaseActivity {
             ToastUtil.showToast("请输入详细地址");
             return;
         }
-        if (etMineShopinforPhone.getText().toString().equals("")) {
-            ToastUtil.showToast("请输入门店电话");
-            return;
-        }
+        if (etMineShopinforPhone.getText().toString().length()!=11){
+                ToastUtil.showToast("请输入正确门店电话");
+                return;
+            }
         if (file != null) {
             postImg();
             Log.e(TAG, "save: asdad   postImg();" );
