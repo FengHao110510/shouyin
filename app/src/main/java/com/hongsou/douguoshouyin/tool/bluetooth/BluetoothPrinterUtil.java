@@ -90,7 +90,13 @@ public class BluetoothPrinterUtil {
      * @date: 2018/7/27
      */
     public void startPrint() {
-        BluetoothSocket socket = BaseApplication.getInstance().socket;
+        for (BluetoothSocket bluetoothSocket : BaseApplication.getApplication().socketArray) {
+            print(bluetoothSocket);
+        }
+    }
+
+    private void print(BluetoothSocket socket){
+//        BluetoothSocket socket = BaseApplication.getInstance().socket;
         if (socket == null) {
             ToastUtil.showToast("蓝牙未连接");
             return;
@@ -136,12 +142,6 @@ public class BluetoothPrinterUtil {
                     break;
             }
         }
-
-//        try {
-//            socket.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public static class Builder {

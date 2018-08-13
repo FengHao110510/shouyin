@@ -390,6 +390,15 @@ public class BluetoothPrinterTemplate {
      * @date: 2018/8/1
      */
     public static void printTest() {
-        BluetoothFormatUtils.printText("\n");
+        //设置大号字体以及加粗
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.DOUBLE_HEIGHT_WIDTH);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_CENTER);
+        BluetoothFormatUtils.printText("打印测试");
+        BluetoothFormatUtils.printNewLine(1);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.NORMAL);
+        BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_LEFT);
+        BluetoothFormatUtils.printText("技术支持：豆果智慧餐饮\n");
+        BluetoothFormatUtils.printText("服务热线：400-997-6660\n");
+        BluetoothFormatUtils.printNewLine(4);
     }
 }

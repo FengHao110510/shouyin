@@ -488,7 +488,8 @@ public class SharePreferenceGlobalUtil {
      * @param address
      */
     public void setBluetoothAddress(String address) {
-        editor.putString("BluetoothAddress", address);
+        String bluetoothAddress = getBluetoothAddress();
+        editor.putString("BluetoothAddress", address + "@_@" + bluetoothAddress);
         editor.commit();
     }
 

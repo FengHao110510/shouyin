@@ -1,6 +1,7 @@
 package com.hongsou.douguoshouyin.activity.mine;
 
 import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -101,7 +102,14 @@ public class BluetoothActivity extends BaseActivity {
                 if (bluetoothAdapter != null){
                     bluetoothAdapter.cancelDiscovery();
                 }
-                submitPrinter(blueToothModels.get(i));
+//                submitPrinter(blueToothModels.get(i));
+                BluetoothBean bluetoothBean = blueToothModels.get(i);
+                Intent intent = new Intent(BluetoothActivity.this, PrinterActivity.class);
+                intent.putExtra("address", bluetoothBean.getAddress());
+                intent.putExtra("type", type);
+                intent.putExtra("name",  TextUtils.isEmpty(name) ? bluetoothBean.getName() : name);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
             }
         });
     }
@@ -116,7 +124,7 @@ public class BluetoothActivity extends BaseActivity {
         HttpFactory.post().url(ApiConfig.INSERT_SHOP_PRINT)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("printWidth", "58mm")
-                .addParams("printBrand", "")
+                .addParams("printBrand", "app")
                 .addParams("printClassifyName", type)
                 .addParams("printName", bluetoothBean.getName())
                 .addParams("printAddress", bluetoothBean.getAddress())

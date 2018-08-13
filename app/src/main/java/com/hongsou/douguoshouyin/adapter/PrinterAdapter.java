@@ -30,7 +30,7 @@ public class PrinterAdapter extends BaseQuickAdapter<PrinterBean, BaseViewHolder
     protected void convert(BaseViewHolder helper, PrinterBean item) {
         helper.setText(R.id.tv_printer_name, item.getPrintName())
                 .setText(R.id.tv_printer_type, item.getPrintClassifyName())
-                .setText(R.id.tv_connect, item.getStatus())
+                .setText(R.id.tv_connect, item.getConnectStatus() ? "断开" : "连接")
                 .addOnClickListener(R.id.tv_connect);
     }
 }
