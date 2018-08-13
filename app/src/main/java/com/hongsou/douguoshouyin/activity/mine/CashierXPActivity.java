@@ -88,23 +88,6 @@ public class CashierXPActivity extends BaseActivity {
 
     }
 
-    //左上角后退键
-    @Override
-    public void initBack() {
-        setIconFont(new TextView[]{tvTitlebarFinishBack});
-    }
-
-    //返回键监听
-
-    @Override
-    public void onBackPressed() {
-        if (!flag) {
-            showBaocunDialog();
-        } else {
-            finishActivity();
-        }
-    }
-
     /**
      * 初始化开关状态
      */
@@ -164,7 +147,7 @@ public class CashierXPActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_titlebar_finish_back, R.id.tv_titlebar_right, R.id.tv_mine_cashier_xp_shoukuan_icon, R.id.tv_mine_cashier_xp_dingdan_icon, R.id.tv_mine_cashier_xp_tuikuan_icon, R.id.tv_mine_cashier_xp_jiaoban_icon, R.id.tv_mine_cashier_xp_houchu_icon})
+    @OnClick({ R.id.tv_titlebar_right, R.id.tv_mine_cashier_xp_shoukuan_icon, R.id.tv_mine_cashier_xp_dingdan_icon, R.id.tv_mine_cashier_xp_tuikuan_icon, R.id.tv_mine_cashier_xp_jiaoban_icon, R.id.tv_mine_cashier_xp_houchu_icon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
@@ -222,15 +205,6 @@ public class CashierXPActivity extends BaseActivity {
                 //TODO 保存点击事件
                 flag = true;
                 save();
-
-
-                break;
-            case R.id.tv_titlebar_finish_back:
-                if (!flag) {
-                    showBaocunDialog();
-                } else {
-                    finishActivity();
-                }
                 break;
             default:
                 break;
@@ -273,7 +247,9 @@ public class CashierXPActivity extends BaseActivity {
         } else {
             Global.getSpGlobalUtil().setKitchenPrintCount(Integer.valueOf(etMineCashierXpHouchuCount.getText().toString()));
         }
-        ToastUtil.showToast("保存成功");
+        if (flag){
+            ToastUtil.showToast("保存成功");
+        }
     }
 
     /**
