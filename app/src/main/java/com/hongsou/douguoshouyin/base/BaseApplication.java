@@ -241,19 +241,25 @@ public class BaseApplication extends MultiDexApplication {
      * 移除全部（用于整个应用退出）
      */
     public void removeAll() {
-        //finish所有的Activity
-        Iterator<AppCompatActivity> iterator = activitys.iterator();
-        while (iterator.hasNext()) {
-            AppCompatActivity task = iterator.next();
-            if (!task.isFinishing()) {
-                task.finish();
-            }
-        }
+//        //finish所有的Activity
+//        Iterator<AppCompatActivity> iterator = activitys.iterator();
+//        while (iterator.hasNext()) {
+//            AppCompatActivity task = iterator.next();
+//            if (!task.isFinishing()) {
+//                task.finish();
+//            }
+//        }
 //        for (AppCompatActivity task : activitys) {
 //            if (!task.isFinishing()) {
 //                task.finish();
 //            }
 //        }
+        for (int i =0;i<activitys.size();i++){
+            if (!activitys.get(i).isFinishing()) {
+                activitys.get(i).finish();
+                i--;
+            }
+        }
     }
 
 

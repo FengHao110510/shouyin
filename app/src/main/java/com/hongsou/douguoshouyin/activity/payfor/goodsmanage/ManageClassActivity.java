@@ -263,7 +263,7 @@ public class ManageClassActivity extends BaseActivity {
         tvDialogFenleiYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.isEmpty(etDialogFenleiContent.getText().toString())) {
+                if (!TextUtils.isEmpty(etDialogFenleiContent.getText().toString().trim())) {
                     if (addFlag == 0) {
                         //走添加接口
                         addCategory(etDialogFenleiContent.getText().toString(), type[0]);

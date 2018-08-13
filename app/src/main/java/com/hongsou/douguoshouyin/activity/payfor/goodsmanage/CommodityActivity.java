@@ -174,12 +174,16 @@ public class CommodityActivity extends BaseActivity {
                     if (i == position) {
                         tvItemAddfoodsCategory = (TextView) adapter.getViewByPosition(rvPayforCommodityCategory, position
                                 , R.id.tv_item_addfoods_category);
-                        tvItemAddfoodsCategory.setBackgroundColor(getResources().getColor(R.color.white));
+                        if (tvItemAddfoodsCategory != null) {
+                            tvItemAddfoodsCategory.setBackgroundColor(getResources().getColor(R.color.white));
+                        }
 
                     } else {
                         tvItemAddfoodsCategory = (TextView) adapter.getViewByPosition(rvPayforCommodityCategory, i
                                 , R.id.tv_item_addfoods_category);
-                        tvItemAddfoodsCategory.setBackgroundColor(getResources().getColor(R.color.bg_gray));
+                        if (tvItemAddfoodsCategory != null) {
+                            tvItemAddfoodsCategory.setBackgroundColor(getResources().getColor(R.color.bg_gray));
+                        }
                     }
                 }
                 singleFoodsBeanList2.clear();

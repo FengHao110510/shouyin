@@ -17,45 +17,26 @@ package com.hongsou.douguoshouyin.javabean;
 
 public class LoginBean  extends RootBean{
 
+
     /**
-     * clerkNumber : D180427111111528
-     * shopNumber : 1000180427300326890
-     * clerkName : 李晓鑫
-     * paymentUser : 171128165119624
-     * registeredCell : 13832352792
-     * insertTime : 2018-04-27 10:11:00.853
-     * updateTime : 2018-07-11 11:25:57.367
-     * deletionFlag : 0
-     * passWord : e10adc3949ba59abbe56e057f20f883e
-     * postNumber : 153E830D-90E2-492F-9EC7-DA6982DDA413
-     * sex : 男
-     * iDNumber : 130984199608293910
-     * clerkType : 0
-     * enable : 0
-     * clerkUserName : 13832352792
-     * shopName : 听说我是美团测试店？
-     * shopAddress : 河北省石家庄市桥西区河北省石家庄
+     * clerkNumber : 180614165216655
+     * shopNumber : 1000180614300325544
+     * clerkName : 管理员
+     * paymentUser : 171226165145437
+     * shopName : 真香香
+     * shopAddress : 河北省石家庄市桥西区滋味小小厨
      * shopPhone : 17732152792
+     * loginToken : b4ae2dc1-dfc7-4e55-b185-3edf3bfedf13
      */
 
     private String clerkNumber;
     private String shopNumber;
     private String clerkName;
     private String paymentUser;
-    private String registeredCell;
-    private String insertTime;
-    private String updateTime;
-    private String deletionFlag;
-    private String passWord;
-    private String postNumber;
-    private String sex;
-    private String iDNumber;
-    private String clerkType;
-    private String enable;
-    private String clerkUserName;
     private String shopName;
     private String shopAddress;
     private String shopPhone;
+    private String loginToken;
 
     public String getClerkNumber() {
         return clerkNumber;
@@ -89,94 +70,6 @@ public class LoginBean  extends RootBean{
         this.paymentUser = paymentUser;
     }
 
-    public String getRegisteredCell() {
-        return registeredCell;
-    }
-
-    public void setRegisteredCell(String registeredCell) {
-        this.registeredCell = registeredCell;
-    }
-
-    public String getInsertTime() {
-        return insertTime;
-    }
-
-    public void setInsertTime(String insertTime) {
-        this.insertTime = insertTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getDeletionFlag() {
-        return deletionFlag;
-    }
-
-    public void setDeletionFlag(String deletionFlag) {
-        this.deletionFlag = deletionFlag;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public String getPostNumber() {
-        return postNumber;
-    }
-
-    public void setPostNumber(String postNumber) {
-        this.postNumber = postNumber;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getIDNumber() {
-        return iDNumber;
-    }
-
-    public void setIDNumber(String iDNumber) {
-        this.iDNumber = iDNumber;
-    }
-
-    public String getClerkType() {
-        return clerkType;
-    }
-
-    public void setClerkType(String clerkType) {
-        this.clerkType = clerkType;
-    }
-
-    public String getEnable() {
-        return enable;
-    }
-
-    public void setEnable(String enable) {
-        this.enable = enable;
-    }
-
-    public String getClerkUserName() {
-        return clerkUserName;
-    }
-
-    public void setClerkUserName(String clerkUserName) {
-        this.clerkUserName = clerkUserName;
-    }
-
     public String getShopName() {
         return shopName;
     }
@@ -199,5 +92,13 @@ public class LoginBean  extends RootBean{
 
     public void setShopPhone(String shopPhone) {
         this.shopPhone = shopPhone;
+    }
+
+    public String getLoginToken() {
+        return loginToken;
+    }
+
+    public void setLoginToken(String loginToken) {
+        this.loginToken = loginToken;
     }
 }

@@ -229,7 +229,18 @@
             android:name=".activity.mine.BluetoothNewActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.payfor.table.RegionActivity" />
+        <activity
+            android:name=".activity.payfor.table.RegionActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.ChooseIsScanActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.mine.AuthorizeActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".broadcastreceiver.JpushReceiver"
@@ -246,8 +257,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.mine.ChooseIsScanActivity" />
-        <activity android:name=".activity.mine.AuthorizeActivity"></activity>
 
         <service
             android:name="com.gprinter.service.GpPrintService"
@@ -260,6 +269,7 @@
         </service>
         <service android:name="com.gprinter.service.AllService" >
         </service>
+
     </application>
 
 </manifest>

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -88,7 +91,7 @@ public class PayForActivity extends BaseActivity {
     @BindView(R.id.bt_payfor_payfor_btn9)
     Button btPayforPayforBtn9;
     @BindView(R.id.bt_payfor_payfor_btn_shang)
-    Button btPayforPayforBtnShang;
+    TextView btPayforPayforBtnShang;
     @BindView(R.id.bt_payfor_payfor_btn_dian)
     Button btPayforPayforBtnDian;
     @BindView(R.id.bt_payfor_payfor_btn0)
@@ -96,7 +99,7 @@ public class PayForActivity extends BaseActivity {
     @BindView(R.id.bt_payfor_payfor_btn00)
     Button btPayforPayforBtn00;
     @BindView(R.id.bt_payfor_payfor_btn_xia)
-    Button btPayforPayforBtnXia;
+    TextView btPayforPayforBtnXia;
 
     private String flag;//判断是折扣优惠还是现金优惠 0折扣 1优惠
     private float content;//折扣或现金的数据
@@ -428,7 +431,11 @@ public class PayForActivity extends BaseActivity {
                     Global.getSpGlobalUtil().setDiscountMoney(content + "");
                 }
             }
-            showPopWindow();
+            //表示纯收款
+            Global.getSpGlobalUtil().setBatch("00000000000000000000");
+
+//            showPopWindow();
+            toSao();
 
         } else {
             if (!TextUtils.isEmpty(tvPayforPayforXiaofeijine.getText().toString())) {
@@ -442,10 +449,25 @@ public class PayForActivity extends BaseActivity {
         }
     }
 
+    /**
+     *  @author  fenghao
+     *  @date    2018/8/10 0010 下午 16:59
+     *  @desc   跳转到扫一扫
+     */
+    private void toSao() {
+        new IntentIntegrator(PayForActivity.this).
+                setCaptureActivity(ScanQRCodeActivity.class)
+                .setPrompt("")// 设置提示语
+                .setCameraId(0)// 选择摄像头,可使用前置或者后置
+                .setBeepEnabled(false)// 是否开启声音,扫完码之后会"哔"的一声
+                .setBarcodeImageEnabled(true)// 扫完码之后生成二维码的图片
+                .initiateScan();// 初始化扫码
+    }
+
+
     //弹框扫码或一码付支付
     private void showPopWindow() {
 
-        Global.getSpGlobalUtil().setBatch("00000000000000000000");
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
         View v = layoutInflater.inflate(R.layout.module_pop_pay, null);
 
@@ -588,6 +610,25 @@ public class PayForActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 Log.e(TAG, "onResponse: " + response.toString());
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    int code = (int) jsonObject.get("code");
+                    switch (code) {
+                        case 1:
+                            ToastUtil.showToast("支付失败");
+                            break;
+                        case 2:
+                            ToastUtil.showToast("系统异常");
+                            break;
+                        case 4:
+                            ToastUtil.showToast("支付中。。。");
+                            break;
+                        default:
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
 

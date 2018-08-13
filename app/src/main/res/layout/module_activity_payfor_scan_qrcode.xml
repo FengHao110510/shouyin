@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="¥ "
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/tv_payfor_saoyisao_shoukuanjine"
@@ -79,7 +79,7 @@
                 android:layout_toRightOf="@id/tv_payfor_saoyisao_renminbi"
                 android:text="8.0"
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textSize="35sp" />
         </RelativeLayout>
 
         <TextView
@@ -89,7 +89,7 @@
             android:layout_centerHorizontal="true"
             android:text="收款金额"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
 
 
         <TextView

@@ -204,7 +204,7 @@ public class TableActivity extends BaseActivity {
                     if (res.get(i).getItemType() == TableAdapter.TYPE_TABLE_TITLE) {
                         if (tableListContentBean.getRegionNumber().equals(((TableRegionTitleBean) res.get(i)).getRegionNumber())) {
                             regionName = ((TableRegionTitleBean) res.get(i)).getRegionName()
-                                    + "(" + ((TableRegionTitleBean) res.get(i)).getPedestal() + "人桌)";
+                                    + "(" + tableListContentBean.getPedestal() + "人桌)";
                         }
                     }
                 }
@@ -259,7 +259,7 @@ public class TableActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //走添加单个桌台的接口
-                if (!TextUtils.isEmpty(etDialogEditContent.getText().toString())) {
+                if (!TextUtils.isEmpty(etDialogEditContent.getText().toString().trim())) {
                     addOneTable(tableListContentBean, etDialogEditContent.getText().toString());
 
                 } else {
@@ -370,7 +370,7 @@ public class TableActivity extends BaseActivity {
         tvDialogEditYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(etDialogEditContent.getText().toString())) {
+                if (TextUtils.isEmpty(etDialogEditContent.getText().toString().trim())) {
                     ToastUtil.showToast("请输入要发送的邮箱地址！");
                 } else {
                     final ArrayList<DeletTableBean> emailTableBeanArrayList = new ArrayList<>();
@@ -390,21 +390,21 @@ public class TableActivity extends BaseActivity {
                                 emailTableBeanArrayList.add(deletTableBean);
                             }
                         }
-                        if (emailTableBeanArrayList.size() < 1) {
-                            ToastUtil.showToast("请先选择选中的桌台");
+
+
+                    }
+                    if (emailTableBeanArrayList.size() < 1) {
+                        ToastUtil.showToast("请先选择选中的桌台");
+                        downLoadDialog.dismiss();
+                    } else {
+                        if (etDialogEditContent.getText().toString().matches("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$")) {
+                            downLoad(etDialogEditContent.getText().toString(), emailTableBeanArrayList);
                             downLoadDialog.dismiss();
                         } else {
-                            if (etDialogEditContent.getText().toString().matches("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$")) {
-                                downLoad(etDialogEditContent.getText().toString(), emailTableBeanArrayList);
-                                downLoadDialog.dismiss();
-                            } else {
-                                ToastUtil.showToast("请输入正确的邮箱格式");
-                            }
-
+                            ToastUtil.showToast("请输入正确的邮箱格式");
                         }
 
                     }
-
                 }
 
             }

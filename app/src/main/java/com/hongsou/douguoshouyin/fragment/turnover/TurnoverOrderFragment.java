@@ -152,6 +152,7 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @desc //展示订单列表
      */
     private void showOrderList(List<OrderBean.DataBean.ResultBean> data, int page) {
+
         if (page > 1) {
             if (data.size() > 0) {
                 listBeans.addAll(data);
@@ -176,13 +177,27 @@ public class TurnoverOrderFragment extends BaseFragment {
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Intent itemIntent = new Intent(getActivity(), OrderDetailActivity.class);
                         itemIntent.putExtra("batch", listBeans.get(position).getBatch());
-                        startActivity(itemIntent);
+                        startActivityForResult(itemIntent,1);
                     }
                 });
             }
             //获取数据
             listBeans.addAll(data);
             orderAdapter.notifyDataSetChanged();
+
+        }
+        if (data.size()<1){
+            ToastUtil.showToast("暂无更多数据");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==1){
+            page = 1;
+            getOrderList(mParam, page);
+            smTurnoverOrder.finishRefresh();
         }
     }
 

@@ -14,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
@@ -59,7 +60,6 @@ public class LoginActivity extends BaseActivity {
     protected void init() {
         initView();
         initData();
-        initCode();
     }
 
     @Override
@@ -116,6 +116,8 @@ public class LoginActivity extends BaseActivity {
                     isChecked = true;
                 }
                 break;
+            default:
+                break;
         }
     }
 
@@ -152,7 +154,9 @@ public class LoginActivity extends BaseActivity {
                 .addParams("userName", userName)
                 .addParams("passWord", passWord)
                 .addParams("ip", Global.getIPAddress(this))
-                .addParams("equpmentNumber", Global.getSpGlobalUtil().getCode())
+                .addParams("equpmentNumber", "")
+                .addParams("appKey", Constant.APP_KEY)
+                .addParams("master", Constant.MASTER_SECRET)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -168,9 +172,9 @@ public class LoginActivity extends BaseActivity {
                 }.getType());
                 if (loginBean.isSuccess()) {
                     LoginBean dataBean = loginBean.getData();
-                    if (TextUtils.isEmpty(dataBean.getPaymentUser())){
-                        isLogined(dataBean,"","");
-                    }else {
+                    if (TextUtils.isEmpty(dataBean.getPaymentUser())) {
+                        isLogined(dataBean, "", "");
+                    } else {
                         payCode(dataBean);
                     }
 
@@ -229,6 +233,7 @@ public class LoginActivity extends BaseActivity {
         Global.getSpGlobalUtil().setPassword(passWord);
         Global.getSpGlobalUtil().setAliCode(aliCode);
         Global.getSpGlobalUtil().setWecharCode(wecharCode);
+        Global.getSpGlobalUtil().setCode(dataBean.getLoginToken());
 
         if (isChecked) {
             Global.getSpGlobalUtil().setCheckPassword(true);
@@ -250,13 +255,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    /**
-     * 推送别名设置能
-     */
-    private void initCode() {
-        code = DeviceUtils.instace().getUniqueId(this);//获取设备编号
-        Global.getSpGlobalUtil().setCode(code);
-    }
+
 
     @Override
     protected void onDestroy() {

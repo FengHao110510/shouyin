@@ -21,8 +21,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="¥ "
+            android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="35sp" />
 
         <TextView
             android:id="@+id/tv_payfor_erweima_shoukuanjine"
@@ -31,7 +32,7 @@
             android:layout_toRightOf="@id/tv_payfor_erweima_renminbi"
             android:text="8.0"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="35sp" />
     </RelativeLayout>
 
     <TextView
@@ -41,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:text="收款金额"
         android:textColor="@color/gray"
-        android:textSize="15sp" />
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/iv_payfor_erweima_erweima"

@@ -86,6 +86,9 @@ public class PaymentDetailActivity extends BaseActivity {
     String now;//现在时间
     private PaymentDetailBean mPaymentDetailBean;
 
+    //判断是不是从流水fragment过来的  是的话直接关闭页面 不用跳转main  0是 1不是
+    private int turnover;
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_order_detail;
@@ -93,6 +96,13 @@ public class PaymentDetailActivity extends BaseActivity {
 
     @Override
     protected void init() {
+
+        if (getIntent().hasExtra("turnover")) {
+            turnover = 0;
+        } else {
+            turnover = 1;
+        }
+
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
@@ -139,7 +149,9 @@ public class PaymentDetailActivity extends BaseActivity {
         mTopBar.setLeftViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
+                if (turnover==1){
+                    startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
+                }
                 finish();
             }
         });
@@ -148,7 +160,9 @@ public class PaymentDetailActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
+            if (turnover==1){
+                startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
+            }
             finish();
             return false;
         } else {
@@ -187,13 +201,13 @@ public class PaymentDetailActivity extends BaseActivity {
     private void renderView(PaymentDetailBean data) {
         // OrderType 0 '支付中'  1'收款成功'  -2 '支付中' -3'已退款'
         if ("0".equals(data.getOrderType())) {
-            setViewInfo("收款中", R.drawable.icon_paying, View.VISIBLE);
+            setViewInfo("收款中", R.drawable.icon_paying, View.VISIBLE, View.VISIBLE);
         } else if ("-2".equals(data.getOrderType())) {
-            setViewInfo("收款中", R.drawable.icon_paying, View.GONE);
+            setViewInfo("收款中", R.drawable.icon_paying, View.GONE, View.VISIBLE);
         } else if ("1".equals(data.getOrderType())) {
-            setViewInfo("收款成功", R.drawable.icon_pay_success, View.GONE);
+            setViewInfo("收款成功", R.drawable.icon_pay_success, View.GONE, View.VISIBLE);
         } else if ("-3".equals(data.getOrderType())) {
-            setViewInfo("退款成功", R.drawable.icon_pay_back_money, View.GONE);
+            setViewInfo("退款成功", R.drawable.icon_pay_back_money, View.GONE, View.GONE);
         }
         mTvOrderBatch.setText(TextUtils.isEmpty(data.getPaymentBatch()) ? data.getBatch() : data.getPaymentBatch());
         mTvOrderPayTime.setText(data.getTradingTime());
@@ -216,12 +230,13 @@ public class PaymentDetailActivity extends BaseActivity {
      * @anthor lpc
      * @date: 2018/7/24
      */
-    private void setViewInfo(String title, int imgRes, int visible) {
+    private void setViewInfo(String title, int imgRes, int visible, int visible2) {
         mTopBar.setCenterText(title);
         mTvOrderTitle.setText(title);
         mTvOrderPayStatus.setText(title);
         mIvOrderStatus.setImageResource(imgRes);
         mTopBar.setRightVisibility(visible);
+        mBtnOrderBackMoney.setVisibility(visible2);
     }
 
 
@@ -236,7 +251,7 @@ public class PaymentDetailActivity extends BaseActivity {
                 // 打印小票
                 if (!"00000000000000000000".equals(mBatch)) {
                     // 不是纯收款，开单
-                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()) {
                         BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
                                 .setType(BluetoothPrinterUtil.Print.ORDER)
                                 .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
@@ -246,7 +261,7 @@ public class PaymentDetailActivity extends BaseActivity {
                     }
                 } else {
                     // 纯收款
-                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()){
+                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()) {
                         BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
                                 .setType(BluetoothPrinterUtil.Print.ORDER)
                                 .setCount(Global.getSpGlobalUtil().getOrderPrintCount())

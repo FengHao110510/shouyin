@@ -151,6 +151,14 @@ public class OrderConditionActivity extends BaseActivity {
                 if (payStatusList.size() > 0){
                     mTflPayStatus.getChildAt(payStatusPosition).setSelected(false);
                 }
+                if (orderSourceList!=null){
+                    orderSourceList.clear();
+                }  if (payChannelList!=null){
+                    payChannelList.clear();
+                }  if (payStatusList!=null){
+                    payStatusList.clear();
+                }
+                initData();
             }
         });
     }
