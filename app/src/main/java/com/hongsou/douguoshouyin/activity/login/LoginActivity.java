@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +14,6 @@ import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
-import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
@@ -51,14 +49,11 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_login_check)
     TextView tvLoginCheck;
 
-    //是否记住密码
-    private boolean isChecked;
-    //设备编号
-    private String code;
-    //用户名
-    private String userName;
-    //密码
-    private String passWord;
+    private boolean isChecked;//是否记住密码
+    private String code;  //设备编号
+    private String userName;//用户名
+
+    private String passWord;//密码
 
     @Override
     protected void init() {
@@ -84,7 +79,6 @@ public class LoginActivity extends BaseActivity {
 
         } else {
             isChecked = false;
-
             tvLoginCheck.setTextColor(getResources().getColor(R.color.gray));
         }
     }
@@ -122,17 +116,11 @@ public class LoginActivity extends BaseActivity {
                     isChecked = true;
                 }
                 break;
-            default:
-                break;
         }
     }
 
 
-    /**
-     * @author fenghao
-     * @date 2018/8/11 0011 下午 12:11
-     * @desc 登录接口
-     */
+    //登陆
     private void login() {
 
         userName = etLoginUser.getText().toString();
@@ -175,14 +163,14 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onResponse(String response, int id) {
                 dismissLoadingDialog();
-                Log.e(TAG, "onResponse: " + response);
+                Log.e(TAG, "onResponse: " + response.toString());
                 RootBean<LoginBean> loginBean = new Gson().fromJson(response, new TypeToken<RootBean<LoginBean>>() {
                 }.getType());
                 if (loginBean.isSuccess()) {
                     LoginBean dataBean = loginBean.getData();
-                    if (TextUtils.isEmpty(dataBean.getPaymentUser())) {
-                        isLogined(dataBean, "", "");
-                    } else {
+                    if (TextUtils.isEmpty(dataBean.getPaymentUser())){
+                        isLogined(dataBean,"","");
+                    }else {
                         payCode(dataBean);
                     }
 
@@ -196,7 +184,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * @param dataBean 登录返回的数据
+     * @param dataBean
      * @author fenghao
      * @date 2018/7/24 0024 下午 16:14
      * @desc 获取支付标识
@@ -220,16 +208,16 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     * @param dataBean   登录返回的数据
-     * @param aliCode    阿里支付标识
-     * @param wecharCode 微信支付标识
+     * @param dataBean
+     * @param aliCode
+     * @param wecharCode @return
      * @author fenghao
      * @date 2018/7/9 0009 下午 17:43
      * @desc 将登录数据存储
      */
 
     private void isLogined(LoginBean dataBean, String aliCode, String wecharCode) {
-        ToastUtil.showToast("登录成功");
+        ToastUtil.showToast("登陆成功");
         Global.getSpGlobalUtil().setClerkName(dataBean.getClerkName());
         Global.getSpGlobalUtil().setClerkNumber(dataBean.getClerkNumber());
         Global.getSpGlobalUtil().setShopNumber(dataBean.getShopNumber());
@@ -254,8 +242,8 @@ public class LoginActivity extends BaseActivity {
     /**
      * 检测密码位数
      *
-     * @param password 密码
-     * @return 是否符合位数
+     * @param password
+     * @return
      */
     private boolean isPasswordValid(String password) {
         return password.length() > 5 && password.length() < 17;
@@ -266,15 +254,8 @@ public class LoginActivity extends BaseActivity {
      * 推送别名设置能
      */
     private void initCode() {
-        //获取设备编号
-        code = DeviceUtils.instace().getUniqueId(this);
+        code = DeviceUtils.instace().getUniqueId(this);//获取设备编号
         Global.getSpGlobalUtil().setCode(code);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        BaseApplication.getInstance().removeAll();
-        return super.onKeyDown(keyCode, event);
     }
 
     @Override

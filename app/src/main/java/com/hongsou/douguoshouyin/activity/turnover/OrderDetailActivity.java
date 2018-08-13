@@ -418,6 +418,7 @@ public class OrderDetailActivity extends BaseActivity {
                             .setCount(1)
                             .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
                             .build();
+                    tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
                     printerUtil.startPrint();
                 } else {
                     ToastUtil.showToast("退单失败");
@@ -482,6 +483,16 @@ public class OrderDetailActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        finishActivity();
+    }
+
+    @Override
+    public void finishActivity() {
+        setResult(1);
+        finish();
+    }
 
     //======================================================================================================================
     @Override

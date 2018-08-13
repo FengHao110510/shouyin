@@ -122,7 +122,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                finishActivity();
             }
         });
     }

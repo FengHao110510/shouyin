@@ -99,9 +99,8 @@ public class ZhuoPaiActivity extends BaseActivity {
     @OnClick(R.id.bt_mine_mendian_zhuopai_save)
     public void onViewClicked() {
         //将二维码保存到本地  TODO
-
-        Bitmap bmp = BitmapFactory.decodeResource(this.getResources(), R.drawable.bg);
-        if (ImageUtils.saveImageToGallery(this, bmp)) {
+//        Bitmap bmp = BitmapFactory.decodeResource(this.getResources(), R.drawable.bg);
+        if (ImageUtils.saveImageToGallery(this, taikaBitmap)) {
             ToastUtil.showToast("保存成功");
         } else {
             ToastUtil.showToast("保存失败");

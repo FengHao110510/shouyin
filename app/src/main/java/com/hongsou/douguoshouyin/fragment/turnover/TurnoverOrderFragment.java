@@ -176,13 +176,23 @@ public class TurnoverOrderFragment extends BaseFragment {
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Intent itemIntent = new Intent(getActivity(), OrderDetailActivity.class);
                         itemIntent.putExtra("batch", listBeans.get(position).getBatch());
-                        startActivity(itemIntent);
+                        startActivityForResult(itemIntent,1);
                     }
                 });
             }
             //获取数据
             listBeans.addAll(data);
             orderAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==1){
+            page = 1;
+            getOrderList(mParam, page);
+            smTurnoverOrder.finishRefresh();
         }
     }
 

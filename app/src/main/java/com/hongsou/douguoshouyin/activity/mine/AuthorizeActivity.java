@@ -1,8 +1,15 @@
 package com.hongsou.douguoshouyin.activity.mine;
 
+import android.app.Dialog;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hongsou.douguoshouyin.R;
@@ -63,16 +70,57 @@ public class AuthorizeActivity extends BaseActivity {
             ToastUtil.showToast("只能包含数字或字母");
             return;
         } else {
-            submit(etMineAuthorizeNum.getText().toString());
+            showSubmit();
         }
+    }
+
+    /**
+     * @author fenghao
+     * @date 2018/8/13 0013 上午 10:37
+     * @desc 提示信息 警告用户修改之后可能会出现不能支付的情况
+     */
+    Dialog submitDialog;
+
+    private void showSubmit() {
+        View v = LayoutInflater.from(this).inflate(R.layout.module_dialog_text, null);
+        TextView tvDialogTextTitle = v.findViewById(R.id.tv_dialog_text_title);
+        TextView tvDialogTextContent = v.findViewById(R.id.tv_dialog_text_content);
+        TextView tvLogoutDialogYes = v.findViewById(R.id.tv_logout_dialog_yes);
+        TextView tvLogoutDialogCancle = v.findViewById(R.id.tv_logout_dialog_cancle);
+
+        tvDialogTextTitle.setText("提示");
+        tvDialogTextContent.setText("您确定要修改吗，修改之后可能会导致用户不能支付！");
+        tvLogoutDialogCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitDialog.dismiss();
+            }
+        });
+
+        tvLogoutDialogYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submit(etMineAuthorizeNum.getText().toString());
+                submitDialog.dismiss();
+            }
+        });
+
+        //获取屏幕宽高
+        Resources resources = this.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        float density = dm.density;
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+
+        
     }
 
 
     /**
-     * @param s 修改的商户编号‘
+     * @param s 授权信息‘
      * @author fenghao
      * @date 2018/8/3 0003 下午 19:22
-     * @desc 修改商户编号
+     * @desc 授权信息
      */
     private void submit(String s) {
         HttpFactory.post().url(ApiConfig.APP_SHOP_AUTHORIZATION)
@@ -83,7 +131,6 @@ public class AuthorizeActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     ToastUtil.showToast("修改成功");
-
                 } else {
                     ToastUtil.showToast(response.getMsg());
                 }

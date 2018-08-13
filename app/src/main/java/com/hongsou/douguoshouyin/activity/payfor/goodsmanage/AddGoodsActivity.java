@@ -315,11 +315,11 @@ public class AddGoodsActivity extends BaseActivity {
         //店铺编号
         upAddGoodsMap.put("shopNumber", getShopNumber());
         //商品名称
-        if (TextUtils.isEmpty(etPayforAddgoodsMingcheng.getText().toString().trim())) {
+        if (TextUtils.isEmpty(etPayforAddgoodsMingcheng.getText().toString())) {
             ToastUtil.showToast("请输入商品名称");
             return;
         }
-        upAddGoodsMap.put("singleProductName", etPayforAddgoodsMingcheng.getText().toString().trim());
+        upAddGoodsMap.put("singleProductName", etPayforAddgoodsMingcheng.getText().toString());
         //商品类型编号
         if (TextUtils.isEmpty(singleProductType)) {
             ToastUtil.showToast("请选择商品类型");
@@ -338,7 +338,7 @@ public class AddGoodsActivity extends BaseActivity {
         upAddGoodsMap.put("selling", selling);
 
         //商品单位
-        if (TextUtils.isEmpty(etPayforAddgoodsDanwei.getText().toString().trim())) {
+        if (TextUtils.isEmpty(etPayforAddgoodsDanwei.getText().toString())) {
             ToastUtil.showToast("请填写商品单位");
             return;
         }
@@ -352,17 +352,13 @@ public class AddGoodsActivity extends BaseActivity {
         //规格列表 判断规格中有没有空值
         boolean isEmpty = false;
         for (int i = 0; i < shopStandarLists.size(); i++) {
-            if (TextUtils.isEmpty(shopStandarLists.get(i).getStandardName().trim())) {
+            if (TextUtils.isEmpty(shopStandarLists.get(i).getStandardName())) {
                 ToastUtil.showToast("规格" + (i + 1) + "的名称没有填写");
                 isEmpty = true;
                 break;
             }
-            if (TextUtils.isEmpty(shopStandarLists.get(i).getSell().trim())) {
-                ToastUtil.showToast("规格" + (i + 1) + "的金额不正确");
-                isEmpty = true;
-                break;
-            }else if (Double.parseDouble(shopStandarLists.get(i).getSell())<=0){
-                ToastUtil.showToast("规格" + (i + 1) + "的金额不正确");
+            if (TextUtils.isEmpty(shopStandarLists.get(i).getSell())) {
+                ToastUtil.showToast("规格" + (i + 1) + "的金额没有填写");
                 isEmpty = true;
                 break;
             }
@@ -420,6 +416,7 @@ public class AddGoodsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 imgPopupWindow.dismiss();
+                ToastUtil.showToast("拍照");
                 openCamera();
             }
         });
@@ -429,6 +426,7 @@ public class AddGoodsActivity extends BaseActivity {
             public void onClick(View view) {
                 imgPopupWindow.dismiss();
                 openPhoto();
+                ToastUtil.showToast("相册");
             }
         });
 
@@ -643,6 +641,7 @@ public class AddGoodsActivity extends BaseActivity {
         initDateStartPicker("2100-01-01 00:00", now, tvDialogTimeShaixuanStart);
         //初始化结束时间
         initDateEndPicker("2010-01-01 00:00", now, "2100-01-01 00:00", tvDialogTimeShaixuanEnd);
+
         Display display = this.getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
         int h = display.getHeight();
@@ -668,7 +667,7 @@ public class AddGoodsActivity extends BaseActivity {
     }
 
     //starttime 开始期限  初始化开始时间  endtime 最后期限 现在
-    private void  initDateEndPicker(String starttime, String now, String endtime, final TextView tv_dialog_time_shaixuan_end) {
+    private void initDateEndPicker(String starttime, String now, String endtime, final TextView tv_dialog_time_shaixuan_end) {
         customDatePickerEnd = null;
         tv_dialog_time_shaixuan_end.setText(now);
         customDatePickerEnd = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
