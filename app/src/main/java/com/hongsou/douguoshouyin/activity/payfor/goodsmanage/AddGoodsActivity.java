@@ -636,9 +636,9 @@ public class AddGoodsActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         //初始化起始时间
-        initDateStartPicker("2100-01-01 00:00", now, tvDialogTimeShaixuanStart);
+        initDateStartPicker("2029-01-01 00:00", now, tvDialogTimeShaixuanStart);
         //初始化结束时间
-        initDateEndPicker("2010-01-01 00:00", now, "2100-01-01 00:00", tvDialogTimeShaixuanEnd);
+        initDateEndPicker("2010-01-01 00:00", now, "2029-01-01 00:00", tvDialogTimeShaixuanEnd);
 
         Display display = this.getWindowManager().getDefaultDisplay();
         int w = display.getWidth();
@@ -662,6 +662,7 @@ public class AddGoodsActivity extends BaseActivity {
         }, "2010-01-01 00:00", endtime); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
         customDatePickerStart.showSpecificTime(true); // 显示时和分
         customDatePickerStart.setIsLoop(true); // 允许循环滚动
+
     }
 
     //starttime 开始期限  初始化开始时间  endtime 最后期限 现在
