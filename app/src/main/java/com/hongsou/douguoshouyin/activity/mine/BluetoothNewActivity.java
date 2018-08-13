@@ -8,15 +8,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.gprinter.service.GpPrintService;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.BluetoothListAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
@@ -25,7 +24,6 @@ import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BluetoothBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
-import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -47,7 +45,7 @@ import io.reactivex.functions.Consumer;
  * <p>
  * @desc 蓝牙列表页面
  */
-public class BluetoothActivity extends BaseActivity {
+public class BluetoothNewActivity extends BaseActivity {
 
 
     @BindView(R.id.top_bar)
@@ -55,13 +53,15 @@ public class BluetoothActivity extends BaseActivity {
     @BindView(R.id.bluetooth_listview)
     ListView mBluetoothListview;
 
-    private BluetoothAdapter bluetoothAdapter;
-    //蓝牙数据适配器
-    private BluetoothListAdapter mListAdapter;
-    private List<BluetoothBean> blueToothModels = new ArrayList<>();
-    private AsyncTask asyncTask;
+    public static final int REQUEST_ENABLE_BT = 2;
 
-    private boolean isRegistReceiver = false;
+    private BluetoothAdapter mBluetoothAdapter;
+    /**
+     * listView 的 Adapter
+     */
+    private BluetoothListAdapter mAdapter;
+    private List<BluetoothBean> blueToothModels = new ArrayList<>();
+
     private String name;
     private String type;
 
@@ -77,8 +77,8 @@ public class BluetoothActivity extends BaseActivity {
             type = getIntent().getStringExtra("type");
         }
         //打开蓝牙、进行搜索
+        getBluetoothDevice();
         initListView();
-        startBluetooth();
         registerReceiver();
     }
 
@@ -89,27 +89,25 @@ public class BluetoothActivity extends BaseActivity {
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
             public void onClick(View v) {
-                scanLeDevice();
+                scanBluetoothDevice();
             }
         });
 
-        mListAdapter = new BluetoothListAdapter(this, blueToothModels);
-        mBluetoothListview.setAdapter(mListAdapter);
+        mAdapter = new BluetoothListAdapter(this, blueToothModels);
+        mBluetoothListview.setAdapter(mAdapter);
         mBluetoothListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //停止搜索
-                if (bluetoothAdapter != null){
-                    bluetoothAdapter.cancelDiscovery();
-                }
-//                submitPrinter(blueToothModels.get(i));
                 BluetoothBean bluetoothBean = blueToothModels.get(i);
-                Intent intent = new Intent(BluetoothActivity.this, PrinterActivity.class);
-                intent.putExtra("address", bluetoothBean.getAddress());
-                intent.putExtra("type", type);
-                intent.putExtra("name",  TextUtils.isEmpty(name) ? bluetoothBean.getName() : name);
+                Intent intent = new Intent(BluetoothNewActivity.this, PrinterNewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(GpPrintService.BLUETOOT_ADDR, bluetoothBean.getAddress());
+                bundle.putString(GpPrintService.PORT_TYPE, type);
+                bundle.putString(GpPrintService.USB_DEVICE_NAME,  TextUtils.isEmpty(name) ? bluetoothBean.getName() : name);
+                intent.putExtras(bundle);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
+//                submitPrinter(blueToothModels.get(i));
             }
         });
     }
@@ -124,16 +122,16 @@ public class BluetoothActivity extends BaseActivity {
         HttpFactory.post().url(ApiConfig.INSERT_SHOP_PRINT)
                 .addParams("shopNumber", getShopNumber())
                 .addParams("printWidth", "58mm")
-                .addParams("printBrand", "app")
+                .addParams("printBrand", "")
                 .addParams("printClassifyName", type)
-                .addParams("printName", bluetoothBean.getName())
+                .addParams("printName", TextUtils.isEmpty(name) ? bluetoothBean.getName() : name)
                 .addParams("printAddress", bluetoothBean.getAddress())
                 .build()
                 .execute(new ResponseCallback<RootBean>(this) {
                     @Override
                     public void onResponse(RootBean response, int id) {
                         if (response.isSuccess()) {
-                            Intent intent = new Intent(BluetoothActivity.this, PrinterActivity.class);
+                            Intent intent = new Intent(BluetoothNewActivity.this, PrinterNewActivity.class);
                             startActivity(intent);
                             finish();
                         }else {
@@ -143,34 +141,46 @@ public class BluetoothActivity extends BaseActivity {
                 });
     }
 
-
     /**
-     * 启动蓝牙
+     * @desc 打开蓝牙并搜索
+     * @anthor lpc
+     * @date: 2018/8/10
      */
-    private void startBluetooth() {
-        //获取蓝牙适配器
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter == null) {
-            ToastUtil.showToast("不支持蓝牙");
-            return;
-        }
-        LogUtil.e("onCheckedChanged", "初始化开启蓝牙设备");
-        RxPermissions rxPermissions = new RxPermissions(this);
-        if (rxPermissions.isGranted(Manifest.permission.BLUETOOTH)) {
-            getBluetooth();
-        }else {
-            rxPermissions.requestEach(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
-                    .subscribe(new Consumer<Permission>() {
-                        @Override
-                        public void accept(Permission permission) throws Exception {
-                            if (permission.granted) {
-                                getBluetooth();
-                            } else {
-                                // 用户拒绝了该权限，并且选中『不再询问』
-                                ToastUtil.showToast("请打开蓝牙权限，否则将影响使用");
+    public void getBluetoothDevice() {
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            Toast.makeText(this, "蓝牙不支持该设备", Toast.LENGTH_SHORT).show();
+        } else {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            if (rxPermissions.isGranted(Manifest.permission.BLUETOOTH)) {
+                getBluetooth();
+            }else {
+                rxPermissions.requestEach(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
+                        .subscribe(new Consumer<Permission>() {
+                            @Override
+                            public void accept(Permission permission) throws Exception {
+                                if (permission.granted) {
+                                    getBluetooth();
+                                } else {
+                                    // 用户拒绝了该权限，并且选中『不再询问』
+                                    ToastUtil.showToast("请打开蓝牙权限，否则将影响使用");
+                                }
                             }
-                        }
-                    });
+                        });
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ENABLE_BT) {
+            if (resultCode == Activity.RESULT_OK) {
+                scanBluetoothDevice();
+            } else {
+                // 蓝牙没有开启
+                Toast.makeText(this, "蓝牙没有开启", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -180,67 +190,53 @@ public class BluetoothActivity extends BaseActivity {
      * @date: 2018/8/3
      */
     private void getBluetooth() {
-        if (!bluetoothAdapter.isEnabled()) {
-            //需要打开蓝牙
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, 100);
+        // 蓝牙是否开启
+        if (!mBluetoothAdapter.isEnabled()) {
+            // 需要打开蓝牙
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         } else {
-            // 搜索蓝牙设备
-            scanLeDevice();
+            // 搜索蓝牙
+            scanBluetoothDevice();
         }
     }
 
     /**
-     * @desc 打开蓝牙的回调
+     * @desc 搜索蓝牙设备
      * @anthor lpc
      * @date: 2018/8/3
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100) {
-            if (resultCode == -1) {
-                ToastUtil.showToast("蓝牙已打开");
-                scanLeDevice();
-            } else if (requestCode == 0) {
-                ToastUtil.showToast("蓝牙未打开");
-            }
+    private void scanBluetoothDevice() {
+        if (mBluetoothAdapter != null) {
+            mBluetoothAdapter.startDiscovery();
         }
     }
 
-   /**
-    * @desc 搜索蓝牙设备
-    * @anthor lpc
-    * @date: 2018/8/3
-    */
-    private void scanLeDevice() {
-        if (bluetoothAdapter != null) {
-            bluetoothAdapter.startDiscovery();
-        }
-    }
-
-   /**
-    * @desc 注册蓝牙扫描广播
-    * @anthor lpc
-    * @date: 2018/8/3
-    */
+    /**
+     * @desc 注册蓝牙扫描广播
+     * @anthor lpc
+     * @date: 2018/8/3
+     */
     private void registerReceiver() {
         IntentFilter filter = new IntentFilter();
         //发现设备
         filter.addAction(BluetoothDevice.ACTION_FOUND);
-        //设备连接状态改变
-        filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         //蓝牙设备状态改变
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        // 扫面结束的广播
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         registerReceiver(mBluetoothReceiver, filter);
-        isRegistReceiver = true;
     }
 
+    /**
+     * @desc 蓝牙扫描广播
+     * @anthor lpc
+     * @date: 2018/8/10
+     */
     private BroadcastReceiver mBluetoothReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            LogUtil.e("BroadcastReceiver", "------->" + action);
             //每扫描到一个设备，系统都会发送此广播。
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 //获取蓝牙设备
@@ -267,16 +263,14 @@ public class BluetoothActivity extends BaseActivity {
                             bean.setName(name);
                             bean.setType(type);
                             blueToothModels.add(bean);
-                            mListAdapter.notifyDataSetChanged();
+                            mAdapter.notifyDataSetChanged();
                         }
                     }
                 }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                LogUtil.e("BroadcastReceiver", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            } else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
-                LogUtil.e("BroadcastReceiver", "111111111111");
-            } else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
-                LogUtil.e("BroadcastReceiver", "2222222222222222222");
+                if (mAdapter.getCount() == 0) {
+                    Toast.makeText(context, "未搜索到蓝牙设备", Toast.LENGTH_SHORT).show();
+                }
             }
         }
 
@@ -285,16 +279,11 @@ public class BluetoothActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (bluetoothAdapter != null) {
-            bluetoothAdapter.cancelDiscovery();
+        if (mBluetoothAdapter != null) {
+            mBluetoothAdapter.cancelDiscovery();
         }
-        if (mBluetoothReceiver != null && isRegistReceiver) {
+        if (mBluetoothReceiver != null) {
             unregisterReceiver(mBluetoothReceiver);
-            isRegistReceiver = false;
-        }
-
-        if (asyncTask != null) {
-            asyncTask.cancel(true);
         }
     }
     //===========================================================================================================

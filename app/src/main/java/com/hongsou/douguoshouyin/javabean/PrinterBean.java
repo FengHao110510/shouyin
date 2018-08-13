@@ -1,5 +1,10 @@
 package com.hongsou.douguoshouyin.javabean;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Unique;
+
 /**
  * @author lpc
  *         <p>
@@ -9,8 +14,11 @@ package com.hongsou.douguoshouyin.javabean;
  * <p>
  * @desc 打印机信息bean
  */
-
+@Entity
 public class PrinterBean {
+
+    @Id(autoincrement = true)
+    private long id;
 
     /**
      * page : 0
@@ -31,88 +39,33 @@ public class PrinterBean {
     private String printBrand;
     private String printWidth;
     private String printCount;
-    private String address;
-    private String status;
+    @Unique
+    private String printAddress;
+    private boolean connectStatus;
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
+    @Generated(hash = 1299197321)
+    public PrinterBean(long id, int page, int rows, String shopNumber, String printName, String printClassifyName,
+            String printBrand, String printWidth, String printCount, String printAddress, boolean connectStatus) {
+        this.id = id;
         this.page = page;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
-    public void setRows(int rows) {
         this.rows = rows;
-    }
-
-    public String getShopNumber() {
-        return shopNumber;
-    }
-
-    public void setShopNumber(String shopNumber) {
         this.shopNumber = shopNumber;
-    }
-
-    public String getPrintName() {
-        return printName;
-    }
-
-    public void setPrintName(String printName) {
         this.printName = printName;
-    }
-
-    public String getPrintClassifyName() {
-        return printClassifyName;
-    }
-
-    public void setPrintClassifyName(String printClassifyName) {
         this.printClassifyName = printClassifyName;
-    }
-
-    public String getPrintBrand() {
-        return printBrand;
-    }
-
-    public void setPrintBrand(String printBrand) {
         this.printBrand = printBrand;
-    }
-
-    public String getPrintWidth() {
-        return printWidth;
-    }
-
-    public void setPrintWidth(String printWidth) {
         this.printWidth = printWidth;
-    }
-
-    public String getPrintCount() {
-        return printCount;
-    }
-
-    public void setPrintCount(String printCount) {
         this.printCount = printCount;
+        this.printAddress = printAddress;
+        this.connectStatus = connectStatus;
     }
+
+    @Generated(hash = 1585630953)
+    public PrinterBean() {
+    }
+
+  
 
     @Override
     public boolean equals(Object o) {
@@ -125,11 +78,100 @@ public class PrinterBean {
 
         PrinterBean that = (PrinterBean) o;
 
-        return address != null ? address.equals(that.address) : that.address == null;
+        return printAddress != null ? printAddress.equals(that.printAddress) : that.printAddress == null;
     }
 
     @Override
     public int hashCode() {
-        return address != null ? address.hashCode() : 0;
+        return printAddress != null ? printAddress.hashCode() : 0;
     }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getPage() {
+        return this.page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getRows() {
+        return this.rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public String getShopNumber() {
+        return this.shopNumber;
+    }
+
+    public void setShopNumber(String shopNumber) {
+        this.shopNumber = shopNumber;
+    }
+
+    public String getPrintName() {
+        return this.printName;
+    }
+
+    public void setPrintName(String printName) {
+        this.printName = printName;
+    }
+
+    public String getPrintClassifyName() {
+        return this.printClassifyName;
+    }
+
+    public void setPrintClassifyName(String printClassifyName) {
+        this.printClassifyName = printClassifyName;
+    }
+
+    public String getPrintBrand() {
+        return this.printBrand;
+    }
+
+    public void setPrintBrand(String printBrand) {
+        this.printBrand = printBrand;
+    }
+
+    public String getPrintWidth() {
+        return this.printWidth;
+    }
+
+    public void setPrintWidth(String printWidth) {
+        this.printWidth = printWidth;
+    }
+
+    public String getPrintCount() {
+        return this.printCount;
+    }
+
+    public void setPrintCount(String printCount) {
+        this.printCount = printCount;
+    }
+
+    public String getPrintAddress() {
+        return this.printAddress;
+    }
+
+    public void setPrintAddress(String printAddress) {
+        this.printAddress = printAddress;
+    }
+
+    public boolean getConnectStatus() {
+        return this.connectStatus;
+    }
+
+    public void setConnectStatus(boolean connectStatus) {
+        this.connectStatus = connectStatus;
+    }
+
 }

@@ -1,11 +1,18 @@
 package com.hongsou.douguoshouyin.base;
 
 import android.bluetooth.BluetoothSocket;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.IBinder;
 import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
+import com.gprinter.aidl.GpService;
+import com.gprinter.service.GpPrintService;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.greendao.gen.DaoMaster;
@@ -26,7 +33,9 @@ import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.TimeUnit;
 
@@ -51,6 +60,7 @@ public class BaseApplication extends MultiDexApplication {
      * 蓝牙对象
      */
     public BluetoothSocket socket = null;
+    public List<BluetoothSocket> socketArray = new ArrayList<>();
 
     /***寄存整个应用Activity**/
     private final Stack<AppCompatActivity> activitys = new Stack<AppCompatActivity>();
@@ -60,7 +70,9 @@ public class BaseApplication extends MultiDexApplication {
     private SQLiteDatabase db;
     private DaoMaster daoMaster;
     private DaoSession daoSession;
-
+   
+    public static GpService mGpService;
+    
     @Override
     public void onCreate() {
         super.onCreate();
@@ -70,6 +82,7 @@ public class BaseApplication extends MultiDexApplication {
         settingOrm();
         initGreenDao();
         initKedaxunfei();
+        connection();
         //初始化全局异常捕获
 //        CrashHandler.getInstance().init(this);
 
@@ -123,6 +136,37 @@ public class BaseApplication extends MultiDexApplication {
         return daoSession;
     }
 
+    /**
+     * @desc 绑定佳博打印机服务
+     * @anthor lpc
+     * @date: 2018/8/10
+     */
+    private void connection() {
+        PrinterServiceConnection conn = new PrinterServiceConnection();
+        Intent intent = new Intent(this, GpPrintService.class);
+        // bindService
+        bindService(intent, conn, Context.BIND_AUTO_CREATE);
+    }
+
+    /**
+     * @desc 打印机服务连接监听
+     * @anthor lpc
+     * @date: 2018/8/11
+     */
+    class PrinterServiceConnection implements ServiceConnection {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.e("lpc", "onServiceDisconnected() called");
+            mGpService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.e("lpc", "onServiceConnected 打开");
+            mGpService = GpService.Stub.asInterface(service);
+        }
+    }
+    
     /**
      * 将Activity压入Application栈
      *

@@ -23,7 +23,7 @@ import java.util.UUID;
 
 public class BlueToothManager {
     private static BlueToothManager blueToothManager;
-    private final String SPP_UUID = "00001101-0000-1000-8000-00805F9B34FB";
+    public static final String SPP_UUID = "00001101-0000-1000-8000-00805F9B34FB";
     private AsyncTask asyncTask;
     private ConnectSucceedCallBack connectSucceedCallBack;
 
@@ -68,9 +68,9 @@ public class BlueToothManager {
      */
     public String userBlue(BluetoothAdapter bluetoothAdapter, String macStr) {
         BluetoothDevice device = bluetoothAdapter.getRemoteDevice(macStr);
-
         try {
             socket = device.createRfcommSocketToServiceRecord(UUID.fromString(SPP_UUID));
+            Log.e("lpc", "userBlue: " + socket);
             if (socket == null) {
                 ToastUtil.showToast("当前蓝牙处于关闭状态");
                 return null;
@@ -95,6 +95,11 @@ public class BlueToothManager {
         try {
             socket.connect();
             BaseApplication.getInstance().socket = socket;
+            if (!BaseApplication.getInstance().socketArray.contains(socket)){
+                Log.e("lpc", "userBlue: 11111111111" );
+                BaseApplication.getInstance().socketArray.add(socket);
+            }
+
             //取消搜索
 
             return "配对成功";
@@ -103,6 +108,9 @@ public class BlueToothManager {
             e1.printStackTrace();
             try {
                 socket.close();
+                if (BaseApplication.getInstance().socketArray.contains(socket)){
+                    BaseApplication.getInstance().socketArray.remove(socket);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -21,37 +20,30 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.login.LoginActivity;
+import com.hongsou.douguoshouyin.activity.mine.AboutWeActivity;
 import com.hongsou.douguoshouyin.activity.mine.AuthorizeActivity;
+import com.hongsou.douguoshouyin.activity.mine.CashierActivity;
 import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
+import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
+import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
+import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
+import com.hongsou.douguoshouyin.activity.mine.ShopInformationActivity;
 import com.hongsou.douguoshouyin.base.BaseApplication;
+import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.ShopinforBean;
 import com.hongsou.douguoshouyin.tool.Global;
-import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.BitmapCallback;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-
-import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.mine.AboutWeActivity;
-import com.hongsou.douguoshouyin.activity.mine.CashierActivity;
-import com.hongsou.douguoshouyin.activity.mine.ShopInformationActivity;
-import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
-import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
-import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
-import com.hongsou.douguoshouyin.base.BaseFragment;
-
-import okhttp3.Call;
 
 /**
  * 文件描述：new！！com.example.administrator.myapplication.app.fragment
