@@ -56,6 +56,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_main"
             android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
@@ -78,6 +79,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.mine.ShopInformationActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_men_dian"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
@@ -256,7 +258,6 @@
                 <category android:name="com.hongsou.douguoshouyin" />
             </intent-filter>
         </receiver>
-
 
         <service
             android:name="com.gprinter.service.GpPrintService"
