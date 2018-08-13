@@ -173,6 +173,7 @@ public class TurnoverTurnoverFragment extends BaseFragment {
                     String paymentBatch = result.get(position).getPaymentBatch();
                     itemIntent.putExtra("batch", TextUtils.isEmpty(batch) ? "" : batch);
                     itemIntent.putExtra("paymentBatch", TextUtils.isEmpty(paymentBatch) ? "" : paymentBatch);
+                    itemIntent.putExtra("turnover","turnover");
                     startActivity(itemIntent);
                 }
             });

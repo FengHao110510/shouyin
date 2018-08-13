@@ -259,7 +259,7 @@ public class TableActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 //走添加单个桌台的接口
-                if (!TextUtils.isEmpty(etDialogEditContent.getText().toString())) {
+                if (!TextUtils.isEmpty(etDialogEditContent.getText().toString().trim())) {
                     addOneTable(tableListContentBean, etDialogEditContent.getText().toString());
 
                 } else {
@@ -370,7 +370,7 @@ public class TableActivity extends BaseActivity {
         tvDialogEditYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(etDialogEditContent.getText().toString())) {
+                if (TextUtils.isEmpty(etDialogEditContent.getText().toString().trim())) {
                     ToastUtil.showToast("请输入要发送的邮箱地址！");
                 } else {
                     final ArrayList<DeletTableBean> emailTableBeanArrayList = new ArrayList<>();

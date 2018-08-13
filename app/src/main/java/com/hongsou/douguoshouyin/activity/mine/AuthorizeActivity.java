@@ -112,6 +112,12 @@ public class AuthorizeActivity extends BaseActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
+        submitDialog = new Dialog(this,R.style.CommonDialog);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width*4/5,height*2/7);
+        submitDialog.addContentView(v,params);
+        submitDialog.setCancelable(false);
+        submitDialog.setCanceledOnTouchOutside(false);
+        submitDialog.show();
         
     }
 

@@ -152,6 +152,7 @@ public class TurnoverOrderFragment extends BaseFragment {
      * @desc //展示订单列表
      */
     private void showOrderList(List<OrderBean.DataBean.ResultBean> data, int page) {
+
         if (page > 1) {
             if (data.size() > 0) {
                 listBeans.addAll(data);
@@ -183,6 +184,10 @@ public class TurnoverOrderFragment extends BaseFragment {
             //获取数据
             listBeans.addAll(data);
             orderAdapter.notifyDataSetChanged();
+
+        }
+        if (data.size()<1){
+            ToastUtil.showToast("暂无更多数据");
         }
     }
 

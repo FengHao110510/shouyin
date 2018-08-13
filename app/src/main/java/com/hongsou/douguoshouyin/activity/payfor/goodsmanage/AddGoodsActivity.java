@@ -315,7 +315,7 @@ public class AddGoodsActivity extends BaseActivity {
         //店铺编号
         upAddGoodsMap.put("shopNumber", getShopNumber());
         //商品名称
-        if (TextUtils.isEmpty(etPayforAddgoodsMingcheng.getText().toString())) {
+        if (TextUtils.isEmpty(etPayforAddgoodsMingcheng.getText().toString().trim())) {
             ToastUtil.showToast("请输入商品名称");
             return;
         }
@@ -352,12 +352,12 @@ public class AddGoodsActivity extends BaseActivity {
         //规格列表 判断规格中有没有空值
         boolean isEmpty = false;
         for (int i = 0; i < shopStandarLists.size(); i++) {
-            if (TextUtils.isEmpty(shopStandarLists.get(i).getStandardName())) {
+            if (TextUtils.isEmpty(shopStandarLists.get(i).getStandardName().trim())) {
                 ToastUtil.showToast("规格" + (i + 1) + "的名称没有填写");
                 isEmpty = true;
                 break;
             }
-            if (TextUtils.isEmpty(shopStandarLists.get(i).getSell())) {
+            if (TextUtils.isEmpty(shopStandarLists.get(i).getSell().trim())) {
                 ToastUtil.showToast("规格" + (i + 1) + "的金额没有填写");
                 isEmpty = true;
                 break;
@@ -416,7 +416,6 @@ public class AddGoodsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 imgPopupWindow.dismiss();
-                ToastUtil.showToast("拍照");
                 openCamera();
             }
         });
@@ -426,7 +425,6 @@ public class AddGoodsActivity extends BaseActivity {
             public void onClick(View view) {
                 imgPopupWindow.dismiss();
                 openPhoto();
-                ToastUtil.showToast("相册");
             }
         });
 

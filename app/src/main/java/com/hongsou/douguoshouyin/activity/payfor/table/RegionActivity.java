@@ -161,7 +161,7 @@ public class RegionActivity extends BaseActivity {
                     // 更新视图
                     adapter.notifyDataSetChanged();
                 } else {
-                    ToastUtil.showToast("删除失败");
+                    ToastUtil.showToast(response.getMsg());
                 }
             }
         });
@@ -207,7 +207,7 @@ public class RegionActivity extends BaseActivity {
         tvDialogRegionYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(etDialogRegionContent.getText().toString())) {
+                if (TextUtils.isEmpty(etDialogRegionContent.getText().toString().trim())) {
                     ToastUtil.showToast("请填写区域名称");
                 } else {
                     if (regionFlag == 1) {
