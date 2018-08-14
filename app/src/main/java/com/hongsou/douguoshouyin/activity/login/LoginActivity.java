@@ -152,7 +152,7 @@ public class LoginActivity extends BaseActivity {
                 .addParams("userName", userName)
                 .addParams("passWord", passWord)
                 .addParams("ip", Global.getIPAddress(this))
-                .addParams("equpmentNumber", "")
+                .addParams("equpmentNumber", DeviceUtils.instace().getUniqueId(this))
                 .addParams("appKey", Constant.APP_KEY)
                 .addParams("master", Constant.MASTER_SECRET)
                 .build().execute(new StringCallback() {
