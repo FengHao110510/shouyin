@@ -67,24 +67,21 @@ public class JpushReceiver extends BroadcastReceiver {
                 ToastUtil.showToast("数据异常");
             } else {
                 PayOnLineSuccessBean paySuccessBean = GsonUtil.GsonToBean(extras, PayOnLineSuccessBean.class);
-                if ("app".equals(paySuccessBean.getFlag())){
+                if ("scan".equals(paySuccessBean.getFlag())){
+                    //扫码点餐来的
+                    if (Global.getSpUserUtil().getSpeechVoice()) {
+                        if (Global.getSpUserUtil().getSpeechVoice()) {
+                            MscSpeechUtils.speech("您有一条新的订单", BaseApplication.getAppContext());
+                        }
+                    }
+                }else {
+                    // app内的支付
                     if (Global.getSpUserUtil().getSpeechVoice()) {
                         MscSpeechUtils.speech(paySuccessBean.getTradeType() + "收款到账"
                                 + paySuccessBean.getMoney() + "元", BaseApplication.getAppContext());
                     }
                     successAct(context, paySuccessBean);
-                }else {
-                    //扫码点餐来的
-                    if (Global.getSpUserUtil().getSpeechVoice()) {
-//                        MscSpeechUtils.speech(paySuccessBean.getTradeType() + "收款到账"
-//                                + paySuccessBean.getMoney() + "元", BaseApplication.getAppContext());
-                        if (Global.getSpUserUtil().getSpeechVoice()) {
-                            MscSpeechUtils.speech("您有一条新的订单", BaseApplication.getAppContext());
-                        }
-                    }
-
                 }
-
             }
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "用户点击打开了通知");
