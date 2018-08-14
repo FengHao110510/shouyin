@@ -139,6 +139,7 @@ public class OrderDetailBean {
              * orderSourcePayment : 开单
              * orderSourceFlag : FLASTE1
              * batch : 201807273711758371
+             * tableNumber : 0
              */
 
             private int page;
@@ -158,6 +159,7 @@ public class OrderDetailBean {
             private String batch;
             private String dateOrderNumber;
             private String clerkName;
+            private String tableNumber;
 
             public String getDateOrderNumber() {
                 return dateOrderNumber;
@@ -293,6 +295,14 @@ public class OrderDetailBean {
 
             public void setBatch(String batch) {
                 this.batch = batch;
+            }
+
+            public String getTableNumber() {
+                return tableNumber;
+            }
+
+            public void setTableNumber(String tableNumber) {
+                this.tableNumber = tableNumber;
             }
         }
 
