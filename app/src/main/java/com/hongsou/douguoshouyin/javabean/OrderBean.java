@@ -24,7 +24,7 @@ public class OrderBean {
      * code : 1000
      * msg : 服务成功
      * extInfo : null
-     * data : {"page":1,"limit":10,"result":[{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-09 12:10:56.003","orderType":"已结帐","orderAmount":"8.50","batch":"20180709121632288327"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-08 19:50:25.003","orderType":"已结帐","orderAmount":"30.00","batch":"20180708195559677349"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-06 10:43:46.0","orderType":"已结帐","orderAmount":"0.02","batch":"20180706104333985853"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-05 15:19:48.0","orderType":"已结帐","orderAmount":"71.00","batch":"20180705151947179334"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-05 14:44:47.0","orderType":"已结帐","orderAmount":"180.00","batch":"20180705144447471823"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-05 14:44:19.0","orderType":"已结帐","orderAmount":"16.00","batch":"2018070514441981632"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 12:23:04.0","orderType":"已结帐","orderAmount":"0.00","batch":"20180703122406925318"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 12:20:45.0","orderType":"已结帐","orderAmount":"16.00","batch":"20180703122145855173"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 11:09:17.0","orderType":"已结帐","orderAmount":"5.00","batch":"20180703111019758400"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 11:09:09.0","orderType":"已结帐","orderAmount":"10.00","batch":"20180703111011527712"}],"totalCount":146,"totalPage":15,"orderProperty":null,"orderDirection":null,"filters":[],"orders":[],"remark":null}
+     * data : {"page":1,"limit":10,"result":[{"page":0,"rows":0,"endTime":"2018-08-13 19:16:01","orderSource":"开单","orderType":"已结帐","orderState":1,"orderAmount":"33.00","insertTime":"2018-08-13 19:16:01","batch":"201808137827194774"},{"page":0,"rows":0,"endTime":"2018-08-13 10:15:03","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.01","insertTime":"2018-08-13 10:15:03","batch":"201808133368617940"},{"page":0,"rows":0,"endTime":"2018-08-13 10:14:40","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.01","insertTime":"2018-08-13 10:14:40","batch":"201808130180811588"},{"page":0,"rows":0,"endTime":"2018-08-11 16:31:05","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.01","insertTime":"2018-08-11 16:31:05","batch":"201808111059182756"},{"page":0,"rows":0,"endTime":"2018-08-11 16:26:26","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"33.00","insertTime":"2018-08-11 16:26:26","batch":"201808116269813676"},{"page":0,"rows":0,"endTime":"2018-08-11 16:25:44","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"33.00","insertTime":"2018-08-11 16:25:44","batch":"201808114354754258"},{"page":0,"rows":0,"endTime":"2018-08-11 16:25:12","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"1.00","insertTime":"2018-08-11 16:25:12","batch":"201808112194355215"},{"page":0,"rows":0,"endTime":"2018-08-11 16:24:34","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"1998.00","insertTime":"2018-08-11 16:24:34","batch":"201808111116684095"},{"page":0,"rows":0,"endTime":"2018-08-11 15:54:01","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"2.00","insertTime":"2018-08-11 15:54:01","batch":"201808111008861205"},{"page":0,"rows":0,"endTime":"2018-08-11 13:30:42","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.50","insertTime":"2018-08-11 13:30:42","batch":"201808111810158460"}],"totalCount":216,"totalPage":22,"orderProperty":null,"orderDirection":null,"filters":[],"orders":[],"remark":null}
      * success : true
      */
 
@@ -78,9 +78,9 @@ public class OrderBean {
         /**
          * page : 1
          * limit : 10
-         * result : [{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-09 12:10:56.003","orderType":"已结帐","orderAmount":"8.50","batch":"20180709121632288327"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-08 19:50:25.003","orderType":"已结帐","orderAmount":"30.00","batch":"20180708195559677349"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-06 10:43:46.0","orderType":"已结帐","orderAmount":"0.02","batch":"20180706104333985853"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-05 15:19:48.0","orderType":"已结帐","orderAmount":"71.00","batch":"20180705151947179334"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-05 14:44:47.0","orderType":"已结帐","orderAmount":"180.00","batch":"20180705144447471823"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-05 14:44:19.0","orderType":"已结帐","orderAmount":"16.00","batch":"2018070514441981632"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 12:23:04.0","orderType":"已结帐","orderAmount":"0.00","batch":"20180703122406925318"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 12:20:45.0","orderType":"已结帐","orderAmount":"16.00","batch":"20180703122145855173"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 11:09:17.0","orderType":"已结帐","orderAmount":"5.00","batch":"20180703111019758400"},{"deleteFlag":0,"page":0,"rows":0,"endTime":"2018-07-03 11:09:09.0","orderType":"已结帐","orderAmount":"10.00","batch":"20180703111011527712"}]
-         * totalCount : 146
-         * totalPage : 15
+         * result : [{"page":0,"rows":0,"endTime":"2018-08-13 19:16:01","orderSource":"开单","orderType":"已结帐","orderState":1,"orderAmount":"33.00","insertTime":"2018-08-13 19:16:01","batch":"201808137827194774"},{"page":0,"rows":0,"endTime":"2018-08-13 10:15:03","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.01","insertTime":"2018-08-13 10:15:03","batch":"201808133368617940"},{"page":0,"rows":0,"endTime":"2018-08-13 10:14:40","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.01","insertTime":"2018-08-13 10:14:40","batch":"201808130180811588"},{"page":0,"rows":0,"endTime":"2018-08-11 16:31:05","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.01","insertTime":"2018-08-11 16:31:05","batch":"201808111059182756"},{"page":0,"rows":0,"endTime":"2018-08-11 16:26:26","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"33.00","insertTime":"2018-08-11 16:26:26","batch":"201808116269813676"},{"page":0,"rows":0,"endTime":"2018-08-11 16:25:44","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"33.00","insertTime":"2018-08-11 16:25:44","batch":"201808114354754258"},{"page":0,"rows":0,"endTime":"2018-08-11 16:25:12","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"1.00","insertTime":"2018-08-11 16:25:12","batch":"201808112194355215"},{"page":0,"rows":0,"endTime":"2018-08-11 16:24:34","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"1998.00","insertTime":"2018-08-11 16:24:34","batch":"201808111116684095"},{"page":0,"rows":0,"endTime":"2018-08-11 15:54:01","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"2.00","insertTime":"2018-08-11 15:54:01","batch":"201808111008861205"},{"page":0,"rows":0,"endTime":"2018-08-11 13:30:42","orderSource":"开单","orderType":"已退单","orderState":1,"orderAmount":"0.50","insertTime":"2018-08-11 13:30:42","batch":"201808111810158460"}]
+         * totalCount : 216
+         * totalPage : 22
          * orderProperty : null
          * orderDirection : null
          * filters : []
@@ -181,30 +181,26 @@ public class OrderBean {
 
         public static class ResultBean {
             /**
-             * deleteFlag : 0
              * page : 0
              * rows : 0
-             * endTime : 2018-07-09 12:10:56.003
+             * endTime : 2018-08-13 19:16:01
+             * orderSource : 开单
              * orderType : 已结帐
-             * orderAmount : 8.50
-             * batch : 20180709121632288327
+             * orderState : 1
+             * orderAmount : 33.00
+             * insertTime : 2018-08-13 19:16:01
+             * batch : 201808137827194774
              */
 
-            private int deleteFlag;
             private int page;
             private int rows;
             private String endTime;
+            private String orderSource;
             private String orderType;
+            private int orderState;
             private String orderAmount;
+            private String insertTime;
             private String batch;
-
-            public int getDeleteFlag() {
-                return deleteFlag;
-            }
-
-            public void setDeleteFlag(int deleteFlag) {
-                this.deleteFlag = deleteFlag;
-            }
 
             public int getPage() {
                 return page;
@@ -230,6 +226,14 @@ public class OrderBean {
                 this.endTime = endTime;
             }
 
+            public String getOrderSource() {
+                return orderSource;
+            }
+
+            public void setOrderSource(String orderSource) {
+                this.orderSource = orderSource;
+            }
+
             public String getOrderType() {
                 return orderType;
             }
@@ -238,12 +242,28 @@ public class OrderBean {
                 this.orderType = orderType;
             }
 
+            public int getOrderState() {
+                return orderState;
+            }
+
+            public void setOrderState(int orderState) {
+                this.orderState = orderState;
+            }
+
             public String getOrderAmount() {
                 return orderAmount;
             }
 
             public void setOrderAmount(String orderAmount) {
                 this.orderAmount = orderAmount;
+            }
+
+            public String getInsertTime() {
+                return insertTime;
+            }
+
+            public void setInsertTime(String insertTime) {
+                this.insertTime = insertTime;
             }
 
             public String getBatch() {

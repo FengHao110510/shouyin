@@ -227,7 +227,6 @@ public class PayForActivity extends BaseActivity {
                 IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 if (result != null) {
                     if (result.getContents() == null) {
-                        Toast.makeText(this, "支付失败", Toast.LENGTH_LONG).show();
 
                     } else {
                         //TODO 成功之后走接口

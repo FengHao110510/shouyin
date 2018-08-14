@@ -312,7 +312,6 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
                 IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 if (result != null) {
                     if (result.getContents() == null) {
-                        Toast.makeText(this, "支付失败", Toast.LENGTH_LONG).show();
                     } else {
                         // 扫码成功后支付
                         payForScan(result.getContents(), mBatch);

@@ -8,13 +8,15 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.hongsou.douguoshouyin.base.BaseApplication;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.GsonUtil;
+import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import cn.jpush.android.api.JPushInterface;
-
 
 
 /**
@@ -57,12 +59,30 @@ public class JpushReceiver extends BroadcastReceiver {
             //	"clientName": ""
             //}
 
-            //处理支付推送的消息
-            successAct(context, extras);
 
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             Log.d(TAG, "接受到推送下来的通知");
+            //处理支付推送的消息  TODO 区分开单还是扫码点餐  扫码点餐的话不跳转
+            if (TextUtils.isEmpty(extras)) {
+                ToastUtil.showToast("数据异常");
+            } else {
+                PayOnLineSuccessBean paySuccessBean = GsonUtil.GsonToBean(extras, PayOnLineSuccessBean.class);
+                if ("app".equals(paySuccessBean.getFlag())){
+                    if (Global.getSpGlobalUtil().getSpeechVoice()) {
+                        MscSpeechUtils.speech(paySuccessBean.getTradeType() + "收款到账"
+                                + paySuccessBean.getMoney() + "元", BaseApplication.getAppContext());
+                    }
+                    successAct(context, paySuccessBean);
+                }else {
+                    //扫码点餐来的
+                    if (Global.getSpGlobalUtil().getSpeechVoice()) {
+//                        MscSpeechUtils.speech(paySuccessBean.getTradeType() + "收款到账"
+//                                + paySuccessBean.getMoney() + "元", BaseApplication.getAppContext());
+                    }
 
+                }
+
+            }
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "用户点击打开了通知");
 
@@ -74,17 +94,7 @@ public class JpushReceiver extends BroadcastReceiver {
      * 启动收款成功的界面
      */
 
-    private void successAct(Context context, String jsonStr) {
-        Log.e(TAG, "successAct: chengasd");
-        if (TextUtils.isEmpty(jsonStr)) {
-            ToastUtil.showToast("数据异常");
-        }else {
-            Log.e(TAG, "successAct:支付成功？？？？？？ ");
-            PayOnLineSuccessBean paySuccessBean = GsonUtil.GsonToBean(jsonStr, PayOnLineSuccessBean.class);
-            if (paySuccessBean == null) {
-                paySuccessBean = new PayOnLineSuccessBean();
-            }
-            EventBus.getDefault().post(paySuccessBean);
-        }
+    private void successAct(Context context, PayOnLineSuccessBean paySuccessBean) {
+        EventBus.getDefault().post(paySuccessBean);
     }
 }
