@@ -133,8 +133,6 @@ public class LoginActivity extends BaseActivity {
             ToastUtil.showToast("请输入账号");
         } else if (TextUtils.isEmpty(passWord) || !isPasswordValid(passWord)) {
             ToastUtil.showToast("请输入正确密码 6-18位");
-        } else if (TextUtils.isEmpty(code)) {
-            ToastUtil.showToast("获取设备编号失败");
         } else {
             toLogin();
         }

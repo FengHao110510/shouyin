@@ -16,6 +16,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.BluetoothListAdapter;
@@ -54,6 +56,10 @@ public class BluetoothActivity extends BaseActivity {
     CommonTopBar mTopBar;
     @BindView(R.id.bluetooth_listview)
     ListView mBluetoothListview;
+    @BindView(R.id.tv_mine_printer_sousuoing)
+    TextView mTvMinePrinterSousuoing;
+    @BindView(R.id.tv_mine_printer_sousuo)
+    TextView mTvMinePrinterSousuo;
 
     private BluetoothAdapter bluetoothAdapter;
     //蓝牙数据适配器
@@ -72,7 +78,7 @@ public class BluetoothActivity extends BaseActivity {
 
     @Override
     protected void init() {
-        if (getIntent().hasExtra("name")){
+        if (getIntent().hasExtra("name")) {
             name = getIntent().getStringExtra("name");
             type = getIntent().getStringExtra("type");
         }
@@ -83,31 +89,44 @@ public class BluetoothActivity extends BaseActivity {
     }
 
     private void initListView() {
+        setIconFont(new TextView[]{mTvMinePrinterSousuo});
         if (blueToothModels == null) {
             blueToothModels = new ArrayList<>();
         }
-        mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
+        mTvMinePrinterSousuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 搜索蓝牙
                 scanLeDevice();
+                mTvMinePrinterSousuo.setVisibility(View.GONE);
+                mTvMinePrinterSousuoing.setVisibility(View.VISIBLE);
             }
         });
-
+        mTvMinePrinterSousuoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 停止搜索蓝牙
+                mTvMinePrinterSousuo.setVisibility(View.VISIBLE);
+                mTvMinePrinterSousuoing.setVisibility(View.GONE);
+                if (bluetoothAdapter != null) {
+                    bluetoothAdapter.cancelDiscovery();
+                }
+            }
+        });
         mListAdapter = new BluetoothListAdapter(this, blueToothModels);
         mBluetoothListview.setAdapter(mListAdapter);
         mBluetoothListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //停止搜索
-                if (bluetoothAdapter != null){
+                if (bluetoothAdapter != null) {
                     bluetoothAdapter.cancelDiscovery();
                 }
-//                submitPrinter(blueToothModels.get(i));
                 BluetoothBean bluetoothBean = blueToothModels.get(i);
                 Intent intent = new Intent(BluetoothActivity.this, PrinterActivity.class);
                 intent.putExtra("address", bluetoothBean.getAddress());
                 intent.putExtra("type", type);
-                intent.putExtra("name",  TextUtils.isEmpty(name) ? bluetoothBean.getName() : name);
+                intent.putExtra("name", TextUtils.isEmpty(name) ? bluetoothBean.getName() : name);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -115,10 +134,10 @@ public class BluetoothActivity extends BaseActivity {
     }
 
     /**
+     * @param bluetoothBean 打印机数据
      * @desc 添加打印机
      * @anthor lpc
      * @date: 2018/8/6
-     * @param bluetoothBean 打印机数据
      */
     private void submitPrinter(BluetoothBean bluetoothBean) {
         HttpFactory.post().url(ApiConfig.INSERT_SHOP_PRINT)
@@ -136,7 +155,7 @@ public class BluetoothActivity extends BaseActivity {
                             Intent intent = new Intent(BluetoothActivity.this, PrinterActivity.class);
                             startActivity(intent);
                             finish();
-                        }else {
+                        } else {
                             ToastUtil.showToast(response.getMsg());
                         }
                     }
@@ -158,7 +177,7 @@ public class BluetoothActivity extends BaseActivity {
         RxPermissions rxPermissions = new RxPermissions(this);
         if (rxPermissions.isGranted(Manifest.permission.BLUETOOTH)) {
             getBluetooth();
-        }else {
+        } else {
             rxPermissions.requestEach(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
                     .subscribe(new Consumer<Permission>() {
                         @Override
@@ -208,22 +227,22 @@ public class BluetoothActivity extends BaseActivity {
         }
     }
 
-   /**
-    * @desc 搜索蓝牙设备
-    * @anthor lpc
-    * @date: 2018/8/3
-    */
+    /**
+     * @desc 搜索蓝牙设备
+     * @anthor lpc
+     * @date: 2018/8/3
+     */
     private void scanLeDevice() {
         if (bluetoothAdapter != null) {
             bluetoothAdapter.startDiscovery();
         }
     }
 
-   /**
-    * @desc 注册蓝牙扫描广播
-    * @anthor lpc
-    * @date: 2018/8/3
-    */
+    /**
+     * @desc 注册蓝牙扫描广播
+     * @anthor lpc
+     * @date: 2018/8/3
+     */
     private void registerReceiver() {
         IntentFilter filter = new IntentFilter();
         //发现设备
@@ -232,6 +251,8 @@ public class BluetoothActivity extends BaseActivity {
         filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         //蓝牙设备状态改变
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        // 扫描结束的广播
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         registerReceiver(mBluetoothReceiver, filter);
         isRegistReceiver = true;
     }
@@ -256,7 +277,7 @@ public class BluetoothActivity extends BaseActivity {
                         boolean add = true;
                         // 判断之前是否已经搜索出该设备
                         for (BluetoothBean blueToothModel : blueToothModels) {
-                            if (blueToothModel.getAddress().equals(address)){
+                            if (blueToothModel.getAddress().equals(address)) {
                                 add = false;
                                 break;
                             }
@@ -272,7 +293,12 @@ public class BluetoothActivity extends BaseActivity {
                     }
                 }
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                LogUtil.e("BroadcastReceiver", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                // 蓝牙搜索完毕
+                mTvMinePrinterSousuo.setVisibility(View.VISIBLE);
+                mTvMinePrinterSousuoing.setVisibility(View.GONE);
+                if (mListAdapter.getCount() == 0) {
+                    Toast.makeText(context, "未搜索到蓝牙设备", Toast.LENGTH_SHORT).show();
+                }
             } else if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
                 LogUtil.e("BroadcastReceiver", "111111111111");
             } else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
