@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -48,7 +49,20 @@ public class Global {
         return mSpGlobalUtil;
     }
 
-
+    public static synchronized SharePreferenceUserUtil getSpUserUtil() {
+        if (mSpUtil == null) {
+            SharePreferenceGlobalUtil spc = getSpGlobalUtil();
+            if (!TextUtils.isEmpty(spc.getClerkNumber())) {
+                mSpUtil = new SharePreferenceUserUtil(
+                        BaseApplication.getAppContext(), "hsou_shouyin_user_"
+                        + spc.getClerkNumber());
+            } else {
+                mSpUtil = new SharePreferenceUserUtil(
+                        BaseApplication.getAppContext(), "hsou_shouyin_user");
+            }
+        }
+        return mSpUtil;
+    }
 
     /**
      * 清除登录信息
@@ -61,6 +75,7 @@ public class Global {
         Global.getSpGlobalUtil().setPaymentUser("");
         Global.getSpGlobalUtil().setShopNumber("");
         Global.getSpGlobalUtil().setCode("");
+        mSpUtil = null;
     }
 
     /**

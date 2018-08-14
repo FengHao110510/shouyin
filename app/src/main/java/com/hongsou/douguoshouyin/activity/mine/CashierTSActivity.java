@@ -3,12 +3,13 @@ package com.hongsou.douguoshouyin.activity.mine;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.tool.Global;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 收银设置  语音推送设置
@@ -35,7 +36,7 @@ public class CashierTSActivity extends BaseActivity {
     @Override
     public void initView() {
         setIconFont(new TextView[]{tvMineCashierTsYuyinIcon});
-        if (Global.getSpGlobalUtil().getSpeechVoice()) {
+        if (Global.getSpUserUtil().getSpeechVoice()) {
 
             tvMineCashierTsYuyinIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
 
@@ -51,12 +52,12 @@ public class CashierTSActivity extends BaseActivity {
 
     @OnClick(R.id.tv_mine_cashier_ts_yuyin_icon)
     public void onViewClicked() {
-        if (Global.getSpGlobalUtil().getSpeechVoice()) {
-            Global.getSpGlobalUtil().setSpeechVoice(false);
+        if (Global.getSpUserUtil().getSpeechVoice()) {
+            Global.getSpUserUtil().setSpeechVoice(false);
             tvMineCashierTsYuyinIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_nomal));
 
         } else {
-            Global.getSpGlobalUtil().setSpeechVoice(true);
+            Global.getSpUserUtil().setSpeechVoice(true);
             tvMineCashierTsYuyinIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
 
         }

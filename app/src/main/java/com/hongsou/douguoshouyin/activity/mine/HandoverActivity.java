@@ -256,10 +256,10 @@ public class HandoverActivity extends BaseActivity {
                     public void onResponse(RootBean<HandoverDetailBean> response, int id) {
                         if (response.isSuccess()) {
                             HandoverDetailBean data = response.getData();
-                            if (Global.getSpGlobalUtil().getHandoverPrintSwitch()){
+                            if (Global.getSpUserUtil().getHandoverPrintSwitch()){
                                 BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
                                         .setContent(data)
-                                        .setCount(Global.getSpGlobalUtil().getHandoverPrintCount())
+                                        .setCount(Global.getSpUserUtil().getHandoverPrintCount())
                                         .setType(BluetoothPrinterUtil.Print.HANDOVER)
                                         .build();
                                 util.startPrint();
