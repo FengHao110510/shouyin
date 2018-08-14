@@ -68,14 +68,14 @@ public class JpushReceiver extends BroadcastReceiver {
             } else {
                 PayOnLineSuccessBean paySuccessBean = GsonUtil.GsonToBean(extras, PayOnLineSuccessBean.class);
                 if ("app".equals(paySuccessBean.getFlag())){
-                    if (Global.getSpGlobalUtil().getSpeechVoice()) {
+                    if (Global.getSpUserUtil().getSpeechVoice()) {
                         MscSpeechUtils.speech(paySuccessBean.getTradeType() + "收款到账"
                                 + paySuccessBean.getMoney() + "元", BaseApplication.getAppContext());
                     }
                     successAct(context, paySuccessBean);
                 }else {
                     //扫码点餐来的
-                    if (Global.getSpGlobalUtil().getSpeechVoice()) {
+                    if (Global.getSpUserUtil().getSpeechVoice()) {
 //                        MscSpeechUtils.speech(paySuccessBean.getTradeType() + "收款到账"
 //                                + paySuccessBean.getMoney() + "元", BaseApplication.getAppContext());
                     }
@@ -85,7 +85,12 @@ public class JpushReceiver extends BroadcastReceiver {
             }
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
             Log.d(TAG, "用户点击打开了通知");
+            PayOnLineSuccessBean paySuccessBean = GsonUtil.GsonToBean(extras, PayOnLineSuccessBean.class);
 
+            if (!"app".equals(paySuccessBean.getFlag())){
+                //点击后跳转支付成功页面
+
+            }
         }
 
     }
