@@ -160,6 +160,15 @@ public class OrderDetailBean {
             private String dateOrderNumber;
             private String clerkName;
             private String tableNumber;
+            private String registeredCell;
+
+            public String getRegisteredCell() {
+                return registeredCell;
+            }
+
+            public void setRegisteredCell(String registeredCell) {
+                this.registeredCell = registeredCell;
+            }
 
             public String getDateOrderNumber() {
                 return dateOrderNumber;
