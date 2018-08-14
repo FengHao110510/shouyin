@@ -93,35 +93,35 @@ public class CashierXPActivity extends BaseActivity {
      */
     private void initKG() {
         //将存储的状态回显至页面
-        if (Global.getSpGlobalUtil().getPayPrintSwitch()) {
+        if (Global.getSpUserUtil().getPayPrintSwitch()) {
             flagShoukuan = true;
             tvMineCashierXpShoukuanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
         } else {
             flagShoukuan = false;
             tvMineCashierXpShoukuanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_nomal));
         }
-        if (Global.getSpGlobalUtil().getOrderPrintSwitch()) {
+        if (Global.getSpUserUtil().getOrderPrintSwitch()) {
             flagDingdan = true;
             tvMineCashierXpDingdanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
         } else {
             flagDingdan = false;
             tvMineCashierXpDingdanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_nomal));
         }
-        if (Global.getSpGlobalUtil().getRefundPrintSwitch()) {
+        if (Global.getSpUserUtil().getRefundPrintSwitch()) {
             flagTuikuan = true;
             tvMineCashierXpTuikuanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
         } else {
             flagTuikuan = false;
             tvMineCashierXpTuikuanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_nomal));
         }
-        if (Global.getSpGlobalUtil().getHandoverPrintSwitch()) {
+        if (Global.getSpUserUtil().getHandoverPrintSwitch()) {
             flagJiaoban = true;
             tvMineCashierXpJiaobanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
         } else {
             flagJiaoban = false;
             tvMineCashierXpJiaobanIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_nomal));
         }
-        if (Global.getSpGlobalUtil().getKitchenPrintSwitch()) {
+        if (Global.getSpUserUtil().getKitchenPrintSwitch()) {
             flagHouchu = true;
             tvMineCashierXpHouchuIcon.setBackground(getResources().getDrawable(R.drawable.imgbt_selector));
         } else {
@@ -134,11 +134,11 @@ public class CashierXPActivity extends BaseActivity {
      * 初始化份数
      */
     private void initFS() {
-        etMineCashierXpShoukuanCount.setText(Global.getSpGlobalUtil().getPayPrintCount() + "");
-        etMineCashierXpDingdanCount.setText(Global.getSpGlobalUtil().getOrderPrintCount() + "");
-        etMineCashierXpTuikuanCount.setText(Global.getSpGlobalUtil().getRefundPrintCount() + "");
-        etMineCashierXpJiaobanCount.setText(Global.getSpGlobalUtil().getHandoverPrintCount() + "");
-        etMineCashierXpHouchuCount.setText(Global.getSpGlobalUtil().getKitchenPrintCount() + "");
+        etMineCashierXpShoukuanCount.setText(Global.getSpUserUtil().getPayPrintCount() + "");
+        etMineCashierXpDingdanCount.setText(Global.getSpUserUtil().getOrderPrintCount() + "");
+        etMineCashierXpTuikuanCount.setText(Global.getSpUserUtil().getRefundPrintCount() + "");
+        etMineCashierXpJiaobanCount.setText(Global.getSpUserUtil().getHandoverPrintCount() + "");
+        etMineCashierXpHouchuCount.setText(Global.getSpUserUtil().getKitchenPrintCount() + "");
 
     }
 
@@ -216,36 +216,36 @@ public class CashierXPActivity extends BaseActivity {
      */
     private void save() {
         //保存开关状态
-        Global.getSpGlobalUtil().setPayPrintSwitch(flagShoukuan);
-        Global.getSpGlobalUtil().setOrderPrintSwitch(flagDingdan);
-        Global.getSpGlobalUtil().setRefundPrintSwitch(flagTuikuan);
-        Global.getSpGlobalUtil().setHandoverPrintSwitch(flagJiaoban);
-        Global.getSpGlobalUtil().setKitchenPrintSwitch(flagHouchu);
+        Global.getSpUserUtil().setPayPrintSwitch(flagShoukuan);
+        Global.getSpUserUtil().setOrderPrintSwitch(flagDingdan);
+        Global.getSpUserUtil().setRefundPrintSwitch(flagTuikuan);
+        Global.getSpUserUtil().setHandoverPrintSwitch(flagJiaoban);
+        Global.getSpUserUtil().setKitchenPrintSwitch(flagHouchu);
         //保存份数 如果为空则默认是1
         if (etMineCashierXpShoukuanCount.getText().toString().equals("")) {
-            Global.getSpGlobalUtil().setPayPrintCount(1);
+            Global.getSpUserUtil().setPayPrintCount(1);
         } else {
-            Global.getSpGlobalUtil().setPayPrintCount(Integer.valueOf(etMineCashierXpShoukuanCount.getText().toString()));
+            Global.getSpUserUtil().setPayPrintCount(Integer.valueOf(etMineCashierXpShoukuanCount.getText().toString()));
         }
         if (etMineCashierXpDingdanCount.getText().toString().equals("")) {
-            Global.getSpGlobalUtil().setOrderPrintCount(1);
+            Global.getSpUserUtil().setOrderPrintCount(1);
         } else {
-            Global.getSpGlobalUtil().setOrderPrintCount(Integer.valueOf(etMineCashierXpDingdanCount.getText().toString()));
+            Global.getSpUserUtil().setOrderPrintCount(Integer.valueOf(etMineCashierXpDingdanCount.getText().toString()));
         }
         if (etMineCashierXpTuikuanCount.getText().toString().equals("")) {
-            Global.getSpGlobalUtil().setRefundPrintCount(1);
+            Global.getSpUserUtil().setRefundPrintCount(1);
         } else {
-            Global.getSpGlobalUtil().setRefundPrintCount(Integer.valueOf(etMineCashierXpTuikuanCount.getText().toString()));
+            Global.getSpUserUtil().setRefundPrintCount(Integer.valueOf(etMineCashierXpTuikuanCount.getText().toString()));
         }
         if (etMineCashierXpJiaobanCount.getText().toString().equals("")) {
-            Global.getSpGlobalUtil().setHandoverPrintCount(1);
+            Global.getSpUserUtil().setHandoverPrintCount(1);
         } else {
-            Global.getSpGlobalUtil().setHandoverPrintCount(Integer.valueOf(etMineCashierXpJiaobanCount.getText().toString()));
+            Global.getSpUserUtil().setHandoverPrintCount(Integer.valueOf(etMineCashierXpJiaobanCount.getText().toString()));
         }
         if (etMineCashierXpHouchuCount.getText().toString().equals("")) {
-            Global.getSpGlobalUtil().setKitchenPrintCount(1);
+            Global.getSpUserUtil().setKitchenPrintCount(1);
         } else {
-            Global.getSpGlobalUtil().setKitchenPrintCount(Integer.valueOf(etMineCashierXpHouchuCount.getText().toString()));
+            Global.getSpUserUtil().setKitchenPrintCount(Integer.valueOf(etMineCashierXpHouchuCount.getText().toString()));
         }
         if (flag){
             ToastUtil.showToast("保存成功");

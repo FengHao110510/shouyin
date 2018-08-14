@@ -1,7 +1,6 @@
 package com.hongsou.douguoshouyin.activity.turnover;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,8 +15,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.BackPayActivity;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
@@ -458,20 +455,20 @@ public class OrderDetailActivity extends BaseActivity {
                 //打印小票
                 if (order.getOrderType().contains("已退")) {
                     // 退单打印
-                    if (Global.getSpGlobalUtil().getRefundPrintSwitch()) {
+                    if (Global.getSpUserUtil().getRefundPrintSwitch()) {
                         BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
                                 .setContent(mOrderDetailBean)
-                                .setCount(Global.getSpGlobalUtil().getRefundPrintCount())
+                                .setCount(Global.getSpUserUtil().getRefundPrintCount())
                                 .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
                                 .build();
                         printerUtil.startPrint();
                     }
                 } else {
                     // 订单打印
-                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()) {
+                    if (Global.getSpUserUtil().getOrderPrintSwitch()) {
                         BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
                                 .setContent(mOrderDetailBean)
-                                .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+                                .setCount(Global.getSpUserUtil().getOrderPrintCount())
                                 .setType(BluetoothPrinterUtil.Print.ORDER)
                                 .build();
                         printerUtil.startPrint();

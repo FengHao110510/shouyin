@@ -261,20 +261,20 @@ public class PaymentDetailActivity extends BaseActivity {
                 // 打印小票
                 if (!"00000000000000000000".equals(mBatch)) {
                     // 不是纯收款，开单
-                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()) {
+                    if (Global.getSpUserUtil().getOrderPrintSwitch()) {
                         BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
                                 .setType(BluetoothPrinterUtil.Print.ORDER)
-                                .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+                                .setCount(Global.getSpUserUtil().getOrderPrintCount())
                                 .setContent(mPaymentDetailBean)
                                 .build();
                         util.startPrint();
                     }
                 } else {
                     // 纯收款
-                    if (Global.getSpGlobalUtil().getOrderPrintSwitch()) {
+                    if (Global.getSpUserUtil().getOrderPrintSwitch()) {
                         BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
                                 .setType(BluetoothPrinterUtil.Print.ORDER)
-                                .setCount(Global.getSpGlobalUtil().getOrderPrintCount())
+                                .setCount(Global.getSpUserUtil().getOrderPrintCount())
                                 .setContent(mPaymentDetailBean)
                                 .build();
                         util.startPrint();

@@ -17,13 +17,14 @@
         app:right_text="打印测试" />
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingBottom="12dp"
+        android:paddingBottom="20dp"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:paddingTop="30dp">
+        android:paddingTop="20dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
             android:id="@+id/blue_tooth_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -45,6 +47,7 @@
         android:background="@color/white"
         android:paddingBottom="@dimen/margin_12"
         android:paddingLeft="30dp"
+        android:visibility="gone"
         android:paddingRight="30dp">
 
         <TextView
@@ -57,7 +60,6 @@
 
         <TextView
             android:id="@+id/tv_mine_printer_sousuoing"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
