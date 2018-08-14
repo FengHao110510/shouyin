@@ -78,6 +78,9 @@ public class JpushReceiver extends BroadcastReceiver {
                     if (Global.getSpUserUtil().getSpeechVoice()) {
 //                        MscSpeechUtils.speech(paySuccessBean.getTradeType() + "收款到账"
 //                                + paySuccessBean.getMoney() + "元", BaseApplication.getAppContext());
+                        if (Global.getSpUserUtil().getSpeechVoice()) {
+                            MscSpeechUtils.speech("您有一条新的订单", BaseApplication.getAppContext());
+                        }
                     }
 
                 }
