@@ -614,7 +614,7 @@ public class AddTaocanActivity extends BaseActivity {
 
         //h popwindow的高度
         int h = this.getWindowManager().getDefaultDisplay().getHeight();
-        imgPopupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, h / 3);
+        imgPopupWindow = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT, h / 4);
         // 设置SelectPicPopupWindow弹出窗体动画效果，设置动画，一会会讲解
         imgPopupWindow.setAnimationStyle(R.style.et_style);
         // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
