@@ -90,14 +90,27 @@ public class PaymentDetailActivity extends BaseActivity {
     private int turnover;
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        getIntent = intent;
+    }
+
+    private Intent getIntent;
+
+    @Override
     public int initLayout() {
         return R.layout.module_activity_order_detail;
     }
 
     @Override
     protected void init() {
+        getIntent = getIntent();
+        initExtra();
+    }
 
-        if (getIntent().hasExtra("turnover")) {
+
+    private void initExtra() {
+        if (getIntent.hasExtra("turnover")) {
             turnover = 0;
         } else {
             turnover = 1;
@@ -106,14 +119,14 @@ public class PaymentDetailActivity extends BaseActivity {
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
-        if (getIntent().hasExtra("paymentBatch")) {
-            paymentBatch = getIntent().getStringExtra("paymentBatch");
+        if (getIntent.hasExtra("paymentBatch")) {
+            paymentBatch = getIntent.getStringExtra("paymentBatch");
         }
-        if (getIntent().hasExtra("batch")) {
-            mBatch = getIntent().getStringExtra("batch");
+        if (getIntent.hasExtra("batch")) {
+            mBatch = getIntent.getStringExtra("batch");
             initData();
-        } else if (getIntent().hasExtra("payOnLineSuccessBean")) {
-            PayOnLineSuccessBean payOnLineSuccessBean = (PayOnLineSuccessBean) getIntent().getSerializableExtra("payOnLineSuccessBean");
+        } else if (getIntent.hasExtra("payOnLineSuccessBean")) {
+            PayOnLineSuccessBean payOnLineSuccessBean = (PayOnLineSuccessBean) getIntent.getSerializableExtra("payOnLineSuccessBean");
             mTvOrderMoney.setText(payOnLineSuccessBean.getMoney());
             mTvOrderPayTime.setText(payOnLineSuccessBean.getDate());
             mTvOrderBatch.setText(payOnLineSuccessBean.getOutTradeNo());
@@ -122,23 +135,18 @@ public class PaymentDetailActivity extends BaseActivity {
             mTvOrderPayStatus.setText("支付成功");
             mBatch = payOnLineSuccessBean.getBatch();
             paymentBatch = payOnLineSuccessBean.getOutTradeNo();
-            if (Global.getSpUserUtil().getSpeechVoice()) {
-                MscSpeechUtils.speech(payOnLineSuccessBean.getTradeType() + "收款到账"
-                        + payOnLineSuccessBean.getMoney() + "元", this);
-            }
 
-        } else if (getIntent().hasExtra("xianjin")) {
-            paymentBatch = getIntent().getStringExtra("paymentBatch");
-            mTvOrderMoney.setText(getIntent().getStringExtra("money"));
+
+        } else if (getIntent.hasExtra("xianjin")) {
+            paymentBatch = getIntent.getStringExtra("paymentBatch");
+            mTvOrderMoney.setText(getIntent.getStringExtra("money"));
             mTvOrderPayTime.setText(now);
             mTvOrderBatch.setText(paymentBatch);
             mTvOrderPayType.setText("现金");
-            mTvOrderPayMoney.setText(getIntent().getStringExtra("money"));
+            mTvOrderPayMoney.setText(getIntent.getStringExtra("money"));
             mTvOrderPayStatus.setText("支付成功");
             mBatch = "00000000000000000000";
 
-        }else if (getIntent().hasExtra("scanH5")){
-            ToastUtil.showToast(getIntent().getStringExtra("scanH5"));
         }
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
@@ -151,7 +159,7 @@ public class PaymentDetailActivity extends BaseActivity {
         mTopBar.setLeftViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
             public void onClick(View v) {
-                if (turnover==1){
+                if (turnover == 1) {
                     startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
                 }
                 finish();
@@ -162,7 +170,7 @@ public class PaymentDetailActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if (turnover==1){
+            if (turnover == 1) {
                 startActivity(new Intent(PaymentDetailActivity.this, MainActivity.class));
             }
             finish();

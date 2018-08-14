@@ -38,6 +38,7 @@ public class OrderAdapter extends BaseQuickAdapter<OrderBean.DataBean.ResultBean
     @Override
     protected void convert(BaseViewHolder helper, OrderBean.DataBean.ResultBean item) {
         helper.setText(R.id.tv_item_turnover_order_ordernum,item.getBatch())
+                .setText(R.id.tv_item_turnover_order_orderSource,item.getOrderSource())
                 .setText(R.id.tv_item_turnover_order_time,item.getEndTime())
                 .setText(R.id.tv_item_turnover_order_paystate,item.getOrderType())
                 .setText(R.id.tv_item_turnover_order_jine,"¥"+item.getOrderAmount());

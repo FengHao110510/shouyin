@@ -24,6 +24,15 @@ public class PayOnLineSuccessBean implements Serializable {
     private String outTradeNo;
     private String date;
     private String batch;
+    private String flag;
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 
     public String getBatch() {
         return batch;
