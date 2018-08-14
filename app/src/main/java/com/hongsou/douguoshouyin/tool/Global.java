@@ -60,6 +60,7 @@ public class Global {
         Global.getSpGlobalUtil().setClerkNumber("");
         Global.getSpGlobalUtil().setPaymentUser("");
         Global.getSpGlobalUtil().setShopNumber("");
+        Global.getSpGlobalUtil().setCode("");
     }
 
     /**
