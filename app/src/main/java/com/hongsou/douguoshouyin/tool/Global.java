@@ -21,6 +21,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * 全局
  */
@@ -75,6 +77,8 @@ public class Global {
         Global.getSpGlobalUtil().setPaymentUser("");
         Global.getSpGlobalUtil().setShopNumber("");
         Global.getSpGlobalUtil().setCode("");
+        //取消别名
+        JPushInterface.setAlias(BaseApplication.getAppContext(), 1, "");
         mSpUtil = null;
     }
 
