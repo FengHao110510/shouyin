@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.broadcastreceiver.PayOnLineSuccessBean;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
@@ -386,7 +387,9 @@ public class PaymentDetailActivity extends BaseActivity {
                 .addParams("appAuthToken", Global.getSpGlobalUtil().getAliCode())
                 .addParams("subMchId", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("refundAmount", mTvOrderMoney.getText().toString())
-
+                .addParams("address", Constant.HTTP_URL+"/pay/payCallback")
+                .addParams("masterSecret", Constant.MASTER_SECRET)
+                .addParams("appKey", Constant.APP_KEY)
                 .build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
