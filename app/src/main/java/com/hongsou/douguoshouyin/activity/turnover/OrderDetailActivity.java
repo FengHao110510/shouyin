@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
 import com.hongsou.douguoshouyin.http.ResponseCallback;
@@ -361,12 +362,20 @@ public class OrderDetailActivity extends BaseActivity {
     //退款接口
     private void doRefund() {
         HttpFactory.post().url(ApiConfig.REFUND)
-                .addParams("outTradeNo", tvTurnoverOrderdetailDingdanhao.getText().toString())
+                .addParams("outTradeNo", order.getPaymentBatch())
                 .addParams("type", type)
                 .addParams("appAuthToken", Global.getSpGlobalUtil().getAliCode())
                 .addParams("subMchId", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("refundAmount", tvTurnoverOrderdetailShishoujine.getText().toString())
-                .build().execute(new ResponseCallback<String>(this) {
+                .addParams("masterSecret", Constant.MASTER_SECRET)
+                .addParams("appKey", Constant.APP_KEY)
+                .addParams("address", Constant.HTTP_URL + "/pay/payCallback")
+                .build().execute(new StringCallback() {
+
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                ToastUtil.showError();
+            }
 
             @Override
             public void onResponse(String response, int id) {

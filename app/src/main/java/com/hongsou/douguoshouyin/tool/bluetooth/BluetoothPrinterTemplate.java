@@ -1,5 +1,7 @@
 package com.hongsou.douguoshouyin.tool.bluetooth;
 
+import android.text.TextUtils;
+
 import com.hongsou.douguoshouyin.javabean.HandoverDetailBean;
 import com.hongsou.douguoshouyin.javabean.OrderDetailBean;
 import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
@@ -99,7 +101,7 @@ public class BluetoothPrinterTemplate {
         BluetoothFormatUtils.printText(" 【 " + orderBean.getOrderSourcePayment() + " 】\n");  // 用餐类型
         BluetoothFormatUtils.printText("结账时间：" + orderBean.getInsertTime() + "\n");
         BluetoothFormatUtils.printText("交易号：" + orderBean.getBatch() + "\n");
-        BluetoothFormatUtils.printText("收银员：" + orderBean.getClerkName() + "\n");
+        BluetoothFormatUtils.printText("收银员：" + (TextUtils.isEmpty(orderBean.getClerkName()) ? orderBean.getRegisteredCell() : orderBean.getClerkName() + "\n"));
         BluetoothFormatUtils.printCutLine();
         BluetoothFormatUtils.printNewLine(1);
 
