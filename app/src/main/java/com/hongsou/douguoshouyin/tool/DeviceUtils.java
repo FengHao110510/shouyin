@@ -23,7 +23,7 @@ public class DeviceUtils {
         return deviceUtils;
     }
 
-    public String getUniqueId(Context context){
+    public String  getUniqueId(Context context){
         String androidID = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         String id = androidID + Build.SERIAL;
         try {

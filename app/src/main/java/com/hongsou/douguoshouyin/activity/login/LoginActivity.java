@@ -14,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
+import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
@@ -253,7 +254,11 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        BaseApplication.getInstance().removeAll();
+    }
 
     @Override
     protected void onDestroy() {
