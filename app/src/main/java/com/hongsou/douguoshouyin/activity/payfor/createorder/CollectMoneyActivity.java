@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -215,6 +214,7 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
      */
     private void createOrderInfo(String paymentType) {
         mSubmitOrderBean = new SubmitOrderBean();
+        mSubmitOrderBean.setOrderAmount(mTotalMoney);
         // 订单优惠
         String orderDiscount = "0";
         if (!TextUtils.isEmpty(mEtMoney.getText().toString())) {
@@ -251,7 +251,6 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         mSubmitOrderBean.setClerkNumber(Global.getSpGlobalUtil().getClerkNumber());
         mSubmitOrderBean.setShopNumber(getShopNumber());
         mSubmitOrderBean.setOrderRemarks("无");
-        mSubmitOrderBean.setOrderAmount(mTotalMoney);
         mSubmitOrderBean.setAmountReceivable(mTotalMoney);
         mSubmitOrderBean.setAmountCollected(mTotalMoney);
         mSubmitOrderBean.setOrderDiscount(orderDiscount);
