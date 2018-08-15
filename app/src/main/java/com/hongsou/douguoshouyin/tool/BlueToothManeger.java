@@ -3,19 +3,15 @@ package com.hongsou.douguoshouyin.tool;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
-
 
 import com.hongsou.douguoshouyin.base.BaseApplication;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.UUID;
-
-import javax.microedition.khronos.opengles.GL;
 
 /**
  * Created by zlq on 2018/1/10.
@@ -132,13 +128,12 @@ public class BlueToothManeger {
      * 自动连接
      */
 
-    public AsyncTask autoNonnectBlue(Context context) {
+    public AsyncTask autoNonnectBlue(String address, final String name) {
         Log.i("bluetooth_status", "开始自动连接");
-        String address = Global.getSpGlobalUtil().getHaveBlueAddress();
-        final String name = Global.getSpGlobalUtil().getHaveBlueName();
 
         if (!TextUtils.isEmpty(address) && !TextUtils.isEmpty(name)) {
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
             if (bluetoothAdapter.isEnabled()) {
                 asyncTask = BlueToothManeger.instance().connectBluetooth(bluetoothAdapter, address, new BlueToothManeger.ConnectSucceedCallBack() {
                     @Override
@@ -150,6 +145,7 @@ public class BlueToothManeger {
                     @Override
                     public void failureCallBack(String address) {
                         Log.i("bluetooth_status", "自动连接失败");
+                        ToastUtil.showToast(name + "自动连接失败");
                     }
 
                 });

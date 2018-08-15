@@ -175,10 +175,10 @@ public class BluetoothActivity extends BaseActivity {
         }
         LogUtil.e("onCheckedChanged", "初始化开启蓝牙设备");
         RxPermissions rxPermissions = new RxPermissions(this);
-        if (rxPermissions.isGranted(Manifest.permission.BLUETOOTH)) {
+        if (rxPermissions.isGranted(Manifest.permission.ACCESS_COARSE_LOCATION)) {
             getBluetooth();
         } else {
-            rxPermissions.requestEach(Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN)
+            rxPermissions.requestEach(Manifest.permission.ACCESS_COARSE_LOCATION)
                     .subscribe(new Consumer<Permission>() {
                         @Override
                         public void accept(Permission permission) throws Exception {
@@ -186,7 +186,7 @@ public class BluetoothActivity extends BaseActivity {
                                 getBluetooth();
                             } else {
                                 // 用户拒绝了该权限，并且选中『不再询问』
-                                ToastUtil.showToast("请打开蓝牙权限，否则将影响使用");
+                                ToastUtil.showToast("请打开定位权限，否则将影响使用");
                             }
                         }
                     });
