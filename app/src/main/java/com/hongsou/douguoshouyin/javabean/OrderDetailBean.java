@@ -157,10 +157,19 @@ public class OrderDetailBean {
             private String orderSourcePayment;
             private String orderSourceFlag;
             private String batch;
+            private String paymentBatch;
             private String dateOrderNumber;
             private String clerkName;
             private String tableNumber;
             private String registeredCell;
+
+            public String getPaymentBatch() {
+                return paymentBatch;
+            }
+
+            public void setPaymentBatch(String paymentBatch) {
+                this.paymentBatch = paymentBatch;
+            }
 
             public String getRegisteredCell() {
                 return registeredCell;
