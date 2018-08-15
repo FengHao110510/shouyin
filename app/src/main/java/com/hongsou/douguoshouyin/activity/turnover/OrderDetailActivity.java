@@ -198,6 +198,9 @@ public class OrderDetailActivity extends BaseActivity {
         if (order.getOrderType().contains("已退")) {
             vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
             tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+            tvTurnoverOrderdetailDayinxiaopiao.setText("打印退款小票");
+        }else {
+            tvTurnoverOrderdetailDayinxiaopiao.setText("打印收款小票");
         }
         tvTurnoverOrderdetailDingdanzhuangtai.setText(order.getOrderType());
 
@@ -424,7 +427,8 @@ public class OrderDetailActivity extends BaseActivity {
                             .setCount(1)
                             .setType(BluetoothPrinterUtil.Print.BACK_MONEY)
                             .build();
-                    tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+//                    tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
+                    detailes();
                     printerUtil.startPrint();
                 } else {
                     ToastUtil.showToast("退单失败");
