@@ -25,6 +25,7 @@ import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
 import com.hongsou.douguoshouyin.javabean.PrinterBean;
 import com.hongsou.douguoshouyin.tool.BlueToothManeger;
 import com.hongsou.douguoshouyin.tool.Global;
+import com.hongsou.douguoshouyin.tool.NotificationsUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.greendao.gen.PrinterBeanDao;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -113,6 +114,8 @@ public class MainActivity extends BaseActivity {
         getSkuNum();
         initPermission();
         autoConnectBlueTooth();
+
+        NotificationsUtils.setNotificationPermission(this);
     }
 
 
