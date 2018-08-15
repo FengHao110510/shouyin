@@ -21,6 +21,7 @@ import com.hongsou.douguoshouyin.tool.BitmapUtil;
 import com.hongsou.douguoshouyin.tool.DateUtils;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ScreenUtil;
+import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -98,7 +99,7 @@ public class QRCodeActivity extends BaseActivity {
             @Override
             public void onError(Call call, Exception e, int id) {
                 dismissLoadingDialog();
-
+                ToastUtil.showError();
             }
 
             @Override

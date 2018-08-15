@@ -218,12 +218,13 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
         // 订单优惠
         String orderDiscount = "0";
         if (!TextUtils.isEmpty(mEtMoney.getText().toString())) {
-            mTotalMoney = mEtMoney.getText().toString();
             // 订单金额 - 用户输入的金额 = 优惠金额
             String s = new BigDecimal(mTotalMoney).subtract(new BigDecimal(mEtMoney.getText().toString())).setScale(2).toString();
             if (Double.valueOf(s) >= 0){
                 orderDiscount = s;
             }
+            mTotalMoney = mEtMoney.getText().toString();
+
         }
         // 获取当日序号
         String dateOrderNumber = Global.getSpGlobalUtil().getDateOrderNumber();
