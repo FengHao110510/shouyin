@@ -2,7 +2,6 @@ package com.hongsou.douguoshouyin.activity;
 
 
 import android.Manifest;
-import android.bluetooth.BluetoothSocket;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,10 +22,10 @@ import com.hongsou.douguoshouyin.fragment.MoreFragment;
 import com.hongsou.douguoshouyin.fragment.PayForFragment;
 import com.hongsou.douguoshouyin.fragment.TurnoverFragment;
 import com.hongsou.douguoshouyin.javabean.PrinterBean;
-import com.hongsou.douguoshouyin.tool.BlueToothManeger;
 import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.NotificationsUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
+import com.hongsou.douguoshouyin.tool.bluetooth.BlueToothManager;
 import com.hongsou.greendao.gen.PrinterBeanDao;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -124,11 +123,10 @@ public class MainActivity extends BaseActivity {
      */
     private void autoConnectBlueTooth() {
         mPrinterBeanDao = BaseApplication.getApplication().getDaoSession().getPrinterBeanDao();
-        BluetoothSocket socket = BaseApplication.getInstance().socket;
         List<PrinterBean> printerBeans = mPrinterBeanDao.loadAll();
         for (PrinterBean printerBean : printerBeans) {
-            if (!printerBean.getConnectStatus()) {
-                asyncTask = BlueToothManeger.instance().autoNonnectBlue(printerBean.getPrintAddress(), printerBean.getPrintName());
+            if (printerBean.getConnectStatus()) {
+                asyncTask = BlueToothManager.getInstance().autoConnectBlue(printerBean.getPrintAddress(), printerBean.getPrintName());
             }
         }
     }

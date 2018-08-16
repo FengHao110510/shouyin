@@ -4,17 +4,16 @@ import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.hongsou.douguoshouyin.base.BaseApplication;
-import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -43,7 +42,7 @@ public class BlueToothManager {
      * @param macStr
      */
     @SuppressLint("StaticFieldLeak")
-    private void startAsyncTask(final BluetoothAdapter bluetoothAdapter, final String macStr) {
+    private void startAsyncTask(final BluetoothAdapter bluetoothAdapter, final String name, final String macStr) {
         asyncTask = new AsyncTask<String, String, String>() {
             @Override
             protected String doInBackground(String... strings) {
@@ -55,9 +54,9 @@ public class BlueToothManager {
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 if (TextUtils.isEmpty(s)) {
-                    connectSucceedCallBack.failureCallBack(macStr);
+                    connectSucceedCallBack.failureCallBack(name, macStr);
                 } else {
-                    connectSucceedCallBack.succeedCallBack(macStr);
+                    connectSucceedCallBack.succeedCallBack(name, macStr);
                 }
             }
         }.execute();
@@ -90,26 +89,21 @@ public class BlueToothManager {
             }
             Log.i("bluetooth_status", "配对成功");
         }
-
-//        bluetoothAdapter.cancelDiscovery();
+        List<BluetoothSocket> socketArray = BaseApplication.getInstance().socketArray;
         try {
             socket.connect();
             BaseApplication.getInstance().socket = socket;
-            if (!BaseApplication.getInstance().socketArray.contains(socket)){
-                Log.e("lpc", "userBlue: 11111111111" );
-                BaseApplication.getInstance().socketArray.add(socket);
+            if (!checkContains(socketArray, socket)) {
+                socketArray.add(socket);
             }
-
-            //取消搜索
-
             return "配对成功";
         } catch (IOException e1) {
             Log.i("bluetooth_status", "连接失败");
             e1.printStackTrace();
             try {
                 socket.close();
-                if (BaseApplication.getInstance().socketArray.contains(socket)){
-                    BaseApplication.getInstance().socketArray.remove(socket);
+                if (!checkContains(socketArray, socket)) {
+                    socketArray.remove(socket);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -118,42 +112,66 @@ public class BlueToothManager {
         return null;
     }
 
+    /**
+     * @desc 检测之前是否已经连接成功过
+     * @anthor lpc
+     * @date: 2018/8/16
+     * @param socketArray 已连接的蓝牙列表
+     * @param socket 当前正在连接的蓝牙
+     * @return 是否包含当前蓝牙
+     */
+    public static boolean checkContains(List<BluetoothSocket> socketArray, BluetoothSocket socket) {
+        for (BluetoothSocket bluetoothSocket : socketArray) {
+            if (bluetoothSocket.getRemoteDevice().getAddress().equals(socket.getRemoteDevice().getAddress())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * 连接蓝牙
      */
     public AsyncTask connectBluetooth(BluetoothAdapter bluetoothAdapter, String macStr, ConnectSucceedCallBack connectSucceedCallBack) {
         this.connectSucceedCallBack = connectSucceedCallBack;
-        startAsyncTask(bluetoothAdapter, macStr);
+        startAsyncTask(bluetoothAdapter, "", macStr);
+        return asyncTask;
+    }
+
+    /**
+     * 连接蓝牙
+     */
+    public AsyncTask connectBluetooth(BluetoothAdapter bluetoothAdapter, String name, String macStr, ConnectSucceedCallBack connectSucceedCallBack) {
+        this.connectSucceedCallBack = connectSucceedCallBack;
+        startAsyncTask(bluetoothAdapter, name, macStr);
         return asyncTask;
     }
 
     public interface ConnectSucceedCallBack {
-        void succeedCallBack(String address);
+        void succeedCallBack(String name, String address);
 
-        void failureCallBack(String address);
+        void failureCallBack(String name, String address);
     }
 
     /**
      * 自动连接
      */
-    public AsyncTask autoNonnectBlue(Context context) {
+    public AsyncTask autoConnectBlue(String address, final String name) {
         Log.i("bluetooth_status", "开始自动连接");
-        String address = Global.getSpGlobalUtil().getBluetoothAddress();
-        final String name = Global.getSpGlobalUtil().getBluetoothName();
         if (!TextUtils.isEmpty(address) && !TextUtils.isEmpty(name)) {
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (bluetoothAdapter.isEnabled()) {
-                asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, address, new BlueToothManager.ConnectSucceedCallBack() {
+                asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, name, address, new BlueToothManager.ConnectSucceedCallBack() {
                     @Override
-                    public void succeedCallBack(String address) {
+                    public void succeedCallBack(String name, String address) {
                         Log.i("bluetooth_status", "自动连接成功" + name);
-                        ToastUtil.showToast(name + "自动连接成功");
+//                        ToastUtil.showToast(name + "自动连接成功");
                     }
 
                     @Override
-                    public void failureCallBack(String address) {
+                    public void failureCallBack(String name, String address) {
                         Log.i("bluetooth_status", "自动连接失败");
+                        ToastUtil.showToast(name + "自动连接失败");
                     }
                 });
             } else {
@@ -162,5 +180,4 @@ public class BlueToothManager {
         }
         return asyncTask;
     }
-
 }
