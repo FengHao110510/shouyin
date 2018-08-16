@@ -20,6 +20,7 @@ import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.QRCodeActivity;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.ScanQRCodeActivity;
+import com.hongsou.douguoshouyin.activity.turnover.OrderDetailActivity;
 import com.hongsou.douguoshouyin.adapter.CollectMoneyAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.Constant;
@@ -388,8 +389,10 @@ public class CollectMoneyActivity extends BaseActivity implements View.OnClickLi
     @Subscribe
     public void onEventMainThread(PayOnLineSuccessBean payOnLineSuccessBean) {
         Log.e(TAG, "onEventMainThread: 在线支付成功后");
-        Intent successIntent = new Intent(this, PaymentDetailActivity.class);
-        successIntent.putExtra("payOnLineSuccessBean", (Serializable) payOnLineSuccessBean);
+
+        Intent successIntent = new Intent(this, OrderDetailActivity.class);
+        successIntent.putExtra("batch", payOnLineSuccessBean.getBatch());
+        successIntent.putExtra("collect","0");
         startActivity(successIntent);
     }
 

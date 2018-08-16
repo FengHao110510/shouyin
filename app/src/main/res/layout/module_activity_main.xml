@@ -63,6 +63,7 @@
 
         <LinearLayout
             android:id="@+id/ll_tag_more"
+            android:visibility="gone"
             style="@style/botttom_tag_ll_style">
 
             <TextView

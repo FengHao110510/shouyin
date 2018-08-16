@@ -121,33 +121,37 @@ public class PaymentDetailActivity extends BaseActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
         if (getIntent.hasExtra("paymentBatch")) {
+            //流水页面
             paymentBatch = getIntent.getStringExtra("paymentBatch");
+
         }
         if (getIntent.hasExtra("batch")) {
+            //扫码点餐的
             mBatch = getIntent.getStringExtra("batch");
             initData();
         } else if (getIntent.hasExtra("payOnLineSuccessBean")) {
+            //推送过来的
             PayOnLineSuccessBean payOnLineSuccessBean = (PayOnLineSuccessBean) getIntent.getSerializableExtra("payOnLineSuccessBean");
-            mTvOrderMoney.setText(payOnLineSuccessBean.getMoney());
-            mTvOrderPayTime.setText(payOnLineSuccessBean.getDate());
-            mTvOrderBatch.setText(payOnLineSuccessBean.getOutTradeNo());
-            mTvOrderPayType.setText(payOnLineSuccessBean.getTradeType());
-            mTvOrderPayMoney.setText(payOnLineSuccessBean.getMoney());
-            mTvOrderPayStatus.setText("支付成功");
+//            mTvOrderMoney.setText(payOnLineSuccessBean.getMoney());
+//            mTvOrderPayTime.setText(payOnLineSuccessBean.getDate());
+//            mTvOrderBatch.setText(payOnLineSuccessBean.getOutTradeNo());
+//            mTvOrderPayType.setText(payOnLineSuccessBean.getTradeType());
+//            mTvOrderPayMoney.setText(payOnLineSuccessBean.getMoney());
+//            mTvOrderPayStatus.setText("支付成功");
             mBatch = payOnLineSuccessBean.getBatch();
             paymentBatch = payOnLineSuccessBean.getOutTradeNo();
-
-
+            initData();
         } else if (getIntent.hasExtra("xianjin")) {
+            //现金
             paymentBatch = getIntent.getStringExtra("paymentBatch");
-            mTvOrderMoney.setText(getIntent.getStringExtra("money"));
-            mTvOrderPayTime.setText(now);
-            mTvOrderBatch.setText(paymentBatch);
-            mTvOrderPayType.setText("现金");
-            mTvOrderPayMoney.setText(getIntent.getStringExtra("money"));
-            mTvOrderPayStatus.setText("支付成功");
+//            mTvOrderMoney.setText(getIntent.getStringExtra("money"));
+//            mTvOrderPayTime.setText(now);
+//            mTvOrderBatch.setText(paymentBatch);
+//            mTvOrderPayType.setText("现金");
+//            mTvOrderPayMoney.setText(getIntent.getStringExtra("money"));
+//            mTvOrderPayStatus.setText("支付成功");
             mBatch = "00000000000000000000";
-
+            initData();
         }
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
@@ -193,9 +197,12 @@ public class PaymentDetailActivity extends BaseActivity {
                 .execute(new ResponseCallback<RootBean<PaymentDetailBean>>(this) {
                     @Override
                     public void onResponse(RootBean<PaymentDetailBean> response, int id) {
-                        if (response.isSuccess()) {
+                            if (response.isSuccess()) {
                             mPaymentDetailBean = response.getData();
                             renderView(mPaymentDetailBean);
+                            if (turnover==1){
+                                doPrinter();
+                            }
                         } else {
                             ToastUtil.showToast(response.getMsg());
                         }
@@ -260,28 +267,8 @@ public class PaymentDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_order_print:
                 // 打印小票
-                if (!"00000000000000000000".equals(mBatch)) {
-                    // 不是纯收款，开单
-                    if (Global.getSpUserUtil().getOrderPrintSwitch()) {
-                        BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
-                                .setType(BluetoothPrinterUtil.Print.ORDER)
-                                .setCount(Global.getSpUserUtil().getOrderPrintCount())
-                                .setContent(mPaymentDetailBean)
-                                .build();
-                        util.startPrint();
-                    }
-                } else {
-                    // 纯收款
-                    if (Global.getSpUserUtil().getOrderPrintSwitch()) {
-                        BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
-                                .setType(BluetoothPrinterUtil.Print.ORDER)
-                                .setCount(Global.getSpUserUtil().getOrderPrintCount())
-                                .setContent(mPaymentDetailBean)
-                                .build();
-                        util.startPrint();
-                    }
-                }
 
+                doPrinter();
                 break;
             case R.id.btn_order_again:
                 // 继续收款
@@ -291,6 +278,23 @@ public class PaymentDetailActivity extends BaseActivity {
                 break;
         }
     }
+
+    /**
+     * @author fenghao
+     * @date 2018/8/16 0016 下午 19:40
+     * @desc 打印小票
+     */
+    private void doPrinter() {
+            if (Global.getSpUserUtil().getOrderPrintSwitch()) {
+                BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
+                        .setType(BluetoothPrinterUtil.Print.PAY)
+                        .setCount(Global.getSpUserUtil().getOrderPrintCount())
+                        .setContent(mPaymentDetailBean)
+                        .build();
+                util.startPrint();
+            }
+    }
+
 
     //输入退款密码
     private void tuikuanDialog() {
@@ -387,7 +391,7 @@ public class PaymentDetailActivity extends BaseActivity {
                 .addParams("appAuthToken", Global.getSpGlobalUtil().getAliCode())
                 .addParams("subMchId", Global.getSpGlobalUtil().getWecharCode())
                 .addParams("refundAmount", mTvOrderMoney.getText().toString())
-                .addParams("address", Constant.HTTP_URL+"/pay/payCallback")
+                .addParams("address", Constant.HTTP_URL + "/pay/payCallback")
                 .addParams("masterSecret", Constant.MASTER_SECRET)
                 .addParams("appKey", Constant.APP_KEY)
                 .build().execute(new StringCallback() {

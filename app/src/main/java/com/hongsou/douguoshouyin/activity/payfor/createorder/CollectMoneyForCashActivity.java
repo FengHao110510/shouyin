@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
+import com.hongsou.douguoshouyin.activity.turnover.OrderDetailActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
@@ -144,8 +145,9 @@ public class CollectMoneyForCashActivity extends BaseActivity {
             public void onResponse(BaseBean response, int id) {
                 if (response.isSuccess()) {
                     String batch = response.getMsg();
-                    Intent intent = new Intent(CollectMoneyForCashActivity.this, PaymentDetailActivity.class);
+                    Intent intent = new Intent(CollectMoneyForCashActivity.this, OrderDetailActivity.class);
                     intent.putExtra("batch", batch);
+                    intent.putExtra("collect","0");
                     startActivity(intent);
                     finish();
                 } else {

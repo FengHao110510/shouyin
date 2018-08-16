@@ -126,11 +126,11 @@ public class AddFenzuActivity extends BaseActivity {
             return;
         }else {
             for (int i =0;i<singleFoodsBeanList.size();i++){
-                if (TextUtils.isEmpty(singleFoodsBeanList.get(i).getMinGroup().trim())){
-                    ToastUtil.showToast("您有编号未填写");
-                    return;
-                }
-
+//                if (TextUtils.isEmpty(singleFoodsBeanList.get(i).getMinGroup().trim())){
+//                    ToastUtil.showToast("您有编号未填写");
+//                    return;
+//                }
+                singleFoodsBeanList.get(i).setMinGroup(i+"");
             }
         }
 

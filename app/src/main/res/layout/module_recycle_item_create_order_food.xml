@@ -83,8 +83,7 @@
                         android:id="@+id/tv_subtract"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/margin_8"
-                        android:paddingTop="@dimen/margin_8"
+                        android:padding="@dimen/margin_8"
                         android:text="@string/icon_subtract_button"
                         android:textColor="@color/tip_text_black"
                         android:textSize="@dimen/txt_18" />
@@ -102,8 +101,7 @@
                         android:id="@+id/tv_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="@dimen/margin_8"
-                        android:paddingTop="@dimen/margin_8"
+                        android:padding="@dimen/margin_8"
                         android:text="@string/icon_add_button"
                         android:textColor="@color/color_base_yellow"
                         android:textSize="@dimen/txt_18" />

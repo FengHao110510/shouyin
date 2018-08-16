@@ -1,6 +1,7 @@
 package com.hongsou.douguoshouyin.activity.turnover;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.MainActivity;
 import com.hongsou.douguoshouyin.adapter.OrderDetailsFoodAdapter;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.Constant;
@@ -107,6 +109,8 @@ public class OrderDetailActivity extends BaseActivity {
     private OrderDetailBean mOrderDetailBean;
     private OrderDetailBean.DataBean.OrderBean order;
 
+    //是否是开单来的0  还是订单流水来的1
+    String collect = "1";
     @Override
     public int initLayout() {
         return R.layout.module_activity_turnover_order_detail;
@@ -120,9 +124,14 @@ public class OrderDetailActivity extends BaseActivity {
         initTitle("订单详情页");
     }
 
+
+
     @Override
     public void initView() {
         batch = getIntent().getStringExtra("batch");
+        if (getIntent().hasExtra("collect")){
+            collect = "0";
+        }
     }
 
     @Override
@@ -174,7 +183,9 @@ public class OrderDetailActivity extends BaseActivity {
 
                     //展示
                     showFoodList();
-
+                    if ("0".equals(collect)){
+                        doPrinter();
+                    }
                 } else {
                     ToastUtil.showToast(mOrderDetailBean.getMsg());
                 }
@@ -478,14 +489,8 @@ public class OrderDetailActivity extends BaseActivity {
                     }
                 } else {
                     // 订单打印
-                    if (Global.getSpUserUtil().getOrderPrintSwitch()) {
-                        BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
-                                .setContent(mOrderDetailBean)
-                                .setCount(Global.getSpUserUtil().getOrderPrintCount())
-                                .setType(BluetoothPrinterUtil.Print.ORDER)
-                                .build();
-                        printerUtil.startPrint();
-                    }
+                    doPrinter();
+
                 }
                 break;
             default:
@@ -493,9 +498,46 @@ public class OrderDetailActivity extends BaseActivity {
         }
     }
 
+    /**
+     *  @author  fenghao
+     *  @date    2018/8/16 0016 下午 17:16
+     *  @desc   订单打印
+     */
+    private void doPrinter() {
+        if (Global.getSpUserUtil().getOrderPrintSwitch()) {
+            BluetoothPrinterUtil printerUtil = new BluetoothPrinterUtil.Builder()
+                    .setContent(mOrderDetailBean)
+                    .setCount(Global.getSpUserUtil().getOrderPrintCount())
+                    .setType(BluetoothPrinterUtil.Print.ORDER)
+                    .build();
+            printerUtil.startPrint();
+        }
+    }
+
+    @Override
+    public void initBack() {
+        TextView finishBack = findViewById(R.id.tv_titlebar_finish_back);
+        finishBack.setTypeface(typeface);
+        finishBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkCollect();
+            }
+        });
+    }
+
+
+    //判断并退出
+    private void checkCollect() {
+        if ("0".equals(collect)){
+            startActivity(new Intent(OrderDetailActivity.this, MainActivity.class));
+        }else {
+            finishActivity();
+        }
+    }
     @Override
     public void onBackPressed() {
-        finishActivity();
+        checkCollect();
     }
 
     @Override

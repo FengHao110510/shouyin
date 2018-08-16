@@ -33,6 +33,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="小组编号"
+        android:visibility="gone"
         android:textColor="@color/black"
         android:textSize="12dp" />
 
