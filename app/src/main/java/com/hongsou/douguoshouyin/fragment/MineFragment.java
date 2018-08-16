@@ -30,7 +30,6 @@ import com.hongsou.douguoshouyin.activity.mine.PrinterActivity;
 import com.hongsou.douguoshouyin.activity.mine.ReplacePasswordActivity;
 import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
 import com.hongsou.douguoshouyin.activity.mine.ShopInformationActivity;
-import com.hongsou.douguoshouyin.base.BaseApplication;
 import com.hongsou.douguoshouyin.base.BaseFragment;
 import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.http.HttpFactory;
@@ -107,7 +106,6 @@ public class MineFragment extends BaseFragment {
     private void getShopinfor() {
         HttpFactory.get().url(ApiConfig.GET_SHOP_INFO).addParams("shopNumber", getShopNumber())
                 .build().execute(new ResponseCallback<ShopinforBean>(getActivity()) {
-
             @Override
             public void onResponse(ShopinforBean response, int id) {
                 if (response.isSuccess()) {

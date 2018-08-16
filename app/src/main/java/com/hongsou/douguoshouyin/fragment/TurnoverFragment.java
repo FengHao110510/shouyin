@@ -2,15 +2,11 @@ package com.hongsou.douguoshouyin.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -52,11 +47,11 @@ public class TurnoverFragment extends BaseFragment {
     @BindView(R.id.vp_titlebar_turnover_viewpager)
     ViewPager vpTitlebarTurnoverViewpager;
 
-    CustomViewPagerAdapter customViewPagerAdapter;
-    private List<Fragment> list;
-    private HashMap<String, String> mParam;
+    private CustomViewPagerAdapter customViewPagerAdapter;
     private TurnoverOrderFragment mTurnoverOrderFragment;
     private TurnoverTurnoverFragment mTurnoverTurnoverFragment;
+
+    private HashMap<String, String> mParam;
 
     @Override
     public int getLayoutId() {
@@ -66,9 +61,7 @@ public class TurnoverFragment extends BaseFragment {
     @Override
     public void init() {
         initView();
-        initData();
     }
-
 
     /**
      * /初始化界面
@@ -79,7 +72,7 @@ public class TurnoverFragment extends BaseFragment {
         mTurnoverTurnoverFragment = new TurnoverTurnoverFragment();
         //限定预加载个数
         vpTitlebarTurnoverViewpager.setOffscreenPageLimit(2);
-        customViewPagerAdapter = new CustomViewPagerAdapter(this.getFragmentManager());
+        customViewPagerAdapter = new CustomViewPagerAdapter(this.getChildFragmentManager());
         customViewPagerAdapter.addFragment(mTurnoverOrderFragment, "  订单  ");
         customViewPagerAdapter.addFragment(mTurnoverTurnoverFragment, "  流水  ");
         vpTitlebarTurnoverViewpager.setAdapter(customViewPagerAdapter);
@@ -88,17 +81,28 @@ public class TurnoverFragment extends BaseFragment {
         //tab与vp联动
         tabTitlebarTurnoverTab.setupWithViewPager(vpTitlebarTurnoverViewpager);
 
+    }
 
+
+    @OnClick(R.id.ll_titlebar_turnover_shaixuan)
+    public void onViewClicked() {
+        //筛选 判断是流水还是订单
+
+        Intent intent = new Intent(getActivity(), OrderConditionActivity.class);
+        if (tabTitlebarTurnoverTab.getSelectedTabPosition() == 0) {
+            intent.putExtra("type", 0);
+        }else {
+            intent.putExtra("type", 1);
+        }
+        startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    private void initData() {
     }
 
     /**
-     * 初始化数据
+     * ViewPager 的 adapter
      */
-    private void initData() {
-
-    }
-
-    //ViewPager 的 adapter
     static class CustomViewPagerAdapter extends FragmentPagerAdapter {
 
         private List<Fragment> fragmentList = new ArrayList<>();
@@ -130,19 +134,6 @@ public class TurnoverFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.ll_titlebar_turnover_shaixuan)
-    public void onViewClicked() {
-        //筛选 判断是流水还是订单
-
-        Intent intent = new Intent(getActivity(), OrderConditionActivity.class);
-        if (tabTitlebarTurnoverTab.getSelectedTabPosition() == 0) {
-            intent.putExtra("type", 0);
-        }else {
-            intent.putExtra("type", 1);
-        }
-        startActivityForResult(intent, REQUEST_CODE);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -159,19 +150,4 @@ public class TurnoverFragment extends BaseFragment {
         }
     }
 
-    //==========================================================================================================================
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 }

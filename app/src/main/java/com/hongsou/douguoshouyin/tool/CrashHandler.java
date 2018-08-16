@@ -13,10 +13,14 @@ import android.widget.Toast;
 
 import com.hongsou.douguoshouyin.activity.WelcomeActivity;
 import com.hongsou.douguoshouyin.base.Constant;
+import com.hongsou.douguoshouyin.http.ApiConfig;
+import com.hongsou.douguoshouyin.http.HttpFactory;
+import com.hongsou.douguoshouyin.http.ResponseCallback;
 import com.hongsou.douguoshouyin.http.ThreadPoolUtils;
 import com.hongsou.douguoshouyin.http.ftp.FtpHelper;
 import com.hongsou.douguoshouyin.http.ftp.FtpNetCallBack;
 import com.hongsou.douguoshouyin.http.ftp.FtpUploadTask;
+import com.hongsou.douguoshouyin.javabean.BaseBean;
 
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -197,7 +201,30 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler, FtpNetCall
 //        saveCrashInfo2File(ex);
         // 把错误报告发送给服务器
         upload(mDirPath + saveCrashInfo2File(ex));
+        logOut();
         return true;
+    }
+
+    /**
+     * @desc 退出账号
+     * @anthor lpc
+     * @date: 2018/8/15
+     */
+    private void logOut() {
+        Global.logout();
+        HttpFactory.post().url(ApiConfig.LOGOUT)
+                .addParams("userName", Global.getSpGlobalUtil().getUserName())
+                .build().execute(new ResponseCallback<BaseBean>(mContext) {
+
+            @Override
+            public void onResponse(BaseBean response, int id) {
+                if (response.isSuccess()) {
+
+                } else {
+                    ToastUtil.showToast(response.getMsg());
+                }
+            }
+        });
     }
 
     /**

@@ -182,14 +182,14 @@ public class PrinterActivity extends BaseActivity {
                     asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, address,
                             new BlueToothManager.ConnectSucceedCallBack() {
                                 @Override
-                                public void succeedCallBack(String address) {
+                                public void succeedCallBack(String name, String address) {
                                     printerBean.setConnectStatus(true);
                                     mAdapter.notifyItemChanged(position);
                                     mPrinterBeanDao.insertOrReplace(printerBean);
                                 }
 
                                 @Override
-                                public void failureCallBack(String address) {
+                                public void failureCallBack(String name, String address) {
                                     printerBean.setConnectStatus(false);
                                     mAdapter.notifyItemChanged(position);
                                     mPrinterBeanDao.insertOrReplace(printerBean);
@@ -428,7 +428,7 @@ public class PrinterActivity extends BaseActivity {
             asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, split[0],
                     new BlueToothManager.ConnectSucceedCallBack() {
                         @Override
-                        public void succeedCallBack(String address) {
+                        public void succeedCallBack(String name,String address) {
 //                            if (finalPosition >= 0) {
 //                                mPrinterBeans.get(finalPosition).setStatus("已连接");
 //                                mAdapter.notifyItemChanged(finalPosition);
@@ -436,7 +436,7 @@ public class PrinterActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void failureCallBack(String address) {
+                        public void failureCallBack(String name,String address) {
                         }
                     });
         }
