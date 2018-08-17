@@ -308,9 +308,11 @@ public class ShopInformationActivity extends BaseActivity {
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                         String path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
+                        String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "www.jpg";
+
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         Bitmap comp = BitmapUtil.comp(bitmap);
-                        file = BitmapUtil.saveBitmapFile(comp,path);
+                        file = BitmapUtil.saveBitmapFile(comp,fileName);
 
                         showImage(bitmap);
                     } catch (Exception e) {

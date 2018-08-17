@@ -730,9 +730,11 @@ public class AddTaocanActivity extends BaseActivity {
                         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                         String path = cursor.getString(columnIndex);  //获取照片路径
                         cursor.close();
+                        String fileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + "www.jpg";
+
                         Bitmap bitmap = BitmapFactory.decodeFile(path);
                         Bitmap comp = BitmapUtil.comp(bitmap);
-                        file1 = BitmapUtil.saveBitmapFile(comp,path);
+                        file1 = BitmapUtil.saveBitmapFile(comp,fileName);
                         showImage(bitmap);
                     } catch (Exception e) {
                         // TODO Auto-generatedcatch block
