@@ -163,8 +163,7 @@ public class PrinterActivity extends BaseActivity {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivityForResult(new Intent(PrinterActivity.this, BluetoothActivity.class)
-                        .putExtra("position", position), 201);
+
             }
         });
         // 点击按钮连接蓝牙或断开
@@ -172,32 +171,42 @@ public class PrinterActivity extends BaseActivity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
                 List<BluetoothSocket> socketArray = BaseApplication.getInstance().socketArray;
-                if (view.getId() == R.id.delete_item) {
+                if (view.getId() == R.id.ll_content) {
+                    // 侧滑删除和点击事件冲突，所以用LinearLayout来代替item的点击
+                    // 切换蓝牙绑定
+                    startActivityForResult(new Intent(PrinterActivity.this, BluetoothActivity.class)
+                            .putExtra("position", position), 201);
+                } else if (view.getId() == R.id.delete_item) {
                     // 侧滑删除
                     // 是否是连接的蓝牙服务，如果是，移除蓝牙服务
-                    for (BluetoothSocket bluetoothSocket : socketArray) {
+                    for (int i = 0; i < socketArray.size(); i++) {
+                        BluetoothSocket bluetoothSocket = socketArray.get(i);
                         Log.e(TAG, " address === " + bluetoothSocket.getRemoteDevice().getAddress());
-                        if (bluetoothSocket.getRemoteDevice().getAddress().equals(mPrinterBeans.get(position))) {
+                        if (bluetoothSocket.getRemoteDevice().getAddress().equals(mPrinterBeans.get(position).getPrintAddress())) {
                             socketArray.remove(bluetoothSocket);
-                            return;
                         }
                     }
-                    // 移除列表项
-                    mPrinterBeans.remove(position);
                     // 移除本地数据库的项
                     mPrinterBeanDao.delete(mPrinterBeans.get(position));
+                    // 移除列表项
+                    mPrinterBeans.remove(position);
                     mAdapter.notifyDataSetChanged();
                 } else {
                     // 蓝牙连接和断开
                     final PrinterBean printerBean = mPrinterBeans.get(position);
                     String address = printerBean.getPrintAddress();
+                    if (TextUtils.isEmpty(address)) {
+                        ToastUtil.showToast("请先选择蓝牙再操作");
+                        return;
+                    }
                     if (printerBean.getConnectStatus()) {
                         printerBean.setConnectStatus(false);
                         mAdapter.notifyItemChanged(position);
                         mPrinterBeanDao.insertOrReplace(printerBean);
-                        for (BluetoothSocket bluetoothSocket : socketArray) {
+                        for (int i = 0; i < socketArray.size(); i++) {
+                            BluetoothSocket bluetoothSocket = socketArray.get(i);
                             Log.e(TAG, " address === " + bluetoothSocket.getRemoteDevice().getAddress());
-                            if (bluetoothSocket.getRemoteDevice().getAddress().equals(address)) {
+                            if (bluetoothSocket.getRemoteDevice().getAddress().equals(mPrinterBeans.get(position).getPrintAddress())) {
                                 socketArray.remove(bluetoothSocket);
                                 return;
                             }
@@ -287,6 +296,7 @@ public class PrinterActivity extends BaseActivity {
      * @anthor lpc
      * @date: 2018/8/3
      */
+
     private void showPrinterWindow() {
         View view = LayoutInflater.from(this).inflate(R.layout.module_pop_add_printer, null);
         final Dialog dialog = new Dialog(this, R.style.CommonDialog);
