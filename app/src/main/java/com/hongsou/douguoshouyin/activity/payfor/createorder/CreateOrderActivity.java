@@ -310,7 +310,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 // 按钮 选择规格
                 dataBean = mFoodBeanList.get(position);
                 if ("2".equals(dataBean.getFoodType())) {
-                    Intent intent = new Intent(this, CreateOrderSelectGroupActivity.class);
+                    Intent intent = new Intent(this, CreateOrderSelectGroup2Activity.class);
                     intent.putExtra("data", new Gson().toJson(dataBean));
                     startActivityForResult(intent, 100);
                 } else {

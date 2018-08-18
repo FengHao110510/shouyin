@@ -57,9 +57,9 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/title_activity_main"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.login.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
@@ -265,14 +265,14 @@
             android:name="com.gprinter.service.GpPrintService"
             android:enabled="true"
             android:exported="true"
-            android:label="GpPrintService" >
+            android:label="GpPrintService">
             <intent-filter>
                 <action android:name="com.gprinter.aidl.GpPrintService" />
             </intent-filter>
         </service>
-        <service android:name="com.gprinter.service.AllService" >
-        </service>
+        <service android:name="com.gprinter.service.AllService"></service>
 
+        <activity android:name=".activity.payfor.createorder.CreateOrderSelectGroup2Activity"></activity>
     </application>
 
 </manifest>

@@ -34,8 +34,8 @@
             android:id="@+id/ll_count"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
+            android:layout_weight="1.5"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <TextView

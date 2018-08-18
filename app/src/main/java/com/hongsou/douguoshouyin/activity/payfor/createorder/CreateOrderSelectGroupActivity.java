@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -103,6 +104,7 @@ public class CreateOrderSelectGroupActivity extends BaseActivity {
         mInflater = LayoutInflater.from(CreateOrderSelectGroupActivity.this);
         if (getIntent().hasExtra("data")) {
             mDataBean = new Gson().fromJson(getIntent().getStringExtra("data"), FoodBean.DataBean.class);
+            Log.e(TAG, "init: "+ getIntent().getStringExtra("data"));
         }else {
             finish();
         }

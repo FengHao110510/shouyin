@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_item_create_order_select_group_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:text="组合套餐1-分组a"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_item_create_order_select_group_mustselect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shaixuan_nomal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="5dp"
+            android:text="5选1"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="已选择"
+            android:textColor="@color/red"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_item_create_order_select_group_already"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/red"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:text="个"
+            android:textColor="@color/red"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_item_create_order_select_group"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/ll_item_create_order_select_group_dian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+    <com.zhy.view.flowlayout.TagFlowLayout
+        android:id="@+id/tl_item_create_order_select_group_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:max_select="-1"
+        android:layout_marginTop="10dp"
+        >
+
+    </com.zhy.view.flowlayout.TagFlowLayout>
+    <View
+       style="@style/view_line_horizontal_1"
+        android:layout_marginTop="10dp"
+        android:layout_height="2dp"/>
+</LinearLayout>
