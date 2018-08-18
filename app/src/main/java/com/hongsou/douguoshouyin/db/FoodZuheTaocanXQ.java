@@ -50,20 +50,18 @@ public class FoodZuheTaocanXQ {
     private String foodProductsType;
     private String replace;
     private String remind;
+    private boolean alreadyCount;
 
 
 
-    @Generated(hash = 613214578)
-    public FoodZuheTaocanXQ() {
-    }
 
-    @Generated(hash = 1831807707)
+    @Generated(hash = 2038600164)
     public FoodZuheTaocanXQ(Long id, String shopNumber, String groupNumber,
             String groupName, String groupCount, String foodProductsNumber,
             String foodProductsCount, String standard, String minGroup,
             String priceMarkup, String defaults, String singleProductName,
             String standardName, String packagePicture, String foodProductsType,
-            String replace, String remind) {
+            String replace, String remind, boolean alreadyCount) {
         this.id = id;
         this.shopNumber = shopNumber;
         this.groupNumber = groupNumber;
@@ -81,6 +79,32 @@ public class FoodZuheTaocanXQ {
         this.foodProductsType = foodProductsType;
         this.replace = replace;
         this.remind = remind;
+        this.alreadyCount = alreadyCount;
+    }
+
+    @Generated(hash = 613214578)
+    public FoodZuheTaocanXQ() {
+    }
+
+
+  
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof FoodZuheTaocanXQ)) {
+            return false;
+        }
+        FoodZuheTaocanXQ entity = (FoodZuheTaocanXQ) obj;
+        return entity.singleProductName.equals(singleProductName) &&
+                entity.standardName.equals(standardName) &&
+                entity.foodProductsCount.equals(foodProductsCount);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return singleProductName.hashCode();
     }
 
     public Long getId() {
@@ -219,23 +243,12 @@ public class FoodZuheTaocanXQ {
         this.remind = remind;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof FoodZuheTaocanXQ)) {
-            return false;
-        }
-        FoodZuheTaocanXQ entity = (FoodZuheTaocanXQ) obj;
-        return entity.singleProductName.equals(singleProductName) &&
-                entity.standardName.equals(standardName) &&
-                entity.foodProductsCount.equals(foodProductsCount);
+    public boolean getAlreadyCount() {
+        return this.alreadyCount;
     }
 
-    @Override
-    public int hashCode() {
-
-        return singleProductName.hashCode();
+    public void setAlreadyCount(boolean alreadyCount) {
+        this.alreadyCount = alreadyCount;
     }
 
 
