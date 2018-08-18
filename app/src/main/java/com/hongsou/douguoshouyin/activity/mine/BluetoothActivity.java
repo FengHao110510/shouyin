@@ -29,7 +29,6 @@ import com.hongsou.douguoshouyin.javabean.BluetoothBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.LogUtil;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
-import com.hongsou.douguoshouyin.views.CommonTopBar;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -52,14 +51,14 @@ import io.reactivex.functions.Consumer;
 public class BluetoothActivity extends BaseActivity {
 
 
-    @BindView(R.id.top_bar)
-    CommonTopBar mTopBar;
     @BindView(R.id.bluetooth_listview)
     ListView mBluetoothListview;
     @BindView(R.id.tv_mine_printer_sousuoing)
     TextView mTvMinePrinterSousuoing;
     @BindView(R.id.tv_mine_printer_sousuo)
     TextView mTvMinePrinterSousuo;
+    @BindView(R.id.tv_close)
+    TextView mTvClose;
 
     private BluetoothAdapter bluetoothAdapter;
     //蓝牙数据适配器
@@ -70,6 +69,7 @@ public class BluetoothActivity extends BaseActivity {
     private boolean isRegistReceiver = false;
     private String name;
     private String type;
+    private int position;
 
     @Override
     public int initLayout() {
@@ -82,6 +82,7 @@ public class BluetoothActivity extends BaseActivity {
             name = getIntent().getStringExtra("name");
             type = getIntent().getStringExtra("type");
         }
+        position = getIntent().getIntExtra("position", -1);
         //打开蓝牙、进行搜索
         initListView();
         startBluetooth();
@@ -89,10 +90,16 @@ public class BluetoothActivity extends BaseActivity {
     }
 
     private void initListView() {
-        setIconFont(new TextView[]{mTvMinePrinterSousuo});
+        setIconFont(new TextView[]{mTvMinePrinterSousuo,mTvClose});
         if (blueToothModels == null) {
             blueToothModels = new ArrayList<>();
         }
+        mTvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         mTvMinePrinterSousuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,8 +132,9 @@ public class BluetoothActivity extends BaseActivity {
                 BluetoothBean bluetoothBean = blueToothModels.get(i);
                 Intent intent = new Intent(BluetoothActivity.this, PrinterActivity.class);
                 intent.putExtra("address", bluetoothBean.getAddress());
-                intent.putExtra("type", type);
-                intent.putExtra("name", TextUtils.isEmpty(name) ? bluetoothBean.getName() : name);
+                intent.putExtra("position", position);
+//                intent.putExtra("type", type);
+//                intent.putExtra("name", TextUtils.isEmpty(name) ? bluetoothBean.getName() : name);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
