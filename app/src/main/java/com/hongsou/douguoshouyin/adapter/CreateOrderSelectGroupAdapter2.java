@@ -4,6 +4,7 @@ import android.content.Context;
 import android.nfc.FormatException;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.Constant;
 import com.hongsou.douguoshouyin.db.FoodZuheTaocanXQ;
+import com.hongsou.douguoshouyin.http.ApiConfig;
 import com.hongsou.douguoshouyin.javabean.FoodBean;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.views.CircleImageView;
@@ -98,7 +102,29 @@ public class CreateOrderSelectGroupAdapter2 extends BaseQuickAdapter<FoodBean.Da
             View view = View.inflate(context, R.layout.module_item_select_group_viewpager, null);
             CircleImageView icvSelectGroupViewpagerImg = view.findViewById(R.id.icv_select_group_viewpager_img);
             TextView tvSelectGroupViewpagerName = view.findViewById(R.id.tv_select_group_viewpager_name);
-            icvSelectGroupViewpagerImg.setImageResource(R.drawable.hanbao);
+            String img_url = "";
+
+            // 图片路径
+            if (!TextUtils.isEmpty(foodZuheTaocanXQList.get(i).getFoodProductsPicture())) {
+                img_url = foodZuheTaocanXQList.get(i).getFoodProductsPicture();
+                // 是否有分隔符’-’
+                if (foodZuheTaocanXQList.get(i).getFoodProductsPicture().contains("--")) {
+                    String[] split = foodZuheTaocanXQList.get(i).getFoodProductsPicture().split("--");
+                    img_url = split[0];
+                }
+                // 是否有旧数据中无用的字符链接
+                if (img_url.contains(Constant.IMG_REPLACE1) || img_url.contains(Constant.IMG_REPLACE2)) {
+                    img_url = img_url.substring(img_url.indexOf("shopPic/"), img_url.length());
+                }
+            }
+
+            Glide.with(mContext).load(ApiConfig.IMG_URL + img_url)
+                    .placeholder(R.drawable.dg_logo)
+                    .skipMemoryCache(false)
+                    .dontAnimate()
+                    .error(R.drawable.dg_logo)
+                    .into(icvSelectGroupViewpagerImg);
+
             tvSelectGroupViewpagerName.setText(foodZuheTaocanXQList.get(i).getSingleProductName()
                     +"("+foodZuheTaocanXQList.get(i).getStandardName()+")");
             viewList.add(view);

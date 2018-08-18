@@ -50,18 +50,23 @@ public class FoodZuheTaocanXQ {
     private String foodProductsType;
     private String replace;
     private String remind;
+    private String foodProductsPicture;
     private boolean alreadyCount;
 
 
 
 
-    @Generated(hash = 2038600164)
+
+
+
+    @Generated(hash = 1464852940)
     public FoodZuheTaocanXQ(Long id, String shopNumber, String groupNumber,
             String groupName, String groupCount, String foodProductsNumber,
             String foodProductsCount, String standard, String minGroup,
             String priceMarkup, String defaults, String singleProductName,
             String standardName, String packagePicture, String foodProductsType,
-            String replace, String remind, boolean alreadyCount) {
+            String replace, String remind, String foodProductsPicture,
+            boolean alreadyCount) {
         this.id = id;
         this.shopNumber = shopNumber;
         this.groupNumber = groupNumber;
@@ -79,12 +84,16 @@ public class FoodZuheTaocanXQ {
         this.foodProductsType = foodProductsType;
         this.replace = replace;
         this.remind = remind;
+        this.foodProductsPicture = foodProductsPicture;
         this.alreadyCount = alreadyCount;
     }
 
     @Generated(hash = 613214578)
     public FoodZuheTaocanXQ() {
     }
+
+
+
 
 
   
@@ -243,6 +252,14 @@ public class FoodZuheTaocanXQ {
         this.remind = remind;
     }
 
+    public String getFoodProductsPicture() {
+        return this.foodProductsPicture;
+    }
+
+    public void setFoodProductsPicture(String foodProductsPicture) {
+        this.foodProductsPicture = foodProductsPicture;
+    }
+
     public boolean getAlreadyCount() {
         return this.alreadyCount;
     }
@@ -251,5 +268,6 @@ public class FoodZuheTaocanXQ {
         this.alreadyCount = alreadyCount;
     }
 
+  
 
 }
