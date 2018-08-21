@@ -221,10 +221,14 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
      * @date: 2018/7/18
      */
     @Override
-    public void changeSelectFoodCallBack(List list, String totalMoney, int totalCount) {
+    public void changeSelectFoodCallBack(List list, String totalMoney, int totalCount, int foodPosition) {
         mSelectMealEntities.clear();
         mSelectMealEntities.addAll(list);
-        mCreateOrderAdapter.notifyDataSetChanged();
+        if (foodPosition == -1){
+            mCreateOrderAdapter.notifyDataSetChanged();
+        }else {
+            mCreateOrderAdapter.notifyItemChanged(foodPosition, 0);
+        }
         mTvOrderMoney.setText(totalMoney);
         mTvFoodCount.setText(totalCount + "");
         mTvSelectCount.setText(totalCount + "");
@@ -307,7 +311,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 textView.setText(dataBean.getFoodProductsCount() + "");
                 tip.setText(dataBean.getFoodProductsCount() + "");
                 mCreateOrderAdapter.notifyItemChanged(position,0);
-                mPresenter.addFood(mFoodBeanList, dataBean, 0);
+                mPresenter.addFood(mFoodBeanList, dataBean, position, 0);
                 break;
             case R.id.tv_subtract:
                 // 按钮 减
@@ -318,7 +322,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 textView.setText(dataBean.getFoodProductsCount() + "");
                 tip.setText(dataBean.getFoodProductsCount() + "");
                 mCreateOrderAdapter.notifyItemChanged(position,0);
-                mPresenter.subtractFood(mFoodBeanList, dataBean, 0);
+                mPresenter.subtractFood(mFoodBeanList, dataBean, position, 0);
                 break;
             case R.id.rl_standard:
                 // 按钮 选择规格
@@ -326,22 +330,23 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 if ("2".equals(dataBean.getFoodType())) {
                     Intent intent = new Intent(this, CreateOrderSelectGroup2Activity.class);
                     intent.putExtra("data", new Gson().toJson(dataBean));
+                    intent.putExtra("foodPosition", position);
                     startActivityForResult(intent, 100);
                 } else {
-                    showStandardWindow(dataBean, dataBean.getShopStandarList());
+                    showStandardWindow(dataBean, dataBean.getShopStandarList(), position);
                 }
                 break;
             case R.id.tv_add_select:
                 // 按钮 加
                 selectMealEntity = mSelectMealEntities.get(position);
                 mCreateOrderFoodListAdapter.notifyDataSetChanged();
-                mPresenter.addFood(mFoodBeanList, selectMealEntity, -1);
+                mPresenter.addFood(mFoodBeanList, selectMealEntity, selectMealEntity.getFoodPosition(), -1);
                 break;
             case R.id.tv_subtract_select:
                 // 按钮 减
                 selectMealEntity = mSelectMealEntities.get(position);
                 mCreateOrderFoodListAdapter.notifyDataSetChanged();
-                mPresenter.subtractFood(mFoodBeanList, selectMealEntity, -1);
+                mPresenter.subtractFood(mFoodBeanList, selectMealEntity, selectMealEntity.getFoodPosition(), -1);
                 break;
             default:
                 break;
@@ -351,11 +356,12 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     /**
      * @param dataBean        全部餐品结合
      * @param shopStandarList 规格集合
+     * @param position
      * @desc 选择规格弹窗
      * @anthor lpc
      * @date: 2018/7/17
      */
-    private void showStandardWindow(final FoodBean.DataBean dataBean, final List<FoodBean.DataBean.ShopStandarListBean> shopStandarList) {
+    private void showStandardWindow(final FoodBean.DataBean dataBean, final List<FoodBean.DataBean.ShopStandarListBean> shopStandarList, int position) {
         View view = LayoutInflater.from(this).inflate(R.layout.module_pop_create_order_standard, null);
         final Dialog dialog = new Dialog(this, R.style.CommonDialog);
         //设置dialog的宽高
@@ -369,7 +375,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         dialog.show();
 
         // 初始化界面
-        initStandardView(dataBean, shopStandarList, view, dialog);
+        initStandardView(dataBean, shopStandarList, view, dialog, position);
     }
 
     /**
@@ -377,11 +383,12 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
      * @param shopStandarList 规格集合
      * @param view            父布局对象
      * @param dialog          dialog对象
+     * @param position
      * @desc 初始化规格选择框
      * @anthor lpc
      * @date: 2018/7/23
      */
-    private void initStandardView(final FoodBean.DataBean dataBean, final List<FoodBean.DataBean.ShopStandarListBean> shopStandarList, View view, final Dialog dialog) {
+    private void initStandardView(final FoodBean.DataBean dataBean, final List<FoodBean.DataBean.ShopStandarListBean> shopStandarList, View view, final Dialog dialog, final int position) {
         final TagFlowLayout tflStandard = view.findViewById(R.id.tfl_standard);
         final TextView tvFoodName = view.findViewById(R.id.tv_food_name);
         final TextView tvStandardName = view.findViewById(R.id.tv_standard_name);
@@ -430,7 +437,10 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 if (standardPosition[0] < 0) {
                     ToastUtil.showToast("请先选择规格");
                 } else {
-                    mPresenter.addFood(mFoodBeanList, dataBean, standardPosition[0]);
+                    TextView tip = (TextView) mCreateOrderAdapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_tip_count);
+                    tip.setText(shopStandarList.get(standardPosition[0]).getSelectCount() + "");
+                    mCreateOrderAdapter.notifyItemChanged(position, 0);
+                    mPresenter.addFood(mFoodBeanList, dataBean, position, standardPosition[0]);
                     dialog.dismiss();
                 }
             }
@@ -440,7 +450,10 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
             @Override
             public void onClick(View v) {
                 tvFoodCount.setText(shopStandarList.get(standardPosition[0]).getSelectCount() + 1 + "");
-                mPresenter.addFood(mFoodBeanList, dataBean, standardPosition[0]);
+                TextView tip = (TextView) mCreateOrderAdapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_tip_count);
+                tip.setText(shopStandarList.get(standardPosition[0]).getSelectCount() + "");
+                mCreateOrderAdapter.notifyItemChanged(position, 0);
+                mPresenter.addFood(mFoodBeanList, dataBean, position, standardPosition[0]);
             }
         });
         // 减号的监听
@@ -448,7 +461,10 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
             @Override
             public void onClick(View v) {
                 tvFoodCount.setText(shopStandarList.get(standardPosition[0]).getSelectCount() - 1 + "");
-                mPresenter.subtractFood(mFoodBeanList, dataBean, standardPosition[0]);
+                TextView tip = (TextView) mCreateOrderAdapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_tip_count);
+                tip.setText(shopStandarList.get(standardPosition[0]).getSelectCount() + "");
+                mCreateOrderAdapter.notifyItemChanged(position, 0);
+                mPresenter.subtractFood(mFoodBeanList, dataBean, position, standardPosition[0]);
             }
         });
     }
@@ -508,7 +524,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
             String meal = data.getStringExtra("meal");
             FoodBean.DataBean dataBean = new Gson().fromJson(bean, FoodBean.DataBean.class);
             SelectMealEntity entity = new Gson().fromJson(meal, SelectMealEntity.class);
-            mPresenter.addFood(mFoodBeanList, entity, 0);
+            mPresenter.addFood(mFoodBeanList, entity, entity.getFoodPosition(), 0);
         }
     }
 

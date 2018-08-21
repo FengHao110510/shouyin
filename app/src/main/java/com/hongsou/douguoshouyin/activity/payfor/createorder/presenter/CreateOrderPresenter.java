@@ -96,9 +96,9 @@ public class CreateOrderPresenter {
      * @anthor lpc
      * @date: 2018/7/17
      */
-    public void addFood(List<FoodBean.DataBean> beanList, Object obj, int standardPosition) {
+    public void addFood(List<FoodBean.DataBean> beanList, Object obj, int foodPosition, int standardPosition) {
         if (obj instanceof FoodBean.DataBean) {
-            saveSelectFoods(TAG_ADD, beanList, beanConverter(((FoodBean.DataBean) obj), standardPosition));
+            saveSelectFoods(TAG_ADD, beanList, beanConverter(((FoodBean.DataBean) obj), foodPosition, standardPosition));
         } else if (obj instanceof SelectMealEntity) {
             saveSelectFoods(TAG_ADD, beanList, (SelectMealEntity) obj);
         }
@@ -111,9 +111,9 @@ public class CreateOrderPresenter {
      * @anthor lpc
      * @date: 2018/7/17
      */
-    public void subtractFood(List<FoodBean.DataBean> beanList, Object obj, int standardPosition) {
+    public void subtractFood(List<FoodBean.DataBean> beanList, Object obj, int foodPosition, int standardPosition) {
         if (obj instanceof FoodBean.DataBean) {
-            saveSelectFoods(TAG_SUBTRACT, beanList, beanConverter(((FoodBean.DataBean) obj), standardPosition));
+            saveSelectFoods(TAG_SUBTRACT, beanList, beanConverter(((FoodBean.DataBean) obj), foodPosition, standardPosition));
         } else if (obj instanceof SelectMealEntity) {
             saveSelectFoods(TAG_SUBTRACT, beanList, (SelectMealEntity) obj);
         }
@@ -138,9 +138,10 @@ public class CreateOrderPresenter {
      * @anthor lpc
      * @date: 2018/7/18
      */
-    private SelectMealEntity beanConverter(FoodBean.DataBean bean, int standardPosition) {
+    private SelectMealEntity beanConverter(FoodBean.DataBean bean, int foodPosition, int standardPosition) {
         SelectMealEntity entity = new SelectMealEntity();
         entity.setId(++DAO_ID);
+        entity.setFoodPosition(foodPosition);
         if ("1".equals(bean.getFoodType())) {
             // 单品
             entity.setFoodName(bean.getSingleProductName());
@@ -229,16 +230,20 @@ public class CreateOrderPresenter {
             mealForSelects.clear();
             setSelectCount(beanList, null, -1, 0);
         }
-
-        setTotalResult();
+        if (entity == null){
+            setTotalResult(-1);
+        }else {
+            setTotalResult(entity.getFoodPosition());
+        }
     }
 
     /**
      * @desc 设置操作结束的数量和金额和购物车列表数据
      * @anthor lpc
      * @date: 2018/7/19
+     * @param foodPosition
      */
-    private void setTotalResult() {
+    private void setTotalResult(int foodPosition) {
         double allPrice = 0;
         int totalCount = 0;
         for (SelectMealEntity listEntity : mealForSelects) {
@@ -259,7 +264,7 @@ public class CreateOrderPresenter {
             totalCount += listEntity.getFoodProductsCount();
         }
         String totalMoney = Constant.DECIMAL_FORMAT.format(allPrice);
-        mICreateOrderView.changeSelectFoodCallBack(mealForSelects, totalMoney, totalCount);
+        mICreateOrderView.changeSelectFoodCallBack(mealForSelects, totalMoney, totalCount, foodPosition);
     }
 
     /**
