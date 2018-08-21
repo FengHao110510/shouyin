@@ -33,6 +33,7 @@ import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.tool.bluetooth.BlueToothManager;
 import com.hongsou.douguoshouyin.tool.bluetooth.BluetoothPrinterUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
+import com.hongsou.douguoshouyin.views.SwipeItemLayout;
 import com.hongsou.greendao.gen.PrinterBeanDao;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -100,7 +101,6 @@ public class PrinterActivity extends BaseActivity {
     @Override
     public void initView() {
         setIconFont(new TextView[]{tvMinePrinterSousuo});
-
         mTopBar.setRightViewClickListener(new CommonTopBar.ClickCallBack() {
             @Override
             public void onClick(View v) {
@@ -113,7 +113,6 @@ public class PrinterActivity extends BaseActivity {
 
             }
         });
-
         //初始化蓝牙开关
         mBlueToothSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -153,49 +152,84 @@ public class PrinterActivity extends BaseActivity {
     private void initRecycleView() {
         mPrinterBeanDao = BaseApplication.getApplication().getDaoSession().getPrinterBeanDao();
         rvMinePrinterXinxi.setLayoutManager(new LinearLayoutManager(this));
+        rvMinePrinterXinxi.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
         if (mPrinterBeans == null) {
             mPrinterBeans = new ArrayList<>();
         }
         mPrinterBeans.addAll(mPrinterBeanDao.loadAll());
         mAdapter = new PrinterAdapter(mPrinterBeans);
         rvMinePrinterXinxi.setAdapter(mAdapter);
+        // 点击item切换蓝牙
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+            }
+        });
+        // 点击按钮连接蓝牙或断开
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
-                final PrinterBean printerBean = mPrinterBeans.get(position);
-                String address = printerBean.getPrintAddress();
-                if (printerBean.getConnectStatus()) {
-                    printerBean.setConnectStatus(false);
-                    mAdapter.notifyItemChanged(position);
-                    mPrinterBeanDao.insertOrReplace(printerBean);
-                    List<BluetoothSocket> socketArray = BaseApplication.getInstance().socketArray;
-                    for (BluetoothSocket bluetoothSocket : socketArray) {
+                List<BluetoothSocket> socketArray = BaseApplication.getInstance().socketArray;
+                if (view.getId() == R.id.ll_content) {
+                    // 侧滑删除和点击事件冲突，所以用LinearLayout来代替item的点击
+                    // 切换蓝牙绑定
+                    startActivityForResult(new Intent(PrinterActivity.this, BluetoothActivity.class)
+                            .putExtra("position", position), 201);
+                } else if (view.getId() == R.id.delete_item) {
+                    // 侧滑删除
+                    // 是否是连接的蓝牙服务，如果是，移除蓝牙服务
+                    for (int i = 0; i < socketArray.size(); i++) {
+                        BluetoothSocket bluetoothSocket = socketArray.get(i);
                         Log.e(TAG, " address === " + bluetoothSocket.getRemoteDevice().getAddress());
-                        if (bluetoothSocket.getRemoteDevice().getAddress().equals(address)) {
+                        if (bluetoothSocket.getRemoteDevice().getAddress().equals(mPrinterBeans.get(position).getPrintAddress())) {
                             socketArray.remove(bluetoothSocket);
-                            return;
                         }
                     }
+                    // 移除本地数据库的项
+                    mPrinterBeanDao.delete(mPrinterBeans.get(position));
+                    // 移除列表项
+                    mPrinterBeans.remove(position);
+                    mAdapter.notifyDataSetChanged();
                 } else {
-                    ((TextView) adapter.getViewByPosition(rvMinePrinterXinxi, position, R.id.tv_connect)).setText("连接中");
-                    asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, address,
-                            new BlueToothManager.ConnectSucceedCallBack() {
-                                @Override
-                                public void succeedCallBack(String name, String address) {
-                                    printerBean.setConnectStatus(true);
-                                    mAdapter.notifyItemChanged(position);
-                                    mPrinterBeanDao.insertOrReplace(printerBean);
-                                }
+                    // 蓝牙连接和断开
+                    final PrinterBean printerBean = mPrinterBeans.get(position);
+                    String address = printerBean.getPrintAddress();
+                    if (TextUtils.isEmpty(address)) {
+                        ToastUtil.showToast("请先选择蓝牙再操作");
+                        return;
+                    }
+                    if (printerBean.getConnectStatus()) {
+                        printerBean.setConnectStatus(false);
+                        mAdapter.notifyItemChanged(position);
+                        mPrinterBeanDao.insertOrReplace(printerBean);
+                        for (int i = 0; i < socketArray.size(); i++) {
+                            BluetoothSocket bluetoothSocket = socketArray.get(i);
+                            Log.e(TAG, " address === " + bluetoothSocket.getRemoteDevice().getAddress());
+                            if (bluetoothSocket.getRemoteDevice().getAddress().equals(mPrinterBeans.get(position).getPrintAddress())) {
+                                socketArray.remove(bluetoothSocket);
+                                return;
+                            }
+                        }
+                    } else {
+                        ((TextView) adapter.getViewByPosition(rvMinePrinterXinxi, position, R.id.tv_connect)).setText("连接中");
+                        asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, address,
+                                new BlueToothManager.ConnectSucceedCallBack() {
+                                    @Override
+                                    public void succeedCallBack(String name, String address) {
+                                        printerBean.setConnectStatus(true);
+                                        mAdapter.notifyItemChanged(position);
+                                        mPrinterBeanDao.insertOrReplace(printerBean);
+                                    }
 
-                                @Override
-                                public void failureCallBack(String name, String address) {
-                                    printerBean.setConnectStatus(false);
-                                    mAdapter.notifyItemChanged(position);
-                                    mPrinterBeanDao.insertOrReplace(printerBean);
-                                }
-
-                            });
+                                    @Override
+                                    public void failureCallBack(String name, String address) {
+                                        printerBean.setConnectStatus(false);
+                                        mAdapter.notifyItemChanged(position);
+                                        mPrinterBeanDao.insertOrReplace(printerBean);
+                                    }
+                                });
+                    }
                 }
             }
         });
@@ -262,6 +296,7 @@ public class PrinterActivity extends BaseActivity {
      * @anthor lpc
      * @date: 2018/8/3
      */
+
     private void showPrinterWindow() {
         View view = LayoutInflater.from(this).inflate(R.layout.module_pop_add_printer, null);
         final Dialog dialog = new Dialog(this, R.style.CommonDialog);
@@ -299,8 +334,10 @@ public class PrinterActivity extends BaseActivity {
                 type[0] = "收银打印";
                 tvPrinterKitchenIcon.setTextColor(getResources().getColor(R.color.color_subtitle));
                 tvPrinterKitchen.setTextColor(getResources().getColor(R.color.color_subtitle));
+                tvPrinterKitchenIcon.setText(R.string.icon_anniu_nomal);
                 tvPrinterPayIcon.setTextColor(getResources().getColor(R.color.red));
                 tvPrinterPay.setTextColor(getResources().getColor(R.color.red));
+                tvPrinterPayIcon.setText(R.string.icon_printer_type);
             }
         });
         // 后厨打印
@@ -310,8 +347,10 @@ public class PrinterActivity extends BaseActivity {
                 type[0] = "后厨打印";
                 tvPrinterPay.setTextColor(getResources().getColor(R.color.color_subtitle));
                 tvPrinterPayIcon.setTextColor(getResources().getColor(R.color.color_subtitle));
+                tvPrinterPayIcon.setText(R.string.icon_anniu_nomal);
                 tvPrinterKitchenIcon.setTextColor(getResources().getColor(R.color.red));
                 tvPrinterKitchen.setTextColor(getResources().getColor(R.color.red));
+                tvPrinterKitchenIcon.setText(R.string.icon_printer_type);
             }
         });
         tvDialogCancel.setOnClickListener(new View.OnClickListener() {
@@ -323,14 +362,29 @@ public class PrinterActivity extends BaseActivity {
         tvDialogSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = etDialogEditContent.getText().toString();
+                if (TextUtils.isEmpty(name)) {
+                    ToastUtil.showToast("请先输入打印机名字");
+                    return;
+                }
                 if (TextUtils.isEmpty(type[0])) {
                     ToastUtil.showToast("请先选择打印机类型");
                     return;
                 }
-                Intent intent = new Intent(PrinterActivity.this, BluetoothActivity.class);
-                intent.putExtra("name", etDialogEditContent.getText().toString());
-                intent.putExtra("type", type[0]);
-                startActivityForResult(intent, 99);
+
+                PrinterBean printerBean = new PrinterBean();
+                if (mPrinterBeans.size() > 0) {
+                    long id = mPrinterBeans.get(mPrinterBeans.size() - 1).getId();
+                    printerBean.setId(id + 1);
+                } else {
+                    printerBean.setId(1);
+                }
+                printerBean.setConnectStatus(false);
+                printerBean.setPrintName(name);
+                printerBean.setPrintClassifyName(type[0]);
+                mPrinterBeans.add(printerBean);
+                mPrinterBeanDao.insertOrReplace(printerBean);
+                mAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -386,24 +440,44 @@ public class PrinterActivity extends BaseActivity {
             } else if (requestCode == 0) {
                 ToastUtil.showToast("蓝牙未打开");
             }
-        } else if (requestCode == 99 && resultCode == RESULT_OK) {
-            String name = data.getStringExtra("name");
-            String type = data.getStringExtra("type");
-            String address = data.getStringExtra("address");
-            PrinterBean printerBean = new PrinterBean();
-            if (mPrinterBeans.size() > 0) {
-                long id = mPrinterBeans.get(mPrinterBeans.size() - 1).getId();
-                printerBean.setId(id + 1);
-            } else {
-                printerBean.setId(1);
-            }
-            printerBean.setConnectStatus(false);
+        } else if (requestCode == 201 && resultCode == RESULT_OK) {
+            final int position = data.getIntExtra("position", -1);
+            LogUtil.e("lpc", position + "");
+            final String address = data.getStringExtra("address");
+            final PrinterBean printerBean = mPrinterBeans.get(position);
+            String oldAddress = printerBean.getPrintAddress();
             printerBean.setPrintAddress(address);
-            printerBean.setPrintName(name);
-            printerBean.setPrintClassifyName(type);
-            mPrinterBeans.add(printerBean);
-            mPrinterBeanDao.insertOrReplace(printerBean);
+
+            List<BluetoothSocket> socketArray = BaseApplication.getInstance().socketArray;
+            for (int i = 0; i < socketArray.size(); i++) {
+                BluetoothSocket bluetoothSocket = socketArray.get(i);
+                Log.e(TAG, " address === " + bluetoothSocket.getRemoteDevice().getAddress());
+                if (bluetoothSocket.getRemoteDevice().getAddress().equals(oldAddress)) {
+                    socketArray.remove(bluetoothSocket);
+                }
+                if (bluetoothSocket.getRemoteDevice().getAddress().equals(address)) {
+                    socketArray.remove(address);
+                }
+            }
+            ((TextView) mAdapter.getViewByPosition(rvMinePrinterXinxi, position, R.id.tv_connect)).setText("连接中...");
             mAdapter.notifyDataSetChanged();
+            asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, address,
+                    new BlueToothManager.ConnectSucceedCallBack() {
+                        @Override
+                        public void succeedCallBack(String name, String address) {
+                            printerBean.setConnectStatus(true);
+                            mAdapter.notifyItemChanged(position);
+                            mPrinterBeanDao.insertOrReplace(printerBean);
+                        }
+
+                        @Override
+                        public void failureCallBack(String name, String address) {
+                            printerBean.setConnectStatus(false);
+                            mAdapter.notifyItemChanged(position);
+                            mPrinterBeanDao.insertOrReplace(printerBean);
+                        }
+
+                    });
         }
     }
 
@@ -428,7 +502,7 @@ public class PrinterActivity extends BaseActivity {
             asyncTask = BlueToothManager.getInstance().connectBluetooth(bluetoothAdapter, split[0],
                     new BlueToothManager.ConnectSucceedCallBack() {
                         @Override
-                        public void succeedCallBack(String name,String address) {
+                        public void succeedCallBack(String name, String address) {
 //                            if (finalPosition >= 0) {
 //                                mPrinterBeans.get(finalPosition).setStatus("已连接");
 //                                mAdapter.notifyItemChanged(finalPosition);
@@ -436,7 +510,7 @@ public class PrinterActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void failureCallBack(String name,String address) {
+                        public void failureCallBack(String name, String address) {
                         }
                     });
         }

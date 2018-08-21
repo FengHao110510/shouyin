@@ -5,6 +5,13 @@
         <attr name="border_color" format="color" />
     </declare-styleable>
 
+    <!--侧滑删除-->
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="swipeEnable" format="boolean"/>
+        <attr name="ios" format="boolean"/>
+        <attr name="leftSwipe" format="boolean"/>
+    </declare-styleable>
+
     <!-- ========================================= 自定义通用顶部操作栏 =========================================== -->
     <declare-styleable name="CommonTopBar">
         <attr name="left_img_src" format="reference" />

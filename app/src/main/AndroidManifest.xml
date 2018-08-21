@@ -222,6 +222,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.mine.BluetoothActivity"
+            android:theme="@style/MyDialogStyle"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait" />
         <activity

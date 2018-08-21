@@ -27,25 +27,27 @@
             android:id="@+id/tab_create_category"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="@color/transparent"
             android:paddingTop="@dimen/margin_20"
             app:dividerHeight="@null"
             app:tabHeight="40dp"
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorGravity="fill"
-            app:tabPaddingLeft="12dp"
-            app:tabPaddingRight="12dp"
-            app:tabSelectedTextColor="@color/color_subtitle"
+            app:tabPaddingLeft="4dp"
+            app:tabPaddingRight="4dp"
+            app:tabPaddingBottom="@dimen/margin_12"
+            app:tabPaddingTop="@dimen/margin_12"
+            app:tabSelectedTextColor="@color/color_title"
             app:tabTextColor="@color/color_subtitle"
-            app:tabTextSize="@dimen/txt_16"
+            app:tabTextSize="@dimen/txt_12"
             app:tabViewGravity="center" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/srl_create_order"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="4"
             >
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_create_order_food"
