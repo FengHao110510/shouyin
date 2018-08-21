@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.Build;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.base.BaseApplication;
 
 import java.lang.reflect.Method;
 
@@ -50,10 +54,25 @@ public class KeyboardUtil {
             } else if (primaryCode == VirtualKeyboardView.KEYCODE_SUBMIT) {
                 mOnClickListener.onClick(v);
             } else {
+                check();
                 editable.insert(start, val);
+            }
+            if (TextUtils.isEmpty(editable)){
+                v.setBackgroundColor(BaseApplication.getAppContext().getResources().getColor(R.color.gray));
+            }else {
+                v.setBackgroundColor(BaseApplication.getAppContext().getResources().getColor(R.color.color_base_yellow));
             }
         }
     };
+
+    /**
+     * @desc 检测输入是否合法
+     * @anthor lpc
+     * @date: 2018/8/21
+     */
+    private void check() {
+
+    }
 
     /**
      * 隐藏系统键盘
