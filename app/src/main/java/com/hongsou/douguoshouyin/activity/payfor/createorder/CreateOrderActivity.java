@@ -130,6 +130,10 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     protected void init() {
         mSelectMealEntityDao = BaseApplication.getApplication().getDaoSession().getSelectMealEntityDao();
         mRvCreateOrderFood.setLayoutManager(new LinearLayoutManager(this));
+        mRvCreateOrderFood.setHasFixedSize(true);
+        mRvCreateOrderFood.setItemViewCacheSize(10);
+        mRvCreateOrderFood.setDrawingCacheEnabled(true);
+        mRvCreateOrderFood.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mPresenter = new CreateOrderPresenter(this, new CreateOrderModel(), this);
         mInflater = LayoutInflater.from(CreateOrderActivity.this);
         mBadgeList = new ArrayList<>();
@@ -298,12 +302,22 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 // 按钮 加
                 dataBean = mFoodBeanList.get(position);
                 dataBean.setFoodProductsCount(dataBean.getFoodProductsCount() + 1);
+                TextView textView = (TextView) adapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_food_count);
+                TextView tip = (TextView) adapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_tip_count);
+                textView.setText(dataBean.getFoodProductsCount() + "");
+                tip.setText(dataBean.getFoodProductsCount() + "");
+                mCreateOrderAdapter.notifyItemChanged(position,0);
                 mPresenter.addFood(mFoodBeanList, dataBean, 0);
                 break;
             case R.id.tv_subtract:
                 // 按钮 减
                 dataBean = mFoodBeanList.get(position);
                 dataBean.setFoodProductsCount(dataBean.getFoodProductsCount() - 1);
+                textView = (TextView) adapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_food_count);
+                tip = (TextView) adapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_tip_count);
+                textView.setText(dataBean.getFoodProductsCount() + "");
+                tip.setText(dataBean.getFoodProductsCount() + "");
+                mCreateOrderAdapter.notifyItemChanged(position,0);
                 mPresenter.subtractFood(mFoodBeanList, dataBean, 0);
                 break;
             case R.id.rl_standard:
@@ -450,7 +464,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 .setContext(this)
                 .setContentView(R.layout.module_pop_create_order_food_list)
                 .setwidth(LinearLayout.LayoutParams.MATCH_PARENT)
-                .setheight(height / 3)
+                .setheight(height / 2 - mLlBottom.getHeight())
                 .setFouse(true)
                 .setOutSideCancel(true)
                 .builder();
@@ -465,6 +479,10 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         });
         RecyclerView rvPopCreateOrderFood = (RecyclerView) popupWindow.getItemView(R.id.rv_pop_create_order_food);
         rvPopCreateOrderFood.setLayoutManager(new LinearLayoutManager(this));
+        rvPopCreateOrderFood.setHasFixedSize(true);
+        rvPopCreateOrderFood.setItemViewCacheSize(10);
+        rvPopCreateOrderFood.setDrawingCacheEnabled(true);
+        rvPopCreateOrderFood.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         mCreateOrderFoodListAdapter = new CreateOrderFoodListAdapter(mSelectMealEntities);
         rvPopCreateOrderFood.setAdapter(mCreateOrderFoodListAdapter);

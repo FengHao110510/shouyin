@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_marginTop="@dimen/margin_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="@dimen/margin_12">
+        android:padding="@dimen/margin_8">
 
         <ImageView
             android:id="@+id/iv_food_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="74dp"
+            android:layout_height="74dp"
             android:layout_marginRight="@dimen/margin_12"
             android:adjustViewBounds="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_food_name"
                 style="@style/tv_subtitle"
+                android:textSize="@dimen/txt_14"
                 android:lines="1"
+                android:textStyle="bold"
                 android:text="香酥鸡腿堡" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="bottom"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
@@ -40,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="￥"
                     android:textColor="@color/red"
-                    android:textSize="@dimen/txt_14" />
+                    android:textSize="@dimen/txt_16" />
 
                 <TextView
                     android:id="@+id/tv_food_price"
@@ -48,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:text="9.5"
                     android:textColor="@color/red"
-                    android:textSize="@dimen/txt_14" />
+                    android:textSize="@dimen/txt_16" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -57,7 +61,7 @@
                     android:layout_marginLeft="@dimen/dp_4"
                     android:text="/例"
                     android:textColor="@color/tip_text_black"
-                    android:textSize="@dimen/txt_14" />
+                    android:textSize="@dimen/txt_12" />
 
                 <TextView
                     android:id="@+id/tv_show_standard"
@@ -86,7 +90,7 @@
                         android:padding="@dimen/margin_8"
                         android:text="@string/icon_subtract_button"
                         android:textColor="@color/tip_text_black"
-                        android:textSize="@dimen/txt_18" />
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/tv_food_count"
@@ -95,7 +99,7 @@
                         android:gravity="center"
                         android:text="0"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/tv_add"
@@ -104,7 +108,7 @@
                         android:padding="@dimen/margin_8"
                         android:text="@string/icon_add_button"
                         android:textColor="@color/color_base_yellow"
-                        android:textSize="@dimen/txt_18" />
+                        android:textSize="24sp" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -119,13 +123,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_margin="@dimen/margin_8"
+                        android:layout_marginBottom="@dimen/margin_8"
                         android:background="@drawable/bg_btn_yellow_45"
                         android:paddingBottom="@dimen/dp_4"
                         android:paddingTop="@dimen/dp_4"
                         android:text="选规格"
                         android:textColor="@color/color_subtitle"
-                        android:textSize="10sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_tip_count"
