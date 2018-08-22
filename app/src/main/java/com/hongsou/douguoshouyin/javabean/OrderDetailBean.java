@@ -163,6 +163,15 @@ public class OrderDetailBean {
             private String registeredCell;
             private String tableNumber; // 桌台号
             private String regionName; // 区域名
+            private String orderRemarks; // 备注
+
+            public String getOrderRemarks() {
+                return orderRemarks;
+            }
+
+            public void setOrderRemarks(String orderRemarks) {
+                this.orderRemarks = orderRemarks;
+            }
 
             public String getRegionName() {
                 return regionName;

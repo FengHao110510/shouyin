@@ -158,6 +158,14 @@ public class BluetoothPrinterTemplate {
         BluetoothFormatUtils.printCutLine();
         BluetoothFormatUtils.printNewLine(1);
 
+        if ("扫码点餐".equals(orderBean.getOrderSourcePayment())){
+            BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.DOUBLE_HEIGHT_WIDTH);
+            BluetoothFormatUtils.printText("备注：" + orderBean.getOrderRemarks() + "\n");
+            BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.NORMAL);
+            BluetoothFormatUtils.printCutLine();
+            BluetoothFormatUtils.printNewLine(1);
+        }
+
         BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.DOUBLE_HEIGHT_WIDTH);
         BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.ALIGN_RIGHT);
         BluetoothFormatUtils.printText("应收：" + orderBean.getAmountReceivable() + "\n");
