@@ -3,7 +3,6 @@ package com.hongsou.douguoshouyin.activity.payfor.createorder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hongsou.douguoshouyin.R;
-import com.hongsou.douguoshouyin.activity.payfor.payfor.PaymentDetailActivity;
 import com.hongsou.douguoshouyin.activity.turnover.OrderDetailActivity;
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.http.ApiConfig;
@@ -91,21 +89,22 @@ public class CollectMoneyForCashActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (TextUtils.isEmpty(s.toString())) {
-                    mTvGiveMoney.setText("0.0");
-                } else {
+                if (KeyboardUtil.checkMoney(s.toString())) {
                     // 输入的收款金额
                     String co_m = s.toString();
                     // 订单应收金额
                     String re_m = mTvReceivableMoney.getText().toString();
                     // 差值
-                    BigDecimal bigDecimal = new BigDecimal(co_m).subtract(new BigDecimal(re_m));
+                    BigDecimal bigDecimal = new BigDecimal(co_m).setScale(2, BigDecimal.ROUND_DOWN)
+                            .subtract(new BigDecimal(re_m));
                     mGiveMoney = Double.valueOf(bigDecimal.setScale(2).toString());
                     if (mGiveMoney <= 0) {
                         mTvGiveMoney.setText("0.0");
                     } else {
                         mTvGiveMoney.setText(String.valueOf(mGiveMoney));
                     }
+                } else {
+                    mTvGiveMoney.setText("0.0");
                 }
             }
         });
@@ -114,7 +113,7 @@ public class CollectMoneyForCashActivity extends BaseActivity {
         new KeyboardUtil(mKeyboardCollectMoney, mEtCollectMoney, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mGiveMoney >= 0 && !TextUtils.isEmpty(mEtCollectMoney.getText())) {
+                if (mGiveMoney >= 0 && KeyboardUtil.checkMoney(mEtCollectMoney.getText().toString())) {
                     bean.setCashAmount(mTvGiveMoney.getText().toString());
                     bean.setAmountReceivable(mTvReceivableMoney.getText().toString());
                     bean.setAmountCollected(mEtCollectMoney.getText().toString());
@@ -147,7 +146,7 @@ public class CollectMoneyForCashActivity extends BaseActivity {
                     String batch = response.getMsg();
                     Intent intent = new Intent(CollectMoneyForCashActivity.this, OrderDetailActivity.class);
                     intent.putExtra("batch", batch);
-                    intent.putExtra("collect","0");
+                    intent.putExtra("collect", "0");
                     startActivity(intent);
                     finish();
                 } else {
@@ -156,7 +155,6 @@ public class CollectMoneyForCashActivity extends BaseActivity {
             }
         });
     }
-
 
 
     //=============================================================================================
