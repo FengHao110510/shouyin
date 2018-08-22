@@ -88,8 +88,8 @@ public class BluetoothPrinterTemplate {
 
         BluetoothFormatUtils.printText(Global.getSpGlobalUtil().getShopName() + "\n");
         BluetoothFormatUtils.printText("领餐号：(" + orderBean.getDateOrderNumber() + ")\n");
-        if (!"开单".equals(orderBean.getOrderSourcePayment())){
-            BluetoothFormatUtils.printText("桌台号：(" + orderBean.getTableNumber() + ")\n");
+        if ("扫码点餐".equals(orderBean.getOrderSourcePayment())) {
+            BluetoothFormatUtils.printText("桌台号：" + orderBean.getRegionName() + "(" + orderBean.getTableNumber() + ")\n");
         }
         // 取消倍高倍宽
         BluetoothFormatUtils.selectCommand(BluetoothFormatUtils.NORMAL);

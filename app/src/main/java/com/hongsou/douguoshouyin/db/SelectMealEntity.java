@@ -31,6 +31,7 @@ public class SelectMealEntity {
     private String foodPrice;
     private String standardName;
     private String foodProductPicture;
+    private int foodPosition;
 
     /**
      * deletionFlag : 0
@@ -88,11 +89,11 @@ public class SelectMealEntity {
     @Convert(columnType = String.class, converter = GroupFoodConverter.class)
     private List<FoodZuheTaocanXQ> groupFood;
 
-    @Generated(hash = 1230439640)
-    public SelectMealEntity(long id, String foodName, String foodPrice, String standardName, String foodProductPicture, double VIPPrice,
-            double amount, String mealCode, String sell, int sellingStatus, String singleProductName, String standardNumber, int PHR,
-            long endTime, String packageInitials, String packageName, String packagePrice, String packageType, String packageUnit, int selling,
-            long startTime, int takeout, int theKitchenPrint, int antiNodeCount, String deletionFlag, String discountAmount,
+    @Generated(hash = 443870718)
+    public SelectMealEntity(long id, String foodName, String foodPrice, String standardName, String foodProductPicture, int foodPosition,
+            double VIPPrice, double amount, String mealCode, String sell, int sellingStatus, String singleProductName, String standardNumber,
+            int PHR, long endTime, String packageInitials, String packageName, String packagePrice, String packageType, String packageUnit,
+            int selling, long startTime, int takeout, int theKitchenPrint, int antiNodeCount, String deletionFlag, String discountAmount,
             int foodProductsCount, String foodProductsNumber, String packageNumber, String foodProductsType, String increasePrice,
             String memberPreferences, String remarks, String replace, String serialNumber, String shopNumber, String standard,
             List<PackageFoodEntity> packageFood, List<FoodZuheTaocanXQ> groupFood) {
@@ -101,6 +102,7 @@ public class SelectMealEntity {
         this.foodPrice = foodPrice;
         this.standardName = standardName;
         this.foodProductPicture = foodProductPicture;
+        this.foodPosition = foodPosition;
         this.VIPPrice = VIPPrice;
         this.amount = amount;
         this.mealCode = mealCode;
@@ -447,8 +449,12 @@ public class SelectMealEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SelectMealEntity)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SelectMealEntity)) {
+            return false;
+        }
 
         SelectMealEntity entity = (SelectMealEntity) o;
 
@@ -516,6 +522,14 @@ public class SelectMealEntity {
 
     public void setFoodProductPicture(String foodProductPicture) {
         this.foodProductPicture = foodProductPicture;
+    }
+
+    public int getFoodPosition() {
+        return this.foodPosition;
+    }
+
+    public void setFoodPosition(int foodPosition) {
+        this.foodPosition = foodPosition;
     }
 
 

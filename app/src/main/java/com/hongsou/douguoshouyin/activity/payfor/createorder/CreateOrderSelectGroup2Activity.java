@@ -43,6 +43,7 @@ public class CreateOrderSelectGroup2Activity extends BaseActivity {
      * 餐品数据
      */
     private FoodBean.DataBean mDataBean;
+    private int mFoodPosition;
 
     @Override
     public int initLayout() {
@@ -58,6 +59,9 @@ public class CreateOrderSelectGroup2Activity extends BaseActivity {
 
     @Override
     public void initData() {
+        if (getIntent().hasExtra("foodPosition")){
+            mFoodPosition = getIntent().getIntExtra("foodPosition", -1);
+        }
         if (getIntent().hasExtra("data")) {
             mDataBean = new Gson().fromJson(getIntent().getStringExtra("data"), FoodBean.DataBean.class);
             Log.e(TAG, "init: " + getIntent().getStringExtra("data"));
@@ -105,6 +109,7 @@ public class CreateOrderSelectGroup2Activity extends BaseActivity {
             mMealListEntity.setIncreasePrice("0");
             mMealListEntity.setMemberPreferences(mDataBean.getVipPrice());
             mMealListEntity.setId(++CreateOrderPresenter.DAO_ID);
+            mMealListEntity.setFoodPosition(mFoodPosition);
 
             List<FoodBean.DataBean.ListBean> source = new ArrayList<>(); // 选中的餐品组合
             List<FoodZuheTaocanXQ> groupFoodList = new ArrayList<>();

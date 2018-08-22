@@ -56,7 +56,7 @@ public class CollectMoneyAdapter extends BaseQuickAdapter<SelectMealEntity, Base
             }
         }
         Glide.with(mContext).load(ApiConfig.IMG_URL + imgUrl)
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.drawable.dg_logo)
                 .error(R.drawable.dg_logo)
                 .into((ImageView) helper.getView(R.id.iv_food_img));
     }

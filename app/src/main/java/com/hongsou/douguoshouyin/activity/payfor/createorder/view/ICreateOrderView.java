@@ -19,6 +19,6 @@ public interface ICreateOrderView<T> {
 
 //    void onError();
 
-    void changeSelectFoodCallBack(List<SelectMealEntity> entities, String totalMoney, int totalCount);
+    void changeSelectFoodCallBack(List<SelectMealEntity> entities, String totalMoney, int totalCount, int foodPosition);
 
 }

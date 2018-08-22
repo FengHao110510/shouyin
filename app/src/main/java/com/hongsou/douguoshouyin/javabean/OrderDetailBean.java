@@ -160,8 +160,17 @@ public class OrderDetailBean {
             private String paymentBatch;
             private String dateOrderNumber;
             private String clerkName;
-            private String tableNumber;
             private String registeredCell;
+            private String tableNumber; // 桌台号
+            private String regionName; // 区域名
+
+            public String getRegionName() {
+                return regionName;
+            }
+
+            public void setRegionName(String regionName) {
+                this.regionName = regionName;
+            }
 
             public String getPaymentBatch() {
                 return paymentBatch;

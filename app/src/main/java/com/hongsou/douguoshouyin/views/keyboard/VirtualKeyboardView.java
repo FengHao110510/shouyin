@@ -92,49 +92,49 @@ public class VirtualKeyboardView extends LinearLayout {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.keyboard_1:
-                mOnKeyboardActionListener.onKey(1, mKeyboard1.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(1, mKeyboard1.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_2:
-                mOnKeyboardActionListener.onKey(2, mKeyboard2.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(2, mKeyboard2.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_3:
-                mOnKeyboardActionListener.onKey(3, mKeyboard3.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(3, mKeyboard3.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_4:
-                mOnKeyboardActionListener.onKey(4, mKeyboard4.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(4, mKeyboard4.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_5:
-                mOnKeyboardActionListener.onKey(5, mKeyboard5.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(5, mKeyboard5.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_6:
-                mOnKeyboardActionListener.onKey(6, mKeyboard6.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(6, mKeyboard6.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_7:
-                mOnKeyboardActionListener.onKey(7, mKeyboard7.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(7, mKeyboard7.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_8:
-                mOnKeyboardActionListener.onKey(8, mKeyboard8.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(8, mKeyboard8.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_9:
-                mOnKeyboardActionListener.onKey(9, mKeyboard9.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(9, mKeyboard9.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_0:
-                mOnKeyboardActionListener.onKey(0, mKeyboard0.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(0, mKeyboard0.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_dot:
-                mOnKeyboardActionListener.onKey(KEYCODE_DOT, mKeyboardDot.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(KEYCODE_DOT, mKeyboardDot.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_00:
-                mOnKeyboardActionListener.onKey(KEYCODE_00, mKeyboard00.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(KEYCODE_00, mKeyboard00.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_delete:
-                mOnKeyboardActionListener.onKey(KEYCODE_DELETE, mKeyboardDelete.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(KEYCODE_DELETE, mKeyboardDelete.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_clean:
-                mOnKeyboardActionListener.onKey(KEYCODE_CLEAR, mKeyboardClean.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(KEYCODE_CLEAR, mKeyboardClean.getText().toString(), mKeyboardSubmit);
                 break;
             case R.id.keyboard_submit:
-                mOnKeyboardActionListener.onKey(KEYCODE_SUBMIT, mKeyboardSubmit.getText().toString(), view);
+                mOnKeyboardActionListener.onKey(KEYCODE_SUBMIT, mKeyboardSubmit.getText().toString(), mKeyboardSubmit);
                 break;
             default:
                 break;
