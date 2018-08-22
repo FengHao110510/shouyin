@@ -172,8 +172,9 @@ public class TaocanfenzuActivity extends BaseActivity {
                         delGroup(groupMultiItemEntityList.get(position).getGroupTitleBean().getGroupNumber());
                         break;
                     case R.id.iv_item_taocanfenzu_shoulist_title_check:
-                        ImageView ivItemTaocanfenzuShoulistTitleCheck = (ImageView) groupAdapter.getViewByPosition(rvPayfortaocanfenzuZuhe, position
-                                , R.id.iv_item_taocanfenzu_shoulist_title_check);
+//                         = (ImageView) groupAdapter.getViewByPosition(rvPayfortaocanfenzuZuhe, position
+//                                , R.id.iv_item_taocanfenzu_shoulist_title_check);
+                        ImageView ivItemTaocanfenzuShoulistTitleCheck = view.findViewById(R.id.iv_item_taocanfenzu_shoulist_title_check);
                         if (groupMultiItemEntityList.get(position).getGroupTitleBean().isCheck()) {
                             ivItemTaocanfenzuShoulistTitleCheck.setBackground(getResources().getDrawable(R.drawable.weixuan));
                             groupMultiItemEntityList.get(position).getGroupTitleBean().setCheck(false);
@@ -256,7 +257,7 @@ public class TaocanfenzuActivity extends BaseActivity {
         intentPut.putExtra("dataBeanList2", (Serializable) dataBeanList2);
         Gson gson = new Gson();
 
-        Log.e(TAG, "startForTaocanResult: "+gson.toJson(dataBeanList2) );
+        Log.e(TAG, "startForTaocanResult: " + gson.toJson(dataBeanList2));
         setResult(5, intentPut);
         finishActivity();
     }

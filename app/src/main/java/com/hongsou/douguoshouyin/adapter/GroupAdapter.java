@@ -75,6 +75,12 @@ public class GroupAdapter extends BaseMultiItemQuickAdapter<GroupMultiItemEntity
                 if (choseFlag==1){
                     helper.setVisible(R.id.iv_item_taocanfenzu_shoulist_title_check,true);
                     helper.setVisible(R.id.ll_item_taocanfenzu_shoulist_title_del,false);
+                    if (item.getGroupTitleBean().isCheck()){
+                        helper.setBackgroundRes(R.id.iv_item_taocanfenzu_shoulist_title_check,R.drawable.xuanzhong);
+                    }else {
+                        helper.setBackgroundRes(R.id.iv_item_taocanfenzu_shoulist_title_check,R.drawable.weixuan);
+
+                    }
                 }else {
                     helper.setVisible(R.id.iv_item_taocanfenzu_shoulist_title_check,false);
                     helper.setVisible(R.id.ll_item_taocanfenzu_shoulist_title_del,true);
