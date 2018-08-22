@@ -13,6 +13,7 @@ import com.hongsou.douguoshouyin.R;
 import com.hongsou.douguoshouyin.base.BaseApplication;
 
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
 
 
 public class KeyboardUtil {
@@ -48,18 +49,34 @@ public class KeyboardUtil {
                     }
                 }
             } else if (primaryCode == VirtualKeyboardView.KEYCODE_DOT) {
-                if (start > 0) {
+                if (start > 0 && !editable.toString().contains(".")) {
                     editable.insert(start, val);
                 }
             } else if (primaryCode == VirtualKeyboardView.KEYCODE_SUBMIT) {
                 mOnClickListener.onClick(v);
+            } else if (primaryCode == VirtualKeyboardView.KEYCODE_00) {
+                if (!editable.toString().contains(".") && !editable.toString().equals("0") && start > 0) {
+                    editable.insert(start, val);
+                }
+            } else if (primaryCode == 0) {
+                if (!editable.toString().equals("0.0") && !editable.toString().equals("0")) {
+                    editable.insert(start, val);
+                }
             } else {
-                check();
-                editable.insert(start, val);
+                // 限制最多能输入6位整数
+                if (editable.toString().contains(".")) {
+                    if (editable.toString().indexOf(".") > 5) {
+                        editable.insert(start, val);
+                    }
+                } else if (editable.toString().length() > 5) {
+                    editable.insert(start, val);
+                } else {
+                    editable.insert(start, val);
+                }
             }
-            if (TextUtils.isEmpty(editable)){
+            if (TextUtils.isEmpty(editable.toString())) {
                 v.setBackgroundColor(BaseApplication.getAppContext().getResources().getColor(R.color.gray));
-            }else {
+            } else {
                 v.setBackgroundColor(BaseApplication.getAppContext().getResources().getColor(R.color.color_base_yellow));
             }
         }
@@ -70,8 +87,9 @@ public class KeyboardUtil {
      * @anthor lpc
      * @date: 2018/8/21
      */
-    private void check() {
-
+    public static boolean checkMoney(String string) {
+        Pattern pattern = Pattern.compile("^[0-9]+(.[0-9]{2})?$");
+        return pattern.matcher(string).matches();
     }
 
     /**
