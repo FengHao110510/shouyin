@@ -172,8 +172,6 @@ public class TaocanfenzuActivity extends BaseActivity {
                         delGroup(groupMultiItemEntityList.get(position).getGroupTitleBean().getGroupNumber());
                         break;
                     case R.id.iv_item_taocanfenzu_shoulist_title_check:
-//                         = (ImageView) groupAdapter.getViewByPosition(rvPayfortaocanfenzuZuhe, position
-//                                , R.id.iv_item_taocanfenzu_shoulist_title_check);
                         ImageView ivItemTaocanfenzuShoulistTitleCheck = view.findViewById(R.id.iv_item_taocanfenzu_shoulist_title_check);
                         if (groupMultiItemEntityList.get(position).getGroupTitleBean().isCheck()) {
                             ivItemTaocanfenzuShoulistTitleCheck.setBackground(getResources().getDrawable(R.drawable.weixuan));
