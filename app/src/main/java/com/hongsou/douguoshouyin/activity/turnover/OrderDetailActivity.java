@@ -111,6 +111,7 @@ public class OrderDetailActivity extends BaseActivity {
 
     //是否是开单来的0  还是订单流水来的1
     String collect = "1";
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_turnover_order_detail;
@@ -125,11 +126,10 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
 
-
     @Override
     public void initView() {
         batch = getIntent().getStringExtra("batch");
-        if (getIntent().hasExtra("collect")){
+        if (getIntent().hasExtra("collect")) {
             collect = "0";
         }
     }
@@ -143,6 +143,19 @@ public class OrderDetailActivity extends BaseActivity {
      * 查询订单详情接口
      */
     private void detailes() {
+        if (orderFoodBeanList != null) {
+            orderFoodBeanList.clear();
+        }
+        if (packageBeanList != null) {
+            packageBeanList.clear();
+
+        }
+        if (groupBeanList != null) {
+            groupBeanList.clear();
+        }
+        if (foodBeanList != null) {
+            foodBeanList.clear();
+        }
         showLoadingDialog();
         HttpFactory.get().url(ApiConfig.GET_ORDER_DETAILS)
                 .addParams("shopNumber", Global.getSpGlobalUtil().getShopNumber())
@@ -183,7 +196,7 @@ public class OrderDetailActivity extends BaseActivity {
 
                     //展示
                     showFoodList();
-                    if ("0".equals(collect)){
+                    if ("0".equals(collect)) {
                         doPrinter();
                     }
                 } else {
@@ -210,7 +223,7 @@ public class OrderDetailActivity extends BaseActivity {
             vTurnoverOrderdetailVerticle.setVisibility(View.GONE);
             tvTurnoverOrderdetailTuikuan.setVisibility(View.GONE);
             tvTurnoverOrderdetailDayinxiaopiao.setText("打印退款小票");
-        }else {
+        } else {
             tvTurnoverOrderdetailDayinxiaopiao.setText("打印收款小票");
         }
         tvTurnoverOrderdetailDingdanzhuangtai.setText(order.getOrderType());
@@ -499,9 +512,9 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     /**
-     *  @author  fenghao
-     *  @date    2018/8/16 0016 下午 17:16
-     *  @desc   订单打印
+     * @author fenghao
+     * @date 2018/8/16 0016 下午 17:16
+     * @desc 订单打印
      */
     private void doPrinter() {
         if (Global.getSpUserUtil().getOrderPrintSwitch()) {
@@ -529,12 +542,13 @@ public class OrderDetailActivity extends BaseActivity {
 
     //判断并退出
     private void checkCollect() {
-        if ("0".equals(collect)){
+        if ("0".equals(collect)) {
             startActivity(new Intent(OrderDetailActivity.this, MainActivity.class));
-        }else {
+        } else {
             finishActivity();
         }
     }
+
     @Override
     public void onBackPressed() {
         checkCollect();
