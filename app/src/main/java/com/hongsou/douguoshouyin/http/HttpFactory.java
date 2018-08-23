@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.hongsou.douguoshouyin.base.BaseActivity;
 import com.hongsou.douguoshouyin.base.BaseFragment;
+import com.hongsou.douguoshouyin.tool.Global;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
@@ -43,6 +44,8 @@ public class HttpFactory {
             try {
                OkHttpUtils.postString().content(content)
                        .mediaType(MediaType.parse("application/json"))
+                       .addHeader("token", Global.getSpGlobalUtil().getCode())
+                       .addHeader("phone", Global.getSpGlobalUtil().getUserName())
                        .url(url).build().execute(responseCallback);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -77,9 +80,15 @@ public class HttpFactory {
             try {
                 RequestCall build;
                 if (type.equals(POST)) {
-                    build = OkHttpUtils.post().url(url).params(params).build();
+                    build = OkHttpUtils.post().url(url).params(params)
+                            .addHeader("token", Global.getSpGlobalUtil().getCode())
+                            .addHeader("phone", Global.getSpGlobalUtil().getLoginPhone())
+                            .build();
                 } else {
-                    build = OkHttpUtils.get().url(url).params(params).build();
+                    build = OkHttpUtils.get().url(url).params(params)
+                            .addHeader("token", Global.getSpGlobalUtil().getCode())
+                            .addHeader("phone", Global.getSpGlobalUtil().getUserName())
+                            .build();
                 }
                 build.execute(callback);
             } catch (Exception e) {
