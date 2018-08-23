@@ -71,17 +71,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initView() {
         setIconFont(new TextView[]{tvLoginCheck});
-        if (Global.getSpGlobalUtil().getCheckPassword()) {
-            //将账号密码回显  check 选中
-            isChecked = true;
-            etLoginUser.setText(Global.getSpGlobalUtil().getUserName());
-            etLoginPassword.setText(Global.getSpGlobalUtil().getPassword());
-            tvLoginCheck.setTextColor(getResources().getColor(R.color.color_base_yellow));
-
-        } else {
-            isChecked = false;
-            tvLoginCheck.setTextColor(getResources().getColor(R.color.gray));
-        }
     }
 
     @Override
@@ -252,6 +241,22 @@ public class LoginActivity extends BaseActivity {
     private boolean isPasswordValid(String password) {
         return password.length() > 5 && password.length() < 17;
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Global.getSpGlobalUtil().getCheckPassword()) {
+            //将账号密码回显  check 选中
+            isChecked = true;
+            etLoginUser.setText(Global.getSpGlobalUtil().getUserName());
+            etLoginPassword.setText(Global.getSpGlobalUtil().getPassword());
+            tvLoginCheck.setTextColor(getResources().getColor(R.color.color_base_yellow));
+
+        } else {
+            isChecked = false;
+            tvLoginCheck.setTextColor(getResources().getColor(R.color.gray));
+        }
     }
 
     @Override

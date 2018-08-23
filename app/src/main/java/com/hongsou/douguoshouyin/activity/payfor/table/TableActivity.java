@@ -431,6 +431,7 @@ public class TableActivity extends BaseActivity {
         emailMap.put("title", "桌台二维码打包下载");
         emailMap.put("msg", "桌台二维码打包下载");
         emailMap.put("shopTableJson", emailTableBeanArrayList);
+        emailMap.put("shopNumber", getShopNumber());
         Gson gson = new Gson();
 
         //TODO 打包下载接口
