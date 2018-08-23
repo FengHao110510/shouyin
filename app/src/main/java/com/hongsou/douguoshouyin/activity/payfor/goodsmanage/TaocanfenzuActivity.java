@@ -66,7 +66,6 @@ public class TaocanfenzuActivity extends BaseActivity {
     protected void init() {
         initView();
         initData();
-        initTitle("套餐分组");
 
     }
 
@@ -79,10 +78,13 @@ public class TaocanfenzuActivity extends BaseActivity {
         if (choose.contains("choose")) {
             //是选择页面
             choseFlag = 1;
+            initTitle("选择分组");
             tvTitlebarRight.setVisibility(View.VISIBLE);
         } else {
             //分组页面
             choseFlag = 2;
+            initTitle("套餐分组列表");
+
         }
         setIconFont(new TextView[]{tvTitlebarFinishBack});
         tvTitlebarFinishBack.setOnClickListener(new View.OnClickListener() {

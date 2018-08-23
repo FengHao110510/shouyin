@@ -390,23 +390,14 @@ public class TableActivity extends BaseActivity {
                                 emailTableBeanArrayList.add(deletTableBean);
                             }
                         }
-
-
                     }
-                    if (emailTableBeanArrayList.size() < 1) {
-                        ToastUtil.showToast("请先选择选中的桌台");
+                    if (etDialogEditContent.getText().toString().matches("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$")) {
+                        downLoad(etDialogEditContent.getText().toString(), emailTableBeanArrayList);
                         downLoadDialog.dismiss();
                     } else {
-                        if (etDialogEditContent.getText().toString().matches("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$")) {
-                            downLoad(etDialogEditContent.getText().toString(), emailTableBeanArrayList);
-                            downLoadDialog.dismiss();
-                        } else {
-                            ToastUtil.showToast("请输入正确的邮箱格式");
-                        }
-
+                        ToastUtil.showToast("请输入正确的邮箱格式");
                     }
                 }
-
             }
         });
 

@@ -210,7 +210,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="选择分组"
+                        android:text="添加分组"
                         android:textColor="@color/black"
                         android:textSize="14sp" />
 
@@ -341,7 +341,7 @@
                     android:gravity="center"
                     android:paddingBottom="5dp"
                     android:paddingTop="5dp"
-                    android:text="添加商品"
+                    android:text="选择商品"
                     android:textColor="@color/white" />
             </LinearLayout>
 
