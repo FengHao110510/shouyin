@@ -77,6 +77,7 @@ public class Global {
         Global.getSpGlobalUtil().setPaymentUser("");
         Global.getSpGlobalUtil().setShopNumber("");
         Global.getSpGlobalUtil().setCode("");
+        Global.getSpGlobalUtil().setLoginPhone("");
         //取消别名
         JPushInterface.setAlias(BaseApplication.getAppContext(), 1, "");
         mSpUtil = null;

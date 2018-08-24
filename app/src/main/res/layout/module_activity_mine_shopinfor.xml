@@ -13,11 +13,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
@@ -121,8 +122,8 @@
                     <TextView
                         android:id="@+id/et_mine_shopinfor_mendiandizhi"
                         style="@style/et_style"
-                        android:textColor="@color/gray"
-                        android:gravity="right" />
+                        android:gravity="right"
+                        android:textColor="@color/gray" />
                 </LinearLayout>
 
                 <View
@@ -181,52 +182,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/bg_gray" />
+                android:background="@color/color_f5f5f5" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginRight="40dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_mine_shopinfor_yimafu"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/margin_12"
+                    android:paddingTop="@dimen/margin_12">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:text="一码付台卡"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:text=">"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/right" />
                 </RelativeLayout>
 
-                <Button
-                    android:id="@+id/bt_mine_shopinfor_save"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_mine_shopinfor_yimafu"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/btn_black"
-                    android:paddingLeft="80dp"
-                    android:paddingRight="80dp"
-                    android:text="保存"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
+
+
+    <Button
+        android:id="@+id/bt_mine_shopinfor_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/margin_12"
+        android:background="@drawable/btn_black"
+        android:paddingLeft="80dp"
+        android:paddingRight="80dp"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 </LinearLayout>

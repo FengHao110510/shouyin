@@ -267,10 +267,10 @@ public class OrderDetailActivity extends BaseActivity {
             //将单个餐品添加进去
             for (int j = 0; j < packageBeanList.get(i).getPackageList().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
-                orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("--- " + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodName("　--- " + packageBeanList.get(i).getPackageList().get(j).getSingleProductName()
                         + "(" + packageBeanList.get(i).getPackageList().get(j).getStandardName() + ")");
-                orderFoodBeanB.setFoodPrice("*" + packageBeanList.get(i).getPackageList().get(j).getFoodProductsCount());
+                orderFoodBeanB.setFoodCount("*" + packageBeanList.get(i).getPackageList().get(j).getFoodProductsCount());
+                orderFoodBeanB.setFoodPrice("");
                 orderFoodBeanList.add(orderFoodBeanB);
             }
         }
@@ -296,10 +296,10 @@ public class OrderDetailActivity extends BaseActivity {
             //将 菜品加进去
             for (int j = 0; j < groupBeanList.get(i).getGroupFood().size(); j++) {
                 OrderFoodBean orderFoodBeanB = new OrderFoodBean();
-                orderFoodBeanB.setFoodName("");
-                orderFoodBeanB.setFoodCount("--- " + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
+                orderFoodBeanB.setFoodName("　--- " + groupBeanList.get(i).getGroupFood().get(j).getSingleProductName()
                         + "(" + groupBeanList.get(i).getGroupFood().get(j).getStandardName() + ")");
-                orderFoodBeanB.setFoodPrice("*" + groupBeanList.get(i).getGroupFood().get(j).getFoodProductsCount());
+                orderFoodBeanB.setFoodCount("*" + groupBeanList.get(i).getGroupFood().get(j).getFoodProductsCount());
+                orderFoodBeanB.setFoodPrice("");
                 orderFoodBeanList.add(orderFoodBeanB);
             }
         }

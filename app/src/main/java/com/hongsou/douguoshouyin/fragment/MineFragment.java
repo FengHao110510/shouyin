@@ -97,6 +97,13 @@ public class MineFragment extends BaseFragment {
         setIconFont(new TextView[]{tvMinePhoneIcon});
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            getShopinfor();
+        }
+    }
 
     /**
      * @author fenghao

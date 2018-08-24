@@ -176,6 +176,20 @@ public class SharePreferenceGlobalUtil {
     /**
      * 账号
      *
+     * @param loginPhone
+     */
+    public void setLoginPhone(String loginPhone) {
+        editor.putString("loginPhone", loginPhone);
+        editor.commit();
+    }
+
+    public String getLoginPhone() {
+        return sp.getString("loginPhone", "");
+    }
+
+    /**
+     * 账号
+     *
      * @param userName
      */
     public void setUserName(String userName) {

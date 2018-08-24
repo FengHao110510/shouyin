@@ -218,6 +218,7 @@ public class LoginActivity extends BaseActivity {
         Global.getSpGlobalUtil().setShopPhone(dataBean.getShopPhone());
         Global.getSpGlobalUtil().setPaymentUser(dataBean.getPaymentUser());
         Global.getSpGlobalUtil().setUserName(userName);
+        Global.getSpGlobalUtil().setLoginPhone(userName);
         Global.getSpGlobalUtil().setPassword(passWord);
         Global.getSpGlobalUtil().setAliCode(aliCode);
         Global.getSpGlobalUtil().setWecharCode(wecharCode);
