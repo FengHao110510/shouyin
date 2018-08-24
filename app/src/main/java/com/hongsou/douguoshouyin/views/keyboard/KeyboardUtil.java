@@ -65,12 +65,10 @@ public class KeyboardUtil {
             } else {
                 // 限制最多能输入6位整数
                 if (editable.toString().contains(".")) {
-                    if (editable.toString().indexOf(".") > 5) {
+                    if (editable.toString().indexOf(".") < 5) {
                         editable.insert(start, val);
                     }
-                } else if (editable.toString().length() > 5) {
-                    editable.insert(start, val);
-                } else {
+                } else if (editable.toString().length() < 5) {
                     editable.insert(start, val);
                 }
             }
