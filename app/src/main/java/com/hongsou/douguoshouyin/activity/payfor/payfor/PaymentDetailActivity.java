@@ -27,7 +27,6 @@ import com.hongsou.douguoshouyin.javabean.BaseBean;
 import com.hongsou.douguoshouyin.javabean.PaymentDetailBean;
 import com.hongsou.douguoshouyin.javabean.RootBean;
 import com.hongsou.douguoshouyin.tool.Global;
-import com.hongsou.douguoshouyin.tool.MscSpeechUtils;
 import com.hongsou.douguoshouyin.tool.ToastUtil;
 import com.hongsou.douguoshouyin.tool.bluetooth.BluetoothPrinterUtil;
 import com.hongsou.douguoshouyin.views.CommonTopBar;
@@ -285,10 +284,10 @@ public class PaymentDetailActivity extends BaseActivity {
      * @desc 打印小票
      */
     private void doPrinter() {
-            if (Global.getSpUserUtil().getOrderPrintSwitch()) {
+            if (Global.getSpUserUtil().getPayPrintSwitch()) {
                 BluetoothPrinterUtil util = new BluetoothPrinterUtil.Builder()
                         .setType(BluetoothPrinterUtil.Print.PAY)
-                        .setCount(Global.getSpUserUtil().getOrderPrintCount())
+                        .setCount(Global.getSpUserUtil().getPayPrintCount())
                         .setContent(mPaymentDetailBean)
                         .build();
                 util.startPrint();
