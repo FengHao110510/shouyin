@@ -27,10 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_dialog_fenlei_content_icon"
             android:layout_alignBottom="@+id/tv_dialog_fenlei_content_icon"
-            android:layout_toStartOf="@+id/tv_dialog_fenlei_content_icon"
             android:background="@null"
             android:gravity="left"
-            android:hint="菜品分类"
+            android:hint="分类名称"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
