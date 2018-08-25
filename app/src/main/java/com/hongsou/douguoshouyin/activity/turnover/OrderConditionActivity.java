@@ -78,6 +78,10 @@ public class OrderConditionActivity extends BaseActivity {
      * 收款支付渠道选择
      */
     private List<OrderConditionBean> payChannelList;
+    /**
+     * 订单状态选择
+     */
+    private List<OrderConditionBean> orderStatusList;
     //现在时间
     private String now;
     private LayoutInflater mInflater;
@@ -88,11 +92,10 @@ public class OrderConditionActivity extends BaseActivity {
      * 选择的筛选条件
      */
     private String orderSource = "";
-    private int orderSourcePosition;
     private String payStatus = "";
-    private int payStatusPosition;
     private String payChannel = "";
-    private int payChannelPosition;
+    private String mStartTime = "";
+    private String mEndTime = "";
     private int mType;
 
     @Override
@@ -114,6 +117,7 @@ public class OrderConditionActivity extends BaseActivity {
         orderSourceList = new ArrayList<>();
         payStatusList = new ArrayList<>();
         payChannelList = new ArrayList<>();
+        orderStatusList = new ArrayList<>();
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
         now = sdf.format(new Date());
@@ -121,9 +125,7 @@ public class OrderConditionActivity extends BaseActivity {
         initDateStartPicker(DateUtils.getCurrent00Time());
         //初始化结束时间
         initDateEndPicker("2010-01-01 00:00", now);
-
         initData();
-
         setRightListener();
     }
 
@@ -140,24 +142,14 @@ public class OrderConditionActivity extends BaseActivity {
                 orderSource = "";
                 payStatus = "";
                 payChannel = "";
+                mStartTime = "";
+                mEndTime = "";
                 mTvHandoverStartTime.setText(DateUtils.getStringDateNotSS());
                 mTvHandoverEndTime.setText(DateUtils.getStringDateNotSS());
-                if (orderSourceList.size() > 0) {
-                    mTflOrderSource.getChildAt(orderSourcePosition).setSelected(false);
-                }
-                if (payChannelList.size() > 0){
-                    mTflPayChannel.getChildAt(payChannelPosition).setSelected(false);
-                }
-                if (payStatusList.size() > 0){
-                    mTflPayStatus.getChildAt(payStatusPosition).setSelected(false);
-                }
-                if (orderSourceList!=null){
-                    orderSourceList.clear();
-                }  if (payChannelList!=null){
-                    payChannelList.clear();
-                }  if (payStatusList!=null){
-                    payStatusList.clear();
-                }
+                orderSourceList.clear();
+                payChannelList.clear();
+                payStatusList.clear();
+                orderStatusList.clear();
                 initData();
             }
         });
@@ -171,11 +163,13 @@ public class OrderConditionActivity extends BaseActivity {
      */
     private void initDateStartPicker(String endTime) {
         mTvHandoverStartTime.setText(endTime);
+        mStartTime = endTime;
         customDatePickerStart = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) {
                 // 回调接口，获得选中的时间
                 mTvHandoverStartTime.setText(time);
+                mStartTime = time;
             }
         }, "2010-01-01 00:00", endTime);
         // 显示时和分
@@ -194,12 +188,13 @@ public class OrderConditionActivity extends BaseActivity {
     private void initDateEndPicker(String startTime, String endTime) {
         customDatePickerEnd = null;
         mTvHandoverEndTime.setText(endTime);
+        mEndTime = endTime;
         customDatePickerEnd = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
             @Override
             public void handle(String time) {
                 // 回调接口，获得选中的时间
                 mTvHandoverEndTime.setText(time);
-
+                mEndTime = time;
             }
         }, startTime, endTime);
         // 显示时和分
@@ -225,10 +220,16 @@ public class OrderConditionActivity extends BaseActivity {
                                     payChannelList.add(datum);
                                 } else if ("3".equals(datum.getOrderSourceType())) {
                                     payStatusList.add(datum);
+                                } else if ("4".equals(datum.getOrderSourceType())) {
+                                    orderStatusList.add(datum);
                                 }
                             }
                             renderView(orderSourceList, mTflOrderSource, "orderSource");
-                            renderView(payStatusList, mTflPayStatus, "payStatus");
+                            if (mType == 0) {
+                                renderView(orderStatusList, mTflPayStatus, "payStatus");
+                            } else {
+                                renderView(payStatusList, mTflPayStatus, "payStatus");
+                            }
                             renderView(payChannelList, mTflPayChannel, "payChannel");
                         } else {
                             ToastUtil.showToast(response.getMsg());
@@ -258,13 +259,10 @@ public class OrderConditionActivity extends BaseActivity {
                 public boolean onTagClick(View view, int position, FlowLayout parent) {
                     if ("orderSource".equals(type)) {
                         orderSource = data.get(position).getOrderSourcePayment();
-                        orderSourcePosition = position;
                     } else if ("payStatus".equals(type)) {
                         payStatus = data.get(position).getOrderSourceFlag();
-                        payStatusPosition = position;
                     } else if ("payChannel".equals(type)) {
                         payChannel = data.get(position).getOrderSourcePayment();
-                        payChannelPosition = position;
                     }
                     return false;
                 }
@@ -295,15 +293,15 @@ public class OrderConditionActivity extends BaseActivity {
                     //订单类型
                     if (mType == 0) {
                         data.put("orderType", payStatus);
-                    }else {
+                    } else {
                         data.put("orderState", payStatus);
                     }
                     //支付方式
                     data.put("paymentType", payChannel);
                     //开始时间
-                    data.put("tradingTime", mTvHandoverStartTime.getText().toString());
+                    data.put("tradingTime", mStartTime);
                     //结束时间
-                    data.put("endTime", mTvHandoverEndTime.getText().toString());
+                    data.put("endTime", mEndTime);
                     Intent reIntent = new Intent();
                     reIntent.putExtra("data", ((Serializable) data));
                     setResult(mType, reIntent);
