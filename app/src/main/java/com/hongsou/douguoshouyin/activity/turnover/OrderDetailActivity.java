@@ -34,6 +34,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -261,7 +262,9 @@ public class OrderDetailActivity extends BaseActivity {
             OrderFoodBean orderFoodBeanA = new OrderFoodBean();
             orderFoodBeanA.setFoodName(packageBeanList.get(i).getPackageName());
             orderFoodBeanA.setFoodCount("X" + packageBeanList.get(i).getFoodProductsCount());
-            orderFoodBeanA.setFoodPrice("¥" + packageBeanList.get(i).getPackagePrice());
+            BigDecimal bigDecimal = new BigDecimal(packageBeanList.get(i).getFoodProductsCount())
+                    .multiply(new BigDecimal(packageBeanList.get(i).getPackagePrice())).setScale(2);
+            orderFoodBeanA.setFoodPrice("¥" + bigDecimal.toString());
 
             orderFoodBeanList.add(orderFoodBeanA);
             //将单个餐品添加进去
@@ -289,7 +292,9 @@ public class OrderDetailActivity extends BaseActivity {
             OrderFoodBean orderFoodBeanA = new OrderFoodBean();
             orderFoodBeanA.setFoodName(groupBeanList.get(i).getGroupPackageName());
             orderFoodBeanA.setFoodCount("X" + groupBeanList.get(i).getFoodProductsCount());
-            orderFoodBeanA.setFoodPrice("¥" + groupBeanList.get(i).getGroupPackagePrice());
+            BigDecimal bigDecimal = new BigDecimal(groupBeanList.get(i).getFoodProductsCount())
+                    .multiply(new BigDecimal(groupBeanList.get(i).getGroupPackagePrice())).setScale(2);
+            orderFoodBeanA.setFoodPrice("¥" + bigDecimal.toString());
 
             orderFoodBeanList.add(orderFoodBeanA);
 
@@ -318,7 +323,9 @@ public class OrderDetailActivity extends BaseActivity {
             orderFoodBean.setFoodName(foodBeanList.get(i).getSingleProductName()
                     + "(" + foodBeanList.get(i).getStandardName() + ")");
             orderFoodBean.setFoodCount("X" + foodBeanList.get(i).getFoodProductsCount());
-            orderFoodBean.setFoodPrice("¥" + foodBeanList.get(i).getSell());
+            BigDecimal bigDecimal = new BigDecimal(foodBeanList.get(i).getFoodProductsCount())
+                    .multiply(new BigDecimal(foodBeanList.get(i).getSell())).setScale(2);
+            orderFoodBean.setFoodPrice("¥" + bigDecimal.toString());
             orderFoodBeanList.add(orderFoodBean);
         }
     }

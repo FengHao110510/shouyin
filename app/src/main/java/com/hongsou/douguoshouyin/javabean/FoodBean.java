@@ -99,6 +99,11 @@ public class FoodBean {
          * vipPrice : 0.0000
          */
 
+        private String foodName;
+        private String foodPrice;
+        private String foodImg;
+        private String btnStr;
+        private boolean visible;
         private String cateGoryName;
         private String cateGoryType;
         private String cateSerialNumber;
@@ -134,6 +139,46 @@ public class FoodBean {
         private List<ShopStandarListBean> shopStandarList;
         private List<ListBean> list;
         private List<ListTwoBean> listTwo;
+
+        public String getBtnStr() {
+            return btnStr;
+        }
+
+        public void setBtnStr(String btnStr) {
+            this.btnStr = btnStr;
+        }
+
+        public boolean isVisible() {
+            return visible;
+        }
+
+        public void setVisible(boolean visible) {
+            this.visible = visible;
+        }
+
+        public String getFoodName() {
+            return foodName;
+        }
+
+        public void setFoodName(String foodName) {
+            this.foodName = foodName;
+        }
+
+        public String getFoodPrice() {
+            return foodPrice;
+        }
+
+        public void setFoodPrice(String foodPrice) {
+            this.foodPrice = foodPrice;
+        }
+
+        public String getFoodImg() {
+            return foodImg;
+        }
+
+        public void setFoodImg(String foodImg) {
+            this.foodImg = foodImg;
+        }
 
         public int getFoodProductsCount() {
             return foodProductsCount;
