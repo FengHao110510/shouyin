@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hongsou.douguoshouyin.R;
+import com.hongsou.douguoshouyin.activity.mine.HandoverActivity;
 import com.hongsou.douguoshouyin.activity.mine.SaomaFoodsSetActivity;
 import com.hongsou.douguoshouyin.activity.payfor.StatisticsActivity;
 import com.hongsou.douguoshouyin.activity.payfor.createorder.CreateOrderActivity;
@@ -159,7 +160,7 @@ public class PayForFragment extends BaseFragment {
         //图片
         int icon[] = {R.drawable.zhuotai, R.drawable.shangpinguanli, R.drawable.saomadiancan};
         //text
-        final String name[] = {"桌台管理", "商品管理", "扫码点餐"};
+        final String name[] = {"桌台管理", "商品管理", "交班打印"};
         gridDataList = new ArrayList<>();
 
         for (int i = 0; i < icon.length; i++) {
@@ -196,9 +197,9 @@ public class PayForFragment extends BaseFragment {
                     Intent shangpinIntent = new Intent(getActivity(), CommodityActivity.class);
                     startActivity(shangpinIntent);
                 }
-                if (name[i].contains("扫码")) {
-                    Intent saomadiancanIntent = new Intent(getActivity(), SaomaFoodsSetActivity.class);
-                    startActivity(saomadiancanIntent);
+                if (name[i].contains("交班")) {
+                    Intent jiaobanIntent = new Intent(getActivity(), HandoverActivity.class);
+                    startActivity(jiaobanIntent);
                 }
             }
         });
