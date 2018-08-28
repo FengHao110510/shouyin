@@ -58,7 +58,7 @@ public class CreateOrderPresenter {
         foodBeanList.clear();
         if ("-1".equals(type)) {
             // 全部
-            foodBeanList.addAll(finalFoodBeanList);
+            foodBeanList.addAll(finalFoodBeanList.subList(0, 10));
         } else {
             for (FoodBean.DataBean entity : finalFoodBeanList) {
                 if (type.equals(entity.getCateGoryType())) {
@@ -230,18 +230,18 @@ public class CreateOrderPresenter {
             mealForSelects.clear();
             setSelectCount(beanList, null, -1, 0);
         }
-        if (entity == null){
+        if (entity == null) {
             setTotalResult(-1);
-        }else {
+        } else {
             setTotalResult(entity.getFoodPosition());
         }
     }
 
     /**
+     * @param foodPosition
      * @desc 设置操作结束的数量和金额和购物车列表数据
      * @anthor lpc
      * @date: 2018/7/19
-     * @param foodPosition
      */
     private void setTotalResult(int foodPosition) {
         double allPrice = 0;
@@ -279,15 +279,15 @@ public class CreateOrderPresenter {
     private void setSelectCount(List<FoodBean.DataBean> beanList, SelectMealEntity entity, int indexOf, int count) {
         // 是否是清空操作
         boolean clear = false;
-        if (entity != null){
+        if (entity != null) {
             entity.setFoodProductsCount(count);
             clear = false;
-        }else {
+        } else {
             clear = true;
         }
         for (FoodBean.DataBean dataBean : beanList) {
             if ("0".equals(dataBean.getFoodType())) {
-                if (clear){
+                if (clear) {
                     // 清空购物车，将选择的数量清零
                     dataBean.setFoodProductsCount(0);
                     continue;
@@ -298,7 +298,7 @@ public class CreateOrderPresenter {
                 }
             } else if ("1".equals(dataBean.getFoodType())) {
                 // 判断单品
-                if (clear){
+                if (clear) {
                     // 清空购物车，将选择的数量清零
                     dataBean.setFoodProductsCount(0);
                     for (FoodBean.DataBean.ShopStandarListBean shopStandarListBean : dataBean.getShopStandarList()) {
@@ -320,7 +320,7 @@ public class CreateOrderPresenter {
                     dataBean.setFoodProductsCount(c);
                 }
             } else if ("2".equals(dataBean.getFoodType())) {
-                if (clear){
+                if (clear) {
                     // 清空购物车，将选择的数量清零
                     dataBean.setFoodProductsCount(0);
                     continue;

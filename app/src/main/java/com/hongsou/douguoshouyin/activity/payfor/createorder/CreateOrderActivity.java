@@ -38,6 +38,7 @@ import com.hongsou.douguoshouyin.views.tablayout.VerticalTabLayout;
 import com.hongsou.greendao.gen.SelectMealEntityDao;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -121,6 +122,9 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         }
     };
 
+    private int page = 1;
+    private int mCategoryPosition;
+
     @Override
     public int initLayout() {
         return R.layout.module_activity_create_order;
@@ -131,7 +135,6 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         mSelectMealEntityDao = BaseApplication.getApplication().getDaoSession().getSelectMealEntityDao();
         mRvCreateOrderFood.setLayoutManager(new LinearLayoutManager(this));
         mRvCreateOrderFood.setHasFixedSize(true);
-        mRvCreateOrderFood.setItemViewCacheSize(10);
         mRvCreateOrderFood.setDrawingCacheEnabled(true);
         mRvCreateOrderFood.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mPresenter = new CreateOrderPresenter(this, new CreateOrderModel(), this);
@@ -155,8 +158,21 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
         mSrlCreateOrder.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                mPresenter.getFoodList("0");
+                if (mCategoryPosition == 0){
+                    page = 1;
+                    rendView(mFinalFoodBeanList, 1);
+                }
                 refreshLayout.finishRefresh();
+            }
+        });
+        mSrlCreateOrder.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.finishLoadMore(2000);
+                if (mCategoryPosition == 0){
+                    page++;
+                    rendView(mFinalFoodBeanList, page);
+                }
             }
         });
     }
@@ -173,7 +189,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     public void onSuccess(Object response) {
         if (response instanceof FoodBean) {
             // 展示餐品列表
-            rendView(((FoodBean) response).getData());
+            mFinalFoodBeanList = ((FoodBean) response).getData();
+            rendView(mFinalFoodBeanList, 1);
         } else if (response instanceof FoodCategoryBean) {
             final FoodCategoryBean foodCategoryBean = (FoodCategoryBean) response;
             mTabCreateCategory.removeAllTabs();
@@ -198,7 +215,8 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 @Override
                 public void onTabSelected(VerticalTabLayout.Tab tab, int position) {
                     String type = "-1";
-                    if (position > 0) {
+                    mCategoryPosition = position;
+                    if (mCategoryPosition > 0) {
                         type = foodCategoryBeanData.get(position - 1).getCategoryNumber();
                     }
                     mPresenter.getFoodByCategory(mFoodBeanList, mFinalFoodBeanList, type);
@@ -224,9 +242,9 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
     public void changeSelectFoodCallBack(List list, String totalMoney, int totalCount, int foodPosition) {
         mSelectMealEntities.clear();
         mSelectMealEntities.addAll(list);
-        if (foodPosition == -1){
+        if (foodPosition == -1) {
             mCreateOrderAdapter.notifyDataSetChanged();
-        }else {
+        } else {
             mCreateOrderAdapter.notifyItemChanged(foodPosition, 0);
         }
         mTvOrderMoney.setText(totalMoney);
@@ -245,23 +263,31 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
 
     /**
      * @param foodBeans 菜品数据源
+     * @param page
      * @desc 获取数据后，渲染页面
      * @anthor lpc
      * @date 2018/7/16
      */
-    private void rendView(List<FoodBean.DataBean> foodBeans) {
+    private void rendView(List<FoodBean.DataBean> foodBeans, int page) {
         if (mFoodBeanList == null) {
             mFoodBeanList = new ArrayList<>();
-            mFinalFoodBeanList = new ArrayList<>();
             mCreateOrderAdapter = new CreateOrderAdapter(mFoodBeanList);
             mRvCreateOrderFood.setAdapter(mCreateOrderAdapter);
             mCreateOrderAdapter.setOnItemChildClickListener(this);
         }
-        mFoodBeanList.clear();
-        mFinalFoodBeanList.clear();
-        mFoodBeanList.addAll(foodBeans);
-        mFinalFoodBeanList.addAll(foodBeans);
-        mCreateOrderAdapter.notifyDataSetChanged();
+        if (page ==1){
+            mFoodBeanList.clear();
+        }
+        if (page*10 <= foodBeans.size()){
+            mFoodBeanList.addAll(foodBeans.subList((page - 1) * 10, page * 10));
+            mCreateOrderAdapter.notifyDataSetChanged();
+        }else if (page*10 >foodBeans.size() && ((page-1)*10 <= foodBeans.size())){
+            mFoodBeanList.addAll(foodBeans.subList((page - 1) * 10, foodBeans.size()));
+            mCreateOrderAdapter.notifyDataSetChanged();
+        }else if ((page-1)*10 > foodBeans.size()){
+            ToastUtil.showToast("暂无更多");
+        }
+
     }
 
     @OnClick({R.id.ll_order_count, R.id.tv_make_money})
@@ -310,7 +336,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 TextView tip = (TextView) adapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_tip_count);
                 textView.setText(dataBean.getFoodProductsCount() + "");
                 tip.setText(dataBean.getFoodProductsCount() + "");
-                mCreateOrderAdapter.notifyItemChanged(position,0);
+                mCreateOrderAdapter.notifyItemChanged(position, 0);
                 mPresenter.addFood(mFoodBeanList, dataBean, position, 0);
                 break;
             case R.id.tv_subtract:
@@ -321,7 +347,7 @@ public class CreateOrderActivity extends BaseActivity implements ICreateOrderVie
                 tip = (TextView) adapter.getViewByPosition(mRvCreateOrderFood, position, R.id.tv_tip_count);
                 textView.setText(dataBean.getFoodProductsCount() + "");
                 tip.setText(dataBean.getFoodProductsCount() + "");
-                mCreateOrderAdapter.notifyItemChanged(position,0);
+                mCreateOrderAdapter.notifyItemChanged(position, 0);
                 mPresenter.subtractFood(mFoodBeanList, dataBean, position, 0);
                 break;
             case R.id.rl_standard:
