@@ -159,6 +159,9 @@ public class ForgetActivity extends BaseActivity {
         } else if (TextUtils.isEmpty(password2) || !isPasswordValid(password2)) {
             ToastUtil.showToast("请确认正确密码 6-18位");
 
+        } else if (!password1.equals(password2)) {
+            ToastUtil.showToast("两次输入密码不一致请重新输入");
+
         } else {
             yesForget();
         }
